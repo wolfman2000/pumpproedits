@@ -1,0 +1,179 @@
+@import "main.css";
+
+@media screen
+{
+	nav
+	{
+		position: fixed;
+		width: 20em;
+		background-color: #9999ff;
+		top: 3.6em;
+	}
+	.edit select
+	{
+		padding-right: 1em;
+	}
+	nav button
+	{
+		width: 100%;
+		text-align: center;
+	}
+	nav > p
+	{
+		margin: 0;
+		padding: 0 0 10px 0;
+	}
+	#intro
+	{
+		height: 3em;
+	}
+	article > nav > p
+	{
+		font-weight: bold;
+	}
+	nav ul
+	{
+		float: left;
+		width: 20em;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	nav ul li
+	{
+		float: left;
+		width: 10em;
+		margin: 0;
+		padding: 0;
+	}
+	li.long, li.long textarea
+	{
+		width: 20em;
+	}
+	li.reset
+	{
+		clear: both;
+	}
+	#songlist, #mem_edit
+	{
+		max-width: 20em;
+	}
+	#songlist > optgroup > option
+	{
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	#editName
+	{
+		width: 10em;
+	}
+	#editDiff
+	{
+		width: 2em;
+	}
+	article
+	{
+		margin-left: 22em;
+		min-height: 40em;
+		padding-bottom: 0;
+		min-height: 50em;
+	}	
+	#svg
+	{
+		margin: 2em auto;
+		background-color: white;
+		position: absolute;
+	}
+	#svgMeas line
+	{
+		fill: black;
+		stroke: black;
+		stroke-width: 0.5;
+	}
+	#svgMeas line:nth-of-type(1)
+	{
+		stroke-width: 1;
+	}
+	#svgMeas rect:nth-of-type(odd)
+	{
+		fill: white;
+	}
+	#svgMeas rect:nth-of-type(2)
+	{
+		fill: #dcdcdc;
+	}
+	#svgMeas rect:nth-of-type(4)
+	{
+		fill: #bebebe;
+	}
+	text.stop, text.bpm, g text
+	{
+		font-size: 6px;
+	}
+	#shadow
+	{
+		fill: aqua;
+		opacity: 0.5;
+	}
+	#selTop
+	{
+		fill: orange;
+	}
+	#selBot
+	{
+		fill: green;
+	}
+	#selBot, #selTop
+	{
+		opacity: 0.25;
+	}
+	#svgNote > svg
+	{
+		fill-opacity:1;
+		stroke:black;
+		stroke-width:0.1;
+		stroke-opacity:1;
+	}
+	
+	svg.hold > g > path:last-child
+	{
+		fill: #000080;
+	}
+	svg.roll > g > path:last-child
+	{
+		fill: #600060;
+	}
+	svg.lift > g > path:last-child
+	{
+		fill: white;
+	}
+	
+	svg.end > g > path:first-child
+	{
+		fill: #8A2BE2;
+	}
+	svg.mine
+	{
+		stroke-width: 0.2;
+	}
+	svg.mine > g > circle:nth-of-type(1)
+	{
+		fill: black;
+	}
+	svg.mine > g > circle:nth-of-type(2)
+	{
+		fill: red;
+	}
+	svg.p0 > g > *:first-child
+	{
+		stroke: #483D8B;
+	}
+	svg.p1 > g > *:first-child
+	{
+		stroke: #b22222;
+	}
+	#svgNote > svg > g > *:first-child
+	{
+		stroke-width: 1;
+	}
+}

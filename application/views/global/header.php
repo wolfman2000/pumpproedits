@@ -9,7 +9,7 @@
 <meta name="lang" content="en" />
 <meta name="robots" content="index, follow" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<?php if (!(isset($css))) { $css = 'css/main.css'; } link_tag($css);
+<?php if (!(isset($css))) { $css = 'css/main.css'; } echo link_tag($css);
 if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
 if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
 <script type="text/javascript" src="js/IE8.js"></script>
