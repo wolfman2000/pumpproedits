@@ -9,6 +9,9 @@
 <meta name="lang" content="en" />
 <meta name="robots" content="index, follow" />
 <link rel="shortcut icon" href="/favicon.ico" />
+<title><?php if (isset($title)):
+$title .= " — Pump Pro Edits";
+else: $title = "Pump Pro Edits"; endif; echo $title; ?></title>
 <?php if (!(isset($css))) { $css = 'css/main.css'; } echo link_tag($css);
 if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
 if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
@@ -32,3 +35,4 @@ const andamiro = <?php echo $uid === false ? 0 : $andy; ?>;
 <body>
 <header><h1><?php echo anchor("/", "Pump Pro Edits"); ?></h1></header>
 <article>
+<h2><?php if (!(isset($h2))) { $h2 = "Welcome!"; } echo $h2; ?></h2>
