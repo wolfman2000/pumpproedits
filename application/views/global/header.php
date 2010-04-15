@@ -30,5 +30,5 @@ const andamiro = <?php echo $uid === false ? 0 : $andy; ?>;
 <?php endforeach; endif; ?>
 </head>
 <body>
-<header><h1><a href="/">Pump Pro Edits</a></h1></header>
+<header><h1><?php echo anchor("/", "Pump Pro Edits"); ?></h1></header>
 <article>

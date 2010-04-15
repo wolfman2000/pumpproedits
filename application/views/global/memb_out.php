@@ -1,5 +1,5 @@
-<li><a href="/register">Register</a></li>
-<li><a href="/confirm">Confirm Account</a></li>
-<li><a href="/login">Log In</a></li>
-<li><a href="/help">Account Help</a></li>
-<li><a href="/reset">Reset Password</a></li>
+<li><?php echo anchor("/register", "Register"); ?></li>
+<li><?php echo anchor("/confirm", "Confirm Account"); ?></li>
+<li><?php echo anchor("/login", "Log In"); ?></li>
+<li><?php echo anchor("/help", "Account Help"); ?></li>
+<li><?php echo anchor("/reset", "Reset Password"); ?></li>

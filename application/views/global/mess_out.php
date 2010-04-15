@@ -1,1 +1,2 @@
-<p><a href="/login">Log In</a> or <a href="/register">Register</a>.</p>
+<p><?php echo anchor("/login", "Log In"); ?> or
+<?php echo anchor("/register", "Register"); ?>.</p>

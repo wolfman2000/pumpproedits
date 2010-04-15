@@ -12,10 +12,10 @@ $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <h4>Edits</h4>
 <ul>
 <?php if ($this->session->userdata('browser') === "Internet Explorer"): ?>
-<li><a href="/base">Base Edit Files</a></li>
+<li><?php echo anchor("/base", "Base Edit Files"); ?></li>
 <?php else: ?>
-<li><a href="/create">Edit Creator</a></li>
-<li><a href="/chart">Edit Charter</a></li>
+<li><?php echo anchor("/create", "Edit Creator"); ?></li>
+<li><?php echo anchor("/chart", "Edit Charter"); ?></li>
 <?php endif; ?>
 </ul>
 </li>
