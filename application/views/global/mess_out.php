@@ -1,0 +1,1 @@
+<p><a href="/login">Log In</a> or <a href="/register">Register</a>.</p>

@@ -9,8 +9,9 @@
 <meta name="lang" content="en" />
 <meta name="robots" content="index, follow" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<?php if (!(isset($css))) { $css = 'css/main.css'; } link_tag($css); ?>
-<?php if ($this->agent->is_browser() and $this->agent->browser() === "Internet Explorer"): ?>
+<?php if (!(isset($css))) { $css = 'css/main.css'; } link_tag($css);
+if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
+if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
 <script type="text/javascript" src="js/IE8.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
 <?php endif; ?>
@@ -29,5 +30,5 @@ const andamiro = <?php echo $uid === false ? 0 : $andy; ?>;
 <?php endforeach; endif; ?>
 </head>
 <body>
-<header><h1><?php echo anchor("/", "Pump Pro Edits"); ?></h1></header>
+<header><h1><a href="/">Pump Pro Edits</a></h1></header>
 <article>
