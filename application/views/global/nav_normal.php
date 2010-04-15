@@ -16,7 +16,20 @@ $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <?php else: ?>
 <li><?php echo anchor("/create", "Edit Creator"); ?></li>
 <li><?php echo anchor("/chart", "Edit Charter"); ?></li>
+<li><?php echo anchor("/songs", "Edit List by Song"); ?></li>
+<li><?php echo anchor("/users", "Edit List by User"); ?></li>
+<li><?php echo anchor("/andamiro", "Official Chart Edits"); ?></li>
 <?php endif; ?>
+</ul>
+</li>
+<li>
+<h4>Everyone</h4>
+<ul>
+<?php if ($this->session->userdata('browser') !== "Internet Explorer"): ?>
+<li><?php echo anchor("/chart/official", "Official Stepcharts"); ?></li>
+<?php endif; ?>
+<li><?php echo anchor("/contact", "Contact"); ?></li>
+<li><?php echo anchor("/thanks", "Credits/Thanks"); ?></li>
 </ul>
 </li>
 </ul>
