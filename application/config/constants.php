@@ -37,5 +37,24 @@ define('FOPEN_WRITE_CREATE_STRICT', 			'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+// Constants relating to my own work.
+define('APP_MAX_EDIT_FILE_SIZE', 61440);
+define('APP_MIN_DIFFICULTY_RATING', 1);
+define('APP_MAX_DIFFICULTY_RATING', 99);
+define('APP_CHART_SIN_COLS', 5);
+define('APP_CHART_HDB_COLS', 6);
+define('APP_CHART_DBL_COLS', 10);
+define('APP_CHART_HEADER_HEIGHT', 96);
+define('APP_CHART_FOOTER_HEIGHT', 32);
+define('APP_CHART_ARROW_HEIGHT', 16);
+define('APP_CHART_ARROW_WIDTH', 16);
+define('APP_CHART_COLUMN_LEFT_BUFFER', 32);
+define('APP_CHART_COLUMN_RIGHT_BUFFER', 0);
+define('APP_CHART_MEASURE_COL', 6);
+define('APP_CHART_BEAT_HEIGHT', 16);
+define('APP_CHART_SPEED_MOD', 2);
+define('APP_CHART_BEAT_P_MEASURE', 4);
+define('APP_CHART_DEF_FILE', '/svg/arrowdef.svg');
+
 /* End of file constants.php */
 /* Location: ./system/application/config/constants.php */
