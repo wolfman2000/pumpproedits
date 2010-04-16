@@ -15,7 +15,9 @@ class Chart extends Controller
   
   function edits()
   {
-    $this->load->view('chart/edits');
+    $this->load->model('ppe_edit_edit');
+    $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
+    $this->load->view('chart/edits', $data);
   }
   
   function editProcess()
