@@ -1,4 +1,4 @@
-<?php echo form_open('stats/process'); ?>
+<?php echo form_open_multipart('stats/process'); ?>
 <fieldset><legend>Select your .edit file.</legend>
 <?php echo validation_errors(); ?>
 <dl>
