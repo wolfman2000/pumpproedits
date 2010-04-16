@@ -26,6 +26,15 @@ class Ppe_song_song extends Model
       ->get('ppe_song_song')->row()->name;
   }
   
+  // get all of the information needed for base edits.
+  public function getBaseEdits()
+  {
+    return $this->db->select('a.name, a.id, a.abbr, g.game_id tmp')
+      ->join('ppe_song_game g', 'a.id = g.song_id AND g.game_id > 1', 'left')
+      ->order_by('a.lc_name')
+      ->get('ppe_song_song a');
+  }
+  
   // get the list of songs with edits.
   public function getSongsWithEdits()
   {
