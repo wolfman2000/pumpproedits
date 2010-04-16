@@ -6,6 +6,13 @@ class Ppe_edit_edit extends Model
     parent::Model();
   }
   
+  // Confirm if the edit exists.
+  public function checkExistance($eid)
+  {
+    return $this->db->select('id')->where('id', $eid)
+      ->get('ppe_edit_edit')->num_rows() > 0;
+  }
+  
   // Get all of the user edits for possible charting.
   public function getNonProblemEdits()
   {

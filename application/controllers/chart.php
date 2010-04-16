@@ -6,6 +6,7 @@ class Chart extends Controller
 	{
 		parent::Controller();
     $this->load->library('form_validation');
+    $this->load->model('ppe_edit_edit');
   }
   
   function index()
@@ -15,14 +16,57 @@ class Chart extends Controller
   
   function edits()
   {
-    $this->load->model('ppe_edit_edit');
+    
     $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
     $this->load->view('chart/edits', $data);
   }
   
+  // confirm the edit exists.
+  function _edit_exists($str)
+  {
+    return $this->ppe_edit_edit->checkExistance($str);
+  }
+  
+  // confirm the noteskin exists.
+  function _noteskin_exists($str)
+  {
+    return in_array($str, array('classic', 'rhythm'));
+  }
+  
+  // confirm the 4th note color is valid.
+  function _red_exists($str)
+  {
+    return in_array($str, array(0, 1));
+  }
+  
+  // confirm the speed mod is valid.
+  function _speed_valid($str)
+  {
+    return in_array($str, array(1, 2, 3, 4, 6, 8));
+  }
+  
+  // confirm the number of measures in each column is valid.
+  function _mpc_valid($str)
+  {
+    return in_array($str, array(4, 6, 8, 12, 16));
+  }
+  
+  // confirm the scale factor is valid.
+  function _scale_valid($str)
+  {
+    return in_array($str, array(0.5, 0.75, 1, 1.25, 1.5, 1.75, 2));
+  }
+  
   function editProcess()
   {
-  
+    if ($this->form_validation->run() === FALSE)
+    {
+      echo "Failed to validate!";
+    }
+    else
+    {
+      echo "So far so good!";
+    }
   }
   
   function songs()
