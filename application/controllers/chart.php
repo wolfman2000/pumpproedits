@@ -5,6 +5,32 @@ class Chart extends Controller
 	function __construct()
 	{
 		parent::Controller();
+    $this->load->library('form_validation');
+  }
+  
+  function index()
+  {
+    redirect('chart/edits');
+  }
+  
+  function edits()
+  {
+    $this->load->view('chart/edits');
+  }
+  
+  function editProcess()
+  {
+  
+  }
+  
+  function songs()
+  {
+  
+  }
+  
+  function songProcess()
+  {
+  
   }
   
   function quick()
