@@ -62,7 +62,7 @@ class Chart extends Controller
     if ($this->form_validation->run() === FALSE)
     {
       $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
-      $this->load->view('chart/edits', $data);
+      $this->load->view('chart/editError', $data);
       return;
     }
     $eid = $this->input->post('edits');
