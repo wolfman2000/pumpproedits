@@ -6,6 +6,7 @@ class Chart extends Controller
 	{
 		parent::Controller();
     $this->load->library('form_validation');
+    $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
     $this->load->model('ppe_edit_edit');
   }
   
@@ -16,7 +17,6 @@ class Chart extends Controller
   
   function edits()
   {
-    
     $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
     $this->load->view('chart/edits', $data);
   }
@@ -61,12 +61,25 @@ class Chart extends Controller
   {
     if ($this->form_validation->run() === FALSE)
     {
-      echo "Failed to validate!";
+      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
+      $this->load->view('chart/edits', $data);
+      return;
     }
-    else
-    {
-      echo "So far so good!";
-    }
+    $eid = $this->input->post('edits');
+    $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
+    $this->load->model('ppe_user_user');
+    $author = $this->ppe_user_user->getUserByEditID($eid);
+    $this->load->library('EditParser');
+    $p = array('notes' => 1, 'strict_song' => 0, 'strict_edit' => 0);
+    $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
+    $p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
+      'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
+      'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'));
+    $this->load->library('EditCharter', $p);
+    $ntoedata['author'] = $author;
+    header("Content-Type: application/xhtml+xml");
+    $xml = $this->editcharter->genChart($notedata);
+    echo $xml->saveXML();
   }
   
   function songs()

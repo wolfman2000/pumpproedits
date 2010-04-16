@@ -23,4 +23,13 @@ class Ppe_user_user extends Model
       ->order_by('lc_name')
       ->get();
   }
+  
+  // get the name of the author of the edit.
+  public function getUserByEditID($eid)
+  {
+    return $this->db->select('u.name')
+      ->join('ppe_edit_edit e', 'u.id = e.user_id')
+      ->where('e.id', $eid)->get('ppe_user_user u')
+      ->row()->name;
+  }
 }
