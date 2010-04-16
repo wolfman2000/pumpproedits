@@ -53,4 +53,24 @@ class Edits extends Controller
     $data['songs'] = $this->ppe_edit_edit->getEditsBySong($id)->result();
     $this->load->view('edits/song', $data);
   }
+  
+  // download the chosen edit to the hard drive.
+  function download()
+  {
+    $id = $this->uri->segment(3, false);
+    if (!(is_numeric($id)))
+    {
+      # How do you cause a 409 again?
+    }
+    $id = sprintf("%06d", $id);
+    $name = sprintf("edit_%s.edit", $id);
+    $gz = $name . '.gz';
+    $path = sprintf("%s/data/user_edits/%s", APPPATH, $gz);
+    $file = gzopen($path, 'r');
+    $data = gzread($file, APP_MAX_EDIT_FILE_SIZE);
+    gzclose($file);
+    
+    $this->load->helper('download');
+    force_download($name, $data);
+  }
 }

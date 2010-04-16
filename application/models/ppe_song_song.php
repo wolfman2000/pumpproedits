@@ -6,6 +6,19 @@ class Ppe_song_song extends Model
     parent::Model();
   }
   
+  // get EVERYTHING about the song by its ID.
+  public function getSongRow($id)
+  {
+    return $this->db->where('id', $id)->get('ppe_song_song')->row();
+  }
+  
+  // get the ID of the song by its lowercased name.
+  public function getIDBySong($song)
+  {
+    return $this->db->select('id')->where('lc_name', strtolower($song))
+      ->get('ppe_song_song')->row()->id;
+  }
+  
   // get the name of the song by its ID.
   public function getSongByID($id)
   {
