@@ -2,6 +2,28 @@
 // This file handles all of the validation rules.
 
 $config = array(
+	'contact/mail' => array(
+		array(
+			'field' => 'name',
+			'label' => 'Name',
+			'rules' => 'required'
+		),
+		array(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'valid_email'
+		),
+		array(
+			'field' => 'subject',
+			'label' => 'Subject',
+			'rules' => 'required|min_length[3]'
+		),
+		array(
+			'field' => 'content',
+			'label' => 'Content',
+			'rules' => 'required|min_length[20]'
+		),
+	),
 	'chart/editProcess' => array(
 		array(
 			'field' => 'edits',
