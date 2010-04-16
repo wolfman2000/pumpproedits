@@ -22,6 +22,13 @@ class Chart extends Controller
     $this->load->view('chart/edits', $data);
   }
   
+  // confirm the song and difficulty exist.
+  function _diff_exists($str)
+  {
+    if (in_array($str, array('ez', 'nr', 'hr', 'cz', 'hd', 'fs', 'nm', 'rt'))) return true;
+    return false;
+  }
+  
   // confirm the edit exists.
   function _edit_exists($str)
   {
@@ -77,7 +84,7 @@ class Chart extends Controller
       'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
       'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'));
     $this->load->library('EditCharter', $p);
-    $ntoedata['author'] = $author;
+    $notedata['author'] = $author;
     header("Content-Type: application/xhtml+xml");
     $xml = $this->editcharter->genChart($notedata);
     echo $xml->saveXML();
@@ -101,7 +108,26 @@ class Chart extends Controller
   
   function songProcess()
   {
-  
+    if ($this->form_validation->run() === FALSE)
+    {
+      $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result();
+      $this->load->view('chart/songError', $data);
+      return;
+    }
+    $sid = $this->input->post('songs');
+    $dif = $this->input->post('diff');
+    $path = sprintf("%sdata/official/%d.sm", APPPATH, $sid);
+    
+    $this->load->library('EditParser');
+    $p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $dif);
+    $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
+    $p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
+      'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
+      'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'), 'arcade' => 1);
+    $this->load->library('EditCharter', $p);
+    header("Content-Type: application/xhtml+xml");
+    $xml = $this->editcharter->genChart($notedata);
+    echo $xml->saveXML();
   }
   
   function quick()

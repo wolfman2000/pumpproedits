@@ -2,9 +2,9 @@
 <fieldset><legend>Select the song and difficulty to preview.</legend>
 <?php echo validation_errors(); ?>
 
-<section id="edit">
-<p><label for="edits">Choose a song</label></p>
-<p><select id="edits" name="edits" size="20">
+<section id="song">
+<p><label for="songs">Choose a song</label></p>
+<p><select id="songs" name="songs" size="20">
 <?php $oid = "無"; # Start with no match. ?>
 <option value="無" selected="selected">Select a song.</option>
 <?php foreach ($songs as $r):

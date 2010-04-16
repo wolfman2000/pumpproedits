@@ -2,14 +2,14 @@ $(document).ready(function()
 {
   $("#diff > option:first-child").before("<option value=''>Choose!</option>");
   $("#diff").val('');
-  $("#edits").val(0);
+  $("#songs").val(0);
   $("#submit").attr('disabled', 'disabled');
   
-  $("#edits").change(function()
+  $("#songs").change(function()
   {
     $("#submit").attr('disabled', 'disabled');
     $("#diff > option:not(:first-child)").hide();
-    var sid = Math.floor($("#edits").val());
+    var sid = Math.floor($("#songs").val());
     if (sid > 0)
     {
       var diff = $("#diff").val();

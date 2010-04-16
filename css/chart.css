@@ -10,12 +10,12 @@
   {
 	font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
   }
-  #validate_edits
+  #edits, #songs
   {
 	  max-width: 34em;
   }
   /* Note to self: this seems backwards. Test in other browsers. */
-  #edit
+  #edit, #song
   {
 	float: left;
 	width: 35em;
