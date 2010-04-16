@@ -6,6 +6,13 @@ class Ppe_song_song extends Model
     parent::Model();
   }
   
+  // ensure the song exists.
+  public function doesSongExist($sid)
+  {
+    return $this->db->select('name')->where('id', $sid)
+      ->get('ppe_song_song')->num_rows();
+  }
+  
   // get the number of songs that have a game
   public function getSongCountWithGame()
   {

@@ -36,6 +36,12 @@ class Base extends Controller
     if (!(is_numeric($id) and in_array($st, array('single', 'double', 'halfdouble', 'routine'))))
     {
       # How do you cause a 409 again?
+      return;
+    }
+    if ($this->ppe_song_song->doesSongExist($id) === 0)
+    {
+      $this->load->view('base/error');
+      return;
     }
     $nid = sprintf("%06d", $id);
     $name = sprintf("base_%s_%s.edit", $nid, ucfirst($st));
