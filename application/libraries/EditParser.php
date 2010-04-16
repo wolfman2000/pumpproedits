@@ -15,19 +15,17 @@ class EditParser
 
   private function gen_edit_file($kind, $name, $abbr, $measures, $duration)
   {
-    $fname = sprintf("base_%06d_%s.edit", $abbr, ucfirst($kind));
+    $fname = sprintf("base_%06d_%s.edit.gz", $abbr, ucfirst($kind));
     $eol = "\r\n";
-    $loc = APPPATH . '/data/base_edits';
-    $fh = fopen($loc . '/' . $fname, 'w');
+    $loc = APPPATH . 'data/base_edits';
+    $file = "";
 
-    /* File is opened: now write the headers. */
-
-    fwrite($fh, sprintf("#SONG:%s;%s#NOTES:%s", $name, $eol, $eol));
-    fwrite($fh, sprintf("     pump-%s:%s", $kind, $eol));
-    fwrite($fh, sprintf("     NameEditHere:%s", $eol));
-    fwrite($fh, sprintf("     Edit:%s     10:%s     ", $eol, $eol));
-    fwrite($fh, sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, 0, 0, ", $measures - 1));
-    fwrite($fh, sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, 0, 0:%s%s", $measures - 1, $eol, $eol));
+    $file .= sprintf("#SONG:%s;%s#NOTES:%s", $name, $eol, $eol);
+    $file .= sprintf("     pump-%s:%s", $kind, $eol);
+    $file .= sprintf("     NameEditHere:%s", $eol);
+    $file .= sprintf("     Edit:%s     10:%s     ", $eol, $eol);
+    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, 0, 0, ", $measures - 1);
+    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, 0, 0:%s%s", $measures - 1, $eol, $eol);
 
     $cols = $this->getCols("pump-" . $kind);
     
@@ -50,8 +48,10 @@ class EditParser
     }
     
     $allM .= sprintf(";%s", $eol);
-    fwrite($fh, $allM);
-    fclose($fh);
+    $file .= $allM;
+    $fh = gzopen(sprintf("%s/%s", $loc, $fname), "w");
+    gzwrite($fh, $file);
+    gzclose($fh);
     return true;
   }
 
@@ -62,7 +62,7 @@ class EditParser
     $base = $CI->ppe_song_song->getSongRow($songid);
     foreach (array("single", "double", "halfdouble", "routine") as $kind)
     {
-      $this->gen_edit_file($kind, $base->getName(), $base->getID(), $base->getMeasures(), $base->duration);
+      $this->gen_edit_file($kind, $base->name, $base->id, $base->measures, $base->duration);
     }
 
   }
