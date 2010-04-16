@@ -1,29 +1,28 @@
 @import "main.css";
 
-#count_table
+#multiCol > p
 {
-    margin: 0 auto;
-    border-collapse: collapse;
+	line-height: 1em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
 }
-#count_table > caption
+#multiCol > p > span
 {
-    margin-bottom: 10px;
+	display: inline-block;
+	width: 16em;
+	padding-right: 2em;
 }
-#count_table > thead > tr > th
+
+#multiCol
 {
-    font-weight: normal;
-    font-style: italic;
-}
-#count_table > thead > tr > th, #count_table > tbody > tr > td
-{
-    border: 2px solid #003366;
-}
-#count_table > tbody > tr > td:first-child
-{
-    padding: 3px;
-    font-family: "DejaVu Sans", Arial, Helvetica, sans;    
-}
-#count_table > tbody > tr > td:first-child + td
-{
-	text-align: right;
+	margin: 0 auto;
+	-moz-column-count: 3;
+	-moz-column-gap: 10px;
+	/* -moz-column-rule: 1px solid black; */
+	-webkit-column-count: 3;
+	-webkit-column-gap: 10px;
+	/* -webkit-column-rule: 1px solid black; */
+	column-count: 3;
+	column-gap: 10px;
+	/* column-rule: 1px solid black; */
 }

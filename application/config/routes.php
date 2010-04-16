@@ -40,6 +40,9 @@
 |
 */
 
+$route['users'] = "edits/users";
+$route['songs'] = "edits/songs";
+
 $route['default_controller'] = "ppehome";
 $route['scaffolding_trigger'] = "";
 
