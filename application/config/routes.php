@@ -40,6 +40,9 @@
 |
 */
 
+$route['official'] = "edits/official";
+$route['user/:num'] = "edits/chosenUser";
+$route['song/:num'] = "edits/chosenSong";
 $route['users'] = "edits/users";
 $route['songs'] = "edits/songs";
 

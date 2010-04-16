@@ -6,6 +6,14 @@ class Ppe_user_user extends Model
     parent::Model();
   }
   
+  // get the name of the user by its ID.
+  public function getUserByID($id)
+  {
+    return $this->db->select('name')->where('id', $id)
+      ->get('ppe_user_user')->row()->name;
+  }
+  
+  // get the list of users with edits.
   public function getUsersWithEdits()
   {
     return $this->db->select('id, name core, num_edits')

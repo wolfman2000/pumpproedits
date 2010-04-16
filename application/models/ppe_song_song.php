@@ -6,6 +6,14 @@ class Ppe_song_song extends Model
     parent::Model();
   }
   
+  // get the name of the song by its ID.
+  public function getSongByID($id)
+  {
+    return $this->db->select('name')->where('id', $id)
+      ->get('ppe_song_song')->row()->name;
+  }
+  
+  // get the list of songs with edits.
   public function getSongsWithEdits()
   {
     return $this->db->select('id, name core, num_edits')

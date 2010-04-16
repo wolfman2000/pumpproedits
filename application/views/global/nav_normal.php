@@ -18,7 +18,7 @@ $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <li><?php echo anchor("/chart", "Edit Charter"); ?></li>
 <li><?php echo anchor("/songs", "Edit List by Song"); ?></li>
 <li><?php echo anchor("/users", "Edit List by User"); ?></li>
-<li><?php echo anchor("/andamiro", "Official Chart Edits"); ?></li>
+<li><?php echo anchor("/official", "Official Chart Edits"); ?></li>
 <?php endif; ?>
 </ul>
 </li>
