@@ -40,7 +40,7 @@
 |
 */
 
-$route['base/:num'] = "base/index";
+#$route['base/(:num)'] = "base/index/$1";
 
 $route['official'] = "edits/official";
 $route['user/:num'] = "edits/chosenUser";

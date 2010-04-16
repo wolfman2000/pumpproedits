@@ -3,5 +3,5 @@
 <p>If you are unable to use the Edit Charter to create edits,
 these .edit files are available for you. Simply select the song
 and style you want.</p>
-<?php $this->load->view('base/edits', array('page' => $page, 'edits' => $edits));
+<?php $this->load->view('base/edits', array('edits' => $edits));
 $this->load->view('global/footer');

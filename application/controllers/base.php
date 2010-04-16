@@ -12,16 +12,19 @@ class Base extends Controller
   function index()
   {
     $this->load->library('pagination');
-    $query = $this->ppe_song_song->getBaseEdits();
+    $page = $this->uri->segment('3', 0);
+    $query = $this->ppe_song_song->getBaseEdits($page);
     $data['edits'] = $query->result();
-    $config['base_url'] = 'http://' . $this->input->server('server_name') . 'base/';
-    $config['total_rows'] = $query->num_rows();
+    $config['base_url'] = 'http://' . $this->input->server('SERVER_NAME') . '/base/index/';
+    $config['total_rows'] = $this->ppe_song_song->getSongCountWithGame();
     $config['per_page'] = APP_BASE_EDITS_PER_PAGE;
-    $config['first_link'] = "«";
-    $config['last_link'] = "»";
-    $this->pagination->initialize();
-    $page = $this->uri->segment('3', 1);
-    $data['page'] = $this->pagination->create_links();
+    $config['cur_tag_open'] = '<strong>';
+    $config['cur_tag_close'] = '</strong>';
+    $config['full_tag_open'] = '<p class="pager">';
+    $config['full_tag_close'] = '</p>';
+    $config['first_link'] = '«';
+    $config['last_link'] = '»';
+    $this->pagination->initialize($config);
     $this->load->view('base/main', $data);
   }
   

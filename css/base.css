@@ -29,4 +29,8 @@
     padding-right: 1em;
     font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
 }
-
+.pager > *
+{
+	padding-left: .5em;
+	padding-right: .5em;
+}
