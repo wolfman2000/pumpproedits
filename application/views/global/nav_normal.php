@@ -26,7 +26,7 @@ $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <h4>Everyone</h4>
 <ul>
 <?php if ($this->session->userdata('browser') !== "Internet Explorer"): ?>
-<li><?php echo anchor("/chart/official", "Official Stepcharts"); ?></li>
+<li><?php echo anchor("/chart/songs", "Official Stepcharts"); ?></li>
 <?php endif; ?>
 <li><?php echo anchor("/contact", "Contact"); ?></li>
 <li><?php echo anchor("/thanks", "Credits/Thanks"); ?></li>

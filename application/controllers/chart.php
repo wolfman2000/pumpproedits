@@ -8,6 +8,7 @@ class Chart extends Controller
     $this->load->library('form_validation');
     $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
     $this->load->model('ppe_edit_edit');
+    $this->load->model('ppe_song_song');
   }
   
   function index()
@@ -84,7 +85,8 @@ class Chart extends Controller
   
   function songs()
   {
-  
+    $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result();
+    $this->load->view('chart/songs', $data);
   }
   
   function songProcess()
