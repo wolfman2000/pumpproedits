@@ -83,10 +83,20 @@ class Chart extends Controller
     echo $xml->saveXML();
   }
   
+  // get the list of songs for possible chart previewing.
   function songs()
   {
     $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result();
     $this->load->view('chart/songs', $data);
+  }
+  
+  // Use AJAJ to get the difficulties charted for each song.
+  function diff()
+  {
+    $sid = $this->uri->segment(3, false);
+    header("Content-type: application/json");
+    $ret = $this->ppe_song_song->getDifficulties($sid);
+    echo json_encode($ret);
   }
   
   function songProcess()
