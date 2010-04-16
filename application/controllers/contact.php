@@ -21,11 +21,13 @@ class Contact extends Controller
       $this->load->view('contact/error');
     }
     $this->load->library('email');
-    $this->email->from('jafelds_gmail.com', 'Jason "Wolfman2000" Felds');
-    $this->email->bcc('jafelds_gmail.com');
+    $this->email->from('jafelds@gmail.com', 'Jason "Wolfman2000" Felds');
+    $this->email->to('jafelds@gmail.com');
+    $this->email->bcc('jafelds@gmail.com');
     $this->email->reply_to($this->input->post('email'), $this->input->post('name'));
     $this->email->subject('PPEdits Contact Form - ' . $this->input->post('subject'));
     $this->email->message($this->input->post('content'));
+    $this->email->set_newline("\r\n");
     if ($this->email->send())
     {
       $this->load->view('contact/sent');
