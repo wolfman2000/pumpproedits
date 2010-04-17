@@ -48,7 +48,7 @@ $route['song/:num'] = "edits/chosenSong";
 $route['users'] = "edits/users";
 $route['songs'] = "edits/songs";
 
-$route['default_controller'] = "ppehome";
+$route['default_controller'] = "itghome";
 $route['scaffolding_trigger'] = "";
 
 

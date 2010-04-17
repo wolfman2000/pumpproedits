@@ -1,6 +1,6 @@
 <?php
 
-class Ppehome extends Controller
+class Itghome extends Controller
 {
 	function __construct()
 	{
@@ -9,6 +9,6 @@ class Ppehome extends Controller
 	
 	function index()
 	{
-    $this->load->view('ppehome/main');
+    $this->load->view('itghome/main');
 	}
 }

@@ -1,1 +1,0 @@
-<li><?php echo anchor("/logout", "Log Out"); ?></li>
