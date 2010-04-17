@@ -54,11 +54,11 @@ class itg_song_song extends Model
   // get the list of songs with edits.
   public function getSongsWithEdits()
   {
-    return $this->db->select('id, name core, num_edits')
-      ->from('itg_song_song')
-      ->where('is_problem', false)
-      ->where('num_edits >', 0)
+    return $this->db->select('a.id, a.name core, COUNT(b.id) AS num_edits')
+      ->from('itg_song_song a')
+      ->join('itg_edit_edit b', 'a.id = b.song_id')
       ->order_by('lc_name')
+      ->group_by(array('a.id', 'a.name'))
       ->get();
   }
   
