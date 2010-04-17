@@ -2,111 +2,39 @@
 <?xml-stylesheet href="/css/_svg.css" type="text/css"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
   <defs>
-    <radialGradient id="p1_004" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_004" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
-    <radialGradient id="p2_004" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_008" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
-    <radialGradient id="grad_004" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_012" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
-    <radialGradient id="grad_008" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_016" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
-    <radialGradient id="p1_008" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_024" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
-    <radialGradient id="p2_008" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_032" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
-    <radialGradient id="grad_012" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_048" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
-    <radialGradient id="p1_012" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_064" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
-    <radialGradient id="p2_012" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_016" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p1_016" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p2_016" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_024" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p1_024" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p2_024" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_032" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p1_032" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p2_032" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_048" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p1_048" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p2_048" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_064" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p1_064" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p2_064" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_192" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p1_192" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="p2_192" cx="8" cy="8" fx="8" fy="8" r="6.5625" gradientUnits="userSpaceOnUse">
+    <radialGradient id="grad_192" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
       <stop offset="0" />
       <stop offset="1" />
     </radialGradient>
@@ -124,35 +52,27 @@
       <use x="0" y="32" xlink:href="#beat2" />
       <line x1="0.05" y1="0" x2="0.05" y2="64" />
       <line x1="15.95" y1="0" x2="15.95" y2="64" />
+      
     </g>
-    <g id="DLarrow">
-      <path d="m 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 v -1 c 0,0 0,-1 -1,-1 H 7 L 15,4 V 2 C 15,2 15,1 14,1 H 12 L 4,9 V 2 C 4,2 4,1 3,1 H 2 C 2,1 1,1 1,2" />
-      <line x1="14.5" y1="4.5" x2="11.5" y2="1.5" />
-      <line x1="10.75" y1="8.25" x2="7.75" y2="5.25" />
-      <line x1="7" y1="12" x2="4" y2="9" />
+    <g id="Larrow">
+      <path d="m 1,8 7,7 2,-2 -3,-3 8,0 -2,-2 2,-2 -8,0 3,-3 -2,-2 z" />
+      <path d="m 11,10 -2,-2 2,-2" />
+      <path d="m 7,10 -2,-2 2,-2" />
     </g>
-    <g id="ULarrow">
-      <path d="M 1,14 V 2 C 1,2 1,1 2,1 h 12 c 0,0 1,0 1,1 v 1 c 0,0 0,1 -1,1 H 7 l 8,8 v 2 c 0,0 0,1 -1,1 H 12 L 4,7 v 7 c 0,0 0,1 -1,1 H 2 c 0,0 -1,0 -1,-1" />
-      <line x1="14.5" y1="11.5" x2="11.5" y2="14.5" />
-      <line x1="10.75" y1="7.75" x2="7.75" y2="10.75" />
-      <line x1="7" y1="4" x2="4" y2="7" />
+    <g id="Darrow">
+      <path d="m 8,15 7,-7 -2,-2 -3,3 0,-8 -2,2 -2,-2 0,8 -3,-3 -2,2 z" />
+      <path d="m 10,5 -2,2 -2,-2" />
+      <path d="m 10,9 -2,2 -2,-2" />
     </g>
-    <g id="CNarrow">
-      <path d="m 1,2 v 12 l 1,1 h 12 l 1,-1 V 2 L 14,1 H 2 z" />
-      <rect x="4" y="6" height="4" width="2" rx="0.5" />
-      <rect x="10" y="6" height="4" width="2" rx="0.5" />
+    <g id="Uarrow">
+      <path d="m 8,1 -7,7 2,2 3,-3 0,8 2,-2 2,2 0,-8 3,3 2,-2 z" />
+      <path d="m 6,11 2,-2 2,2" />
+      <path d="m 6,7 2,-2 2,2" />
     </g>
-    <g id="URarrow">
-      <path d="M 15,14 V 2 C 15,2 15,1 14,1 H 2 C 2,1 1,1 1,2 v 1 c 0,0 0,1 1,1 h 7 l -8,8 v 2 c 0,0 0,1 1,1 h 2 l 8,-8 v 7 c 0,0 0,1 1,1 h 1 c 0,0 1,0 1,-1" />
-      <line x1="1.5" y1="11.5" x2="4.5" y2="14.5" />
-      <line x1="5.25" y1="7.75" x2="8.25" y2="10.75" />
-      <line x1="9" y1="4" x2="12" y2="7" />
-    </g>
-    <g id="DRarrow">
-      <path d="m 15,2 v 12 c 0,0 0,1 -1,1 H 2 c 0,0 -1,0 -1,-1 v -1 c 0,0 0,-1 1,-1 H 9 L 1,4 V 2 C 1,2 1,1 2,1 h 2 l 8,8 V 2 c 0,0 0,-1 1,-1 h 1 c 0,0 1,0 1,1" />
-      <line x1="1.5" y1="4.5" x2="4.5" y2="1.5" />
-      <line x1="5.25" y1="8.25" x2="8.25" y2="5.25" />
-      <line x1="9" y1="12" x2="12" y2="9" />
+    <g id="Rarrow">
+      <path d="m 15,8 -7,-7 -2,2 3,3 -8,0 2,2 -2,2 8,0 -3,3 2,2 z" />
+      <path d="m 5,6 2,2 -2,2" />
+      <path d="m 9,6 2,2 -2,2" />
     </g>
     <g id="mine">
       <circle cx="8" cy="8" r="7" />

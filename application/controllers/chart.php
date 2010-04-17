@@ -119,7 +119,10 @@ class Chart extends Controller
     $path = sprintf("%sdata/itg_official/%d.sm", APPPATH, $sid);
     
     $this->load->library('EditParser');
-    $p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $dif);
+    $arc = $this->editparser->getStyle(substr($dif, 1, 1));
+    $st = substr($dif, 0, 1) === "s" ? "Single" : "Double";
+    $p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $arc,
+      'style' => $st);
     $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
     $p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
       'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),

@@ -4,15 +4,10 @@ class EditCharter
 {
   function __construct($params)
   {
-    if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS, APP_CHART_HDB_COLS)))
+    if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS)))
     {
-      $e = sprintf("There must be either %d, %d, or %d columns in the chart!",
-        APP_CHART_SIN_COLS, APP_CHART_HDB_COLS, APP_CHART_DBL_COLS);
-      throw new Exception($e);
-    }
-    if (!in_array($params['kind'], array("classic", "rhythm")))
-    {
-      $e = "The notetype chosen is not valid!";
+      $e = sprintf("There must be either %d or %d columns in the chart!",
+        APP_CHART_SIN_COLS, APP_CHART_DBL_COLS);
       throw new Exception($e);
     }
     $this->lb = APP_CHART_COLUMN_LEFT_BUFFER;
@@ -21,11 +16,6 @@ class EditCharter
     $this->bm = APP_CHART_BEAT_P_MEASURE;
     $this->kind = $params['kind'];
     
-    # Have the rhythm skin use red as the quarter note.
-    if (array_key_exists('red4', $params) and $params['red4'])
-    {
-      $this->red4 = 1;
-    }
     if (array_key_exists('nobpm', $params) and $params['nobpm'])
     {
       $this->showbpm = 0;
@@ -247,10 +237,6 @@ class EditCharter
       "Trips: " . $nd['trips'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['trips'][1] : ""));
     $this->genTxtNode($lbuff + $w * 2, 80,
       "Rolls: " . $nd['rolls'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['rolls'][1] : ""));
-    $this->genTxtNode($lbuff + $w * 3, 64,
-      "Lifts: " . $nd['lifts'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['lifts'][1] : ""));
-    $this->genTxtNode($lbuff + $w * 3, 80,
-      "Fakes: " . $nd['fakes'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['fakes'][1] : ""));
   }
   
   private function genBPM($id)
@@ -331,56 +317,27 @@ class EditCharter
   
   private function prepArrows($counter = 0)
   {
-    $pre = ($counter ? "p" . $counter : "note");
-    if ($this->kind == "classic")
+    $pre = 'note';
+    $ret = array();
+    $div = array('4th', '8th', '12th', '16th',
+      '24th', '32nd', '48th', '64th', '192nd');
+    foreach ($div as $f)
     {
-      $dl = array('a' => 'DL', 'c' => $pre . '_004');
-      $ul = array('a' => 'UL', 'c' => $pre . '_008');
-      $cn = array('a' => 'CN', 'c' => $pre . '_016');
-      $ur = array('a' => 'UR', 'c' => $pre . '_008');
-      $dr = array('a' => 'DR', 'c' => $pre . '_004');
-      $ret = array($dl, $ul, $cn, $ur, $dr);
+      if (intval($f) == 4) $g = $pre . '_008';
+      elseif (intval($f) == 8) $g = $pre . '_004';
+      else $g = sprintf('%s_%03d', $pre, intval($f));
+
+      $l = array('a' => 'L', 'c' => $g);
+      $d = array('a' => 'D', 'c' => $g);
+      $u = array('a' => 'U', 'c' => $g);
+      $r = array('a' => 'R', 'c' => $g);
+      $ret[$f] = array($l, $d, $u, $r);
       if ($this->cols == APP_CHART_DBL_COLS)
       {
-        array_push($ret, $dl, $ul, $cn, $ur, $dr);
+        array_push($ret[$f], $l, $d, $u, $r);
       }
-      elseif ($this->cols == APP_CHART_HDB_COLS)
-      {
-        $ret = array($cn, $ur, $dr, $dl, $ul, $cn);
-      }
-      return $ret;
     }
-    if ($this->kind == "rhythm")
-    {
-      $ret = array();
-      $div = array('4th', '8th', '12th', '16th',
-        '24th', '32nd', '48th', '64th', '192nd');
-      foreach ($div as $d)
-      {
-        if (array_key_exists('red4', $this))
-        {
-          if (intval($d) == 4) $g = $pre . '_008';
-          elseif (intval($d) == 8) $g = $pre . '_004';
-          else $g = sprintf('%s_%03d', $pre, intval($d));
-        }
-        else $g = sprintf('%s_%03d', $pre, intval($d));
-        $dl = array('a' => 'DL', 'c' => $g);
-        $ul = array('a' => 'UL', 'c' => $g);
-        $cn = array('a' => 'CN', 'c' => $g);
-        $ur = array('a' => 'UR', 'c' => $g);
-        $dr = array('a' => 'DR', 'c' => $g);
-        $ret[$d] = array($dl, $ul, $cn, $ur, $dr);
-        if ($this->cols == APP_CHART_DBL_COLS)
-        {
-          array_push($ret[$d], $dl, $ul, $cn, $ur, $dr);
-        }
-        elseif ($this->cols == APP_CHART_HDB_COLS)
-        {
-          $ret[$d] = array($cn, $ur, $dr, $dl, $ul, $cn);
-        }
-      }
-      return $ret;
-    }
+    return $ret;
   }
   
   private function getBeat($beat)
@@ -525,16 +482,6 @@ class EditCharter
         $this->svg->appendChild($this->genUseNode($nx, $ny, "mine"));
         break;
       }
-      case "L": # Lift note. Can be placed in chart. No image yet.
-      {
-        $holds[$pcounter]['on'] = false;
-        break;
-      }
-      case "F": # Fake note. Not yet available.
-      {
-        $holds[$pcounter]['on'] = false;
-        break;
-      }
     }
     
     $pcounter++;
@@ -546,7 +493,7 @@ class EditCharter
     $mcounter++;
     endforeach;
     
-    $ucounter++;
+    break; // lazy fix.
     endforeach;
   }
   
@@ -559,12 +506,10 @@ class EditCharter
     $point = 8.5;
     $radius = 6.5625;
     
-    foreach (array('grad_', 'p1_', 'p2_') as $pl):
-    
     foreach (array('004', '008', '012', '016', '024', '032', '048', '064', '192') as $rg)
     {
       $node = $this->xml->createElement('radialGradient');
-      $node->setAttribute('id', $pl . $rg);
+      $node->setAttribute('id', 'grad_' . $rg);
       
       foreach (array('cx', 'cy', 'fx', 'fy') as $at)
       {
@@ -580,8 +525,6 @@ class EditCharter
       }
       $def->appendChild($node);
     }
-    
-    endforeach;
     
     foreach (array(1, 2) as $num)
     {
@@ -631,151 +574,74 @@ class EditCharter
     }
     $def->appendChild($g);
     
-    // Now the arrows get defined.  Here: down left arrow
+    // Now the arrows get defined.  Here: left arrow
     
     $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'DLarrow');
+    $g->setAttribute('id', 'Larrow');
     $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'm 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 0,0 0,-1 -1,-1 '
-      . 'H 7 L 15,5 V 2 C 15,2 15,1 14,1 H 11 L 3,9 V 2 C 3,2 3,1 2,1 2,1 1,1 1,2');
+    $p->setAttribute('d', 'm 1,8 7,7 2,-2 -3,-3 8,0 -2,-2 2,-2 -8,0 3,-3 -2,-2 z');
     $g->appendChild($p);
     
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 15);
-    $l->setAttribute('x2', 11);
-    $l->setAttribute('y1', 5);
-    $l->setAttribute('y2', 1);
+    $l = $this->xml->createElement('path');
+    $l->setAttribute('d', 'm 11,10 -2,-2 2,-2');
     $g->appendChild($l);
     
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 11);
-    $l->setAttribute('x2', 7);
-    $l->setAttribute('y1', 9);
-    $l->setAttribute('y2', 5);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 7);
-    $l->setAttribute('x2', 3);
-    $l->setAttribute('y1', 13);
-    $l->setAttribute('y2', 9);
+    $l = $this->xml->createElement('path');
+    $l->setAttribute('d', 'm 7,10 -2,-2 2,-2');
     $g->appendChild($l);
     
     $def->appendChild($g);
     
-    // up left arrow
+    // down arrow
     
     $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'ULarrow');
+    $g->setAttribute('id', 'Darrow');
     $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'M 1,14 V 2 C 1,2 1,1 2,1 h 12 c 0,0 1,0 1,1 0,0 0,1 -1,1 '
-      . 'H 7 l 8,8 v 3 c 0,0 0,1 -1,1 H 11 L 3,6 v 8 c 0,0 0,1 -1,1 0,0 -1,0 -1,-1');
+    $p->setAttribute('d', 'm 8,15 7,-7 -2,-2 -3,3 0,-8 -2,2 -2,-2 0,8 -3,-3 -2,2 z');
     $g->appendChild($p);
     
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 15);
-    $l->setAttribute('x2', 11);
-    $l->setAttribute('y1', 11);
-    $l->setAttribute('y2', 15);
+    $l = $this->xml->createElement('path');
+    $l->setAttribute('d', 'm 10,5 -2,2 -2,-2');
     $g->appendChild($l);
     
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 11);
-    $l->setAttribute('x2', 7);
-    $l->setAttribute('y1', 7);
-    $l->setAttribute('y2', 11);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 7);
-    $l->setAttribute('x2', 3);
-    $l->setAttribute('y1', 3);
-    $l->setAttribute('y2', 7);
+    $l = $this->xml->createElement('path');
+    $l->setAttribute('d', 'm 10,9 -2,2 -2,-2');
     $g->appendChild($l);
     
     $def->appendChild($g);
     
-    // center arrow
+    // up arrow
     
     $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'CNarrow');
+    $g->setAttribute('id', 'Uarrow');
     $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'm 1,2 v 12 l 1,1 h 12 l 1,-1 V 2 L 14,1 H 2 z');
+    $p->setAttribute('d', 'm 8,1 -7,7 2,2 3,-3 0,8 2,-2 2,2 0,-8 3,3 2,-2 z');
     $g->appendChild($p);
     
-    foreach (array(4, 10) as $x)
-    {
-    
-      $l = $this->xml->createElement('rect');
-      $l->setAttribute('x', $x);
-      $l->setAttribute('y', 6);
-      $l->setAttribute('height', 4);
-      $l->setAttribute('width', 2);
-      $l->setAttribute('rx', 0.5);
-      $g->appendChild($l);
-    }
-    $def->appendChild($g);
-    
-    // up right arrow
-    
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'URarrow');
-    $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'M 15,14 V 2 C 15,2 15,1 14,1 H 2 C 2,1 1,1 1,2 1,2 1,3 2,3 '
-      . 'h 7 l -8,8 v 3 c 0,0 0,1 1,1 h 3 l 8,-8 v 7 c 0,0 0,1 1,1 0,0 1,0 1,-1');
-    $g->appendChild($p);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 1);
-    $l->setAttribute('x2', 5);
-    $l->setAttribute('y1', 11);
-    $l->setAttribute('y2', 15);
+    $l = $this->xml->createElement('path');
+    $l->setAttribute('d', 'm 6,11 2,-2 2,2');
     $g->appendChild($l);
     
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 5);
-    $l->setAttribute('x2', 9);
-    $l->setAttribute('y1', 7);
-    $l->setAttribute('y2', 11);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 9);
-    $l->setAttribute('x2', 13);
-    $l->setAttribute('y1', 3);
-    $l->setAttribute('y2', 7);
+    $l = $this->xml->createElement('path');
+    $l->setAttribute('d', 'm 6,7 2,-2 2,2');
     $g->appendChild($l);
     
     $def->appendChild($g);
     
-    // down right arrow
+    // right arrow
     
     $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'DRarrow');
+    $g->setAttribute('id', 'Rarrow');
     $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'm 15,2 v 12 c 0,0 0,1 -1,1 H 2 c 0,0 -1,0 -1,-1 0,0 0,-1 1,-1 '
-      . 'H 9 L 1,5 V 2 C 1,2 1,1 2,1 h 3 l 8,8 V 2 c 0,0 0,-1 1,-1 0,0 1,0 1,1');
+    $p->setAttribute('d', 'm 15,8 -7,-7 -2,2 3,3 -8,0 2,2 -2,2 8,0 -3,3 2,2 z');
     $g->appendChild($p);
     
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 1);
-    $l->setAttribute('x2', 5);
-    $l->setAttribute('y1', 5);
-    $l->setAttribute('y2', 1);
+    $l = $this->xml->createElement('path');
+    $l->setAttribute('d', 'm 5,6 2,2 -2,2');
     $g->appendChild($l);
     
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 5);
-    $l->setAttribute('x2', 9);
-    $l->setAttribute('y1', 9);
-    $l->setAttribute('y2', 5);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 9);
-    $l->setAttribute('x2', 13);
-    $l->setAttribute('y1', 13);
-    $l->setAttribute('y2', 9);
+    $l = $this->xml->createElement('path');
+    $l->setAttribute('d', 'm 9,6 2,2 -2,2');
     $g->appendChild($l);
     
     $def->appendChild($g);

@@ -83,7 +83,7 @@ class EditParser
     }
   }
   
-  protected function getStyle($abbr)
+  public function getStyle($abbr)
   {
     switch ($abbr)
     {
@@ -125,8 +125,6 @@ class EditParser
     $mines = array(0 => 0, 1 => 0);
     $trips = array(0 => 0, 1 => 0);
     $rolls = array(0 => 0, 1 => 0);
-    $lifts = array(0 => 0, 1 => 0);
-    $fakes = array(0 => 0, 1 => 0);
 
     $steps_on = array();
     $holds_on = array();
@@ -229,7 +227,7 @@ class EditParser
       $state = 2;
       break;
     }
-    case 2: /* Confirm this is pump-single, double, halfdouble, or routine. */
+    case 2: /* Confirm this is dance-single or dance-double */
     {
       if ($this->checkCommentLine($line)) { continue; }
       $line = ltrim($line);
@@ -322,7 +320,8 @@ class EditParser
       if ($params['arcade'])
       {
         $title = $this->getOfficialStyle($style, $line); // set title now.
-        if ($params['style'] . " " . $this->getStyle($params['arcade']) !== $title)
+        $calc = $params['style'] . " " .$params['arcade'];
+        if ($calc !== $title)
         {
           $state = 10;
           break;
@@ -504,8 +503,6 @@ class EditParser
     $res['mines'] = $mines;
     $res['trips'] = $trips;
     $res['rolls'] = $rolls;
-    $res['lifts'] = $lifts;
-    $res['fakes'] = $fakes;
     $res['author'] = $author;
     if (isset($params['notes']) and $params['notes']) { $res['notes'] = $notes; }
     return $res;
