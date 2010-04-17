@@ -171,6 +171,8 @@ class EditCharter
     $beatheight = APP_CHART_BEAT_HEIGHT; // default beat height
     $spd = $this->speedmod; // speed mod: also affects columns.
     $breather = $this->lb + $this->rb;
+    $m = $this->xml->createElement('g');
+    $m->setAttribute('id', 'svgMeas');
     for ($i = 0; $i < $numcols; $i++)
     {
       $x = ($this->aw * $this->cols + $breather) * $i + $this->lb;
@@ -180,9 +182,10 @@ class EditCharter
         $y = $beatheight * $j * $this->bm + $this->headheight;
         $tmp = $this->CI->svgmaker->genUse($x / $sx, $y, array('href' => "measure", 'transform' => "scale($sx 1)"));
         $use = $this->xml->importNode($tmp);
-        $this->svg->appendChild($use);
+        $m->appendChild($use);
       }
     }
+    $this->svg->appendChild($m);
   }
   
   private function genTxtNode($x, $y, $st, $class = '')
@@ -198,34 +201,38 @@ class EditCharter
   private function genEditHeader($nd)
   {
     $lbuff = $this->lb;
+    $sm = $this->CI->svgmaker;
+    $g = $this->xml->createElement('g');
+    $g->setAttribute('id', 'svgHead');
     
     if ($this->arcade)
     {
-      $this->genTxtNode($lbuff, 16, sprintf("%s %s - %d",
-        $nd['song'], $nd['title'], $nd['diff']));
+      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s - %d",
+        $nd['song'], $nd['title'], $nd['diff'])), true));
     }
     else
     {
-      $this->genTxtNode($lbuff, 16, sprintf("%s %s Edit: %s - %d",
-        $nd['song'], ucfirst(substr($nd['style'], 6)), $nd['title'], $nd['diff']));
+      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s Edit: %s - %d",
+        $nd['song'], ucfirst(substr($nd['style'], 6)), $nd['title'], $nd['diff'])), true));
     }
-    $this->genTxtNode($lbuff, 32, $nd['author']);
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 32, $nd['author']), true));
     
-    $this->genTxtNode($lbuff, 64,
-      "Steps: " . $nd['steps'][0]);
-    $this->genTxtNode($lbuff, 80,
-      "Jumps: " . $nd['jumps'][0]);
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 64,
+      "Steps: " . $nd['steps'][0]), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 80,
+      "Jumps: " . $nd['jumps'][0]), true));
     
     $w = $this->cw + $lbuff + $this->rb;
     
-    $this->genTxtNode($lbuff + $w * 1, 64,
-      "Holds: " . $nd['holds'][0]);
-    $this->genTxtNode($lbuff + $w * 1, 80,
-      "Mines: " . $nd['mines'][0]);
-    $this->genTxtNode($lbuff + $w * 2, 64,
-      "Trips: " . $nd['trips'][0]);
-    $this->genTxtNode($lbuff + $w * 2, 80,
-      "Rolls: " . $nd['rolls'][0]);
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 64,
+      "Holds: " . $nd['holds'][0]), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 80,
+      "Mines: " . $nd['mines'][0]), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 64,
+      "Trips: " . $nd['trips'][0]), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 80,
+      "Rolls: " . $nd['rolls'][0]), true));
+    $this->svg->appendChild($g);
   }
   
   private function genBPM($id)

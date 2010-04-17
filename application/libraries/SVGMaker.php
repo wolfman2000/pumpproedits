@@ -8,7 +8,7 @@ class SVGMaker
   }
   
   // Make a general <use> tag.
-  function genUse($x, $y, $options)
+  function genUse($x, $y, $options = array())
   {
     $base = APP_CHART_DEF_FILE;
 
@@ -29,5 +29,17 @@ class SVGMaker
     if (array_key_exists('transform', $options))
       $use->setAttribute('transform', $options['transform']);
     return $use;
+  }
+  
+  // Make a text tag.
+  function genText($x, $y, $st, $options = array())
+  {
+    $txt = $this->s->createElement('text');
+    $txt->setAttribute('x', $x);
+    $txt->setAttribute('y', $y);
+    if (array_key_exists('class', $options) and strlen($options['class']) > 1)
+      $txt->setAttribute('class', $class);
+    $txt->appendChild($this->s->createTextNode($st));
+    return $txt;
   }
 }
