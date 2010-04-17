@@ -308,9 +308,7 @@ class EditCharter
       '24th', '32nd', '48th', '64th', '192nd');
     foreach ($div as $f)
     {
-      if (intval($f) == 4) $g = $pre . '_008';
-      elseif (intval($f) == 8) $g = $pre . '_004';
-      else $g = sprintf('%s_%03d', $pre, intval($f));
+      $g = sprintf('%s_%03d', $pre, intval($f));
 
       $l = array('a' => 'L', 'c' => $g, 't' => '');
       $d = array('a' => 'D', 'c' => $g, 't' => "rotate(270 %d %d)");

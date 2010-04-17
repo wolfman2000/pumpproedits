@@ -70,11 +70,11 @@ g#hold_bdy > line, g#hold_end > path, g#roll_bdy > line, g#roll_end > path
 }
 .note_004
 {
-  fill: blue;
+  fill: red;
 }
 .note_008
 {
-  fill: red;
+  fill: blue;
 }
 .note_012
 {
