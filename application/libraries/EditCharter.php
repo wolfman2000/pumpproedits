@@ -189,8 +189,6 @@ class EditCharter
         $y = $beatheight * $j * $this->bm + $this->headheight;
         $tmp = $this->CI->svgmaker->genUse($x / $sx, $y, array('href' => "measure", 'transform' => "scale($sx 1)"));
         $use = $this->xml->importNode($tmp);
-        //print_r($use);
-        //$use = $this->genSVGNode($x, $y, "measure", '', $sx);
         $this->svg->appendChild($use);
       }
     }
@@ -311,7 +309,7 @@ class EditCharter
     }
   }
   
-  private function prepArrows($counter = 0)
+  private function prepArrows()
   {
     $pre = 'note';
     $ret = array();
@@ -323,10 +321,10 @@ class EditCharter
       elseif (intval($f) == 8) $g = $pre . '_004';
       else $g = sprintf('%s_%03d', $pre, intval($f));
 
-      $l = array('a' => 'L', 'c' => $g);
-      $d = array('a' => 'D', 'c' => $g);
-      $u = array('a' => 'U', 'c' => $g);
-      $r = array('a' => 'R', 'c' => $g);
+      $l = array('a' => 'L', 'c' => $g, 't' => '');
+      $d = array('a' => 'D', 'c' => $g, 't' => "rotate(270 %d %d)");
+      $u = array('a' => 'U', 'c' => $g, 't' => "rotate(90 %d %d)");
+      $r = array('a' => 'R', 'c' => $g, 't' => "rotate(180 %d %d)");
       $ret[$f] = array($l, $d, $u, $r);
       if ($this->cols == APP_CHART_DBL_COLS)
       {
@@ -362,10 +360,12 @@ class EditCharter
     $w = $this->cw + $this->lb + $this->rb; # width + buffers.
     $m = $this->aw * $this->bm * $this->speedmod; # height of measure block
     
+    $sm = $this->CI->svgmaker;
+    
     $ucounter = 1;
     foreach ($notes as $player):
     
-    $arrows = $this->prepArrows($style === "pump-routine" ? $ucounter : 0);
+    $arrows = $this->prepArrows();
 
     $mcounter = 0;    
     foreach ($player as $measure):
@@ -389,9 +389,12 @@ class EditCharter
     {
       case "1": # Tap note. Just add to the chart.
       {
-        $id = $arow[$pcounter]['a'] . "arrow";
-        $cl = $arow[$pcounter]['c'];
-        $this->svg->appendChild($this->genUseNode($nx, $ny, $id, $cl));
+        $opt = array('href' => $arow[$pcounter]['a'] . "arrow", 'class' => $arow[$pcounter]['c']);
+        if ($arow[$pcounter]['a'] !== "L")
+        {
+          //$opt['transform'] = sprintf($arow[$pcounter]['t'], $nx + 8, $ny + 8);
+        }
+        $this->svg->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
       case "2": case "4": # Start of hold/roll. Minor differences.
@@ -426,10 +429,18 @@ class EditCharter
             $range = $bot - $hy;
             $sy = $range / $this->aw;
             
-            $node = $this->genSVGNode($ox, $hy, $bod, '', 1, $sy);
+            $opt = array('href' => $bod, 'transform' => "scale(1 $sy)");
+            $node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
+            
+            //$node = $this->genSVGNode($ox, $hy, $bod, '', 1, $sy);
             $this->svg->appendChild($node);
             # Place the tap.
-            $this->svg->appendChild($this->genUseNode($ox, $oy, $a['a'] . "arrow", $a['c']));
+            $opt = array('href' => $a['a'] . "arrow", 'class' => $a['c']);
+            if ($arow[$pcounter]['a'] !== "L")
+            {
+              //$opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
+            }
+            $this->svg->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
             
             $ox += $w;
             $hy = $this->headheight;
@@ -437,15 +448,22 @@ class EditCharter
             {
               $range = $bot - $hy;
               $sy = $range / $this->aw;
-              $this->svg->appendChild($this->genSVGNode($ox, $hy, $bod, '', 1, $sy));
+              $opt['transform'] = "scale(1 $sy)";
+              $node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
+              $this->svg->appendChild($node);
+              //$this->svg->appendChild($this->genSVGNode($ox, $hy, $bod, '', 1, $sy));
               $ox += $w;
             }
             # Now we're on the same column as the tail.
             $bot = $ny + $this->aw / 2;
             $range = $bot - $hy;
             $sy = $range / $this->aw;
-            $this->svg->appendChild($this->genSVGNode($nx, $hy, $bod, '', 1, $sy));
-            $this->svg->appendChild($this->genUseNode($nx, $ny, $end));
+            $opt['transform'] = "scale(1 $sy)";
+            $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
+            $this->svg->appendChild($node);
+            //$this->svg->appendChild($this->genSVGNode($nx, $hy, $bod, '', 1, $sy));
+            //$this->svg->appendChild($this->genUseNode($nx, $ny, $end));
+            $this->svg->appendChild($this->importNode($sm->genUse($nx, $ny, array('href' => $end))));
           }
           else
           {
@@ -455,26 +473,33 @@ class EditCharter
               $hy = $oy + $this->aw / 2;
               $range = $bot - $hy;
               $sy = $range / $this->aw;
-              $this->svg->appendChild($this->genSVGNode($nx, $hy, $bod, '', 1, $sy));
+              $opt = array('href' => $bod, 'transform' => "scale(1 $sy)");
+              $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
+              $this->svg->appendChild($node);
+              //$this->svg->appendChild($this->genSVGNode($nx, $hy, $bod, '', 1, $sy));
             }
             # Tail next
-            $this->svg->appendChild($this->genUseNode($nx, $ny, $end));
+            $opt = array('href' => $end);
+            $node = $this->xml->importNode($sm->genUse($nx, $ny, $opt));
+            $this->svg->appendChild($node);
+            //$this->svg->appendChild($this->genUseNode($nx, $ny, $end));
             # Tap note last.
-            $this->svg->appendChild($this->genUseNode($ox, $oy, $a['a'] . "arrow", $a['c']));
+            $opt = array('href' => $a['a'] . "arrow", 'class' => $a['c']);
+            if ($arow[$pcounter]['a'] !== "L")
+            {
+              //$opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
+            }
+            $this->svg->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
+            //$this->svg->appendChild($this->genUseNode($ox, $oy, $a['a'] . "arrow", $a['c']));
           } 
-        }
-        else # Throw an error at some point.
-        {
-          $id = $arow[$pcounter]['a'] . "arrow";
-          $cl = $arow[$pcounter]['c'];
-          $this->svg->appendChild($this->genUseNode($nx, $ny, $id, $cl));
         }
         break;
       }
       case "M": # Mine. Don't step on these!
       {
         $holds[$pcounter]['on'] = false;
-        $this->svg->appendChild($this->genUseNode($nx, $ny, "mine"));
+        $this->svg->appendChild($this->xml->importNode($sm->genUse($nx, $ny, array('href' => 'mine'))));
+        //$this->svg->appendChild($this->genUseNode($nx, $ny, "mine"));
         break;
       }
     }
