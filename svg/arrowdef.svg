@@ -2,42 +2,6 @@
 <?xml-stylesheet href="/css/_svg.css" type="text/css"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
   <defs>
-    <radialGradient id="grad_004" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_008" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_012" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_016" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_024" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_032" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_048" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_064" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
-    <radialGradient id="grad_192" cx="8.5" cy="8.5" fx="8.5" fy="8.5" r="6.5625" gradientUnits="userSpaceOnUse">
-      <stop offset="0" />
-      <stop offset="1" />
-    </radialGradient>
     <g id="beat1">
       <rect x="0" y="0" height="16" width="16" />
       <rect x="0" y="16" height="16" width="16" />
