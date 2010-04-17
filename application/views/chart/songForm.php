@@ -8,7 +8,7 @@
 <?php $oid = "無"; # Start with no match. ?>
 <option value="無" selected="selected">Select a song.</option>
 <?php foreach ($songs as $r):
-$nid = $r->gid;
+$nid = $r['gid'];
 if ($oid !== $nid):
 if ($oid !== "無"): ?>
 </optgroup>
@@ -16,7 +16,7 @@ if ($oid !== "無"): ?>
 <optgroup label="<?php echo "In The Groove" . ($nid == 1 ? "" : " 2"); ?>">
 <?php $oid = $nid;
 endif; ?>
-<option value="<?php echo $r->id; ?>"><?php echo $r->name; ?></option>
+<option value="<?php echo $r['id']; ?>"><?php echo $r['name']; ?></option>
 <?php endforeach; ?>
 </optgroup>
 </select></p>

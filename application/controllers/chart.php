@@ -18,7 +18,7 @@ class Chart extends Controller
   
   function edits()
   {
-    $data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result();
+    $data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result_array();
     $this->load->view('chart/edits', $data);
   }
   
@@ -33,18 +33,6 @@ class Chart extends Controller
   function _edit_exists($str)
   {
     return $this->itg_edit_edit->checkExistance($str);
-  }
-  
-  // confirm the noteskin exists.
-  function _noteskin_exists($str)
-  {
-    return in_array($str, array('classic', 'rhythm'));
-  }
-  
-  // confirm the 4th note color is valid.
-  function _red_exists($str)
-  {
-    return in_array($str, array(0, 1));
   }
   
   // confirm the speed mod is valid.
@@ -69,12 +57,12 @@ class Chart extends Controller
   {
     if ($this->form_validation->run() === FALSE)
     {
-      $data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result();
+      $data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result_array();
       $this->load->view('chart/editError', $data);
       return;
     }
     $eid = $this->input->post('edits');
-    $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
+    $path = sprintf("%sdata/itg_user_edits/itg_%06d.edit.gz", APPPATH, $eid);
     $this->load->model('itg_user_user');
     $author = $this->itg_user_user->getUserByEditID($eid);
     $this->load->library('EditParser');
@@ -93,7 +81,7 @@ class Chart extends Controller
   // get the list of songs for possible chart previewing.
   function songs()
   {
-    $data['songs'] = $this->itg_song_song->getSongsWithGameAndDiff()->result();
+    $data['songs'] = $this->itg_song_song->getSongsWithGameAndDiff()->result_array();
     $this->load->view('chart/songs', $data);
   }
   
@@ -110,7 +98,7 @@ class Chart extends Controller
   {
     if ($this->form_validation->run() === FALSE)
     {
-      $data['songs'] = $this->itg_song_song->getSongsWithGameAndDiff()->result();
+      $data['songs'] = $this->itg_song_song->getSongsWithGameAndDiff()->result_array();
       $this->load->view('chart/songError', $data);
       return;
     }

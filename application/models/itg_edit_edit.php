@@ -21,7 +21,6 @@ class itg_edit_edit extends Model
       ->join('itg_user_user u', 'a.user_id = u.id')
       ->join('itg_song_song s', 'a.song_id = s.id')
       ->where('a.is_problem', 0)
-      ->where('a.deleted_at', null)
       ->order_by('u.lc_name')
       ->order_by('s.lc_name')
       ->order_by('a.title')

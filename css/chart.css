@@ -4,7 +4,7 @@
 {
   fieldset
   {
-    width: 40em;
+    width: 50em;
   }
   section > p:nth-child(odd)
   {
@@ -15,10 +15,15 @@
 	  max-width: 34em;
   }
   /* Note to self: this seems backwards. Test in other browsers. */
-  #edit, #song
+  #song
   {
 	float: left;
 	width: 25em;
+  }
+  #edit
+  {
+    float: left;
+    width: 35em;
   }
   ul.error_list > li
   {
