@@ -210,32 +210,25 @@ class EditCharter
     else
     {
       $this->genTxtNode($lbuff, 16, sprintf("%s %s Edit: %s - %d",
-        $nd['song'], ucfirst(substr($nd['style'], 5)), $nd['title'], $nd['diff']));
+        $nd['song'], ucfirst(substr($nd['style'], 6)), $nd['title'], $nd['diff']));
     }
     $this->genTxtNode($lbuff, 32, $nd['author']);
-    /*
-    $this->genTxtNode($lbuff, 16, sprintf("%s Edit for %s: %s - %s",
-      ucfirst(substr($nd['style'], 5)),
-      $nd['song'],
-      $nd['title'], $nd['diff'])
-    );
-    */
     
     $this->genTxtNode($lbuff, 64,
-      "Steps: " . $nd['steps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['steps'][1] : ""));
+      "Steps: " . $nd['steps'][0]);
     $this->genTxtNode($lbuff, 80,
-      "Jumps: " . $nd['jumps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['jumps'][1] : ""));
+      "Jumps: " . $nd['jumps'][0]);
     
     $w = $this->cw + $lbuff + $this->rb;
     
     $this->genTxtNode($lbuff + $w * 1, 64,
-      "Holds: " . $nd['holds'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['holds'][1] : ""));
+      "Holds: " . $nd['holds'][0]);
     $this->genTxtNode($lbuff + $w * 1, 80,
-      "Mines: " . $nd['mines'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['mines'][1] : ""));
+      "Mines: " . $nd['mines'][0]);
     $this->genTxtNode($lbuff + $w * 2, 64,
-      "Trips: " . $nd['trips'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['trips'][1] : ""));
+      "Trips: " . $nd['trips'][0]);
     $this->genTxtNode($lbuff + $w * 2, 80,
-      "Rolls: " . $nd['rolls'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['rolls'][1] : ""));
+      "Rolls: " . $nd['rolls'][0]);
   }
   
   private function genBPM($id)
