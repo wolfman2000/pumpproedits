@@ -188,16 +188,6 @@ class EditCharter
     $this->svg->appendChild($m);
   }
   
-  private function genTxtNode($x, $y, $st, $class = '')
-  {
-    $txt = $this->xml->createElement('text');
-    $txt->setAttribute('x', $x);
-    $txt->setAttribute('y', $y);
-    if (strlen($class) > 1) $txt->setAttribute('class', $class);
-    $txt->appendChild($this->xml->createTextNode($st));
-    $this->svg->appendChild($txt);
-  }
-  
   private function genEditHeader($nd)
   {
     $lbuff = $this->lb;
@@ -240,6 +230,9 @@ class EditCharter
     $buff = $this->lb + $this->rb;
     $draw = $this->cols * $this->aw / 2;
     $m = $this->aw * $this->bm * $this->speedmod;
+    $g = $this->xml->createElement('g');
+    $g->setAttribute('id', 'svgBPMs');
+    $sm = $this->CI->svgmaker;
     
     foreach ($this->CI->itg_song_bpm->getBPMsBySongID($id) as $b)
     {
@@ -253,13 +246,8 @@ class EditCharter
       $lx = ($buff + ($this->cols * $this->aw)) * $col + $this->lb;
       $ly = $down * $m + $this->headheight;
       
-      $line = $this->xml->createElement('line');
-      $line->setAttribute('x1', $lx + $draw);
-      $line->setAttribute('y1', $ly + 0.2);
-      $line->setAttribute('x2', $lx + $draw + $draw);
-      $line->setAttribute('y2', $ly + 0.2);
-      $line->setAttribute('class', 'bpm');
-      $this->svg->appendChild($line);
+      $g->appendChild($this->xml->importNode($sm->genLine($lx + $draw, $ly,
+        $lx + $draw + $draw, $ly, array('class' => 'bpm'))));
       
       if (isset($bpm))
       {
@@ -268,9 +256,11 @@ class EditCharter
         {
           $bpm = trim(trim($bpm, '0'), '.');
         }
-        $this->genTxtNode($lx + $draw + $draw, $ly + $this->bm, $bpm, 'bpm');
+        $g->appendChild($this->xml->importNode($sm->genText($lx + $draw + $draw,
+          $ly + $this->bm, $bpm, array('class' => 'bpm')), true));
       }
     }
+    $this->svg->appendChild($g);
   }
   
   private function genStop($id)
@@ -278,6 +268,9 @@ class EditCharter
     $buff = $this->lb + $this->rb;
     $draw = $this->cols * $this->aw / 2;
     $m = $this->aw * $this->bm * $this->speedmod;
+    $g = $this->xml->createElement('g');
+    $g->setAttribute('id', 'svgStop');
+    $sm = $this->CI->svgmaker;
     foreach ($this->CI->itg_song_stop->getStopsBySongID($id) as $b)
     {
       $beat = $b->beat;
@@ -290,21 +283,18 @@ class EditCharter
       $lx = ($buff + ($this->cols * $this->aw)) * $col + $this->lb;
       $ly = $down * $m + $this->headheight;
       
-      $line = $this->xml->createElement('line');
-      $line->setAttribute('x1', $lx);
-      $line->setAttribute('y1', $ly + 0.2);
-      $line->setAttribute('x2', $lx + $draw);
-      $line->setAttribute('y2', $ly + 0.2);
-      $line->setAttribute('class', 'stop');
-      $this->svg->appendChild($line);
+      $g->appendChild($this->xml->importNode($sm->genLine($lx, $ly,
+        $lx + $draw, $ly, array('class' => 'stop'))));
       
       if (isset($break))
       {
         $break = rtrim(rtrim($break, '0'), '.') . "B";
         $break = ltrim($break, '0');
-        $this->genTxtNode($lx - $this->aw, $ly + $this->bm, $break, 'stop');
+        $g->appendChild($this->xml->importNode($sm->genText($lx - $this->aw,
+          $ly + $this->bm, $break, array('class' => 'stop')), true));
       }
     }
+    $this->svg->appendChild($g);
   }
   
   private function prepArrows()

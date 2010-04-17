@@ -38,8 +38,21 @@ class SVGMaker
     $txt->setAttribute('x', $x);
     $txt->setAttribute('y', $y);
     if (array_key_exists('class', $options) and strlen($options['class']) > 1)
-      $txt->setAttribute('class', $class);
+      $txt->setAttribute('class', $options['class']);
     $txt->appendChild($this->s->createTextNode($st));
     return $txt;
+  }
+  
+  // Make a line tag.
+  function genLine($x1, $y1, $x2, $y2, $options = array())
+  {
+    $line = $this->s->createElement('line');
+    $line->setAttribute('x1', $x1);
+    $line->setAttribute('y1', $y1);
+    $line->setAttribute('x2', $x2);
+    $line->setAttribute('y2', $y2);
+    if (array_key_exists('class', $options) and strlen($options['class']) > 1)
+      $line->setAttribute('class', $options['class']);
+    return $line;
   }
 }
