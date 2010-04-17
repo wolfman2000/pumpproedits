@@ -30,13 +30,6 @@ class Edits extends Controller
     $this->load->view('edits/user', $data);
   }
   
-  // get all official edits.
-  function official()
-  {
-    $data['users'] = $this->itg_edit_edit->getEditsByUser(2)->result();
-    $this->load->view('edits/official', $data);
-  }
-  
   // load the songs that have edits.
   function songs()
   {
