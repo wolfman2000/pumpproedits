@@ -2,9 +2,9 @@
 
 class Chart extends Controller
 {
-	function __construct()
-	{
-		parent::Controller();
+  function __construct()
+  {
+    parent::Controller();
     $this->load->library('form_validation');
     $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
     $this->load->model('ppe_edit_edit');
@@ -18,7 +18,7 @@ class Chart extends Controller
   
   function edits()
   {
-    $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
+    $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
     $this->load->view('chart/edits', $data);
   }
   
@@ -26,31 +26,40 @@ class Chart extends Controller
   function _diff_exists($str)
   {
     if (in_array($str, array('ez', 'nr', 'hr', 'cz', 'hd', 'fs', 'nm', 'rt'))) return true;
+    $this->form_validation->set_message('_diff_exists', 'A valid difficulty must be chosen.');
     return false;
   }
   
   // confirm the edit exists.
   function _edit_exists($str)
   {
-    return $this->ppe_edit_edit->checkExistance($str);
+    if ($this->ppe_edit_edit->checkExistance($str)) return true;
+    $this->form_validation->set_message('_edit_exists', "The edit chosen $str doesn't have a corresponding file.");
+    return false;
   }
   
   // confirm the noteskin exists.
   function _noteskin_exists($str)
   {
-    return in_array($str, array('classic', 'rhythm'));
+    if (in_array($str, array('classic', 'rhythm'))) return true;
+    $this->form_validation->set_message('_noteskin_exists', "Please choose either the classic or rhythm noteskin.");
+    return false;
   }
   
   // confirm the 4th note color is valid.
   function _red_exists($str)
   {
-    return in_array($str, array(0, 1));
+    if (in_array($str, array(0, 1))) return true;
+    $this->form_validation->set_message('_red_exists', "Decide the color of the rhythm quarter notes.");
+    return false;
   }
   
   // confirm the speed mod is valid.
   function _speed_valid($str)
   {
-    return in_array($str, array(1, 2, 3, 4, 6, 8));
+    if (in_array($str, array(1, 2, 3, 4, 6, 8))) return true;
+    $this->form_validation->set_message('_speed_valid', 'A valid speed mod must be chosen.');
+    return false;
   }
   
   // confirm the number of measures in each column is valid.
@@ -62,19 +71,27 @@ class Chart extends Controller
   // confirm the scale factor is valid.
   function _scale_valid($str)
   {
-    return in_array($str, array(0.5, 0.75, 1, 1.25, 1.5, 1.75, 2));
+    if (in_array($str, array(0.5, 0.75, 1, 1.25, 1.5, 1.75, 2))) return true;
+    $this->form_validation->set_message('_edit_exists', 'The scale chosen was not a valid scale.');
+    return false;
   }
   
   function editProcess()
   {
     if ($this->form_validation->run() === FALSE)
     {
-      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
+      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
       $this->load->view('chart/editError', $data);
       return;
     }
     $eid = $this->input->post('edits');
     $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
+    if (!file_exists($path))
+    {
+      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
+      $this->load->view('chart/editError', $data);
+      return;
+    }
     $this->load->model('ppe_user_user');
     $author = $this->ppe_user_user->getUserByEditID($eid);
     $this->load->library('EditParser');
@@ -93,7 +110,7 @@ class Chart extends Controller
   // get the list of songs for possible chart previewing.
   function songs()
   {
-    $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result();
+    $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
     $this->load->view('chart/songs', $data);
   }
   
@@ -110,7 +127,7 @@ class Chart extends Controller
   {
     if ($this->form_validation->run() === FALSE)
     {
-      $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result();
+      $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
       $this->load->view('chart/songError', $data);
       return;
     }

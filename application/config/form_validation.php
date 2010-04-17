@@ -28,32 +28,32 @@ $config = array(
 		array(
 			'field' => 'edits',
 			'label' => 'Edit',
-			'rules' => 'required|is_natural_no_zero|callback__edit_exists'
+			'rules' => 'callback__edit_exists'
 		),
 		array(
 			'field' => 'kind',
 			'label' => 'Noteskin',
-			'rules' => 'required|callback__noteskin_exists'
+			'rules' => 'callback__noteskin_exists'
 		),
 		array(
 			'field' => 'red4',
 			'label' => '4th Note Color',
-			'rules' => 'required|is_natural|callback__red_exists'
+			'rules' => 'callback__red_exists'
 		),
 		array(
 			'field' => 'speed',
 			'label' => 'Speed Mod',
-			'rules' => 'required|is_natural_no_zero|callback__speed_valid'
+			'rules' => 'callback__speed_valid'
 		),
 		array(
 			'field' => 'mpcol',
 			'label' => 'Measures per Column',
-			'rules' => 'required|is_natural_no_zero|callback__mpc_valid'
+			'rules' => 'callback__mpc_valid'
 		),
 		array(
 			'field' => 'scale',
 			'label' => 'Scale',
-			'rules' => 'required|numeric|callback__scale_valid'
+			'rules' => 'callback__scale_valid'
 		),
 	),
 	'chart/songProcess' => array(
@@ -70,27 +70,27 @@ $config = array(
 		array(
 			'field' => 'kind',
 			'label' => 'Noteskin',
-			'rules' => 'required|callback__noteskin_exists'
+			'rules' => 'callback__noteskin_exists'
 		),
 		array(
 			'field' => 'red4',
 			'label' => '4th Note Color',
-			'rules' => 'required|is_natural|callback__red_exists'
+			'rules' => 'callback__red_exists'
 		),
 		array(
 			'field' => 'speed',
 			'label' => 'Speed Mod',
-			'rules' => 'required|is_natural_no_zero|callback__speed_valid'
+			'rules' => 'callback__speed_valid'
 		),
 		array(
 			'field' => 'mpcol',
 			'label' => 'Measures per Column',
-			'rules' => 'required|is_natural_no_zero|callback__mpc_valid'
+			'rules' => 'callback__mpc_valid'
 		),
 		array(
 			'field' => 'scale',
 			'label' => 'Scale',
-			'rules' => 'required|numeric|callback__scale_valid'
+			'rules' => 'callback__scale_valid'
 		),
 	)
 );

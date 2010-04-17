@@ -13,13 +13,14 @@ $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <ul>
 <?php if ($this->session->userdata('browser') === "Internet Explorer"): ?>
 <li><?php echo anchor("/base", "Base Edit Files"); ?></li>
+<li><?php echo anchor("/stats", "Edit Stat Getter"); ?></li>
 <?php else: ?>
 <li><?php echo anchor("/create", "Edit Creator"); ?></li>
 <li><?php echo anchor("/chart", "Edit Charter"); ?></li>
+<?php endif; ?>
 <li><?php echo anchor("/songs", "Edit List by Song"); ?></li>
 <li><?php echo anchor("/users", "Edit List by User"); ?></li>
 <li><?php echo anchor("/official", "Official Chart Edits"); ?></li>
-<?php endif; ?>
 </ul>
 </li>
 <li>

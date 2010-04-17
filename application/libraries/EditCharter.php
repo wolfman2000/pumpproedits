@@ -4,6 +4,11 @@ class EditCharter
 {
   function __construct($params)
   {
+    $this->CI =& get_instance();
+    $this->CI->load->model('ppe_song_bpm');
+    $this->CI->load->model('ppe_song_stop');
+    $this->CI->load->library('SVGMaker');
+  
     if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS, APP_CHART_HDB_COLS)))
     {
       $e = sprintf("There must be either %d, %d, or %d columns in the chart!",
@@ -115,15 +120,6 @@ class EditCharter
     }  
     return $use;
   }
-  
-  private function genSVGNode($x, $y, $id, $class = '', $sx = 1, $sy = 1)
-  {
-    $svg = $this->xml->createElement('svg');
-    $svg->setAttribute('x', $x);
-    $svg->setAttribute('y', $y);
-    $svg->appendChild($this->genUseNode(0, 0, $id, $class, $sx, $sy));
-    return $svg;
-  }
 
   private function genXMLHeader($measures)
   {
@@ -167,7 +163,7 @@ class EditCharter
     // Again, I need to target both Safari and Chrome.
     if (strpos($_SERVER['HTTP_USER_AGENT'], "WebKit") !== false)
     {
-      $svg->appendChild($this->genDefs());
+      $svg->appendChild($this->xml->importNode($this->CI->svgmaker->genDefs(), true));
     }
     
     $this->xml->appendChild($html);
@@ -186,6 +182,8 @@ class EditCharter
     $beatheight = APP_CHART_BEAT_HEIGHT; // default beat height
     $spd = $this->speedmod; // speed mod: also affects columns.
     $breather = $this->lb + $this->rb;
+    $m = $this->xml->createElement('g');
+    $m->setAttribute('id', 'svgMeas');
     for ($i = 0; $i < $numcols; $i++)
     {
       $x = ($this->aw * $this->cols + $breather) * $i + $this->lb;
@@ -193,64 +191,53 @@ class EditCharter
       for ($j = 0; $j < $this->mpcol * $spd; $j++)
       {
         $y = $beatheight * $j * $this->bm + $this->headheight;
-        $use = $this->genSVGNode($x, $y, "measure", '', $sx);
-        $this->svg->appendChild($use);
+        $tmp = $this->CI->svgmaker->genUse($x / $sx, $y, array('href' => "measure", 'transform' => "scale($sx 1)"));
+        $use = $this->xml->importNode($tmp);
+        $m->appendChild($use);
       }
     }
-  }
-  
-  private function genTxtNode($x, $y, $st, $class = '')
-  {
-    $txt = $this->xml->createElement('text');
-    $txt->setAttribute('x', $x);
-    $txt->setAttribute('y', $y);
-    if (strlen($class) > 1) $txt->setAttribute('class', $class);
-    $txt->appendChild($this->xml->createTextNode($st));
-    $this->svg->appendChild($txt);
+    $this->svg->appendChild($m);
   }
   
   private function genEditHeader($nd)
   {
     $lbuff = $this->lb;
+    $sm = $this->CI->svgmaker;
+    $g = $this->xml->createElement('g');
+    $g->setAttribute('id', 'svgHead');
     
     if ($this->arcade)
     {
-      $this->genTxtNode($lbuff, 16, sprintf("%s %s - %d",
-        $nd['song'], $nd['title'], $nd['diff']));
+      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s - %d",
+        $nd['song'], $nd['title'], $nd['diff'])), true));
     }
     else
     {
-      $this->genTxtNode($lbuff, 16, sprintf("%s %s Edit: %s - %d",
-        $nd['song'], ucfirst(substr($nd['style'], 5)), $nd['title'], $nd['diff']));
+      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s Edit: %s - %d",
+        $nd['song'], ucfirst(substr($nd['style'], 5)), $nd['title'], $nd['diff'])), true));
     }
-    $this->genTxtNode($lbuff, 32, $nd['author']);
-    /*
-    $this->genTxtNode($lbuff, 16, sprintf("%s Edit for %s: %s - %s",
-      ucfirst(substr($nd['style'], 5)),
-      $nd['song'],
-      $nd['title'], $nd['diff'])
-    );
-    */
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 32, $nd['author']), true));
     
-    $this->genTxtNode($lbuff, 64,
-      "Steps: " . $nd['steps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['steps'][1] : ""));
-    $this->genTxtNode($lbuff, 80,
-      "Jumps: " . $nd['jumps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['jumps'][1] : ""));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 64,
+      "Steps: " . $nd['steps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['steps'][1] : "")), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 80,
+      "Jumps: " . $nd['jumps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['jumps'][1] : "")), true));
     
     $w = $this->cw + $lbuff + $this->rb;
     
-    $this->genTxtNode($lbuff + $w * 1, 64,
-      "Holds: " . $nd['holds'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['holds'][1] : ""));
-    $this->genTxtNode($lbuff + $w * 1, 80,
-      "Mines: " . $nd['mines'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['mines'][1] : ""));
-    $this->genTxtNode($lbuff + $w * 2, 64,
-      "Trips: " . $nd['trips'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['trips'][1] : ""));
-    $this->genTxtNode($lbuff + $w * 2, 80,
-      "Rolls: " . $nd['rolls'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['rolls'][1] : ""));
-    $this->genTxtNode($lbuff + $w * 3, 64,
-      "Lifts: " . $nd['lifts'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['lifts'][1] : ""));
-    $this->genTxtNode($lbuff + $w * 3, 80,
-      "Fakes: " . $nd['fakes'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['fakes'][1] : ""));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 64,
+      "Holds: " . $nd['holds'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['holds'][1] : "")), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 80,
+      "Mines: " . $nd['mines'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['mines'][1] : "")), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 64,
+      "Trips: " . $nd['trips'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['trips'][1] : "")), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 80,
+      "Rolls: " . $nd['rolls'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['rolls'][1] : "")), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 64,
+      "Lifts: " . $nd['lifts'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['lifts'][1] : "")), true));
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 80,
+      "Fakes: " . $nd['fakes'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['fakes'][1] : "")), true));
+    $this->svg->appendChild($g);
   }
   
   private function genBPM($id)
@@ -258,10 +245,11 @@ class EditCharter
     $buff = $this->lb + $this->rb;
     $draw = $this->cols * $this->aw / 2;
     $m = $this->aw * $this->bm * $this->speedmod;
-    $CI =& get_instance();
-    $CI->load->model('ppe_song_bpm');
+    $g = $this->xml->createElement('g');
+    $g->setAttribute('id', 'svgBPMs');
+    $sm = $this->CI->svgmaker;
     
-    foreach ($CI->ppe_song_bpm->getBPMsBySongID($id) as $b)
+    foreach ($this->CI->ppe_song_bpm->getBPMsBySongID($id) as $b)
     {
       $beat = $b->beat;
       $bpm = $b->bpm;
@@ -273,13 +261,8 @@ class EditCharter
       $lx = ($buff + ($this->cols * $this->aw)) * $col + $this->lb;
       $ly = $down * $m + $this->headheight;
       
-      $line = $this->xml->createElement('line');
-      $line->setAttribute('x1', $lx + $draw);
-      $line->setAttribute('y1', $ly + 0.2);
-      $line->setAttribute('x2', $lx + $draw + $draw);
-      $line->setAttribute('y2', $ly + 0.2);
-      $line->setAttribute('class', 'bpm');
-      $this->svg->appendChild($line);
+      $g->appendChild($this->xml->importNode($sm->genLine($lx + $draw, $ly,
+        $lx + $draw + $draw, $ly, array('class' => 'bpm'))));
       
       if (isset($bpm))
       {
@@ -288,9 +271,11 @@ class EditCharter
         {
           $bpm = trim(trim($bpm, '0'), '.');
         }
-        $this->genTxtNode($lx + $draw + $draw, $ly + $this->bm, $bpm, 'bpm');
+        $g->appendChild($this->xml->importNode($sm->genText($lx + $draw + $draw,
+          $ly + $this->bm, $bpm, array('class' => 'bpm')), true));
       }
     }
+    $this->svg->appendChild($g);
   }
   
   private function genStop($id)
@@ -298,9 +283,10 @@ class EditCharter
     $buff = $this->lb + $this->rb;
     $draw = $this->cols * $this->aw / 2;
     $m = $this->aw * $this->bm * $this->speedmod;
-    $CI =& get_instance();
-    $CI->load->model('ppe_song_stop');
-    foreach ($CI->ppe_song_stop->getStopsBySongID($id) as $b)
+    $g = $this->xml->createElement('g');
+    $g->setAttribute('id', 'svgStop');
+    $sm = $this->CI->svgmaker;
+    foreach ($this->CI->ppe_song_stop->getStopsBySongID($id) as $b)
     {
       $beat = $b->beat;
       $break = $b->break;
@@ -312,21 +298,18 @@ class EditCharter
       $lx = ($buff + ($this->cols * $this->aw)) * $col + $this->lb;
       $ly = $down * $m + $this->headheight;
       
-      $line = $this->xml->createElement('line');
-      $line->setAttribute('x1', $lx);
-      $line->setAttribute('y1', $ly + 0.2);
-      $line->setAttribute('x2', $lx + $draw);
-      $line->setAttribute('y2', $ly + 0.2);
-      $line->setAttribute('class', 'stop');
-      $this->svg->appendChild($line);
+      $g->appendChild($this->xml->importNode($sm->genLine($lx, $ly,
+        $lx + $draw, $ly, array('class' => 'stop'))));
       
       if (isset($break))
       {
         $break = rtrim(rtrim($break, '0'), '.') . "B";
         $break = ltrim($break, '0');
-        $this->genTxtNode($lx - $this->aw, $ly + $this->bm, $break, 'stop');
+        $g->appendChild($this->xml->importNode($sm->genText($lx - $this->aw,
+          $ly + $this->bm, $break, array('class' => 'stop')), true));
       }
     }
+    $this->svg->appendChild($g);
   }
   
   private function prepArrows($counter = 0)
@@ -334,11 +317,11 @@ class EditCharter
     $pre = ($counter ? "p" . $counter : "note");
     if ($this->kind == "classic")
     {
-      $dl = array('a' => 'DL', 'c' => $pre . '_004');
-      $ul = array('a' => 'UL', 'c' => $pre . '_008');
-      $cn = array('a' => 'CN', 'c' => $pre . '_016');
-      $ur = array('a' => 'UR', 'c' => $pre . '_008');
-      $dr = array('a' => 'DR', 'c' => $pre . '_004');
+      $dl = array('a' => 'DL', 'c' => $pre . '_004', 't' => '');
+      $ul = array('a' => 'UL', 'c' => $pre . '_008', 't' => "rotate(90 %d %d)");
+      $cn = array('a' => 'CN', 'c' => $pre . '_016', 't' => '');
+      $ur = array('a' => 'UR', 'c' => $pre . '_008', 't' => "rotate(180 %d %d)");
+      $dr = array('a' => 'DR', 'c' => $pre . '_004', 't' => "rotate(270 %d %d)");
       $ret = array($dl, $ul, $cn, $ur, $dr);
       if ($this->cols == APP_CHART_DBL_COLS)
       {
@@ -364,11 +347,11 @@ class EditCharter
           else $g = sprintf('%s_%03d', $pre, intval($d));
         }
         else $g = sprintf('%s_%03d', $pre, intval($d));
-        $dl = array('a' => 'DL', 'c' => $g);
-        $ul = array('a' => 'UL', 'c' => $g);
-        $cn = array('a' => 'CN', 'c' => $g);
-        $ur = array('a' => 'UR', 'c' => $g);
-        $dr = array('a' => 'DR', 'c' => $g);
+        $dl = array('a' => 'DL', 'c' => $g, 't' => '');
+        $ul = array('a' => 'UL', 'c' => $g, 't' => "rotate(90 %d %d)");
+        $cn = array('a' => 'CN', 'c' => $g, 't' => '');
+        $ur = array('a' => 'UR', 'c' => $g, 't' => "rotate(180 %d %d)");
+        $dr = array('a' => 'DR', 'c' => $g, 't' => "rotate(270 %d %d)");
         $ret[$d] = array($dl, $ul, $cn, $ur, $dr);
         if ($this->cols == APP_CHART_DBL_COLS)
         {
@@ -409,6 +392,10 @@ class EditCharter
     $w = $this->cw + $this->lb + $this->rb; # width + buffers.
     $m = $this->aw * $this->bm * $this->speedmod; # height of measure block
     
+    $sm = $this->CI->svgmaker;
+    $nt = $this->xml->createElement('g');
+    $nt->setAttribute('id', 'svgNote');
+    
     $ucounter = 1;
     foreach ($notes as $player):
     
@@ -437,9 +424,12 @@ class EditCharter
     {
       case "1": # Tap note. Just add to the chart.
       {
-        $id = $arow[$pcounter]['a'] . "arrow";
-        $cl = $arow[$pcounter]['c'];
-        $this->svg->appendChild($this->genUseNode($nx, $ny, $id, $cl));
+        $opt = array('href' => $arow[$pcounter]['a'] . "arrow", 'class' => $arow[$pcounter]['c']);
+        if ($arow[$pcounter]['a'] !== "L")
+        {
+          //$opt['transform'] = sprintf($arow[$pcounter]['t'], $nx + 8, $ny + 8);
+        }
+        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
       case "2": case "4": # Start of hold/roll. Minor differences.
@@ -474,10 +464,17 @@ class EditCharter
             $range = $bot - $hy;
             $sy = $range / $this->aw;
             
-            $node = $this->genSVGNode($ox, $hy, $bod, '', 1, $sy);
-            $this->svg->appendChild($node);
+            $opt = array('href' => $bod, 'transform' => "scale(1 $sy)");
+            $node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
+            $nt->appendChild($node);
+            
             # Place the tap.
-            $this->svg->appendChild($this->genUseNode($ox, $oy, $a['a'] . "arrow", $a['c']));
+            $opt = array('href' => $a['a'] . "arrow", 'class' => $a['c']);
+            if ($arow[$pcounter]['a'] !== "L")
+            {
+              //$opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
+            }
+            $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
             
             $ox += $w;
             $hy = $this->headheight;
@@ -485,15 +482,19 @@ class EditCharter
             {
               $range = $bot - $hy;
               $sy = $range / $this->aw;
-              $this->svg->appendChild($this->genSVGNode($ox, $hy, $bod, '', 1, $sy));
+              $opt = array('href' => $bod, 'transform' => "scale(1 $sy)");
+              $node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
+              $nt->appendChild($node);
               $ox += $w;
             }
             # Now we're on the same column as the tail.
             $bot = $ny + $this->aw / 2;
             $range = $bot - $hy;
             $sy = $range / $this->aw;
-            $this->svg->appendChild($this->genSVGNode($nx, $hy, $bod, '', 1, $sy));
-            $this->svg->appendChild($this->genUseNode($nx, $ny, $end));
+            $opt = array('href' => $bod, 'transform' => "scale(1 $sy)");
+            $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
+            $nt->appendChild($node);
+            $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, array('href' => $end))));
           }
           else
           {
@@ -503,26 +504,32 @@ class EditCharter
               $hy = $oy + $this->aw / 2;
               $range = $bot - $hy;
               $sy = $range / $this->aw;
-              $this->svg->appendChild($this->genSVGNode($nx, $hy, $bod, '', 1, $sy));
+              $opt = array('href' => $bod, 'transform' => "scale(1 $sy)");
+              $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
+              $nt->appendChild($node);
             }
             # Tail next
-            $this->svg->appendChild($this->genUseNode($nx, $ny, $end));
+            $opt = array('href' => $end);
+            $node = $this->xml->importNode($sm->genUse($nx, $ny, $opt));
+            $nt->appendChild($node);
+            //$nt->appendChild($this->genUseNode($nx, $ny, $end));
             # Tap note last.
-            $this->svg->appendChild($this->genUseNode($ox, $oy, $a['a'] . "arrow", $a['c']));
-          } 
-        }
-        else # Throw an error at some point.
-        {
-          $id = $arow[$pcounter]['a'] . "arrow";
-          $cl = $arow[$pcounter]['c'];
-          $this->svg->appendChild($this->genUseNode($nx, $ny, $id, $cl));
+            $opt = array('href' => $a['a'] . "arrow", 'class' => $a['c']);
+            if ($arow[$pcounter]['a'] !== "L")
+            {
+              //$opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
+            }
+            $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
+            //$nt->appendChild($this->genUseNode($ox, $oy, $a['a'] . "arrow", $a['c']));
+          }
         }
         break;
       }
       case "M": # Mine. Don't step on these!
       {
         $holds[$pcounter]['on'] = false;
-        $this->svg->appendChild($this->genUseNode($nx, $ny, "mine"));
+        $opt = array('href' => 'mine', 'class' => $arow[$pcounter]['c']);
+        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
       case "L": # Lift note. Can be placed in chart. No image yet.
@@ -548,283 +555,7 @@ class EditCharter
     
     $ucounter++;
     endforeach;
-  }
-  
-  /**
-   * Generate the definitions in a separate function for ease of use.
-   */
-  private function genDefs()
-  {
-    $def = $svg = $this->xml->createElement('defs');
-    $point = 8.5;
-    $radius = 6.5625;
-    
-    foreach (array('grad_', 'p1_', 'p2_') as $pl):
-    
-    foreach (array('004', '008', '012', '016', '024', '032', '048', '064', '192') as $rg)
-    {
-      $node = $this->xml->createElement('radialGradient');
-      $node->setAttribute('id', $pl . $rg);
-      
-      foreach (array('cx', 'cy', 'fx', 'fy') as $at)
-      {
-        $node->setAttribute($at, $point);
-      }
-      $node->setAttribute('r', $radius);
-      $node->setAttribute('gradientUnits', 'userSpaceOnUse');
-      foreach (array(0, 1) as $so)
-      {
-        $stop = $this->xml->createElement('stop');
-        $stop->setAttribute('offset', $so);
-        $node->appendChild($stop);
-      }
-      $def->appendChild($node);
-    }
-    
-    endforeach;
-    
-    foreach (array(1, 2) as $num)
-    {
-      $g = $this->xml->createElement('g');
-      $g->setAttribute('id', 'beat' . $num);
-      
-      foreach (array(0, 16) as $y)
-      {
-        $r = $this->xml->createElement('rect');
-        $r->setAttribute('x', 0);
-        $r->setAttribute('y', $y);
-        $r->setAttribute('height', 16);
-        $r->setAttribute('width', 16);
-        $g->appendChild($r);
-      }
-      if ($num === 1)
-      {
-        $l = $this->xml->createElement('line');
-        $l->setAttribute('x1', 0);
-        $l->setAttribute('x2', 16);
-        $l->setAttribute('y1', 0.1);
-        $l->setAttribute('y2', 0.1);
-        $g->appendChild($l);
-      }
-      $def->appendChild($g);
-    }
-    
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'measure');
-    foreach (array(0, 32) as $y)
-    {
-      $u = $this->xml->createElement('use');
-      $u->setAttribute('x', 0);
-      $u->setAttribute('y', $y);
-      $u->setAttribute('xlink:href', '#beat' . ($y > 0 ? 2 : 1));
-      $g->appendChild($u);
-    }
-    
-    foreach (array(0.05, 15.95) as $x)
-    {
-      $l = $this->xml->createElement('line');
-      $l->setAttribute('x1', $x);
-      $l->setAttribute('x2', $x);
-      $l->setAttribute('y1', 0);
-      $l->setAttribute('y2', 64);
-      $g->appendChild($l);
-    }
-    $def->appendChild($g);
-    
-    // Now the arrows get defined.  Here: down left arrow
-    
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'DLarrow');
-    $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'm 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 0,0 0,-1 -1,-1 '
-      . 'H 7 L 15,5 V 2 C 15,2 15,1 14,1 H 11 L 3,9 V 2 C 3,2 3,1 2,1 2,1 1,1 1,2');
-    $g->appendChild($p);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 15);
-    $l->setAttribute('x2', 11);
-    $l->setAttribute('y1', 5);
-    $l->setAttribute('y2', 1);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 11);
-    $l->setAttribute('x2', 7);
-    $l->setAttribute('y1', 9);
-    $l->setAttribute('y2', 5);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 7);
-    $l->setAttribute('x2', 3);
-    $l->setAttribute('y1', 13);
-    $l->setAttribute('y2', 9);
-    $g->appendChild($l);
-    
-    $def->appendChild($g);
-    
-    // up left arrow
-    
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'ULarrow');
-    $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'M 1,14 V 2 C 1,2 1,1 2,1 h 12 c 0,0 1,0 1,1 0,0 0,1 -1,1 '
-      . 'H 7 l 8,8 v 3 c 0,0 0,1 -1,1 H 11 L 3,6 v 8 c 0,0 0,1 -1,1 0,0 -1,0 -1,-1');
-    $g->appendChild($p);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 15);
-    $l->setAttribute('x2', 11);
-    $l->setAttribute('y1', 11);
-    $l->setAttribute('y2', 15);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 11);
-    $l->setAttribute('x2', 7);
-    $l->setAttribute('y1', 7);
-    $l->setAttribute('y2', 11);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 7);
-    $l->setAttribute('x2', 3);
-    $l->setAttribute('y1', 3);
-    $l->setAttribute('y2', 7);
-    $g->appendChild($l);
-    
-    $def->appendChild($g);
-    
-    // center arrow
-    
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'CNarrow');
-    $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'm 1,2 v 12 l 1,1 h 12 l 1,-1 V 2 L 14,1 H 2 z');
-    $g->appendChild($p);
-    
-    foreach (array(4, 10) as $x)
-    {
-    
-      $l = $this->xml->createElement('rect');
-      $l->setAttribute('x', $x);
-      $l->setAttribute('y', 6);
-      $l->setAttribute('height', 4);
-      $l->setAttribute('width', 2);
-      $l->setAttribute('rx', 0.5);
-      $g->appendChild($l);
-    }
-    $def->appendChild($g);
-    
-    // up right arrow
-    
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'URarrow');
-    $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'M 15,14 V 2 C 15,2 15,1 14,1 H 2 C 2,1 1,1 1,2 1,2 1,3 2,3 '
-      . 'h 7 l -8,8 v 3 c 0,0 0,1 1,1 h 3 l 8,-8 v 7 c 0,0 0,1 1,1 0,0 1,0 1,-1');
-    $g->appendChild($p);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 1);
-    $l->setAttribute('x2', 5);
-    $l->setAttribute('y1', 11);
-    $l->setAttribute('y2', 15);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 5);
-    $l->setAttribute('x2', 9);
-    $l->setAttribute('y1', 7);
-    $l->setAttribute('y2', 11);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 9);
-    $l->setAttribute('x2', 13);
-    $l->setAttribute('y1', 3);
-    $l->setAttribute('y2', 7);
-    $g->appendChild($l);
-    
-    $def->appendChild($g);
-    
-    // down right arrow
-    
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'DRarrow');
-    $p = $this->xml->createElement('path');
-    $p->setAttribute('d', 'm 15,2 v 12 c 0,0 0,1 -1,1 H 2 c 0,0 -1,0 -1,-1 0,0 0,-1 1,-1 '
-      . 'H 9 L 1,5 V 2 C 1,2 1,1 2,1 h 3 l 8,8 V 2 c 0,0 0,-1 1,-1 0,0 1,0 1,1');
-    $g->appendChild($p);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 1);
-    $l->setAttribute('x2', 5);
-    $l->setAttribute('y1', 5);
-    $l->setAttribute('y2', 1);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 5);
-    $l->setAttribute('x2', 9);
-    $l->setAttribute('y1', 9);
-    $l->setAttribute('y2', 5);
-    $g->appendChild($l);
-    
-    $l = $this->xml->createElement('line');
-    $l->setAttribute('x1', 9);
-    $l->setAttribute('x2', 13);
-    $l->setAttribute('y1', 13);
-    $l->setAttribute('y2', 9);
-    $g->appendChild($l);
-    
-    $def->appendChild($g);
-    
-    // mine
-    
-    $g = $this->xml->createElement('mine');
-    $g->setAttribute('id', 'mine');
-    
-    foreach (array(7, 3.5) as $r)
-    {
-      $c = $this->xml->createElement('circle');
-      $c->setAttribute('cx', 8);
-      $c->setAttribute('cy', 8);
-      $c->setAttribute('r', $r);
-      $g->appendChild($c);
-    }
-    $def->appendChild($g);
-    
-    foreach (array("hold", "roll") as $t)
-    {
-      $g = $this->xml->createElement('g');
-      $g->setAttribute('id', $t . '_bdy');
-      $r = $this->xml->createElement('rect');
-      $r->setAttribute('x', 1);
-      $r->setAttribute('y', 0);
-      $r->setAttribute('width', 14);
-      $r->setAttribute('height', 16);
-      $g->appendChild($r);
-      
-      foreach (array(1, 15) as $x)
-      {
-        $l = $this->xml->createElement('line');
-        $l->setAttribute('x1', $x);
-        $l->setAttribute('y1', 0);
-        $l->setAttribute('x2', $x);
-        $l->setAttribute('y2', 16);
-        $g->appendChild($l);
-      }
-      $def->appendChild($g);
-      $g = $this->xml->createElement('g');
-      $g->setAttribute('id', $t . '_end');
-      $p = $this->xml->createElement('path');
-      $p->setAttribute('d', 'm 1,0 v 13 c 0,0 0,2 2,2 h 10 c 0,0 2,0 2,-2 v -13');
-      $g->appendChild($p);
-      $def->appendChild($g);
-    }
-    
-    return $def;
+    $this->svg->appendChild($nt);
   }
   
   public function genChart($notedata)

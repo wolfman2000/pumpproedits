@@ -6,7 +6,6 @@ class Base extends Controller
 	{
 		parent::Controller();
     $this->load->model('ppe_song_song');
-    $this->load->model('ppe_edit_edit');
 	}
   
   function index()

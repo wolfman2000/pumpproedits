@@ -13,7 +13,7 @@ class EditParser
     return $measure;
   }
 
-  private function gen_edit_file($kind, $name, $abbr, $measures, $duration)
+  private function gen_edit_file($kind, $name, $abbr, $measures, $duration = 90)
   {
     $fname = sprintf("base_%06d_%s.edit.gz", $abbr, ucfirst($kind));
     $eol = "\r\n";
@@ -62,7 +62,7 @@ class EditParser
     $base = $CI->ppe_song_song->getSongRow($songid);
     foreach (array("single", "double", "halfdouble", "routine") as $kind)
     {
-      $this->gen_edit_file($kind, $base->name, $base->id, $base->measures, $base->duration);
+      $this->gen_edit_file($kind, $base->name, $base->id, $base->measures);
     }
 
   }
@@ -181,13 +181,13 @@ class EditParser
       if ($pos !== 0)
       {
         $s = "The first line must contain \"$key\" in it.";
-        throw new sfParseException($s);
+        throw new Exception($s);
       }
       $pos = strpos($line, ";");
       if ($pos === false)
       {
         $s = "This line needs a semicolon at the end: %s";
-        throw new sfParseException(sprintf($s, $line));
+        throw new Exception(sprintf($s, $line));
       }
       $line = rtrim($line, ";");
       
@@ -221,7 +221,7 @@ class EditParser
         {
           $s = "This song is not found in the database: %s. ";
           $s .= "Make sure you spelt it right.";
-          throw new sfParseException(sprintf($s, $song));
+          throw new Exception(sprintf($s, $song));
         }
       }
       else
@@ -245,7 +245,7 @@ class EditParser
       if (strpos($line, "#NOTES:", 0) !== 0)
       {
         $s = "The #NOTES: tag must be on line 2.";
-        throw new sfParseException($s);
+        throw new Exception($s);
       }
       $state = 2;
       break;
@@ -258,7 +258,7 @@ class EditParser
       if ($pos === false)
       {
         $s = "This line needs a colon at the end: %s";
-        throw new sfParseException(sprintf($s, $line));
+        throw new Exception(sprintf($s, $line));
       }
       $style = substr($line, 0, $pos - strlen($line));
       if (!in_array($style, array("pump-single", "pump-double", "pump-halfdouble", "pump-routine")))
@@ -271,7 +271,7 @@ class EditParser
         else
         {
           $s = "The style %s is invalid. Use pump-single, double, halfdouble, or routine.";
-          throw new sfParseException(sprintf($s, $style));
+          throw new Exception(sprintf($s, $style));
         }
       }
       $state = 3;
@@ -285,7 +285,7 @@ class EditParser
       if ($pos === false)
       {
         $s = "This line needs a colon at the end: %s";
-        throw new sfParseException(sprintf($s, $line));
+        throw new Exception(sprintf($s, $line));
       }
       
       if ($params['arcade']) // Different rules:
@@ -306,7 +306,7 @@ class EditParser
           if ($params['strict_edit'])
           {
             $s = "Blank edit names are no longer allowed.";
-            throw new sfParseException($s);
+            throw new Exception($s);
           }
           else
           {
@@ -322,7 +322,7 @@ class EditParser
         if ($titlen > $maxlen and $params['strict_edit'])
         {
           $s = 'The edit titled "%s" is %d characters too long.';
-          throw new sfParseException(sprintf($s, $title, $titlen - $maxlen));
+          throw new Exception(sprintf($s, $title, $titlen - $maxlen));
         }
         $author = false;
       }
@@ -365,21 +365,21 @@ class EditParser
       if ($pos === false)
       {
         $s = "This line needs a colon at the end: %s";
-        throw new sfParseException(sprintf($s, $line));
+        throw new Exception(sprintf($s, $line));
       }
 
       $diff = (int) $line;
       if ($diff != $line) /* Unsure of !== here. */
       {
         $s = "The difficulty must be a positive integer. You gave: %d ";
-        throw new sfParseException(sprintf($s, $line));
+        throw new Exception(sprintf($s, $line));
       }
       $mindiff = APP_MIN_DIFFICULTY_RATING;
       $maxdiff = APP_MAX_DIFFICULTY_RATING;
       if (!($mindiff <= $diff and $diff <= $maxdiff))
       {
         $s = "The difficulty rating %d must be between %d and %d.";
-        throw new sfParseException(sprintf($s, $diff, $mindiff, $maxdiff));
+        throw new Exception(sprintf($s, $diff, $mindiff, $maxdiff));
       }
       $state = 6;
       break;
@@ -486,7 +486,7 @@ class EditParser
           {
             $n = "0, 1, 2, 3, 4, M, L, F";
             $s = "Line %d has an invalid note %s. Stick with %s.";
-            throw new sfParseException(sprintf($s, $numl, $char, $n));
+            throw new Exception(sprintf($s, $numl, $char, $n));
           }
           endswitch;
 
@@ -508,7 +508,7 @@ class EditParser
       if (!($line === "" or strpos($line, "//", 0) === 0))
       {
         $s = "Remove all data on and after line %d of your file.";
-        throw new sfParseException(sprintf($s, $numl));
+        throw new Exception(sprintf($s, $numl));
       }
       break;
     }
@@ -522,7 +522,7 @@ class EditParser
     
     if ($params['arcade'] and !count($notes))
     {
-      throw new sfParseException("The chosen song / difficulty combination doesn't exist! Please choose another.");
+      throw new Exception("The chosen song / difficulty combination doesn't exist! Please choose another.");
     }
     
     $res['id'] = $songid;

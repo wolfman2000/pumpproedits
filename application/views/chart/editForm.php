@@ -8,7 +8,7 @@
 <?php $oname = "無"; # Start with no match. ?>
 <option value="無" selected="selected">Select an edit.</option>
 <?php foreach ($edits as $r):
-$nname = $r->uname;
+$nname = $r['uname'];
 if ($oname !== $nname):
 if ($oname !== "無"): ?>
 </optgroup>
@@ -16,8 +16,8 @@ if ($oname !== "無"): ?>
 <optgroup label="<?php echo $nname; ?>">
 <?php $oname = $nname;
 endif; ?>
-<option value="<?php echo $r->id; ?>"><?php echo sprintf("%s → %s (%s%d)",
-  $r->sname, $r->title, ucfirst(substr($r->style, 0, 1)), $r->diff); ?></option>
+<option value="<?php echo $r['id']; ?>"><?php echo sprintf("%s → %s (%s%d)",
+  $r['sname'], $r['title'], ucfirst(substr($r['style'], 0, 1)), $r['diff']); ?></option>
 <?php endforeach; ?>
 </optgroup>
 </select></p>
