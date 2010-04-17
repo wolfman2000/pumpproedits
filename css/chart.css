@@ -4,7 +4,7 @@
 {
   fieldset
   {
-    width: 50em;
+    width: 40em;
   }
   section > p:nth-child(odd)
   {
@@ -18,7 +18,7 @@
   #edit, #song
   {
 	float: left;
-	width: 35em;
+	width: 25em;
   }
   ul.error_list > li
   {

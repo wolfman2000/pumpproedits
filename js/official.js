@@ -2,6 +2,7 @@ $(document).ready(function()
 {
   $("#diff > option:first-child").before("<option value=''>Choose!</option>");
   $("#diff").val('');
+  $("#diff > option:not(:first-child)").hide();
   $("#songs").val(0);
   $("#submit").attr('disabled', 'disabled');
   

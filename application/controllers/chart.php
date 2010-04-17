@@ -25,7 +25,7 @@ class Chart extends Controller
   // confirm the song and difficulty exist.
   function _diff_exists($str)
   {
-    if (in_array($str, array('ez', 'nr', 'hr', 'cz', 'hd', 'fs', 'nm', 'rt'))) return true;
+    if (in_array($str, array('sb', 'se', 'sm', 'sh', 'sx', 'de', 'dm', 'dh', 'dx'))) return true;
     return false;
   }
   
@@ -116,7 +116,7 @@ class Chart extends Controller
     }
     $sid = $this->input->post('songs');
     $dif = $this->input->post('diff');
-    $path = sprintf("%sdata/official/%d.sm", APPPATH, $sid);
+    $path = sprintf("%sdata/itg_official/%d.sm", APPPATH, $sid);
     
     $this->load->library('EditParser');
     $p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $dif);

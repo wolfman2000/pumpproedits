@@ -13,7 +13,7 @@ if ($oid !== $nid):
 if ($oid !== "無"): ?>
 </optgroup>
 <?php endif; ?>
-<optgroup label="<?php echo "Pump it up Pro" . ($nid == 1 ? "" : " 2"); ?>">
+<optgroup label="<?php echo "In The Groove" . ($nid == 1 ? "" : " 2"); ?>">
 <?php $oid = $nid;
 endif; ?>
 <option value="<?php echo $r->id; ?>"><?php echo $r->name; ?></option>
@@ -24,24 +24,15 @@ endif; ?>
 <section>
 <p><label for="diff">Difficulty</label></p>
 <p><select id="diff" name="diff">
-<option value="ez">Easy</option>
-<option value="nr">Normal</option>
-<option value="hr">Hard</option>
-<option value="cz" selected="selected">Crazy</option>
-<option value="hd">Halfdouble</option>
-<option value="fs">Freestyle</option>
-<option value="nm">Nightmare</option>
-<option value="rt">Routine</option>
-</select></p>
-<p><label for="kind">Noteskin</label></p>
-<p><select id="kind" name="kind">
-<option selected="selected" value="classic">Classic</option>
-<option value="rhythm">Rhythm</option>
-</select></p>
-<p><label for="red4">4th Note Color</label></p>
-<p><select id="red4" name="red4">
-<option value="0" selected="selected">Blue</option>
-<option value="1">Red</option>
+<option value="sb">Single Beginner</option>
+<option value="se">Single Easy</option>
+<option value="sm">Single Medium</option>
+<option value="sh">Single Hard</option>
+<option value="sx" selected="selected">Single Expert</option>
+<option value="de">Double Easy</option>
+<option value="dm">Double Medium</option>
+<option value="dh">Double Hard</option>
+<option value="dx">Double Expert</option>
 </select></p>
 <p><label for="speed">Speed Mod</label></p>
 <p><select id="speed" name="speed">

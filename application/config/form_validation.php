@@ -31,16 +31,6 @@ $config = array(
 			'rules' => 'required|is_natural_no_zero|callback__edit_exists'
 		),
 		array(
-			'field' => 'kind',
-			'label' => 'Noteskin',
-			'rules' => 'required|callback__noteskin_exists'
-		),
-		array(
-			'field' => 'red4',
-			'label' => '4th Note Color',
-			'rules' => 'required|is_natural|callback__red_exists'
-		),
-		array(
 			'field' => 'speed',
 			'label' => 'Speed Mod',
 			'rules' => 'required|is_natural_no_zero|callback__speed_valid'
@@ -66,16 +56,6 @@ $config = array(
 			'field' => 'diff',
 			'label' => 'Difficulty',
 			'rules' => 'callback__diff_exists'
-		),
-		array(
-			'field' => 'kind',
-			'label' => 'Noteskin',
-			'rules' => 'required|callback__noteskin_exists'
-		),
-		array(
-			'field' => 'red4',
-			'label' => '4th Note Color',
-			'rules' => 'required|is_natural|callback__red_exists'
 		),
 		array(
 			'field' => 'speed',
