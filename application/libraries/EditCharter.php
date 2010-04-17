@@ -7,6 +7,7 @@ class EditCharter
     $this->CI =& get_instance();
     $this->CI->load->model('itg_song_bpm');
     $this->CI->load->model('itg_song_stop');
+    $this->CI->load->library('SVGMaker');
   
     if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS)))
     {
@@ -186,7 +187,10 @@ class EditCharter
       for ($j = 0; $j < $this->mpcol * $spd; $j++)
       {
         $y = $beatheight * $j * $this->bm + $this->headheight;
-        $use = $this->genSVGNode($x, $y, "measure", '', $sx);
+        $tmp = $this->CI->svgmaker->genUse($x / $sx, $y, array('href' => "measure", 'transform' => "scale($sx 1)"));
+        $use = $this->xml->importNode($tmp);
+        //print_r($use);
+        //$use = $this->genSVGNode($x, $y, "measure", '', $sx);
         $this->svg->appendChild($use);
       }
     }
