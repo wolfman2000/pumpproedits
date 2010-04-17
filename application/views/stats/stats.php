@@ -18,9 +18,7 @@ statRow("Jumps", $result['jumps'], $style);
 statRow("Holds", $result['holds'], $style);
 statRow("Mines", $result['mines'], $style);
 statRow("Trips", $result['trips'], $style);
-statRow("Rolls", $result['rolls'], $style);
-statRow("Lifts", $result['lifts'], $style);
-statRow("Fakes", $result['fakes'], $style); ?>
+statRow("Rolls", $result['rolls'], $style); ?>
 </dl>
 
 <p>If you wish to get stats for another file, you can do so below.</p>

@@ -6,21 +6,21 @@ the general format below.</p>
 <pre>
 #SONG:<var>Song Name</var>;
 #NOTES:
-pump-<var>single, double, halfdouble, OR routine</var>:
+dance-<var>single OR double</var>:
 <var>EditNameHere</var>:
 Edit:
 <var>1-99</var>:
 <var>Comma separated list of 5+ numbers on a single line</var>:
 
-00100
-00000
-00000
-00000
+0010
+0000
+0000
+0000
 ,
-10101
-00000
-01110
-00000
+1001
+0000
+0110
+0000
 ;
 </pre>
 <?php $this->load->view('stats/form');
