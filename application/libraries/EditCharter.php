@@ -4,6 +4,10 @@ class EditCharter
 {
   function __construct($params)
   {
+    $this->CI =& get_instance();
+    $this->CI->load->model('itg_song_bpm');
+    $this->CI->load->model('itg_song_stop');
+  
     if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS)))
     {
       $e = sprintf("There must be either %d or %d columns in the chart!",
@@ -236,10 +240,8 @@ class EditCharter
     $buff = $this->lb + $this->rb;
     $draw = $this->cols * $this->aw / 2;
     $m = $this->aw * $this->bm * $this->speedmod;
-    $CI =& get_instance();
-    $CI->load->model('itg_song_bpm');
     
-    foreach ($CI->itg_song_bpm->getBPMsBySongID($id) as $b)
+    foreach ($this->CI->itg_song_bpm->getBPMsBySongID($id) as $b)
     {
       $beat = $b->beat;
       $bpm = $b->bpm;
@@ -276,9 +278,7 @@ class EditCharter
     $buff = $this->lb + $this->rb;
     $draw = $this->cols * $this->aw / 2;
     $m = $this->aw * $this->bm * $this->speedmod;
-    $CI =& get_instance();
-    $CI->load->model('itg_song_stop');
-    foreach ($CI->itg_song_stop->getStopsBySongID($id) as $b)
+    foreach ($this->CI->itg_song_stop->getStopsBySongID($id) as $b)
     {
       $beat = $b->beat;
       $break = $b->break;
