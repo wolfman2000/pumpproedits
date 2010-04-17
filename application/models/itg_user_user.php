@@ -24,6 +24,15 @@ class itg_user_user extends Model
       ->get();
   }
   
+  // get the name of the author of the edit (old edit ID style)
+  public function getUserByOldEditID($oid)
+  {
+    return $this->db->select('a.name aname')
+      ->join('itg_edit_edit b', 'a.id = b.user_id')
+      ->where('b.old_edit_id', $oid)
+      ->get('itg_user_user a')->row()->aname;
+  }
+  
   // get the name of the author of the edit.
   public function getUserByEditID($eid)
   {

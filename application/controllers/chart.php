@@ -63,8 +63,14 @@ class Chart extends Controller
     }
     $eid = $this->input->post('edits');
     $path = sprintf("%sdata/itg_user_edits/itg_%06d.edit.gz", APPPATH, $eid);
+    if (!file_exists($path))
+    {
+      $data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result_array();
+      $this->load->view('chart/editError', $data);
+      return;
+    }
     $this->load->model('itg_user_user');
-    $author = $this->itg_user_user->getUserByEditID($eid);
+    $author = $this->itg_user_user->getUserByOldEditID($eid);
     $this->load->library('EditParser');
     $p = array('notes' => 1, 'strict_song' => 0, 'strict_edit' => 0);
     $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);

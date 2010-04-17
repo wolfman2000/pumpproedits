@@ -16,7 +16,7 @@ class itg_edit_edit extends Model
   // Get all of the user edits for possible charting.
   public function getNonProblemEdits()
   {
-    return $this->db->select('a.id, u.name uname, a.style, a.title, a.diff, s.name sname')
+    return $this->db->select('a.old_edit_id id, u.name uname, a.style, a.title, a.diff, s.name sname')
       ->from('itg_edit_edit a')
       ->join('itg_user_user u', 'a.user_id = u.id')
       ->join('itg_song_song s', 'a.song_id = s.id')
