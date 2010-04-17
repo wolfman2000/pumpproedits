@@ -25,37 +25,43 @@ g#beat1 > line
   stroke:black;
   fill:black;
 }
-g#DLarrow, g#ULarrow, g#CNarrow, g#URarrow, g#DRarrow, g#mine, g#fake, g#lift
+g#arrow, g#center, g#mine, g#fake, g#lift,
+g#P0arrow, g#P0center, g#P0mine, g#P0fake, g#P0lift,
+g#P1arrow, g#P1center, g#P1mine, g#P1fake, g#P1lift
 {
   fill-opacity:1;
   stroke:black;
   stroke-width:0.5;
   stroke-opacity:1;
 }
-g#DLarrow path:first-child, g#ULarrow path:first-child,
-g#URarrow path:first-child, g#DRarrow path:first-child,
-g#CNarrow path:first-child
+g#arrow path:first-child, g#center path:first-child,
+g#P0arrow path:first-child, g#P0center path:first-child,
+g#P1arrow path:first-child, g#P1center path:first-child
 {
 	stroke-width: 1;
 }
 
-g#mine > circle
+g#mine > circle, g#P0mine > circle, g#P1mine > circle
 {
 	stroke-width: 0.1;
 }
 g#mine > circle:first-child
+g#P0mine > circle:first-child,
+g#P1mine > circle:first-child
 {
   fill:red;
 }
-g#mine > circle:first-child + circle
+g#mine > circle:first-child + circle,
+g#P0mine > circle:first-child + circle,
+g#P1mine > circle:first-child + circle
 {
   fill:black;
 }
-g#CNarrow > rect
+g#center > rect, g#P0center > rect, g#P1center > rect
 {
   fill:black;
 }
-g#DLarrow > line, g#ULarrow > line, g#URarrow > line, g#DRarrow > line
+g#arrow > line, g#P0arrow > line, g#P1arrow > line
 {
   stroke: black;
   stroke-width: 0.1;
@@ -87,6 +93,20 @@ g#hold_bdy > line, g#hold_end > path, g#roll_bdy > line, g#roll_end > path
 .note_048 { fill: aqua;    }
 .note_064 { fill: lime;    }
 .note_192 { fill: #808080; }
+
+g#P0arrow > *:first-child, g#P0center > *:first-child,
+g#P0mine > *:first-child, g#P0fake > *:first-child,
+g#P0lift > *:first-child
+{
+	stroke: #483D8B;
+}
+g#P1arrow > *:first-child, g#P1center > *:first-child,
+g#P1mine > *:first-child, g#P1fake > *:first-child,
+g#P1lift > *:first-child
+{
+	stroke: #b22222;
+}
+
 text
 {
   font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;

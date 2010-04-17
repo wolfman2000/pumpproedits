@@ -99,29 +99,7 @@ class EditCharter
     $this->xml->formatOutput = true; # May change this.
   }
 
-  private function genUseNode($x, $y, $id, $class = '', $sx = 1, $sy = 1)
-  {
-    $base = APP_CHART_DEF_FILE;
-
-    // Need to target both Safari and WebKit at once. This may have to stay.
-    if (strpos($_SERVER['HTTP_USER_AGENT'], "WebKit") !== false)
-    {
-      $base = "";
-    }
-
-    $use = $this->xml->createElement('use');
-    if ($x > 0) $use->setAttribute('x', $x);
-    if ($y > 0) $use->setAttribute('y', $y);
-    $use->setAttribute('xlink:href', "$base#$id");
-    if (strlen($class) > 1) $use->setAttribute('class', "$class");
-    if (!($sx === 1 and $sy === 1))
-    {
-      $use->setAttribute('transform', "scale($sx $sy)");
-    }  
-    return $use;
-  }
-
-  private function genXMLHeader($measures)
+  private function genXMLHeader($measures, $style)
   {
     // Place the surrounding HTML in first.
     $html = $this->xml->createElement('html');
@@ -160,11 +138,7 @@ class EditCharter
     $svg->setAttribute('height', $height * $this->scale);
     $this->svgheight = $height;
     
-    // Again, I need to target both Safari and Chrome.
-    if (strpos($_SERVER['HTTP_USER_AGENT'], "WebKit") !== false)
-    {
-      $svg->appendChild($this->xml->importNode($this->CI->svgmaker->genDefs(), true));
-    }
+    $svg->appendChild($this->xml->importNode($this->CI->svgmaker->genDefs($style), true));
     
     $this->xml->appendChild($html);
     
@@ -312,16 +286,16 @@ class EditCharter
     $this->svg->appendChild($g);
   }
   
-  private function prepArrows($counter = 0)
+  private function prepArrows($counter)
   {
-    $pre = ($counter ? "p" . $counter : "note");
+    $pre = ($counter === false ? '' : 'P' . $counter);
     if ($this->kind == "classic")
     {
-      $dl = array('a' => 'DL', 'c' => $pre . '_004', 't' => '');
-      $ul = array('a' => 'UL', 'c' => $pre . '_008', 't' => "rotate(90 %d %d)");
-      $cn = array('a' => 'CN', 'c' => $pre . '_016', 't' => '');
-      $ur = array('a' => 'UR', 'c' => $pre . '_008', 't' => "rotate(180 %d %d)");
-      $dr = array('a' => 'DR', 'c' => $pre . '_004', 't' => "rotate(270 %d %d)");
+      $dl = array('a' => $pre . 'arrow',  'c' => 'note_004', 't' => '');
+      $ul = array('a' => $pre . 'arrow',  'c' => 'note_008', 't' => "rotate(90 %d %d)");
+      $cn = array('a' => $pre . 'center', 'c' => 'note_016', 't' => '');
+      $ur = array('a' => $pre . 'arrow',  'c' => 'note_008', 't' => "rotate(180 %d %d)");
+      $dr = array('a' => $pre . 'arrow',  'c' => 'note_004', 't' => "rotate(270 %d %d)");
       $ret = array($dl, $ul, $cn, $ur, $dr);
       if ($this->cols == APP_CHART_DBL_COLS)
       {
@@ -342,16 +316,16 @@ class EditCharter
       {
         if (array_key_exists('red4', $this))
         {
-          if (intval($d) == 4) $g = $pre . '_008';
-          elseif (intval($d) == 8) $g = $pre . '_004';
-          else $g = sprintf('%s_%03d', $pre, intval($d));
+          if (intval($d) == 4) $g = 'note_008';
+          elseif (intval($d) == 8) $g = 'note_004';
+          else $g = sprintf('note_%03d', intval($d));
         }
-        else $g = sprintf('%s_%03d', $pre, intval($d));
-        $dl = array('a' => 'DL', 'c' => $g, 't' => '');
-        $ul = array('a' => 'UL', 'c' => $g, 't' => "rotate(90 %d %d)");
-        $cn = array('a' => 'CN', 'c' => $g, 't' => '');
-        $ur = array('a' => 'UR', 'c' => $g, 't' => "rotate(180 %d %d)");
-        $dr = array('a' => 'DR', 'c' => $g, 't' => "rotate(270 %d %d)");
+        else $g = sprintf('note_%03d', intval($d));
+        $dl = array('a' => $pre . 'arrow',  'c' => $g, 't' => '');
+        $ul = array('a' => $pre . 'arrow',  'c' => $g, 't' => "rotate(90 %d %d)");
+        $cn = array('a' => $pre . 'center', 'c' => $g, 't' => '');
+        $ur = array('a' => $pre . 'arrow',  'c' => $g, 't' => "rotate(180 %d %d)");
+        $dr = array('a' => $pre . 'arrow',  'c' => $g, 't' => "rotate(270 %d %d)");
         $ret[$d] = array($dl, $ul, $cn, $ur, $dr);
         if ($this->cols == APP_CHART_DBL_COLS)
         {
@@ -396,10 +370,10 @@ class EditCharter
     $nt = $this->xml->createElement('g');
     $nt->setAttribute('id', 'svgNote');
     
-    $ucounter = 1;
+    $ucounter = 0;
     foreach ($notes as $player):
     
-    $arrows = $this->prepArrows($style === "pump-routine" ? $ucounter : 0);
+    $arrows = $this->prepArrows($style === "pump-routine" ? $ucounter : false);
 
     $mcounter = 0;    
     foreach ($player as $measure):
@@ -424,10 +398,10 @@ class EditCharter
     {
       case "1": # Tap note. Just add to the chart.
       {
-        $opt = array('href' => $arow[$pcounter]['a'] . "arrow", 'class' => $arow[$pcounter]['c']);
+        $opt = array('href' => $arow[$pcounter]['a'], 'class' => $arow[$pcounter]['c']);
         if ($arow[$pcounter]['a'] !== "L")
         {
-          //$opt['transform'] = sprintf($arow[$pcounter]['t'], $nx + 8, $ny + 8);
+          $opt['transform'] = sprintf($arow[$pcounter]['t'], $nx + 8, $ny + 8);
         }
         $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
@@ -469,10 +443,10 @@ class EditCharter
             $nt->appendChild($node);
             
             # Place the tap.
-            $opt = array('href' => $a['a'] . "arrow", 'class' => $a['c']);
+            $opt = array('href' => $a['a'], 'class' => $a['c']);
             if ($arow[$pcounter]['a'] !== "L")
             {
-              //$opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
+              $opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
             }
             $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
             
@@ -512,15 +486,13 @@ class EditCharter
             $opt = array('href' => $end);
             $node = $this->xml->importNode($sm->genUse($nx, $ny, $opt));
             $nt->appendChild($node);
-            //$nt->appendChild($this->genUseNode($nx, $ny, $end));
             # Tap note last.
-            $opt = array('href' => $a['a'] . "arrow", 'class' => $a['c']);
+            $opt = array('href' => $a['a'], 'class' => $a['c']);
             if ($arow[$pcounter]['a'] !== "L")
             {
-              //$opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
+              $opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
             }
             $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
-            //$nt->appendChild($this->genUseNode($ox, $oy, $a['a'] . "arrow", $a['c']));
           }
         }
         break;
@@ -565,7 +537,7 @@ class EditCharter
   public function genChart($notedata)
   {
     $measures = count($notedata['notes'][0]);
-    $this->genXMLHeader($measures);
+    $this->genXMLHeader($measures, $notedata['style']);
     $this->genEditHeader($notedata);
     $this->genMeasures($measures);
     if ($this->showbpm) $this->genBPM($notedata['id']);
