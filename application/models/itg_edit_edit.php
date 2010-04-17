@@ -9,7 +9,7 @@ class itg_edit_edit extends Model
   // Confirm if the edit exists.
   public function checkExistance($eid)
   {
-    return $this->db->select('id')->where('id', $eid)
+    return $this->db->select('id')->where('old_edit_id', $eid)
       ->get('itg_edit_edit')->num_rows() > 0;
   }
   
