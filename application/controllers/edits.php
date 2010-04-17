@@ -5,9 +5,9 @@ class Edits extends Controller
 	function __construct()
 	{
 		parent::Controller();
-    $this->load->model('ppe_song_song');
-    $this->load->model('ppe_user_user');
-    $this->load->model('ppe_edit_edit');
+    $this->load->model('itg_song_song');
+    $this->load->model('itg_user_user');
+    $this->load->model('itg_edit_edit');
 	}
 	
 	function index()
@@ -17,7 +17,7 @@ class Edits extends Controller
   
   function users()
   {
-    $data['query'] = $this->ppe_user_user->getUsersWithEdits()->result();
+    $data['query'] = $this->itg_user_user->getUsersWithEdits()->result();
     $this->load->view('edits/users', $data);
   }
   // get all edits from the chosen user.
@@ -25,22 +25,22 @@ class Edits extends Controller
   {
     $id = $this->uri->segment(2);
     $page = $this->uri->segment(3, 1);
-    $data['user'] = $this->ppe_user_user->getUserByID($id);
-    $data['users'] = $this->ppe_edit_edit->getEditsByUser($id)->result();
+    $data['user'] = $this->itg_user_user->getUserByID($id);
+    $data['users'] = $this->itg_edit_edit->getEditsByUser($id)->result();
     $this->load->view('edits/user', $data);
   }
   
   // get all official edits.
   function official()
   {
-    $data['users'] = $this->ppe_edit_edit->getEditsByUser(2)->result();
+    $data['users'] = $this->itg_edit_edit->getEditsByUser(2)->result();
     $this->load->view('edits/official', $data);
   }
   
   // load the songs that have edits.
   function songs()
   {
-    $data['query'] = $this->ppe_song_song->getSongsWithEdits()->result();
+    $data['query'] = $this->itg_song_song->getSongsWithEdits()->result();
     $this->load->view('edits/songs', $data);
   }
   
@@ -49,8 +49,8 @@ class Edits extends Controller
   {
     $id = $this->uri->segment(2);
     $page = $this->uri->segment(3, 1);
-    $data['song'] = $this->ppe_song_song->getSongByID($id);
-    $data['songs'] = $this->ppe_edit_edit->getEditsBySong($id)->result();
+    $data['song'] = $this->itg_song_song->getSongByID($id);
+    $data['songs'] = $this->itg_edit_edit->getEditsBySong($id)->result();
     $this->load->view('edits/song', $data);
   }
   

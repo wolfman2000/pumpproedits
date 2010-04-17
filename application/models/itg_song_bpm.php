@@ -1,5 +1,5 @@
 <?php
-class Ppe_song_bpm extends Model
+class itg_song_bpm extends Model
 {
   function __construct()
   {
@@ -10,6 +10,6 @@ class Ppe_song_bpm extends Model
   public function getBPMsBySongID($id)
   {
     return $this->db->where('song_id', $id)
-      ->order_by('beat')->get('ppe_song_bpm')->result();
+      ->order_by('beat')->get('itg_song_bpm')->result();
   }
 }

@@ -5,18 +5,18 @@ class Base extends Controller
 	function __construct()
 	{
 		parent::Controller();
-    $this->load->model('ppe_song_song');
-    $this->load->model('ppe_edit_edit');
+    $this->load->model('itg_song_song');
+    $this->load->model('itg_edit_edit');
 	}
   
   function index()
   {
     $this->load->library('pagination');
     $page = $this->uri->segment('3', 0);
-    $query = $this->ppe_song_song->getBaseEdits($page);
+    $query = $this->itg_song_song->getBaseEdits($page);
     $data['edits'] = $query->result();
     $config['base_url'] = 'http://' . $this->input->server('SERVER_NAME') . '/base/index/';
-    $config['total_rows'] = $this->ppe_song_song->getSongCountWithGame();
+    $config['total_rows'] = $this->itg_song_song->getSongCountWithGame();
     $config['per_page'] = APP_BASE_EDITS_PER_PAGE;
     $config['cur_tag_open'] = '<strong>';
     $config['cur_tag_close'] = '</strong>';
@@ -38,7 +38,7 @@ class Base extends Controller
       # How do you cause a 409 again?
       return;
     }
-    if ($this->ppe_song_song->doesSongExist($id) === 0)
+    if ($this->itg_song_song->doesSongExist($id) === 0)
     {
       $this->load->view('base/error');
       return;

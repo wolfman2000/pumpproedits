@@ -259,9 +259,9 @@ class EditCharter
     $draw = $this->cols * $this->aw / 2;
     $m = $this->aw * $this->bm * $this->speedmod;
     $CI =& get_instance();
-    $CI->load->model('ppe_song_bpm');
+    $CI->load->model('itg_song_bpm');
     
-    foreach ($CI->ppe_song_bpm->getBPMsBySongID($id) as $b)
+    foreach ($CI->itg_song_bpm->getBPMsBySongID($id) as $b)
     {
       $beat = $b->beat;
       $bpm = $b->bpm;
@@ -299,8 +299,8 @@ class EditCharter
     $draw = $this->cols * $this->aw / 2;
     $m = $this->aw * $this->bm * $this->speedmod;
     $CI =& get_instance();
-    $CI->load->model('ppe_song_stop');
-    foreach ($CI->ppe_song_stop->getStopsBySongID($id) as $b)
+    $CI->load->model('itg_song_stop');
+    foreach ($CI->itg_song_stop->getStopsBySongID($id) as $b)
     {
       $beat = $b->beat;
       $break = $b->break;

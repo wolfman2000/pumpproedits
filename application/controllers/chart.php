@@ -7,8 +7,8 @@ class Chart extends Controller
 		parent::Controller();
     $this->load->library('form_validation');
     $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
-    $this->load->model('ppe_edit_edit');
-    $this->load->model('ppe_song_song');
+    $this->load->model('itg_edit_edit');
+    $this->load->model('itg_song_song');
   }
   
   function index()
@@ -18,7 +18,7 @@ class Chart extends Controller
   
   function edits()
   {
-    $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
+    $data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result();
     $this->load->view('chart/edits', $data);
   }
   
@@ -32,7 +32,7 @@ class Chart extends Controller
   // confirm the edit exists.
   function _edit_exists($str)
   {
-    return $this->ppe_edit_edit->checkExistance($str);
+    return $this->itg_edit_edit->checkExistance($str);
   }
   
   // confirm the noteskin exists.
@@ -69,14 +69,14 @@ class Chart extends Controller
   {
     if ($this->form_validation->run() === FALSE)
     {
-      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result();
+      $data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result();
       $this->load->view('chart/editError', $data);
       return;
     }
     $eid = $this->input->post('edits');
     $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
-    $this->load->model('ppe_user_user');
-    $author = $this->ppe_user_user->getUserByEditID($eid);
+    $this->load->model('itg_user_user');
+    $author = $this->itg_user_user->getUserByEditID($eid);
     $this->load->library('EditParser');
     $p = array('notes' => 1, 'strict_song' => 0, 'strict_edit' => 0);
     $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
@@ -93,7 +93,7 @@ class Chart extends Controller
   // get the list of songs for possible chart previewing.
   function songs()
   {
-    $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result();
+    $data['songs'] = $this->itg_song_song->getSongsWithGameAndDiff()->result();
     $this->load->view('chart/songs', $data);
   }
   
@@ -102,7 +102,7 @@ class Chart extends Controller
   {
     $sid = $this->uri->segment(3, false);
     header("Content-type: application/json");
-    $ret = $this->ppe_song_song->getDifficulties($sid);
+    $ret = $this->itg_song_song->getDifficulties($sid);
     echo json_encode($ret);
   }
   
@@ -110,7 +110,7 @@ class Chart extends Controller
   {
     if ($this->form_validation->run() === FALSE)
     {
-      $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result();
+      $data['songs'] = $this->itg_song_song->getSongsWithGameAndDiff()->result();
       $this->load->view('chart/songError', $data);
       return;
     }

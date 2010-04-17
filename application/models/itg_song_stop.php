@@ -1,5 +1,5 @@
 <?php
-class Ppe_song_stop extends Model
+class itg_song_stop extends Model
 {
   function __construct()
   {
@@ -10,6 +10,6 @@ class Ppe_song_stop extends Model
   public function getStopsBySongID($id)
   {
     return $this->db->where('song_id', $id)
-      ->order_by('beat')->get('ppe_song_stop')->result();
+      ->order_by('beat')->get('itg_song_stop')->result();
   }
 }

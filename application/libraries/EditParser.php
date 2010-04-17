@@ -58,8 +58,8 @@ class EditParser
   public function generate_base($songid)
   {
     $CI =& get_instance();
-    $CI->load->model('ppe_song_song');
-    $base = $CI->ppe_song_song->getSongRow($songid);
+    $CI->load->model('itg_song_song');
+    $base = $CI->itg_song_song->getSongRow($songid);
     foreach (array("single", "double", "halfdouble", "routine") as $kind)
     {
       $this->gen_edit_file($kind, $base->name, $base->id, $base->measures, $base->duration);
@@ -158,8 +158,8 @@ class EditParser
     $state = $diff = $cols = $measure = $songid = 0;
     $title = $song = $style = "";
     $CI =& get_instance();
-    $CI->load->model('ppe_song_song');
-    $base = $CI->ppe_song_song;
+    $CI->load->model('itg_song_song');
+    $base = $CI->itg_song_song;
     
     if (!array_key_exists('strict_song', $params)) { $params['strict_song'] = true; }
     if (!array_key_exists('strict_edit', $params)) { $params['strict_edit'] = true; }
