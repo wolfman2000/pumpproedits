@@ -31,13 +31,12 @@ class itg_edit_edit extends Model
   // Get all edits of the chosen song.
   public function getEditsBySong($sid)
   {
-    $cols = 'a.id, a.diff, y.steps ysteps, y.jumps yjumps, y.holds yholds, y.mines ymines';
-    $cols .= ', y.trips ytrips, y.rolls yrolls';
+    $cols = 'a.old_edit_id id, a.diff, a.steps ysteps, a.jumps yjumps, a.holds yholds, a.mines ymines';
+    $cols .= ', a.trips ytrips, a.rolls yrolls';
     $cols .= ', a.user_id, b.name uname, a.title, a.style';
     return $this->db->select($cols)
       ->from('itg_edit_edit a')
       ->join('itg_user_user b', 'a.user_id = b.id')
-      ->join('itg_edit_player y', 'a.id = y.edit_id AND y.player = 1')
       ->where('song_id', $sid)
       ->where('a.is_problem', 0)
       ->order_by('b.lc_name')
@@ -48,13 +47,12 @@ class itg_edit_edit extends Model
   // Get all edits of the chosen user.
   public function getEditsByUser($uid)
   {
-    $cols = 'a.id, a.diff, y.steps ysteps, y.jumps yjumps, y.holds yholds, y.mines ymines';
-    $cols .= ', y.trips ytrips, y.rolls yrolls';
+    $cols = 'a.old_edit_id id, a.diff, a.steps ysteps, a.jumps yjumps, a.holds yholds, a.mines ymines';
+    $cols .= ', a.trips ytrips, a.rolls yrolls';
     $cols .= ', a.song_id, b.name sname, a.title, a.style,';
     return $this->db->select($cols)
       ->from('itg_edit_edit a')
       ->join('itg_song_song b', 'a.song_id = b.id')
-      ->join('itg_edit_player y', 'a.id = y.edit_id AND y.player = 1')
       ->where('user_id', $uid)
       ->where('a.is_problem', 0)
       ->order_by('b.lc_name')

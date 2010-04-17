@@ -37,35 +37,28 @@ if (isset($showsong)): ?>
 <dl>
 <?php $l = substr(ucfirst($z->style), 0, 1); ?>
 <dt>Style</dt><dd><?php echo $l . $z->diff ?></dd>
-<dt>Steps</dt><dd><?php echo $z->ysteps . ($l === "R" ? "/$z->msteps" : "") ?></dd>
-<?php if ($z->yjumps or $z->mjumps): ?>
-<dt>Jumps</dt><dd><?php echo $z->yjumps . ($l === "R" ? "/$z->mjumps" : "") ?></dd>
+<dt>Steps</dt><dd><?php echo $z->ysteps; ?></dd>
+<?php if ($z->yjumps): ?>
+<dt>Jumps</dt><dd><?php echo $z->yjumps; ?></dd>
 <?php endif;
-if ($z->yholds or $z->mholds): ?>
-<dt>Holds</dt><dd><?php echo $z->yholds . ($l === "R" ? "/$z->mholds" : "") ?></dd>
+if ($z->yholds): ?>
+<dt>Holds</dt><dd><?php echo $z->yholds; ?></dd>
 <?php endif;
-if ($z->ymines or $z->mmines): ?>
-<dt>Mines</dt><dd><?php echo $z->ymines . ($l === "R" ? "/$z->mmines" : "") ?></dd>
+if ($z->ymines): ?>
+<dt>Mines</dt><dd><?php echo $z->ymines; ?></dd>
 <?php endif;
-if ($z->ytrips or $z->mtrips): ?>
-<dt>Trips</dt><dd><?php echo $z->ytrips . ($l === "R" ? "/$z->mtrips" : "") ?></dd>
+if ($z->ytrips): ?>
+<dt>Trips</dt><dd><?php echo $z->ytrips; ?></dd>
 <?php endif;
-if ($z->yrolls or $z->mrolls): ?>
-<dt>Rolls</dt><dd><?php echo $z->yrolls . ($l === "R" ? "/$z->mrolls" : "") ?></dd>
-<?php endif;
-if ($z->ylifts or $z->mlifts): ?>
-<dt>Lifts</dt><dd><?php echo $z->ylifts . ($l === "R" ? "/$z->mlifts" : "") ?></dd>
-<?php endif;
-if ($z->yfakes or $z->mfakes): ?>
-<dt>Fakes</dt><dd><?php echo $z->yfakes . ($l === "R" ? "/$z->mfakes" : "") ?></dd>
+if ($z->yrolls): ?>
+<dt>Rolls</dt><dd><?php echo $z->yrolls; ?></dd>
 <?php endif; ?>
 </dl>
 </td>
 <td><ul>
 <li><?php echo anchor("/edits/download/$z->id", "Download"); ?></li>
 <?php if ($this->session->userdata('browser') !== "Internet Explorer"): ?>
-<li><?php echo anchor("/chart/quick/{$z->id}/classic", "Classic Chart"); ?></li>
-<li><?php echo anchor("/chart/quick/{$z->id}/rhythm",  "Rhythm Chart");  ?></li>
+<li><?php echo anchor("/chart/quick/{$z->id}", "View Chart"); ?></li>
 <?php endif; ?>
 </ul></td>
 </tr>

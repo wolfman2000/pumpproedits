@@ -56,9 +56,9 @@ class Edits extends Controller
       # How do you cause a 409 again?
     }
     $id = sprintf("%06d", $id);
-    $name = sprintf("edit_%s.edit", $id);
+    $name = sprintf("itg_%s.edit", $id);
     $gz = $name . '.gz';
-    $path = sprintf("%s/data/user_edits/%s", APPPATH, $gz);
+    $path = sprintf("%s/data/itg_user_edits/%s", APPPATH, $gz);
     $file = gzopen($path, 'r');
     $data = gzread($file, APP_MAX_EDIT_FILE_SIZE);
     gzclose($file);

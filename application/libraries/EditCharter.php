@@ -14,7 +14,6 @@ class EditCharter
     $this->rb = APP_CHART_COLUMN_RIGHT_BUFFER;
     $this->aw = APP_CHART_ARROW_WIDTH;
     $this->bm = APP_CHART_BEAT_P_MEASURE;
-    $this->kind = $params['kind'];
     
     if (array_key_exists('nobpm', $params) and $params['nobpm'])
     {
@@ -379,8 +378,7 @@ class EditCharter
     
     $curbeat = intval(round($m * $rcounter / count($measure)));
       
-    $arow = $this->kind == "classic" ? $arrows :
-      $arrows[$this->getBeat(192 * $rcounter / count($measure))];
+    $arow = $arrows[$this->getBeat(192 * $rcounter / count($measure))];
     
     $pcounter = 0;
     foreach (str_split($row) as $let): # For each note in the row

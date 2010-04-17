@@ -130,14 +130,13 @@ class Chart extends Controller
   function quick()
   {
     $id = $this->uri->segment(3, FALSE);
-    $kind = $this->uri->segment(4, FALSE);
-    if (!(is_numeric($id) and ($kind === "classic" or $kind === "rhythm")))
+    if (!is_numeric($id))
     {
       # Return error here: parameters must match.
     }
     $id = sprintf("%06d", $id);
-    $name = sprintf("edit_%s.edit.gz", $id);
-    $path = sprintf("%s/data/user_edits/%s", APPPATH, $name);
+    $name = sprintf("itg_%s.edit.gz", $id);
+    $path = sprintf("%s/data/itg_user_edits/%s", APPPATH, $name);
     
     if (!file_exists($path))
     {
@@ -147,7 +146,7 @@ class Chart extends Controller
     $this->load->library('EditParser');
     $notedata = $this->editparser->get_stats(gzopen($path, "r"),
       array('notes' => 1, 'strict_edit' => 0));
-    $p = array('cols' => $notedata['cols'], 'kind' => $kind);
+    $p = array('cols' => $notedata['cols']);
     $this->load->library('EditCharter', $p);
     header("Content-Type: application/xhtml+xml");
     $xml = $this->editcharter->genChart($notedata);
