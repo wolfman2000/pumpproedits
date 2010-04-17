@@ -535,11 +535,15 @@ class EditCharter
       case "L": # Lift note. Can be placed in chart. No image yet.
       {
         $holds[$pcounter]['on'] = false;
+        $opt = array('href' => 'lift', 'class' => $arow[$pcounter]['c']);
+        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
-      case "F": # Fake note. Not yet available.
+      case "F": # Fake note. Officially in Pro 2.
       {
         $holds[$pcounter]['on'] = false;
+        $opt = array('href' => 'fake', 'class' => $arow[$pcounter]['c']);
+        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
     }

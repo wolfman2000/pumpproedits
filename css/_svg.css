@@ -25,7 +25,7 @@ g#beat1 > line
   stroke:black;
   fill:black;
 }
-g#DLarrow, g#ULarrow, g#CNarrow, g#URarrow, g#DRarrow, g#mine
+g#DLarrow, g#ULarrow, g#CNarrow, g#URarrow, g#DRarrow, g#mine, g#fake, g#lift
 {
   fill-opacity:1;
   stroke:black;

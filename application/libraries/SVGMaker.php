@@ -260,9 +260,37 @@ class SVGMaker
     
     $def->appendChild($g);
     
+    // lift
+    
+    $g = $this->s->createElement('g');
+    $g->setAttribute('id', 'lift');
+    
+    $p = $this->s->createElement('path');
+    $p->setAttribute('d', 'm 8,1 -7,7 2,2 3,-3 0,8 2,-2 2,2 0,-8 3,3 2,-2 z');
+    $g->appendChild($p);
+    $p = $this->s->createElement('path');
+    $p->setAttribute('d', 'm 6,11 2,-2 2,2');
+    $g->appendChild($p);
+    $p = $this->s->createElement('path');
+    $p->setAttribute('d', 'm 6,7 2,-2 2,2');
+    $g->appendChild($p);
+    
+    $def->appendChild($g);
+    
+    // fake
+    
+    $g = $this->s->createElement('g');
+    $g->setAttribute('id', 'fake');
+    
+    $p = $this->s->createElement('path');
+    $p->setAttribute('d', 'm 1,3 l 5,5 -5,5 2,2 5,-5 5,5 2,-2 -5,-5 5,-5 -2,-2 -5,5 -5,-5 z');
+    $g->appendChild($p);
+    
+    $def->appendChild($g);
+    
     // mine
     
-    $g = $this->s->createElement('mine');
+    $g = $this->s->createElement('g');
     $g->setAttribute('id', 'mine');
     
     foreach (array(7, 5, 3) as $r)
