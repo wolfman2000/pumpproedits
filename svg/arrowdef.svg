@@ -40,7 +40,8 @@
     </g>
     <g id="mine">
       <circle cx="8" cy="8" r="7" />
-      <circle cx="8" cy="8" r="3.5"  />
+      <circle cx="8" cy="8" r="5" />
+      <circle cx="8" cy="8" r="3" />
     </g>
     <g id="hold_bdy">
       <rect x="1" y="0" width="14px" height="16px" />

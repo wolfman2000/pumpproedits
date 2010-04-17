@@ -337,7 +337,7 @@ class EditCharter
     }
   }
   
-  private function genArrows($notes, $style = "pump-single")
+  private function genArrows($notes)
   {
     for ($i = 0; $i < $this->cols; $i++)
     {
@@ -482,7 +482,8 @@ class EditCharter
       case "M": # Mine. Don't step on these!
       {
         $holds[$pcounter]['on'] = false;
-        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, array('href' => 'mine'))));
+        $opt = array('href' => 'mine', 'class' => $arow[$pcounter]['c']);
+        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         //$nt->appendChild($this->genUseNode($nx, $ny, "mine"));
         break;
       }
