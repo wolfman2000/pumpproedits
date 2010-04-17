@@ -6,7 +6,6 @@ class Base extends Controller
 	{
 		parent::Controller();
     $this->load->model('itg_song_song');
-    $this->load->model('itg_edit_edit');
 	}
   
   function index()
@@ -46,7 +45,7 @@ class Base extends Controller
     $nid = sprintf("%06d", $id);
     $name = sprintf("base_%s_%s.edit", $nid, ucfirst($st));
     $gz = $name . '.gz';
-    $path = sprintf("%s/data/base_edits/%s", APPPATH, $gz);
+    $path = sprintf("%s/data/itg_base_edits/%s", APPPATH, $gz);
     if (!file_exists($path)) # Generate the new base edits.
     {
       $this->load->library('EditParser');

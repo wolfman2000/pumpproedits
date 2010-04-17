@@ -13,38 +13,27 @@ class EditParser
     return $measure;
   }
 
-  private function gen_edit_file($kind, $name, $abbr, $measures, $duration)
+  private function gen_edit_file($kind, $name, $abbr, $measures)
   {
     $fname = sprintf("base_%06d_%s.edit.gz", $abbr, ucfirst($kind));
     $eol = "\r\n";
-    $loc = APPPATH . 'data/base_edits';
+    $loc = APPPATH . 'data/itg_base_edits';
     $file = "";
 
     $file .= sprintf("#SONG:%s;%s#NOTES:%s", $name, $eol, $eol);
-    $file .= sprintf("     pump-%s:%s", $kind, $eol);
+    $file .= sprintf("     dance-%s:%s", $kind, $eol);
     $file .= sprintf("     NameEditHere:%s", $eol);
     $file .= sprintf("     Edit:%s     10:%s     ", $eol, $eol);
-    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, 0, 0, ", $measures - 1);
-    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, 0, 0:%s%s", $measures - 1, $eol, $eol);
+    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, ", $measures - 1);
+    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0:%s%s", $measures - 1, $eol, $eol);
 
-    $cols = $this->getCols("pump-" . $kind);
+    $cols = $this->getCols("dance-" . $kind);
     
     $allM = $this->gen_measure($cols);
     for ($i = 2; $i <= $measures; $i++)
     {
       $allM .= sprintf(",  // measure %s%s", $i, $eol);
       $allM .= $this->gen_measure($cols, true);
-    }
-    
-    if ($kind === "routine")
-    {
-      $allM .= sprintf("&  // measures 1%s", $eol, $allM);
-      $allM .= $this->gen_measure($cols);
-      for ($i = 2; $i <= $measures; $i++)
-      {
-        $allM .= sprintf(",  // measure %s%s", $i, $eol);
-        $allM .= $this->gen_measure($cols, true, true);
-      }
     }
     
     $allM .= sprintf(";%s", $eol);
@@ -60,9 +49,9 @@ class EditParser
     $CI =& get_instance();
     $CI->load->model('itg_song_song');
     $base = $CI->itg_song_song->getSongRow($songid);
-    foreach (array("single", "double", "halfdouble", "routine") as $kind)
+    foreach (array("single", "double") as $kind)
     {
-      $this->gen_edit_file($kind, $base->name, $base->id, $base->measures, $base->duration);
+      $this->gen_edit_file($kind, $base->name, $base->id, $base->measures);
     }
 
   }
@@ -71,11 +60,9 @@ class EditParser
   {
     switch ($style)
     {
-      case "pump-single": return 5;
-      case "pump-double": return 10;
-      case "pump-routine": return 10;
-      case "pump-halfdouble": return 6;
-      default: return 5; // Lazy right now.
+      case "dance-single": return 4;
+      case "dance-double": return 8;
+      default: return 4; // Lazy right now.
     }
   }
   

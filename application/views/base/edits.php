@@ -1,10 +1,10 @@
-<?php $style = array('single', 'double', 'halfdouble', 'routine'); ?>
+<?php $style = array('single', 'double'); ?>
 <table id="base">
   <caption>Download the Base Edit Files</caption>
   <thead><tr>
     <th>Song Name</th>
     <?php foreach ($style as $st): ?>
-    <th>pump-<?php echo $st; ?></th>
+    <th>dance-<?php echo $st; ?></th>
     <?php endforeach; ?>
   </tr></thead>
   <tbody>
@@ -15,7 +15,7 @@
       <?php foreach ($style as $st):
       $url = sprintf($s, $b->id, $st);
       $txt = $b->abbr . " " . ucfirst($st); ?>
-      <td><?php if ($st !== "routine" or $b->tmp) echo anchor($url, $txt); ?></td>
+      <td><?php echo anchor($url, $txt); ?></td>
       <?php endforeach; ?>
     </tr>
     <?php endforeach; ?>

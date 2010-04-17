@@ -17,7 +17,6 @@ class itg_song_song extends Model
   public function getSongCountWithGame()
   {
     return $this->db->select('COUNT(a.name) names')
-      ->join('itg_song_game g', 'a.id = g.song_id AND g.game_id > 1', 'left')
       ->order_by('a.lc_name')
       ->get('itg_song_song a')
       ->row()->names;
@@ -46,8 +45,7 @@ class itg_song_song extends Model
   // get all of the information needed for base edits.
   public function getBaseEdits($page = 0)
   {
-    return $this->db->select('a.name, a.id, a.abbr, g.game_id tmp')
-      ->join('itg_song_game g', 'a.id = g.song_id AND g.game_id > 1', 'left')
+    return $this->db->select('a.name, a.id, a.abbr')
       ->order_by('a.lc_name')
       ->limit(APP_BASE_EDITS_PER_PAGE, $page)
       ->get('itg_song_song a');
