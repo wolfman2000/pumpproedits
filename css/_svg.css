@@ -1,69 +1,3 @@
-radialGradient > stop
-{
-  stop-opacity: 1;
-}
-#p1_004 > stop:first-child,
-#p1_008 > stop:first-child,
-#p1_012 > stop:first-child,
-#p1_016 > stop:first-child,
-#p1_024 > stop:first-child,
-#p1_032 > stop:first-child,
-#p1_048 > stop:first-child,
-#p1_064 > stop:first-child,
-#p1_192 > stop:first-child
-{
-  /* stop-color: #9D976B; */
-}
-#p2_004 > stop:first-child,
-#p2_008 > stop:first-child,
-#p2_012 > stop:first-child,
-#p2_016 > stop:first-child,
-#p2_024 > stop:first-child,
-#p2_032 > stop:first-child,
-#p2_048 > stop:first-child,
-#p2_064 > stop:first-child,
-#p2_192 > stop:first-child
-{
-	stop-color: #9D986B; /* green; */
-}
-
-#p1_004 > stop, #p2_004 > stop
-{
-	stop-color: blue;
-}
-
-#p1_008 > stop, #p2_008 > stop
-{
-  stop-color: red;
-}
-#p1_012 > stop, #p2_012 > stop
-{
-  stop-color: purple;
-}
-#p1_016 > stop, #p2_016 > stop
-{
-  stop-color: yellow;
-}
-#p1_024 > stop, #p2_024 > stop
-{
-  stop-color: pink;
-}
-#p1_032 > stop, #p2_032 > stop
-{
-  stop-color: orange;
-}
-#p1_048 > stop, #p2_048 > stop
-{
-  stop-color: aqua;
-}
-#p1_064 > stop, #p2_064 > stop
-{
-  stop-color: lime;
-}
-#p1_192 > stop, #p2_192 > stop
-{
-  stop-color: #808080;
-}
 g#beat1 > rect:first-child
 {
   fill:#ffffff;
@@ -91,23 +25,28 @@ g#beat1 > line
   stroke:black;
   fill:black;
 }
-g#DLarrow, g#ULarrow, g#CNarrow, g#URarrow, g#DRarrow, g#mine
+g#Larrow, g#Darrow, g#Uarrow, g#Rarrow, g#mine
 {
   fill-opacity:1;
   stroke:black;
-  stroke-width:0.1;
+  stroke-width:0.5;
   stroke-opacity:1;
 }
-g#mine
+g#Larrow path:first-child, g#Darrow path:first-child,
+g#Uarrow path:first-child, g#Rarrow path:first-child
 {
-  stroke-width: 0.2;
+	stroke-width: 1;
 }
 
+g#mine > circle
+{
+	stroke-width: 0.1;
+}
 g#mine > circle:first-child
 {
   fill:red;
 }
-g#mine > circle:first-child + circle, g#CNarrow > rect
+g#mine > circle:first-child + circle
 {
   fill:black;
 }
@@ -134,115 +73,15 @@ g#hold_bdy > line, g#hold_end > path, g#roll_bdy > line, g#roll_end > path
   stroke:black;
   stroke-width: 0.3;
 }
-
-.p1_004
-{
-	fill: url('/svg/arrowdef.svg#p1_004');
-}
-.p1_008
-{
-	fill: url('/svg/arrowdef.svg#p1_008');
-}
-.p1_012
-{
-	fill: url('/svg/arrowdef.svg#p1_012');
-}
-.p1_016
-{
-	fill: url('/svg/arrowdef.svg#p1_016');
-}
-.p1_024
-{
-	fill: url('/svg/arrowdef.svg#p1_024');
-}
-.p1_032
-{
-	fill: url('/svg/arrowdef.svg#p1_032');
-}
-.p1_048
-{
-	fill: url('/svg/arrowdef.svg#p1_048');
-}
-.p1_064
-{
-	fill: url('/svg/arrowdef.svg#p1_064');
-}
-.p1_192
-{
-	fill: url('/svg/arrowdef.svg#p1_192');
-}
-.p2_004
-{
-	fill: url('/svg/arrowdef.svg#p2_004');
-}
-.p2_008
-{
-	fill: url('/svg/arrowdef.svg#p2_008');
-}
-.p2_012
-{
-	fill: url('/svg/arrowdef.svg#p2_012');
-}
-.p2_016
-{
-	fill: url('/svg/arrowdef.svg#p2_016');
-}
-.p2_024
-{
-	fill: url('/svg/arrowdef.svg#p2_024');
-}
-.p2_032
-{
-	fill: url('/svg/arrowdef.svg#p2_032');
-}
-.p2_048
-{
-	fill: url('/svg/arrowdef.svg#p2_048');
-}
-.p2_064
-{
-	fill: url('/svg/arrowdef.svg#p2_064');
-}
-.p2_192
-{
-	fill: url('/svg/arrowdef.svg#p2_192');
-}
-.note_004
-{
-  fill: blue; /* url('/svg/arrowdef.svg#grad_004'); */
-}
-.note_008
-{
-  fill: red; /* url('/svg/arrowdef.svg#grad_008'); */
-}
-.note_012
-{
-  fill: purple; /* url('/svg/arrowdef.svg#grad_012'); */
-}
-.note_016
-{
-  fill: yellow; /* url('/svg/arrowdef.svg#grad_016'); */
-}
-.note_024
-{
-  fill: pink; /* url('/svg/arrowdef.svg#grad_024'); */
-}
-.note_032
-{
-  fill: orange; /* url('/svg/arrowdef.svg#grad_032'); */
-}
-.note_048
-{
-  fill: aqua; /* url('/svg/arrowdef.svg#grad_048'); */
-}
-.note_064
-{
-  fill: lime; /* url('/svg/arrowdef.svg#grad_064'); */
-}
-.note_192
-{
-  fill: #808080;
-}
+.note_004 { fill: red;     }
+.note_008 { fill: blue;    }
+.note_012 { fill: purple;  }
+.note_016 { fill: yellow;  }
+.note_024 { fill: pink;    }
+.note_032 { fill: orange;  }
+.note_048 { fill: aqua;    }
+.note_064 { fill: lime;    }
+.note_192 { fill: #808080; }
 text
 {
   font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;

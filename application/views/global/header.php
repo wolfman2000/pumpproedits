@@ -17,16 +17,6 @@ if ($this->agent->is_browser() and $this->session->userdata('browser') === "Inte
 <script type="text/javascript" src="js/IE8.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
 <?php endif; ?>
-<script type="text/javascript">
-//<![CDATA[
-<?php $uid = $this->session->userdata('id'); ?>
-const authed = <?php echo $uid === false ? 0 : $uid; ?>;
-const baseURL = window.location.href;
-<?php if (strlen($xhtml)): ?>
-const andamiro = <?php echo $uid === false ? 0 : $andy; ?>;
-<?php endif; ?>
-//]]>
-</script>
 <?php if (isset($scripts)): foreach ($scripts as $script): ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php endforeach; endif; ?>

@@ -26,31 +26,40 @@ class Chart extends Controller
   function _diff_exists($str)
   {
     if (in_array($str, array('sb', 'se', 'sm', 'sh', 'sx', 'de', 'dm', 'dh', 'dx'))) return true;
+    $this->form_validation->set_message('_diff_exists', 'A valid difficulty must be chosen.');
     return false;
   }
   
   // confirm the edit exists.
   function _edit_exists($str)
   {
-    return $this->itg_edit_edit->checkExistance($str);
+    if ($this->itg_edit_edit->checkExistance($str)) return true;
+    $this->form_validation->set_message('_edit_exists', "The edit chosen $str doesn't have a corresponding file.");
+    return false;
   }
   
   // confirm the speed mod is valid.
   function _speed_valid($str)
   {
-    return in_array($str, array(1, 2, 3, 4, 6, 8));
+    if (in_array($str, array(1, 2, 3, 4, 6, 8))) return true;
+    $this->form_validation->set_message('_speed_valid', 'A valid speed mod must be chosen.');
+    return false;
   }
   
   // confirm the number of measures in each column is valid.
   function _mpc_valid($str)
   {
-    return in_array($str, array(4, 6, 8, 12, 16));
+    if (in_array($str, array(4, 6, 8, 12, 16))) return true;
+    $this->form_validation->set_message('_mpc_valid', 'An unknown number of measures per column was chosen.');
+    return false;
   }
   
   // confirm the scale factor is valid.
   function _scale_valid($str)
   {
-    return in_array($str, array(0.5, 0.75, 1, 1.25, 1.5, 1.75, 2));
+    if (in_array($str, array(0.5, 0.75, 1, 1.25, 1.5, 1.75, 2))) return true;
+    $this->form_validation->set_message('_edit_exists', 'The scale chosen was not a valid scale.');
+    return false;
   }
   
   function editProcess()
