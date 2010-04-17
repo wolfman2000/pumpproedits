@@ -1,0 +1,63 @@
+This is the repository for Pump Pro Edits V3: Player Power.
+The website is at http://beta.pumpproedits.com for now.
+It is called as such because the players can now directly
+contribute to how the website looks, feels, and behaves.
+You can now follow the source contributions to the website
+via Twitter: just follow "pumpproedits".
+
+This is a CodeIgniter based project. More information can be
+found at http://www.codeigniter.com if you are interested.
+While this is designed to be a standard project, minor
+configuration and setup is required to play around
+with this website on your own computer.
+
+1) The project uses SQLite 3 by default. However,
+the database is not included. For that matter,
+nothing in the data folder is included. That data
+will have to be recreated for your own use.
+
+3) In the root of this project, remember to create the
+tmp folder. Give 777 permissions to
+both of them. Windows users, you'll have to discover
+the equivalent commands on your own.
+
+As far as coding standards go, keep it legible. Using
+unicode/utf-8 is recommended, as anyone from around the
+world will be able to read and edit this code.
+Tabs versus spaces, where braces go, etc, is not something
+I care deeply about.
+
+For the purposes of saving bandwidth, look into compressing
+the files you use. CSS has a compressor and decompressor at
+http://www.cssdrive.com/index.php/main/csscompressor/ and
+http://mrcoles.com/blog/css-unminify/ respectively. Some
+limited caching has also been implemented on the page to
+try to cut down on bandwidth cost. If there is any other
+caching that can be implemented, please look into it.
+
+Try to use git's branching functionality when adding
+new features. The master branch should really only contain
+code that is guaranteed to run. Of course, mistakes happen,
+but try to be careful.
+
+Don't be afraid to use many different technologies either.
+Presently, this website uses an SVG based Edit Creator
+with hooks for AJAX, JSON, jQuery, and Twitter. Take advantage
+of what the web has to offer. If it is a standard technology
+implemented by many web browsers, go ahead.
+
+At this point, there is no hiding it: anyone that uses
+Internet Explorer just cannot get the proper experience
+at this time. The SVG technology is not guaranteed to work on
+IE whether by plugin or javascript or flash without a risk
+of breaking it for the other web browsers. Most of my pieces
+are presently left in the repository for anyone brave enough to
+make it work for IE and keep it working for the others. When
+IE 9 comes out of preview, I will have to find a way to give
+that a test on the website.
+
+If there are any questions, feel free to contact me.
+
+-- Jason "Wolfman2000" Felds
+
+
