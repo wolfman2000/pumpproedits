@@ -2,6 +2,18 @@
 // This file handles all of the validation rules.
 
 $config = array(
+	'confirm/check' => array(
+		array(
+			'field' => 'confirm',
+			'label' => 'Confirmation Code',
+			'rules' => 'required',
+		),
+		array(
+			'field' => 'password',
+			'label' => 'Password',
+			'rules' => 'required',
+		),
+	),
 	'register/check' => array(
 		array(
 			'field' => 'username',

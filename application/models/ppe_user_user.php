@@ -6,6 +6,12 @@ class Ppe_user_user extends Model
     parent::Model();
   }
   
+  // confirm the user (or unconfirm) as required
+  function confirmUser($id, $confirm = 1)
+  {
+    $this->db->update('ppe_user_user', array('confirm' => $confirm), "id = $id");
+  }
+  
   // get the name of the user by its ID.
   public function getUserByID($id)
   {

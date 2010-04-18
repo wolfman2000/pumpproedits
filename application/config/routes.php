@@ -40,6 +40,7 @@
 |
 */
 
+#$route['confirm/(a-fA-F0-9){32}'] = "confirm/index/$1";
 #$route['base/(:num)'] = "base/index/$1";
 
 $route['official'] = "edits/official";
