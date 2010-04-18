@@ -30,7 +30,7 @@ class Login extends Controller
     
     $id = $this->ppe_user_condiment->checkUser($user, $pass);
     
-    $unset = array('id' => '', 'username' => '');
+    $unset = array('id' => '', 'username' => '', 'roles' => '');
     
     if (!$id)
     {
