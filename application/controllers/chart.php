@@ -111,7 +111,6 @@ class Chart extends Controller
     {
       $ret[$d] = file_exists(sprintf($path, APPPATH, $sid, $d));
     }
-    //$ret = $this->itg_song_song->getDifficulties($sid);
     echo json_encode($ret);
   }
   
