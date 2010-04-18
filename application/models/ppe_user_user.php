@@ -32,4 +32,12 @@ class Ppe_user_user extends Model
       ->where('e.id', $eid)->get('ppe_user_user u')
       ->row()->name;
   }
+  
+  // get the intended name based off of the lowercase name.
+  public function getCasedName($name)
+  {
+    return $this->db->select('name')
+      ->where('lc_name', strtolower($name))
+      ->get('ppe_user_user')->row()->name;
+  }
 }

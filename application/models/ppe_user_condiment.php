@@ -1,0 +1,26 @@
+<?php
+class Ppe_user_condiment extends Model
+{
+  function __construct()
+  {
+    parent::Model();
+  }
+  
+  // check the password matches.
+  function checkPassword($salt, $pass)
+  {
+    $pepper = hash("sha256", $pass . $salt);
+    return $this->db->select('id')->where('pepper', $pepper)
+      ->get('ppe_user_condiment')->row()->id;
+  }
+  
+  // check the user exists.
+  function checkUser($name, $pass)
+  {
+    $q = $this->db->select('a.salt')
+      ->join('ppe_user_user b', 'b.id = a.user_id')
+      ->where('b.lc_name', strtolower($name))
+      ->get('ppe_user_condiment a')->row();
+    return $q ? $this->checkPassword($q->salt, $pass) : false;
+  }
+}
