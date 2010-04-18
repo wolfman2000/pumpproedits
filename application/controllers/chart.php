@@ -9,6 +9,7 @@ class Chart extends Controller
     $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
     $this->load->model('ppe_edit_edit');
     $this->load->model('ppe_song_song');
+    $this->difficulties = array('ez', 'nr', 'hr', 'cz', 'hd', 'fs', 'nm', 'rt');
   }
   
   function index()
@@ -25,7 +26,7 @@ class Chart extends Controller
   // confirm the song and difficulty exist.
   function _diff_exists($str)
   {
-    if (in_array($str, array('ez', 'nr', 'hr', 'cz', 'hd', 'fs', 'nm', 'rt'))) return true;
+    if (in_array($str, $this->difficulties)) return true;
     $this->form_validation->set_message('_diff_exists', 'A valid difficulty must be chosen.');
     return false;
   }
@@ -119,7 +120,11 @@ class Chart extends Controller
   {
     $sid = $this->uri->segment(3, false);
     header("Content-type: application/json");
-    $ret = $this->ppe_song_song->getDifficulties($sid);
+    $path = "%sdata/official/%d_%s.sm.gz";
+    foreach ($this->difficulties as $d)
+    {
+      $ret[$d] = file_exists(sprintf($path, APPPATH, $sid, $d));
+    }
     echo json_encode($ret);
   }
   
@@ -133,7 +138,7 @@ class Chart extends Controller
     }
     $sid = $this->input->post('songs');
     $dif = $this->input->post('diff');
-    $path = sprintf("%sdata/official/%d.sm", APPPATH, $sid);
+    $path = sprintf("%sdata/official/%d_%s.sm.gz", APPPATH, $sid, $dif);
     
     $this->load->library('EditParser');
     $p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $dif);
