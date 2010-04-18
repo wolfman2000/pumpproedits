@@ -23,4 +23,13 @@ class Ppe_user_condiment extends Model
       ->get('ppe_user_condiment a')->row();
     return $q ? $this->checkPassword($q->salt, $pass) : false;
   }
+  
+  // Confirm the user through password and special string.
+  function confirmUser($oregano, $pass)
+  {
+    $q = $this->db->select('salt')->where('oregano', $oregano)
+      ->get('ppe_user_condiment')->row();
+    
+    return $q ? $this->checkPassword($q->salt, $pass) : false;
+  }
 }

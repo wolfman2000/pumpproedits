@@ -34,7 +34,7 @@ class Confirm extends Controller
       $this->output->set_status_header(409);
       $this->load->view('confirm/invalid');
     }
-    elseif ($this->user_role->getIsUserBanned($id))
+    elseif ($this->ppe_user_role->getIsUserBanned($id))
     {
       $this->output->set_status_header(409);
       $this->load->view('confirm/banned');

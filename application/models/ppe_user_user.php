@@ -9,7 +9,7 @@ class Ppe_user_user extends Model
   // confirm the user (or unconfirm) as required
   function confirmUser($id, $confirm = 1)
   {
-    $this->db->update('ppe_user_user', array('confirm' => $confirm), "id = $id");
+    $this->db->update('ppe_user_user', array('is_confirmed' => $confirm), "id = $id");
   }
   
   // get the name of the user by its ID.
@@ -34,7 +34,7 @@ class Ppe_user_user extends Model
   }
   
   // get the ID of the user via username.
-  function getIDByEmail($name)
+  function getIDByName($name)
   {
     return $this->db->select('id')->where('lc_name', strtolower($name))
       ->get('ppe_user_user')->row()->id;
