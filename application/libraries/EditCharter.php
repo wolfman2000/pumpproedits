@@ -88,28 +88,7 @@ class EditCharter
     $this->xml->formatOutput = true; # May change this.
   }
 
-  private function genUseNode($x, $y, $id, $class = '', $sx = 1, $sy = 1)
-  {
-    $base = APP_CHART_DEF_FILE;
-
-    // Need to target both Safari and WebKit at once. This may have to stay.
-    if (strpos($_SERVER['HTTP_USER_AGENT'], "WebKit") !== false)
-    {
-      $base = "";
-    }
-
-    $use = $this->xml->createElement('use');
-    if ($x > 0) $use->setAttribute('x', $x);
-    if ($y > 0) $use->setAttribute('y', $y);
-    $use->setAttribute('xlink:href', "$base#$id");
-    if (strlen($class) > 1) $use->setAttribute('class', "$class");
-    if (!($sx === 1 and $sy === 1))
-    {
-      $use->setAttribute('transform', "scale($sx $sy)");
-    }  
-    return $use;
-  }
-
+  
   private function genXMLHeader($measures)
   {
     // Place the surrounding HTML in first.
@@ -149,11 +128,7 @@ class EditCharter
     $svg->setAttribute('height', $height * $this->scale);
     $this->svgheight = $height;
     
-    // Again, I need to target both Safari and Chrome.
-    if (strpos($_SERVER['HTTP_USER_AGENT'], "WebKit") !== false)
-    {
-      $svg->appendChild($this->xml->importNode($this->CI->svgmaker->genDefs(), true));
-    }
+    $svg->appendChild($this->xml->importNode($this->CI->svgmaker->genDefs(), true));
     
     $this->xml->appendChild($html);
     
@@ -377,10 +352,10 @@ class EditCharter
     {
       case "1": # Tap note. Just add to the chart.
       {
-        $opt = array('href' => $arow[$pcounter]['a'] . "arrow", 'class' => $arow[$pcounter]['c']);
+        $opt = array('href' => "arrow", 'class' => $arow[$pcounter]['c']);
         if ($arow[$pcounter]['a'] !== "L")
         {
-          //$opt['transform'] = sprintf($arow[$pcounter]['t'], $nx + 8, $ny + 8);
+          $opt['transform'] = sprintf($arow[$pcounter]['t'], $nx + 8, $ny + 8);
         }
         $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
@@ -422,10 +397,10 @@ class EditCharter
             $nt->appendChild($node);
             
             # Place the tap.
-            $opt = array('href' => $a['a'] . "arrow", 'class' => $a['c']);
+            $opt = array('href' =>  "arrow", 'class' => $a['c']);
             if ($arow[$pcounter]['a'] !== "L")
             {
-              //$opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
+              $opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
             }
             $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
             
@@ -465,15 +440,13 @@ class EditCharter
             $opt = array('href' => $end);
             $node = $this->xml->importNode($sm->genUse($nx, $ny, $opt));
             $nt->appendChild($node);
-            //$nt->appendChild($this->genUseNode($nx, $ny, $end));
             # Tap note last.
-            $opt = array('href' => $a['a'] . "arrow", 'class' => $a['c']);
+            $opt = array('href' => "arrow", 'class' => $a['c']);
             if ($arow[$pcounter]['a'] !== "L")
             {
-              //$opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
+              $opt['transform'] = sprintf($arow[$pcounter]['t'], $ox + 8, $oy + 8);
             }
             $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
-            //$nt->appendChild($this->genUseNode($ox, $oy, $a['a'] . "arrow", $a['c']));
           }
         }
         break;

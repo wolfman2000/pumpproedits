@@ -25,15 +25,14 @@ g#beat1 > line
   stroke:black;
   fill:black;
 }
-g#Larrow, g#Darrow, g#Uarrow, g#Rarrow, g#mine
+g#arrow, g#mine
 {
   fill-opacity:1;
   stroke:black;
   stroke-width:0.5;
   stroke-opacity:1;
 }
-g#Larrow path:first-child, g#Darrow path:first-child,
-g#Uarrow path:first-child, g#Rarrow path:first-child
+g#arrow path:first-child
 {
 	stroke-width: 1;
 }
@@ -50,7 +49,7 @@ g#mine > circle:first-child + circle
 {
   fill:black;
 }
-g#DLarrow > line, g#ULarrow > line, g#URarrow > line, g#DRarrow > line
+g#arrow > line
 {
   stroke: black;
   stroke-width: 0.1;

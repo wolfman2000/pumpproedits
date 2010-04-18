@@ -10,13 +10,7 @@ class SVGMaker
   // Make a general <use> tag.
   function genUse($x, $y, $options = array())
   {
-    $base = APP_CHART_DEF_FILE;
-
-    // Need to target both Safari and WebKit at once. This may have to stay.
-    if (strpos($_SERVER['HTTP_USER_AGENT'], "WebKit") !== false)
-    {
-      $base = "";
-    }
+    $base = "";
 
     $use = $this->s->createElement('use');
     if ($x > 0) $use->setAttribute('x', $x);
@@ -111,10 +105,10 @@ class SVGMaker
     }
     $def->appendChild($g);
     
-    // Now the arrows get defined.  Here: left arrow
+    // Use one arrow, and rotate it.
     
     $g = $this->s->createElement('g');
-    $g->setAttribute('id', 'Larrow');
+    $g->setAttribute('id', 'arrow');
     $p = $this->s->createElement('path');
     $p->setAttribute('d', 'm 1,8 7,7 2,-2 -3,-3 8,0 -2,-2 2,-2 -8,0 3,-3 -2,-2 z');
     $g->appendChild($p);
@@ -129,63 +123,9 @@ class SVGMaker
     
     $def->appendChild($g);
     
-    // down arrow
-    
-    $g = $this->s->createElement('g');
-    $g->setAttribute('id', 'Darrow');
-    $p = $this->s->createElement('path');
-    $p->setAttribute('d', 'm 8,15 7,-7 -2,-2 -3,3 0,-8 -2,2 -2,-2 0,8 -3,-3 -2,2 z');
-    $g->appendChild($p);
-    
-    $l = $this->s->createElement('path');
-    $l->setAttribute('d', 'm 10,5 -2,2 -2,-2');
-    $g->appendChild($l);
-    
-    $l = $this->s->createElement('path');
-    $l->setAttribute('d', 'm 10,9 -2,2 -2,-2');
-    $g->appendChild($l);
-    
-    $def->appendChild($g);
-    
-    // up arrow
-    
-    $g = $this->s->createElement('g');
-    $g->setAttribute('id', 'Uarrow');
-    $p = $this->s->createElement('path');
-    $p->setAttribute('d', 'm 8,1 -7,7 2,2 3,-3 0,8 2,-2 2,2 0,-8 3,3 2,-2 z');
-    $g->appendChild($p);
-    
-    $l = $this->s->createElement('path');
-    $l->setAttribute('d', 'm 6,11 2,-2 2,2');
-    $g->appendChild($l);
-    
-    $l = $this->s->createElement('path');
-    $l->setAttribute('d', 'm 6,7 2,-2 2,2');
-    $g->appendChild($l);
-    
-    $def->appendChild($g);
-    
-    // right arrow
-    
-    $g = $this->s->createElement('g');
-    $g->setAttribute('id', 'Rarrow');
-    $p = $this->s->createElement('path');
-    $p->setAttribute('d', 'm 15,8 -7,-7 -2,2 3,3 -8,0 2,2 -2,2 8,0 -3,3 2,2 z');
-    $g->appendChild($p);
-    
-    $l = $this->s->createElement('path');
-    $l->setAttribute('d', 'm 5,6 2,2 -2,2');
-    $g->appendChild($l);
-    
-    $l = $this->s->createElement('path');
-    $l->setAttribute('d', 'm 9,6 2,2 -2,2');
-    $g->appendChild($l);
-    
-    $def->appendChild($g);
-    
     // mine
     
-    $g = $this->s->createElement('mine');
+    $g = $this->s->createElement('g');
     $g->setAttribute('id', 'mine');
     
     foreach (array(7, 5, 3) as $r)
