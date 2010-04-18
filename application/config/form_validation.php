@@ -2,6 +2,28 @@
 // This file handles all of the validation rules.
 
 $config = array(
+	'register/check' => array(
+		array(
+			'field' => 'username',
+			'label' => 'Username',
+			'rules' => 'min_length[4]|max_length[12]',
+		),
+		array(
+			'field' => 'password',
+			'label' => 'Password',
+			'rules' => 'min_length[5]',
+		),
+		array(
+			'field' => 'passdual',
+			'label' => 'Confirm Password',
+			'rules' => 'min_length[5]|matches[password]',
+		),
+		array(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'valid_email',
+		),
+	),
 	'login/check' => array(
 		array(
 			'field' => 'username',

@@ -13,6 +13,27 @@ class Ppe_user_user extends Model
       ->get('ppe_user_user')->row()->name;
   }
   
+  // Check if the user is confirmed based on ID.
+  function getConfirmedByID($id)
+  {
+    return $this->db->select('is_confirmed')->where('id', $id)
+      ->get('ppe_user_user')->row()->is_confirmed;
+  }
+  
+  // get the id of the user via email.
+  function getIDByEmail($email)
+  {
+    return $this->db->select('id')->where('lc_email', strtolower($email))
+      ->get('ppe_user_user')->row()->id;
+  }
+  
+  // get the ID of the user via username.
+  function getIDByEmail($name)
+  {
+    return $this->db->select('id')->where('lc_name', strtolower($name))
+      ->get('ppe_user_user')->row()->id;
+  }
+  
   // get the list of users with edits.
   public function getUsersWithEdits()
   {
