@@ -32,4 +32,11 @@ class Ppe_user_condiment extends Model
     
     return $q ? $this->checkPassword($q->salt, $pass) : false;
   }
+  
+  // get the user's recent oregano.
+  function getOreganoByID($id)
+  {
+    return $this->db->select('oregano')->where('user_id = ?', $id)
+      ->get('ppe_user_condiment')->row()->oregano;
+  }
 }

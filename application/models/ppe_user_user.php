@@ -6,6 +6,30 @@ class Ppe_user_user extends Model
     parent::Model();
   }
   
+  // Add the new user to the database.
+  function addUser($name, $email, $pass)
+  {
+    $data = array('name' => $name, 'lc_name' => strtolower($name),
+      'email' => $email, 'lc_email' => strtolower($email),
+    );
+    // use transactions to ensure validity.
+    $this->db->trans_start();
+    
+    $this->db->insert('ppe_user_user', $data);
+    $id = $this->db->insert_id();
+    
+    $this->load->helper('salter');
+    $salt = genSalt();
+    $md5 = hash("md5", $pass . $salt);
+    
+    $data = array('oregano' => $md5, 'salt' => $salt,
+      'pepper' => hash("sha256", $pass . $salt), 'user_id' => $id);
+    $this->db->insert('ppe_user_condiment', $data);
+    
+    $this->db->insert('ppe_user_power', array('user_id' => $id, 'role_id' => APP_USER_ROLE));
+    $this->db->trans_complete(); // transaction complete.
+    return $md5;
+  }
   // confirm the user (or unconfirm) as required
   function confirmUser($id, $confirm = 1)
   {
@@ -29,15 +53,17 @@ class Ppe_user_user extends Model
   // get the id of the user via email.
   function getIDByEmail($email)
   {
-    return $this->db->select('id')->where('lc_email', strtolower($email))
-      ->get('ppe_user_user')->row()->id;
+    $q = $this->db->select('id')->where('lc_email', strtolower($email))
+      ->get('ppe_user_user');
+    return $q->num_rows() ? $q->row()->id : null;
   }
   
   // get the ID of the user via username.
-  function getIDByName($name)
+  function getIDByUser($name)
   {
-    return $this->db->select('id')->where('lc_name', strtolower($name))
-      ->get('ppe_user_user')->row()->id;
+    $q = $this->db->select('id')->where('lc_name', strtolower($name))
+      ->get('ppe_user_user');
+    return $q->num_rows() ? $q->row()->id : null;
   }
   
   // get the list of users with edits.

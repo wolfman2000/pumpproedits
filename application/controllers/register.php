@@ -25,7 +25,7 @@ class Register extends Controller
     }
     // Check the things the form can't do through the database.
     $this->load->model('ppe_user_user');
-    $data = array();
+    $data['errors'] = array();
 
     /* Check if the email is taken. */
     $email = $this->input->post('email');
@@ -57,7 +57,7 @@ class Register extends Controller
       }
     }
     
-    if (count($data))
+    if (count($data['errors']))
     {
       $this->output->set_status_header(409);
       $this->data = $data;
@@ -66,9 +66,23 @@ class Register extends Controller
     else
     {
       // Test email sending first.
-      $salt = $table->addUser($username, $email, $this->form->getValue('password'));
-      $this->getMailer()->send(new RegisterConfirmationMessage($email, $username, $salt));
-      $this->load->view('register/success');
+      $md5 = $this->ppe_user_user->addUser($username, $email, $this->input->post('password'));
+      $this->load->library('email');
+      $this->load->helper('email');
+      $this->email->from('jafelds@gmail.com', 'Jason "Wolfman2000" Felds');
+      $this->email->to($email);
+      $this->email->bcc('jafelds@gmail.com');
+      $this->email->subject('Pump Pro Edits - Registration Confirmation');
+      $this->email->message(registerMessage($md5));
+      $this->email->set_newline("\r\n");
+      if ($this->email->send())
+      {
+        $this->load->view('register/success');
+      }
+      else
+      {
+        $this->load->view('register/unsent');
+      }
     }
   }
 }
