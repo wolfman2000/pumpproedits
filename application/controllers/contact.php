@@ -19,6 +19,7 @@ class Contact extends Controller
     if ($this->form_validation->run() === false)
     {
       $this->load->view('contact/error');
+      return;
     }
     $this->load->library('email');
     $this->email->from('jafelds@gmail.com', 'Jason "Wolfman2000" Felds');
