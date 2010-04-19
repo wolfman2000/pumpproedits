@@ -2,6 +2,18 @@
 // This file handles all of the validation rules.
 
 $config = array(
+	'help/check' => array(
+		array(
+			'field' => 'email',
+			'label' => 'Email',
+			'rules' => 'valid_email',
+		),
+		array(
+			'field' => 'choice',
+			'label' => 'Choice',
+			'rules' => 'callback__valid_choice',
+		),
+	),
 	'confirm/check' => array(
 		array(
 			'field' => 'confirm',
