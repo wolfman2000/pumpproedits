@@ -6,6 +6,38 @@ class Ppe_edit_edit extends Model
     parent::Model();
   }
   
+  // Add an edit that is new to the database.
+  function addEdit($id, $row)
+  {
+    $data = array(
+      'style' => substr($row['style'], 5),
+      'song_id' => $row['id'],
+      'user_id' => $row['uid'],
+      'title' => $row['title'],
+      'diff' => $row['diff'],
+    );
+    $this->insert('ppe_edit_edit', $data);
+    $this->load->model('ppe_edit_player');
+    $id = $this->db->insert_id();
+    $this->ppe_edit_player->addEdit($id, $row);
+    if ($row['style'] === "pump-routine")
+    {
+      $this->ppe_edit_player->addEdit($id, $row, 1);
+    }
+  }
+  
+  // Update an edit that is already in the database.
+  function updateEdit($id, $row)
+  {
+    $this->db->update('ppe_edit_edit', array('diff' => $row['diff']), "id = $id");
+    $this->load->model('ppe_edit_player');
+    $this->ppe_edit_player->updateEdit($id, $row);
+    if ($row['style'] === "pump-routine")
+    {
+      $this->ppe_edit_player->updateEdit($id, $row, 1);
+    }
+  }
+  
   // Confirm if the edit exists.
   public function checkExistance($eid)
   {
