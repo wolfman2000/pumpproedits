@@ -1,5 +1,5 @@
 <?php
-public function postTwitter($status)
+function postTwitter($status)
 {
   if (strpos($_SERVER["SERVER_NAME"], "localhost") !== false) { return; }
   // Twitter login information
@@ -35,7 +35,7 @@ public function postTwitter($status)
   curl_close($ch);
 }
 
-public function genTinyURL($url)
+function genTinyURL($url)
 {
   //gets the data from a URL  
   $ch = curl_init();  
@@ -48,7 +48,7 @@ public function genTinyURL($url)
   return $data;  
 }
 
-public function genEditMessage($userid, $name, $status)
+function genEditMessage($userid, $name, $status)
 {
   if ($userid != 2)
   {
