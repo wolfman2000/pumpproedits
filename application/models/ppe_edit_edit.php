@@ -29,6 +29,16 @@ class Ppe_edit_edit extends Model
       ->get();
   }
   
+  // Determine if the edit being uploaded is new or old.
+  function getIDByUpload($row)
+  {
+    $q = $this->db->select('id')->where('title', $row['title'])
+      ->where('style', substr($row['style'], 5))
+      ->where('user_id', $row['uid'])
+      ->get('ppe_edit_edit');
+    return $q->num_rows() ? $q->row()->id : null;
+  }
+  
   // Get all edits of the chosen song.
   public function getEditsBySong($sid)
   {

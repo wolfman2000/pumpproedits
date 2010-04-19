@@ -37,17 +37,43 @@ class Upload extends Controller
       $dest = $data['upload_data']['file_path'] . $time . '.edit';
       //move_uploaded_file($full, $dest);
       $this->load->library('EditParser');
+      $data = file_get_contents($full);
+      
       try
       {
-        $data['result'] = $this->editparser->get_stats(gzopen($full, "r"));
+        $row = $this->editparser->get_stats(gzopen($full, "r"));
         @unlink($full);
-        $this->load->view('upload/success', $data);
       }
       catch (Exception $e)
       {
         @unlink($full);
         $this->load->view('upload/invalid', array('error' => $e));
+        return;
       }
+      $this->load->model('ppe_edit_edit');
+      $uid = $this->input->post('userid');
+      $eid = $this->ppe_edit_edit->getIDByUpload($row);
+      // if old edit: update/replace
+      if ($eid)
+      {
+        $status = "Updated";
+        $this->ppe_edit_edit($eid, $row);
+      }
+      else
+      {
+        $eid = $this->ppe_edit_edit->addEdit($row);
+        $status = "New";
+      }
+      $this->db->cache_delete_all();
+      $this->load->helper('twitter');
+      $this->load->model('ppe_user_user');
+      postTwitter(genEditMessage($uid, $this->ppe_user_user->getNameByID($uid), $status));
+      
+      $path = sprintf("%sdata/user_edits/%06d.edit.gz", APPPATH, $eid);
+      $fp = gzopen($path, "w");
+      gzwrite($fp, $data);
+      gzclose($fp);
+      $this->load->view('upload/success');
     }
     else
     {
