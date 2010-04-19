@@ -2,6 +2,23 @@
 // This file handles all of the validation rules.
 
 $config = array(
+	'reset/check' => array(
+		array(
+			'field' => 'confirm',
+			'label' => 'Confirmation Code',
+			'rules' => 'required'
+		),
+		array(
+			'field' => 'password',
+			'label' => 'Password',
+			'rules' => 'required'
+		),
+		array(
+			'field' => 'passdual',
+			'label' => 'Confirm Password',
+			'rules' => 'required|matches[password]'
+		),
+	),
 	'help/check' => array(
 		array(
 			'field' => 'email',

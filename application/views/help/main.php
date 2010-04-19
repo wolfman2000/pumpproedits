@@ -1,5 +1,5 @@
 <?php $this->load->view('global/header',
-  array('css' => 'css/help.css', 'h2' => 'Account Help', 'title' => 'Account')); ?>
+  array('css' => 'css/help.css', 'h2' => 'Account Help', 'title' => 'Account Help')); ?>
 <p>
   Having trouble accessing your account? You can have a new
   password generated, or you can re-confirm your email address.

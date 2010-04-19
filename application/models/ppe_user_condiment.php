@@ -48,6 +48,13 @@ class Ppe_user_condiment extends Model
     $md5 = hash("md5", date("YmdHis") . $salt); // date here, not pw: won't matter.
     $this->db->update('ppe_user_condiment', array('oregano' => $md5), "user_id = $id");
     return $md5;
-    
+  }
+  
+  // Update the pepper/password value and return it.
+  function setPassword($id, $pass)
+  {
+    $this->load->helper('salter');
+    $pepper = hash("sha256", $pass . getSalt());
+    $this->db->update('ppe_user_condiment', array('pepper' => $pepper), "user_id = $id");
   }
 }

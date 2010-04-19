@@ -79,6 +79,5 @@ class Help extends Controller
         $this->load->view('help/unsent');
       }
     }
-    
   }
 }
