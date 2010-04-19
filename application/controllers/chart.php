@@ -162,11 +162,13 @@ class Chart extends Controller
     }
     $id = sprintf("%06d", $id);
     $name = sprintf("edit_%s.edit.gz", $id);
-    $path = sprintf("%s/data/user_edits/%s", APPPATH, $name);
+    $path = sprintf("%sdata/user_edits/%s", APPPATH, $name);
     
     if (!file_exists($path))
     {
-      # Return error: file must exist.
+      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
+      $this->load->view('chart/none', $data);
+      return;
     }
     // Validate the file and print the chart here.
     $this->load->library('EditParser');
