@@ -52,12 +52,13 @@ class Upload extends Controller
       }
       $this->load->model('ppe_edit_edit');
       $uid = $this->input->post('userid');
+      $row['uid'] = $uid;
       $eid = $this->ppe_edit_edit->getIDByUpload($row);
       // if old edit: update/replace
       if ($eid)
       {
         $status = "Updated";
-        $this->ppe_edit_edit($eid, $row);
+        $this->ppe_edit_edit->updateEdit($eid, $row);
       }
       else
       {
@@ -67,9 +68,10 @@ class Upload extends Controller
       $this->db->cache_delete_all();
       $this->load->helper('twitter');
       $this->load->model('ppe_user_user');
-      postTwitter(genEditMessage($uid, $this->ppe_user_user->getNameByID($uid), $status));
+      $twit = genEditMessage($uid, $this->ppe_user_user->getUserByID($uid), $status);
+      postTwitter($twit);
       
-      $path = sprintf("%sdata/user_edits/%06d.edit.gz", APPPATH, $eid);
+      $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
       $fp = gzopen($path, "w");
       gzwrite($fp, $data);
       gzclose($fp);

@@ -7,34 +7,72 @@ class Ppe_edit_edit extends Model
   }
   
   // Add an edit that is new to the database.
-  function addEdit($id, $row)
+  function addEdit($row)
   {
+    $date = date('Y-m-d H:i:s');
     $data = array(
       'style' => substr($row['style'], 5),
       'song_id' => $row['id'],
       'user_id' => $row['uid'],
       'title' => $row['title'],
       'diff' => $row['diff'],
+      'created_at' => $date,
+      'updated_at' => $date,
     );
-    $this->insert('ppe_edit_edit', $data);
-    $this->load->model('ppe_edit_player');
+    $this->db->insert('ppe_edit_edit', $data);
     $id = $this->db->insert_id();
-    $this->ppe_edit_player->addEdit($id, $row);
+    
+    $players = array(0);
     if ($row['style'] === "pump-routine")
     {
-      $this->ppe_edit_player->addEdit($id, $row, 1);
+      $players = array(0, 1);
+    }
+    foreach ($players as $player)
+    {
+       $data = array(
+        'steps' => $row['steps'][$player],
+        'jumps' => $row['jumps'][$player],
+        'holds' => $row['holds'][$player],
+        'mines' => $row['mines'][$player],
+        'trips' => $row['trips'][$player],
+        'rolls' => $row['rolls'][$player],
+        'lifts' => $row['lifts'][$player],
+        'fakes' => $row['fakes'][$player],
+        'player' => $player + 1,
+        'edit_id' => $id,
+      );
+      $this->db->insert('ppe_edit_player', $data);
     }
   }
   
   // Update an edit that is already in the database.
   function updateEdit($id, $row)
   {
-    $this->db->update('ppe_edit_edit', array('diff' => $row['diff']), "id = $id");
-    $this->load->model('ppe_edit_player');
-    $this->ppe_edit_player->updateEdit($id, $row);
+    $data = array(
+      'title' => $row['title'],
+      'diff' => $row['diff'],
+      'updated_at' => date('Y-m-d H:i:s')
+    );
+    $this->db->update('ppe_edit_edit', $data, "id = $id");
+    $players = array(0);
     if ($row['style'] === "pump-routine")
     {
-      $this->ppe_edit_player->updateEdit($id, $row, 1);
+      $players = array(0, 1);
+    }
+    foreach ($players as $player)
+    {
+      $data = array(
+        'steps' => $row['steps'][$player],
+        'jumps' => $row['jumps'][$player],
+        'holds' => $row['holds'][$player],
+        'mines' => $row['mines'][$player],
+        'trips' => $row['trips'][$player],
+        'rolls' => $row['rolls'][$player],
+        'lifts' => $row['lifts'][$player],
+        'fakes' => $row['fakes'][$player],
+      );
+      $where = array('edit_id' => $id, 'player' => $player + 1);
+      $this->db->update('ppe_edit_player', $data, $where);
     }
   }
   
@@ -78,7 +116,7 @@ class Ppe_edit_edit extends Model
     $cols .= ', y.trips ytrips, y.rolls yrolls, y.fakes yfakes, y.lifts ylifts';
     $cols .= ', m.steps msteps, m.jumps mjumps, m.holds mholds, m.mines mmines';
     $cols .= ', m.trips mtrips, m.rolls mrolls, m.fakes mfakes, m.lifts mlifts';
-    $cols .= ', a.user_id, b.name uname, a.title, a.style, a.num_votes, a.tot_votes';
+    $cols .= ', a.user_id, b.name uname, a.title, a.style';
     return $this->db->select($cols)
       ->from('ppe_edit_edit a')
       ->join('ppe_user_user b', 'a.user_id = b.id')
@@ -98,7 +136,7 @@ class Ppe_edit_edit extends Model
     $cols .= ', y.trips ytrips, y.rolls yrolls, y.fakes yfakes, y.lifts ylifts';
     $cols .= ', m.steps msteps, m.jumps mjumps, m.holds mholds, m.mines mmines';
     $cols .= ', m.trips mtrips, m.rolls mrolls, m.fakes mfakes, m.lifts mlifts';
-    $cols .= ', a.song_id, b.name sname, a.title, a.style, a.num_votes, a.tot_votes';
+    $cols .= ', a.song_id, b.name sname, a.title, a.style';
     return $this->db->select($cols)
       ->from('ppe_edit_edit a')
       ->join('ppe_song_song b', 'a.song_id = b.id')
