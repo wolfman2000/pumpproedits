@@ -40,6 +40,32 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <?php endforeach; ?></select></li>
 <li class="loadOther"><button id="other_yes" type="button">Select</button></li>
 <li class="loadOther"><button id="other_no" type="button">Nevermind</button></li>
+<li class="loadSong long reset"><label for="loadSong">Select your song!</label></li>
+<li class="loadSong long"><select id="loadSong" name="loadSong">
+<option value="" selected="selected">Choose</option>
+<optgroup label="Pump it up Pro">
+<?php $ind = 1;
+foreach ($songs as $s):
+if ($s->gid != $ind): ?>
+</optgroup>
+<optgroup label="Pump it up Pro 2">
+<?php $ind = $s->gid; endif; ?>
+<option value="<?php echo $s->id; ?>"><?php echo htmlspecialchars($s->name); ?></option>
+<?php endforeach; ?></optgroup></select></li>
+<li class="loadSong long"><label for="loadDifficulty">Select your difficulty!</label></li>
+<li class="loadSong long"><select id="loadDifficulty" name="loadDifficulty">
+<option value="">Choose!</option>
+<option value="ez">Easy</option>
+<option value="nr">Normal</option>
+<option value="hr">Hard</option>
+<option value="cz" selected="selected">Crazy</option>
+<option value="hd">Halfdouble</option>
+<option value="fs">Freestyle</option>
+<option value="nm">Nightmare</option>
+<option value="rt">Routine</option>
+</select></li>
+<li class="loadSong"><button id="song_yes" type="button">Select</button></li>
+<li class="loadSong"><button id="song_no" type="button">Nevermind</button></li>
 <li class="loadSite long">Select your edit below.</li>
 <li class="loadSite long"><select id="mem_edit"></select></li>
 <li class="loadSite reset"><button id="mem_load" type="button">Load Edit</button></li>
@@ -54,7 +80,7 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <dt class="choose"></dt>
 <dd class="choose"><ul>
 <li><label for="songlist">Select your song!</label></li>
-<li class="reset"><select id="songlist">
+<li class="reset"><select id="songlist" name="songlist">
 <option value="" selected="selected">Choose</option>
 <optgroup label="Pump it up Pro">
 <?php $ind = 1;

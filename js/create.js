@@ -123,7 +123,9 @@ $(document).ready(function()
     if (item == authed) { loadWebEdits(authed); }
     if (item == 2 && andamiro > 0) { loadWebEdits(2); }
     if (item == "off" && others > 0) {
-      
+      $("li.loadSong").show();
+      $("li[class^=load]:not(.loadSong)").hide();
+      $("#loadDifficulty").attr("disabled", true);
     };
     if (item == "all" && others > 0) {
       $("li.loadOther").show();
@@ -134,6 +136,40 @@ $(document).ready(function()
   // The admin wishes to select another author's edit.
   $("#other_yes").click(function(){
     loadWebEdits($("#other_sel").val());
+  });
+  
+  // The admin has chosen a song, and needs to choose a difficulty.
+  $("#loadSong").change(function(){
+    songID = $("#loadSong").val();
+    if (songID.length > 0)
+    {
+      $("#intro").text("Setting up styles...")
+      $("#loadDifficulty").attr("disabled", true);
+      $.getJSON(baseURL + "/routine/" + songID, function(data, status)
+      {
+        var diff = $("#loadDifficulty").val();
+        if (data.isRoutine > 0) { $("#loadDifficulty > option:last-child").show(); }
+        else                    { $("#loadDifficulty > option:last-child").hide();
+          if (diff == "rt")
+          {
+            $("#loadDifficulty").val("");
+            $("#song_yes").attr("disabled", true);
+          }
+        }
+        $("#loadDifficulty").removeAttr("disabled");
+      });
+    }
+    else
+    {
+      $("#loadDifficulty").attr("disabled", "disabled");
+      $("#song_yes").removeAttr("disabled");
+    }
+  });
+  
+  // The admin has chosen a song and style, and thus can load the chart.
+  $("#loadDifficulty").change(function(){
+    if ($("#loadDifficulty").val().length) { $("#song_yes").removeAttr("disabled"); }
+    else                                   { $("#song_yes").attr("disabled", true); }
   });
   
   // The account holder wishes to edit one of his account edits.

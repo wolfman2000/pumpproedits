@@ -279,6 +279,10 @@ function init()
   isDirty = false;
   $("#but_load").removeAttr('disabled');
   $("#songlist").removeAttr('disabled');
+  
+  $("#loadDifficulty").val("");
+  $("#loadSong").val("");
+  $("#song_yes").attr("disabled", true);
 }
 
 // Dynamically adjust the scale as needed.

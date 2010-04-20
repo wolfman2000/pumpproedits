@@ -54,11 +54,11 @@
 	{
 		clear: both;
 	}
-	#songlist, #mem_edit
+	nav select
 	{
 		max-width: 20em;
 	}
-	#songlist > optgroup > option
+	select > optgroup > option
 	{
 		padding-left: 1em;
 		padding-right: 1em;
