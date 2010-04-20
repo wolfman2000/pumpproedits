@@ -11,6 +11,7 @@ class Create extends Controller
     $this->load->model('ppe_user_power');
     $this->load->model('ppe_song_bpm');
     $this->load->model('ppe_song_stop');
+    $this->songs = $this->ppe_song_song->getSongsWithGame();
   }
   
   // load the main page...unless stuck on IE.
@@ -23,7 +24,7 @@ class Create extends Controller
       return;
     }
     $data = array();
-    $data['songs'] = $this->ppe_song_song->getSongsWithGame();
+    $data['songs'] = $this->songs;
     $id = $this->session->userdata('id');
     if (!$id)
     {
@@ -37,6 +38,57 @@ class Create extends Controller
     }
     header("Content-Type: application/xhtml+xml");
     $this->load->view('create/main', $data);
+  }
+  
+  // Load the edit from the hard drive...via textarea.
+  function loadTextarea()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $ret = array();
+    $file = $this->input->post('file');
+    
+    $fp = null;
+    $time = date('YmdHis');
+    $fn = sprintf("%s%s.edit.gz", APPPATH, $time);
+    
+    try
+    {
+      $fp = gzopen($fn, "w");
+      gzwrite($fp, $file);
+      gzclose($fp);
+      
+      $this->load->library('EditParser');
+      
+      $st = $this->editparser->get_stats(gzopen($fn, "r"), array('notes' => 1));
+      $ret['id'] = $st['id'];
+      $ret['diff'] = $st['diff'];
+      $ret['style'] = substr($st['style'], 5);
+      $ret['title'] = $st['title'];
+      $ret['steps'] = $st['steps'];
+      $ret['jumps'] = $st['jumps'];
+      $ret['holds'] = $st['holds'];
+      $ret['mines'] = $st['mines'];
+      $ret['trips'] = $st['trips'];
+      $ret['rolls'] = $st['rolls'];
+      $ret['lifts'] = $st['lifts'];
+      $ret['fakes'] = $st['fakes'];
+      $ret['notes'][0] = $st['notes'][0];
+      if ($ret['style'] === "routine" or $ret['style'] === "pump-routine")
+      {
+        $ret['notes'][1] = $st['notes'][1];
+      }
+    }
+    catch (Exception $e)
+    {
+      $ret['exception'] = $e->getMessage();
+    }
+    @unlink($fn);
+    echo json_encode($ret);
   }
   
   // Give the user help upon request.

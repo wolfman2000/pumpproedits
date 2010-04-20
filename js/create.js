@@ -142,7 +142,7 @@ $(document).ready(function()
   // Load the edit from the...text area, not a pure file.
   $("#but_file").click(function(){
     $("#intro").text("Loading edit...");
-    $.post(baseURL + "/loadFile", { file: $("#fCont").val()}, function(data, status)
+    $.post(baseURL + "/loadTextarea", { file: $("#fCont").val()}, function(data, status)
     {
       loadEdit(data);
       $("#intro").text("All loaded up!");
