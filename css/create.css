@@ -137,17 +137,12 @@
 	
 	svg.hold > g > path:last-child
 	{
-		fill: #000080;
+		fill: #00008b;
 	}
 	svg.roll > g > path:last-child
 	{
-		fill: #600060;
+		fill: #800080;
 	}
-	svg.lift > g > path:last-child
-	{
-		fill: white;
-	}
-	
 	svg.end > g > path:first-child
 	{
 		fill: #8A2BE2;
@@ -172,7 +167,7 @@
 	{
 		stroke: #b22222;
 	}
-	#svgNote > svg > g > *:first-child
+	#svgNote > svg > g > *
 	{
 		stroke-width: 1;
 	}

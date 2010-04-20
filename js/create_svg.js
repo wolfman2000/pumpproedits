@@ -44,25 +44,29 @@ function genArrow(x, y, css)
   return s;
 }
 
+// Generate the path required. No classes here.
+function genPath(m)
+{
+  var r = document.createElementNS(SVG_NS, "path");
+  r.setAttribute('d', m);
+  return r;
+}
+
 // The "base" arrow is down left. Use this to generate almost all others.
 function genDLArrow(x, y, css)
 {
   var s = genArrow(x, y, css);
   
-  var p = document.createElementNS(SVG_NS, "path");
-  p.setAttribute("d", "m 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 v -1 c 0,0 0,-1 -1,-1 "
-      + "H 7 L 15,4 V 2 C 15,2 15,1 14,1 H 12 L 4,9 V 2 C 4,2 4,1 3,1 H 2 C 2,1 1,1 1,2");
-  s.firstChild.appendChild(p);
-  s.firstChild.appendChild(genLine(14.5, 4.5, 11.5, 1.5));
-  s.firstChild.appendChild(genLine(10.75, 8.25, 7.75, 5.25));
-  s.firstChild.appendChild(genLine(7, 12, 4, 9));
+  s.firstChild.appendChild(genPath("m 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 v -2 c 0,0 0,-1 -1,-1 "
+    + "h -6 l 7,-7 v -2 c 0,0 0,-1 -1,-1 h -2 l -7,7 v -6 c 0,0 0,-1 -1,-1 h -2 c 0,0 -1,0 -1,1 v 1"));
+  s.firstChild.appendChild(genPath("m 14.25,4.75 l -3,-3"));
+  s.firstChild.appendChild(genPath("m 11,8 l -3,-3"));
+  s.firstChild.appendChild(genPath("m 7.75,11.25 l -3,-3"));
   
   if (css.indexOf("hold") >= 0 || css.indexOf("roll") >= 0 || css.indexOf("lift") >= 0)
   {
-    p = document.createElementNS(SVG_NS, "path");
-    p.setAttribute("d", "m 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 v -1 c 0,0 0,-1 -1,-1 "
-        + "H 7 L 4,9 V 2 C 4,2 4,1 3,1 H 2 C 2,1 1,1 1,2");
-    s.firstChild.appendChild(p);
+    s.firstChild.appendChild(genPath("m 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 v -2 c 0,0 0,-1 -1,-1 "
+      + "h -6 l -3,-3 v -6 c 0,0 0,-1 -1,-1 h -2 c 0,0 -1,0 -1,1 v 1"));
   }
   
   return s;
@@ -131,6 +135,16 @@ function genMine(x, y, css)
   {
     s.firstChild.appendChild(genCircle(8, 8, i));
   }
+  return s;
+}
+
+// Generate lift arrows using the ITG2 style.
+function genLift(x, y, css)
+{
+  var s = genArrow(x, y, css);
+  s.firstChild.appendChild(genPath('m 8,1 7,7 -2,2 -3,-3 0,8 -2,-2 -2,2 0,-8 -3,3 -2,-2 z'));
+  s.firstChild.appendChild(genPath('m 6,11 2,-2 2,2'));
+  s.firstChild.appendChild(genPath('m 6,7 2,-2 2,2'));
   return s;
 }
 

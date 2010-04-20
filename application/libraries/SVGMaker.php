@@ -61,6 +61,14 @@ class SVGMaker
     return $rect;
   }
   
+  
+  // Make a path tag.
+  function genPath($m, $options = array())
+  {
+    $path = $this->s->createElement('path');
+    $path->setAttribute('d', $m);
+    return $path;
+  }
   // Generate the def files for the web browsers that require them.
   function genDefs($style = "nope")
   {
@@ -106,14 +114,12 @@ class SVGMaker
       
       $g = $this->s->createElement('g');
       $g->setAttribute('id', $player . 'arrow');
-      $p = $this->s->createElement('path');
-      $p->setAttribute('d', 'm 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 v -1 c 0,0 0,-1 -1,-1'
-      . 'H 7 L 15,4 V 2 C 15,2 15,1 14,1 H 12 L 4,9 V 2 C 4,2 4,1 3,1 H 2 C 2,1 1,1 1,2');
-      $g->appendChild($p);
+      $g->appendChild($this->genPath('m 1,2 v 12 c 0,0 0,1 1,1 h 12 c 0,0 1,0 1,-1 v -2 c 0,0 0,-1 -1,-1 '
+      . 'h -6 l 7,-7 v -2 c 0,0 0,-1 -1,-1 h -2 l -7,7 v -6 c 0,0 0,-1 -1,-1 h -2 c 0,0 -1,0 -1,1 v 1'));
       
-      $g->appendChild($this->genLine(14.5, 4.5, 11.5, 1.5));
-      $g->appendChild($this->genLine(10.75, 8.25, 7.75, 5.25));
-      $g->appendChild($this->genLine(7, 12, 4, 9));
+      $g->appendChild($this->genPath('m 14.25,4.75 l -3,-3'));
+      $g->appendChild($this->genPath('m 11,8 l -3,-3'));
+      $g->appendChild($this->genPath('m 7.75,11.25 l -3,-3'));
       
       $def->appendChild($g);
       

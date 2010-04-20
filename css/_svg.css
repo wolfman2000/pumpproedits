@@ -34,9 +34,9 @@ g#P1arrow, g#P1center, g#P1mine, g#P1fake, g#P1lift
   stroke-width:0.5;
   stroke-opacity:1;
 }
-g#arrow path:first-child, g#center path:first-child,
-g#P0arrow path:first-child, g#P0center path:first-child,
-g#P1arrow path:first-child, g#P1center path:first-child
+g#arrow path, g#center path,
+g#P0arrow path, g#P0center path,
+g#P1arrow path, g#P1center path
 {
 	stroke-width: 1;
 }
