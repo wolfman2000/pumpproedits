@@ -14,16 +14,6 @@ class Create extends Controller
     $this->load->model('ppe_song_stop');
     $this->load->model('ppe_edit_edit');
     $this->load->library('EditParser');
-    $this->data = array();
-    $this->data['songs'] = $this->ppe_song_song->getSongsWithGame();
-    $this->data['andy'] = 0;
-    $this->data['others'] = 0;
-    $id = $this->session->userdata('id');
-    if ($id)
-    {
-      $data['andy'] = $this->ppe_user_power->canEditOfficial($id);
-      $data['others'] = $this->ppe_user_power->canEditOthers($id);
-    }
   }
   
   // load the main page...unless stuck on IE.
@@ -36,7 +26,33 @@ class Create extends Controller
       return;
     }
     header("Content-Type: application/xhtml+xml");
-    $this->load->view('create/main', $this->data);
+    $data = array();
+    $data['songs'] = $this->ppe_song_song->getSongsWithGame();
+    $data['andy'] = 0;
+    $data['others'] = 0;
+    $id = $this->session->userdata('id');
+    $data['loads'] = array();
+    $data['peeps'] = array();
+    $data['loads'][] = array('id' => 'hd', 'value' => 'Load edit from hard drive.');
+    
+    if ($id)
+    {
+      $data['andy'] = $this->ppe_user_power->canEditOfficial($id);
+      $data['others'] = $this->ppe_user_power->canEditOthers($id);
+      $data['loads'][] = array('id' => $id, 'value' => 'Load one of my web site edits.');
+      if ($data['andy'])
+      {
+        $data['loads'][] = array('id' => 2, 'value' => 'Load an official web site edit.');
+        if ($data['others'])
+        {
+          $data['loads'][] = array('id' => 'off', 'value' => 'Load an official stepchart.');
+          $data['loads'][] = array('id' => 'all', 'value' => "Load someone else's edit...carefully.");
+          $data['peeps'] = $this->ppe_user_user->getOtherUsers(array($id, 2, 95));
+        }
+      }
+    
+    }
+    $this->load->view('create/main', $data);
   }
   
   // Load the edit from the hard drive...via textarea.

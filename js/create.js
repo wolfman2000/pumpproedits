@@ -57,14 +57,15 @@ $(document).ready(function()
     }
     if (checking)
     {
+      $("#but_load").attr('disabled', true);
       function loadButtons()
       {
         $("li.edit").hide();
         if (authed > 0)
         {
-          $("li.loadChoose").show();
-          $("li[class^=load]:not(.loadChoose)").hide();
-          $("#intro").text("Computer or account?");
+          $("li.loadWeb").show();
+          
+          $("#intro").text("Select your option.");
         }
         else { loadHardDrive(); }
       }
@@ -114,6 +115,17 @@ $(document).ready(function()
     if (andamiro > 0) { $(".loadWeb").show(); }
     else              { loadWebEdits(authed); }
   });
+  
+  // What will the account holder load today?
+  $("#web_yes").click(function(){
+    var item = $("#web_sel").val();
+    if (item == "hd") { loadHardDrive(); }
+    if (item == authed) { loadWebEdits(authed); }
+    if (item == 2 && andamiro > 0) { loadWebEdits(2); }
+    if (item == "off" && others > 0) { };
+    if (item == "all" && others > 0) { };
+  });
+  
   // The account holder wishes to edit one of his account edits.
   $("#web_you").click(function(){
     $(".loadWeb").hide();

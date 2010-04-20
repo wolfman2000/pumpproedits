@@ -147,8 +147,8 @@ function updateStats(data)
 function loadHardDrive()
 {
   $("#fCont").val('');
-  $(".loadChoose").hide();
   $(".loadFile").show();
+  $("li[class^=load]:not(.loadFile)").hide();
   $("li.loadFile > *").removeAttr('disabled');
   $("#but_file").attr('disabled', true);
   $("#intro").text("You can load your edit now.");
@@ -175,11 +175,10 @@ function loadEdit(data)
 // Cancel the edit loading process, restoring the normal buttons.
 function cancelLoad()
 {
-  $(".loadSite").hide();
-  $(".loadFile").hide();
-  $(".loadWeb").hide();
+  $("nav li[class^=load]").hide();
   $("#fCont").val('');
   $("li.edit").show();
+  $("#but_load").removeAttr('disabled');
   if (!$("#stylelist").val().length) { $(".choose").show(); }
 }
 
@@ -222,6 +221,7 @@ function editMode()
       authID = authed;
     }
     clipboard = null;
+    $("#but_load").removeAttr('disabled');
     return true;
   }});
   return false; // this is to ensure the asyncing is done right.
@@ -244,10 +244,8 @@ function init()
   
   $("nav dt.edit").hide();
   $("nav dd.edit").hide();
-  $("nav li.loadChoose").hide();
-  $("nav li.loadWeb").hide();
-  $("nav li.loadSite").hide();
-  $("nav li.loadFile").hide();
+  $("nav li[class^=load]").hide();
+  $(".loadOther").hide();
   $("#notes > rect").hide();
   $("nav *.choose").show();
   $("#stylelist").attr("disabled", true);
@@ -279,6 +277,8 @@ function init()
   $("#intro").text("Select your action.");
   
   isDirty = false;
+  $("#but_load").removeAttr('disabled');
+  $("#songlist").removeAttr('disabled');
 }
 
 // Dynamically adjust the scale as needed.
@@ -584,7 +584,9 @@ function mirrorRows()
 // Load up the chosen user's songs.
 function loadWebEdits(user)
 {
+  authID = user;
   $(".loadSite").show();
+  $("li[class^=load]:not(.loadSite)").hide();
   $("#intro").text("Loading " + (user == 2 ? "Andamiro's" : "your") + " edits...");
   $("#mem_edit").empty();
   $.getJSON(baseURL + '/loadEditList/' + user, function(data)

@@ -97,4 +97,16 @@ class Ppe_user_user extends Model
       ->where('lc_name', strtolower($name))
       ->get('ppe_user_user')->row()->name;
   }
+  
+  // get the list of other users who are not banned or forbidden.
+  function getOtherUsers($ids)
+  {
+    return $this->db->select('a.id, a.name, MIN(p.role_id) min_role')
+      ->from('ppe_user_user a')
+      ->join('ppe_user_power p', 'a.id = p.user_id')
+      ->where_not_in('a.id', $ids)
+      ->group_by(array('a.id, a.name'))
+      ->having('min_role >= 3')
+      ->order_by('a.lc_name')->get()->result_array();
+  }
 }

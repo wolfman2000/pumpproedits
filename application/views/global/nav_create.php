@@ -18,14 +18,26 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <li><button id="but_help" type="button">Help</button></li>
 <li><button id="but_load" type="button">Load</button></li>
 <li><button id="but_val" type="button">Validate</button></li>
+<?php /*
 <li class="loadChoose"><button id="cho_file" type="button">Hard Drive</button></li>
 <li class="loadChoose"><button id="cho_site" type="button">Web Site</button></li>
+*/ ?>
 <li class="loadWeb long reset">What are you editing?</li>
-<li class="loadWeb long reset"><select id="web_sel"></select></li>
-<li class="loadWeb"><button id="web_yes" type="button">Confirm</button></li>
+<li class="loadWeb long reset"><select id="web_sel">
+<?php foreach ($loads as $l): ?>
+<option value="<?php echo $l['id']; ?>"><?php echo $l['value']; ?></option>
+<?php endforeach; ?></select></li>
+<li class="loadWeb"><button id="web_yes" type="button">Select</button></li>
 <li class="loadWeb"><button id="web_no" type="button">Nevermind</button></li>
+<?php /*
 <li class="loadWeb"><button id="web_you" type="button">Yours</button></li>
 <li class="loadWeb"><button id="web_and" type="button">Andamiro's</button></li>
+*/ ?>
+<li class="loadOther long reset">Choose a person for edits...carefully.</li>
+<li class="loadOther long"><select id="other_sel">
+<?php foreach ($peeps as $p): ?>
+<option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
+<?php endforeach; ?></select></li>
 <li class="loadSite long">Select your edit below.</li>
 <li class="loadSite long"><select id="mem_edit"></select></li>
 <li class="loadSite reset"><button id="mem_load" type="button">Load Edit</button></li>
