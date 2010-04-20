@@ -64,7 +64,7 @@ $(document).ready(function()
         if (authed > 0)
         {
           $("li.loadWeb").show();
-          
+          $("li[class^=load]:not(.loadWeb)").hide();
           $("#intro").text("Select your option.");
         }
         else { loadHardDrive(); }
@@ -122,8 +122,18 @@ $(document).ready(function()
     if (item == "hd") { loadHardDrive(); }
     if (item == authed) { loadWebEdits(authed); }
     if (item == 2 && andamiro > 0) { loadWebEdits(2); }
-    if (item == "off" && others > 0) { };
-    if (item == "all" && others > 0) { };
+    if (item == "off" && others > 0) {
+      
+    };
+    if (item == "all" && others > 0) {
+      $("li.loadOther").show();
+      $("li[class^=load]:not(.loadOther)").hide();
+    };
+  });
+  
+  // The admin wishes to select another author's edit.
+  $("#other_yes").click(function(){
+    loadWebEdits($("#other_sel").val());
   });
   
   // The account holder wishes to edit one of his account edits.

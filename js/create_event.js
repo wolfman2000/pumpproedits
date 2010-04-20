@@ -597,6 +597,7 @@ function loadWebEdits(user)
       var html = '<option id="' + data[i].id + '">' + out + '</option>';
       $("#mem_edit").append(html);
     }
+    $("#mem_nogo").removeAttr('disabled');
     $("#intro").text("Choose your edit!");
   });
 }

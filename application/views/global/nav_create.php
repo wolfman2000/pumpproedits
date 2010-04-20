@@ -38,6 +38,8 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <?php foreach ($peeps as $p): ?>
 <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
 <?php endforeach; ?></select></li>
+<li class="loadOther"><button id="other_yes" type="button">Select</button></li>
+<li class="loadOther"><button id="other_no" type="button">Nevermind</button></li>
 <li class="loadSite long">Select your edit below.</li>
 <li class="loadSite long"><select id="mem_edit"></select></li>
 <li class="loadSite reset"><button id="mem_load" type="button">Load Edit</button></li>
