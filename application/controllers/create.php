@@ -9,6 +9,8 @@ class Create extends Controller
     $this->load->model('ppe_song_song');
     $this->load->model('ppe_song_game');
     $this->load->model('ppe_user_power');
+    $this->load->model('ppe_song_bpm');
+    $this->load->model('ppe_song_stop');
   }
   
   // load the main page...unless stuck on IE.
@@ -37,8 +39,6 @@ class Create extends Controller
     $this->load->view('create/main', $data);
   }
   
-  
-  
   // Give the user help upon request.
   function help()
   {
@@ -56,6 +56,40 @@ class Create extends Controller
     header("Content-Type: application/json");
     $sid = $this->uri->segment(3);
     $ret['isRoutine'] = $this->ppe_song_game->getRoutineCompatible($sid);
+    echo json_encode($ret);
+  }
+  
+  // Load measure/sync data for the chosen song.
+  function song()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $sid = $this->uri->segment(3);
+    $row = $this->ppe_song_song->getCreatorData($sid);
+    $ret['name'] = $row->name;
+    $ret['abbr'] = $row->abbr;
+    $ret['measures'] = $row->measures;
+    $ret['duration'] = $row->duration;
+    
+    $bpms = $this->ppe_song_bpm->getBPMsBySongID($sid);
+    $bArr = array();
+    foreach ($bpms as $b)
+    {
+      $bArr[] = array('beat' => $b->beat, 'bpm' => $b->bpm);
+    }
+    $ret['bpms'] = $bArr;
+    
+    $stps = $this->ppe_song_stop->getStopsBySongID($sid);
+    $sArr = array();
+    foreach ($stps as $s)
+    {
+      $sArr[] = array('beat' => $s->beat, 'time' => $b->break);
+    }
+    $ret['stps'] = $sArr;
     echo json_encode($ret);
   }
   

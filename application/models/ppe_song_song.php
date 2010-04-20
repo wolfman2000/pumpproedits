@@ -6,6 +6,13 @@ class Ppe_song_song extends Model
     parent::Model();
   }
   
+  // Get the needed information for the edit creator.
+  function getCreatorData($sid)
+  {
+    return $this->db->select('name, abbr, measures, duration')
+      ->where('id', $sid)->get('ppe_song_song')->row();
+  }
+  
   // ensure the song exists.
   public function doesSongExist($sid)
   {
