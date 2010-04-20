@@ -96,6 +96,14 @@ class Create extends Controller
   // Download the edit created directly.
   function download()
   {
-  
+    $data = $this->input->post('b64');
+    $abbr = $this->input->post('abbr');
+    $style = $this->input->post('style');
+    $diff = $this->input->post('diff');
+    $title = $this->input->post('title');
+    $name = sprintf("svg_%s_%s%d_%s.edit", $abbr, strtoupper(substr($style, 0, 1)), $diff, $title);
+    
+    $this->load->helper('download');
+    force_download($name, $data);
   }
 }
