@@ -20,6 +20,10 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <li><button id="but_val" type="button">Validate</button></li>
 <li class="loadChoose"><button id="cho_file" type="button">Hard Drive</button></li>
 <li class="loadChoose"><button id="cho_site" type="button">Web Site</button></li>
+<li class="loadWeb long reset">What are you editing?</li>
+<li class="loadWeb long reset"><select id="web_sel"></select></li>
+<li class="loadWeb"><button id="web_yes" type="button">Confirm</button></li>
+<li class="loadWeb"><button id="web_no" type="button">Nevermind</button></li>
 <li class="loadWeb"><button id="web_you" type="button">Yours</button></li>
 <li class="loadWeb"><button id="web_and" type="button">Andamiro's</button></li>
 <li class="loadSite long">Select your edit below.</li>

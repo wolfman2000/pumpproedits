@@ -14,7 +14,16 @@ class Create extends Controller
     $this->load->model('ppe_song_stop');
     $this->load->model('ppe_edit_edit');
     $this->load->library('EditParser');
-    $this->songs = $this->ppe_song_song->getSongsWithGame();
+    $this->data = array();
+    $this->data['songs'] = $this->ppe_song_song->getSongsWithGame();
+    $this->data['andy'] = 0;
+    $this->data['others'] = 0;
+    $id = $this->session->userdata('id');
+    if ($id)
+    {
+      $data['andy'] = $this->ppe_user_power->canEditOfficial($id);
+      $data['others'] = $this->ppe_user_power->canEditOthers($id);
+    }
   }
   
   // load the main page...unless stuck on IE.
@@ -26,21 +35,8 @@ class Create extends Controller
       $this->load->view('create/ie');
       return;
     }
-    $data = array();
-    $data['songs'] = $this->songs;
-    $id = $this->session->userdata('id');
-    if (!$id)
-    {
-      $data['andy'] = 0;
-      $data['others'] = 0;
-    }
-    else
-    {
-      $data['andy'] = $this->ppe_user_power->canEditOfficial($id);
-      $data['others'] = $this->ppe_user_power->canEditOthers($id);
-    }
     header("Content-Type: application/xhtml+xml");
-    $this->load->view('create/main', $data);
+    $this->load->view('create/main', $this->data);
   }
   
   // Load the edit from the hard drive...via textarea.

@@ -172,8 +172,10 @@ $(document).ready(function()
   });
   
   // The author decides not to load an edit at all.
-  $("#mem_nogo").click(function(){ cancelLoad(); });
-  $("#rem_file").click(function(){ cancelLoad(); });
+  $("button").filter(function(){ return $(this).text() == "Nevermind"; })
+    .click(function(){
+      cancelLoad();
+  });
   
   // save to your local hard drive
   $("#but_save").click(function(){

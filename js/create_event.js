@@ -175,9 +175,10 @@ function loadEdit(data)
 // Cancel the edit loading process, restoring the normal buttons.
 function cancelLoad()
 {
-  $("#fCont").val('');
   $(".loadSite").hide();
   $(".loadFile").hide();
+  $(".loadWeb").hide();
+  $("#fCont").val('');
   $("li.edit").show();
   if (!$("#stylelist").val().length) { $(".choose").show(); }
 }
