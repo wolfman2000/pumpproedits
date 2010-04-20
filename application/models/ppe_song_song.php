@@ -63,11 +63,13 @@ class Ppe_song_song extends Model
   // get the list of songs with edits.
   public function getSongsWithEdits()
   {
-    return $this->db->select('id, name core, num_edits')
-      ->from('ppe_song_song')
-      ->where('is_problem', false)
-      ->where('num_edits >', 0)
-      ->order_by('lc_name')
+    return $this->db->select('a.id, a.name core, COUNT(b.id) num_edits')
+      ->from('ppe_song_song a')
+      ->join('ppe_edit_edit b', 'a.id = b.song_id')
+      ->where('a.num_edits >', 0)
+      ->where('b.deleted_at', null)
+      ->group_by(array('a.id', 'a.name'))
+      ->order_by('a.lc_name')
       ->get();
   }
   

@@ -86,6 +86,16 @@ class Chart extends Controller
       return;
     }
     $eid = $this->input->post('edits');
+    
+    // Confirm the edit isn't "deleted".
+    if (!$this->ppe_edit_edit->checkExistsAndActive($eid))
+    {
+      $this->output->set_status_header(404);
+      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
+      $this->load->view('chart/deleted', $data);
+      return;
+    }
+    
     $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
     if (!file_exists($path))
     {

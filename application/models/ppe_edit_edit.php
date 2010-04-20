@@ -143,7 +143,7 @@ class Ppe_edit_edit extends Model
       ->join('ppe_edit_player y', 'a.id = y.edit_id AND y.player = 1')
       ->join('ppe_edit_player m', 'a.id = m.edit_id AND m.player = 2', 'left')
       ->where('song_id', $sid)
-      ->where('a.is_problem', 0)
+      ->where('a.deleted_at', null)
       ->order_by('b.lc_name')
       ->order_by('a.title')
       ->get();
@@ -163,7 +163,7 @@ class Ppe_edit_edit extends Model
       ->join('ppe_edit_player y', 'a.id = y.edit_id AND y.player = 1')
       ->join('ppe_edit_player m', 'a.id = m.edit_id AND m.player = 2', 'left')
       ->where('user_id', $uid)
-      ->where('a.is_problem', 0)
+      ->where('a.deleted_at', null)
       ->order_by('b.lc_name')
       ->order_by('a.title')
       ->get();

@@ -69,11 +69,14 @@ class Ppe_user_user extends Model
   // get the list of users with edits.
   public function getUsersWithEdits()
   {
-    return $this->db->select('id, name core, num_edits')
-      ->from('ppe_user_user')
-      ->where('num_edits >', 0)
-      ->where_not_in('id', array(2, 95))
-      ->order_by('lc_name')
+    return $this->db->select('a.id, a.name core, COUNT(b.id) num_edits')
+      ->from('ppe_user_user a')
+      ->join('ppe_edit_edit b', 'a.id = b.user_id')
+      ->where('a.num_edits >', 0)
+      ->where('b.deleted_at', null)
+      ->where_not_in('a.id', array(2, 95))
+      ->group_by(array('a.id', 'a.name'))
+      ->order_by('a.lc_name')
       ->get();
   }
   
