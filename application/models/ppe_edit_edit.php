@@ -139,8 +139,9 @@ class Ppe_edit_edit extends Model
   {
     if ($time) { $time = date('Y-m-d H:i:s'); }
     else { $time = null; }
-    $this->db->where_in('id', $ids)
-      ->update('ppe_edit_edit', array('deleted_at' => $time));
+    $data['deleted_at'] = $time;
+    if ($time) { $data['title'] = null; }
+    $this->db->where_in('id', $ids)->update('ppe_edit_edit', $data);
   }
   
   // Determine if the edit being uploaded is new or old.
