@@ -192,6 +192,60 @@ class Create extends Controller
     echo json_encode($ret);
 
   }
+  // Load the official chart...if it exists. If it does not, say so.
+  function loadOfficial()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $id = $this->uri->segment(3);
+    $diff = $this->uri->segment(4);
+    $ret = array();
+    // Make doubly sure the song exists.
+    if (!$this->ppe_song_song->getSongByID($id))
+    {
+      $ret['error'] = "The chosen song does not exist.";
+    }
+    elseif (!in_array($diff, array('ez', 'nr', 'hr', 'cz', 'fs', 'hd', 'nm', 'rt')))
+    {
+      $ret['error'] = "The difficulty chosen was not valid.";
+    }
+    if (!count($ret))
+    {
+      // Try to read the file. If it doesn't exist, that's alright.
+      $path = sprintf("%sdata/official/%d_%s.sm.gz", APPPATH, $id, $diff);
+      if (file_exists($path))
+      {
+        $ret = $this->editparser->get_stats(gzopen($path, "r"), array('notes' => 1));
+        $ret['style'] = substr($ret['style'], 5);
+      }
+      else
+      {
+        // At least get the style sorted out.
+        if (in_array($diff, array('ez', 'nr', 'hr', 'cz')))
+        {
+          $ret['style'] = "single";
+        }
+        elseif (in_array($diff, array('fs', 'nm')))
+        {
+          $ret['style'] = "double";
+        }
+        elseif ($diff == "hd")
+        {
+          $ret['style'] = "halfdouble";
+        }
+        else // routine
+        {
+          $ret['style'] = "routine";
+        }
+      }
+    }
+    echo json_encode($ret);
+  }
+  
   // Upload the edit directly to the website.
   // Should I allow title changing, and risk overriding?
   function upload()

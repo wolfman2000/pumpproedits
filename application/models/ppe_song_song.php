@@ -39,15 +39,17 @@ class Ppe_song_song extends Model
   // get the ID of the song by its lowercased name.
   public function getIDBySong($song)
   {
-    return $this->db->select('id')->where('lc_name', strtolower($song))
-      ->get('ppe_song_song')->row()->id;
+    $q = $this->db->select('id')->where('lc_name', strtolower($song))
+      ->get('ppe_song_song');
+    return $q->num_rows() ? $q->row()->id : null;
   }
   
   // get the name of the song by its ID.
   public function getSongByID($id)
   {
-    return $this->db->select('name')->where('id', $id)
-      ->get('ppe_song_song')->row()->name;
+    $q = $this->db->select('name')->where('id', $id)
+      ->get('ppe_song_song');
+    return $q->num_rows() ? $q->row()->name : null;
   }
   
   // get all of the information needed for base edits.
