@@ -158,7 +158,7 @@ $(document).ready(function()
   $("#mem_load").click(function(){
     $("#intro").text("Loading edit...");
     editID = $("#mem_edit > option:selected").attr('id');
-    $.getJSON(baseURL + "/loadSiteEdit/" + editID, function(data) {
+    $.getJSON(baseURL + "/loadWebEdit/" + editID, function(data) {
       loadEdit(data);
       $("#intro").text("All loaded up!");
       $("#authorlist").attr("disabled", "disabled");
