@@ -381,19 +381,19 @@ function shiftUp()
   removeUp(0, BUFF_TOP);
 }
 // remove all notes that are in the way of the shifting operation.
-  function removeDown(top, bot)
+function removeDown(top, bot)
+{
+  if (top > bot)
   {
-    if (top > bot)
-    {
-      var tmp = top;
-      top = bot;
-      bot = tmp;
-    }
-    $("#svgNote > svg").filter(function(index){
-      var y = $(this).attr('y');
-      return y > top && y <= bot;
-    }).remove();
+    var tmp = top;
+    top = bot;
+    bot = tmp;
   }
+  $("#svgNote > svg").filter(function(index){
+    var y = $(this).attr('y');
+    return y > top && y <= bot;
+  }).remove();
+}
 
 // Shift the selected arrows down based on the note sync.
 function shiftDown()
@@ -586,7 +586,7 @@ function loadWebEdits(user)
   $(".loadSite").show();
   $("#intro").text("Loading " + (user == 2 ? "Andamiro's" : "your") + " edits...");
   $("#mem_edit").empty();
-  $.getJSON(baseURL + '/loadSite/' + user, function(data)
+  $.getJSON(baseURL + '/loadEditList/' + user, function(data)
   {
     for (var i = 0; i < data.length; i++)
     {
