@@ -12,6 +12,7 @@ class Create extends Controller
     $this->load->model('ppe_song_bpm');
     $this->load->model('ppe_song_stop');
     $this->load->model('ppe_edit_edit');
+    $this->load->library('EditParser');
     $this->songs = $this->ppe_song_song->getSongsWithGame();
   }
   
@@ -161,6 +162,23 @@ class Create extends Controller
     echo json_encode($ret);
   }
   
+   // Load the chosen edit into the Edit Creator.
+  function loadWebEdit()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $id = $this->uri->segment(3);
+    $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $id);
+    
+    $ret = $this->editparser->get_stats(gzopen($path, "r"), array('notes' => 1));
+    $ret['style'] = substr($ret['style'], 5);
+    echo json_encode($ret);
+
+  }
   // Download the edit created directly.
   function download()
   {
