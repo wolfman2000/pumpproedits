@@ -19,4 +19,16 @@ class Remove extends Controller
     $data['edits'] = $this->ppe_edit_edit->getEditsToDelete($id)->result_array();
     $this->load->view('remove/main', $data);
   }
+  
+  function process()
+  {
+    $id = $this->session->userdata('id');
+    if (!$id)
+    {
+      redirect('login');
+    }
+    $this->ppe_edit_edit->removeEdits($this->input->post('removing'));
+    $data['edits'] = $this->ppe_edit_edit->getEditsToDelete($id)->result_array();
+    $this->load->view('remove/deleted', $data);
+  }
 }

@@ -134,6 +134,15 @@ class Ppe_edit_edit extends Model
       ->get();
   }
   
+  // "Remove" the selected edits. Or maybe reactivate.
+  function removeEdits($ids, $time = 1)
+  {
+    if ($time) { $time = date('Y-m-d H:i:s'); }
+    else { $time = null; }
+    $this->db->where_in('id', $ids)
+      ->update('ppe_edit_edit', array('deleted_at' => $time));
+  }
+  
   // Determine if the edit being uploaded is new or old.
   function getIDByUpload($row)
   {

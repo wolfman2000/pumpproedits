@@ -5,7 +5,7 @@
 <dt>Edits</dt>
 <dd><ul>
 <?php foreach ($edits as $e): ?>
-<li><input type="checkbox" name="removing[]" id="edit_<?php echo $e['id']; ?>" />
+<li><input type="checkbox" name="removing[]" value="<?php echo $e['id']; ?>" id="edit_<?php echo $e['id']; ?>" />
 <label for="edit_<?php echo $e['id']; ?>"><?php echo $e['sname']; ?> →
 <?php echo $e['title']; ?> (<?php echo ucfirst(substr($e['style'], 0, 1)) . $e['diff']; ?>)</label></li>
 <?php endforeach; ?>
