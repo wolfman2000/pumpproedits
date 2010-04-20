@@ -11,6 +11,7 @@ class Create extends Controller
     $this->load->model('ppe_user_power');
     $this->load->model('ppe_song_bpm');
     $this->load->model('ppe_song_stop');
+    $this->load->model('ppe_edit_edit');
     $this->songs = $this->ppe_song_song->getSongsWithGame();
   }
   
@@ -142,6 +143,21 @@ class Create extends Controller
       $sArr[] = array('beat' => $s->beat, 'time' => $s->break);
     }
     $ret['stps'] = $sArr;
+    echo json_encode($ret);
+  }
+  
+  // Load the list of edits for the specific author.
+  function loadEditList()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $id = $this->uri->segment(3);
+    $ret = $this->ppe_edit_edit->getSVGEdits($id);
+    
     echo json_encode($ret);
   }
   
