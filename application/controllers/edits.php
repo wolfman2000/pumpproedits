@@ -58,9 +58,14 @@ class Edits extends Controller
   function download()
   {
     $id = $this->uri->segment(3, false);
-    if (!(is_numeric($id)))
+    // Confirm the edit isn't "deleted".
+    if (!$this->ppe_edit_edit->checkExistsAndActive($id))
     {
-      # How do you cause a 409 again?
+      $this->load->helper('form');
+      $this->output->set_status_header(404);
+      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
+      $this->load->view('edits/deleted', $data);
+      return;
     }
     $id = sprintf("%06d", $id);
     $name = sprintf("edit_%s.edit", $id);
