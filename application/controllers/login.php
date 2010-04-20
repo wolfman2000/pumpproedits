@@ -35,13 +35,13 @@ class Login extends Controller
     if (!$id)
     {
       $this->session->unset_userdata($unset);
-      $this->output->set_status(409);
+      $this->output->set_status_header(409);
       $this->load->view('login/invalid');
     }
     elseif ($this->ppe_user_role->getIsUserBanned($id))
     {
       $this->session->unset_userdata($unset);
-      $this->output->set_status(409);
+      $this->output->set_status_header(409);
       $this->load->view('login/banned');
     }
     else
