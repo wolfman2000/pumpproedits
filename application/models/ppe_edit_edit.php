@@ -79,7 +79,7 @@ class Ppe_edit_edit extends Model
   // Get the list of edits by the user. Should problem ones be included?
   function getSVGEdits($uid)
   {
-    return $this->db->select('a.style, a.title, a.diff, s.abbr, s.name')
+    return $this->db->select('a.id, a.style, a.title, a.diff, s.abbr, s.name')
       ->join('ppe_song_song s', 'a.song_id = s.id')
       ->where('a.user_id', $uid)
       ->order_by('s.lc_name')
