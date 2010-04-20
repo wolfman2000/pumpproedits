@@ -95,6 +95,14 @@ class Ppe_edit_edit extends Model
       ->get('ppe_edit_edit')->num_rows() > 0;
   }
   
+  // Confirm if the edit exists and is not deleted.
+  function checkExistsAndActive($eid)
+  {
+    return $this->db->select('id')->where('id', $eid)
+      ->where('deleted_at', null)
+      ->get('ppe_edit_edit')->num_rows() > 0;
+  }
+  
   // Get all of the user edits for possible charting.
   public function getNonProblemEdits()
   {

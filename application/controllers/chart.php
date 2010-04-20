@@ -155,6 +155,16 @@ class Chart extends Controller
   function quick()
   {
     $id = $this->uri->segment(3, FALSE);
+    
+    // Confirm the edit isn't "deleted".
+    if (!$this->ppe_edit_edit->checkExistsAndActive($id))
+    {
+      $this->output->set_status_header(404);
+      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
+      $this->load->view('chart/deleted', $data);
+      return;
+    }
+    
     $kind = $this->uri->segment(4, FALSE);
     if (!(is_numeric($id) and ($kind === "classic" or $kind === "rhythm")))
     {
