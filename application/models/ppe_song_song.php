@@ -67,6 +67,7 @@ class Ppe_song_song extends Model
       ->from('ppe_song_song a')
       ->join('ppe_edit_edit b', 'a.id = b.song_id')
       ->where('a.num_edits >', 0)
+      ->where('b.is_problem', 0)
       ->where('b.deleted_at', null)
       ->group_by(array('a.id', 'a.name'))
       ->order_by('a.lc_name')

@@ -73,6 +73,7 @@ class Ppe_user_user extends Model
       ->from('ppe_user_user a')
       ->join('ppe_edit_edit b', 'a.id = b.user_id')
       ->where('a.num_edits >', 0)
+      ->where('b.is_problem', 0)
       ->where('b.deleted_at', null)
       ->where_not_in('a.id', array(2, 95))
       ->group_by(array('a.id', 'a.name'))
