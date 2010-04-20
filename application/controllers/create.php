@@ -7,6 +7,7 @@ class Create extends Controller
 		parent::Controller();
     $this->load->helper('form');
     $this->load->model('ppe_song_song');
+    $this->load->model('ppe_song_game');
     $this->load->model('ppe_user_power');
   }
   
@@ -37,6 +38,26 @@ class Create extends Controller
   }
   
   
+  
+  // Give the user help upon request.
+  function help()
+  {
+    $this->load->view('create/help');
+  }
+  
+  // Determine if the chosen song can have routine charts.
+  function routine()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $sid = $this->uri->segment(3);
+    $ret['isRoutine'] = $this->ppe_song_game->getRoutineCompatible($sid);
+    echo json_encode($ret);
+  }
   
   // Download the edit created directly.
   function download()
