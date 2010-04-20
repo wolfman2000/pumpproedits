@@ -32,12 +32,8 @@ $(document).ready(function()
       pasteArrows();
       $("#intro").text("Arrows pasted. Clipboard wiped.");
       updateStats(gatherStats());
-      
     }
-    else // select mode
-    {
-      selectRow();
-    }
+    else { selectRow(); } // select mode
   });
   
   // Work on a new file, but make sure it's saved/validated recently.
@@ -73,14 +69,8 @@ $(document).ready(function()
         else { loadHardDrive(); }
       }
       
-      if ($("#stylelist").val().length)
-      {
-        loadButtons();
-      }
-      else
-      {
-        $(".choose").slideUp(200, function(){ loadButtons(); });
-      }
+      if ($("#stylelist").val().length) { loadButtons(); }
+      else { $(".choose").slideUp(200, function(){ loadButtons(); }); }
     }
   });
   
@@ -101,10 +91,7 @@ $(document).ready(function()
       $("#intro").text("You can save your work!");
       $("#but_save").removeAttr('disabled');
       $("#but_val").attr('disabled', true);
-      if (authed > 0)
-      {
-        $("#but_sub").removeAttr('disabled');
-      }
+      if (authed > 0) { $("#but_sub").removeAttr('disabled'); }
     }
     else
     {
