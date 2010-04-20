@@ -87,7 +87,7 @@ class Create extends Controller
     $sArr = array();
     foreach ($stps as $s)
     {
-      $sArr[] = array('beat' => $s->beat, 'time' => $b->break);
+      $sArr[] = array('beat' => $s->beat, 'time' => $s->break);
     }
     $ret['stps'] = $sArr;
     echo json_encode($ret);
