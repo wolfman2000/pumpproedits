@@ -64,6 +64,18 @@ class Ppe_song_song extends Model
       ->get();
   }
   
+  // get the songs in order of their game appearance.
+  function getSongsWithGame()
+  {
+    return $this->db->select('a.id, a.name, g.song_id sid, MIN(g.game_id) gid')
+      ->join('ppe_song_game g', 'a.id = g.song_id')
+      ->where('a.is_problem', 0)
+      ->group_by(array('a.name, sid'))
+      ->order_by('gid')
+      ->order_by('a.name')
+      ->get('ppe_song_song a')->result();
+  }
+  
   // Get all songs that have an assigned game and difficulty.
   public function getSongsWithGameAndDiff()
   {
