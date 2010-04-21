@@ -126,16 +126,9 @@ class Create extends Controller
     echo json_encode($ret);
   }
   
-  // Load measure/sync data for the chosen song.
-  function song()
+  // a common AJAJ function to get song sync data.
+  function _songData($sid)
   {
-    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-    {
-      return;
-    }
-    header("Content-Type: application/json");
-    $sid = $this->uri->segment(3);
     $row = $this->ppe_song_song->getCreatorData($sid);
     $ret['name'] = $row->name;
     $ret['abbr'] = $row->abbr;
@@ -157,7 +150,21 @@ class Create extends Controller
       $sArr[] = array('beat' => $s->beat, 'time' => $s->break);
     }
     $ret['stps'] = $sArr;
-    echo json_encode($ret);
+    return $ret;
+  }
+  
+  // Load measure/sync data for the chosen song.
+  function song()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $sid = $this->uri->segment(3);
+    
+    echo json_encode($this->_songData($sid));
   }
   
   // Load the list of edits for the specific author.
@@ -242,16 +249,55 @@ class Create extends Controller
         {
           $ret['style'] = "routine";
         }
+        // Put in defaults to keep the code flowing.
+        $ret['notes'] = null;
+        $ret['author'] = null;
+      }
+      $data = $this->_songData($id);
+      foreach ($data as $k => $v)
+      {
+        $ret[$k] = $v;
       }
     }
     echo json_encode($ret);
+  }
+  
+  // Upload the official chart to the website.
+  function uploadOfficial()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $row = array();
+    // Double check the hijacking variable.
+    $checker = $this->input->post('but_sub');
+    if ($checker !== "songSubmit")
+    {
+      $ret['error'] = "You came to this process illegally. It must be stopped.";
+      echo json_encode($ret);
+      return;
+    }
+    // Make DOUBLY sure the user can upload the edit.
+    $upload = $this->session->userdata('id');
+    if (!$this->ppe_user_power->canEditOthers($id))
+    {
+      $ret['error'] = "You don't have permission to upload an official chart.";
+      echo json_encode($ret);
+      return;
+    }
+    $data = $this->input->post('b64');
+    $diff = $this->input->post('diff');
+    $style = $this->input->post('style');
   }
   
   // Upload the edit directly to the website.
   // Should I allow title changing, and risk overriding?
   function upload()
   {
-     if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
       strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
     {
       return;
