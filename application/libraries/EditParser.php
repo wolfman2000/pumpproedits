@@ -337,7 +337,7 @@ class EditParser
       if ($pos === false)
       {
         $s = "This line needs a colon at the end: %s";
-        throw new sfParseException(sprintf($s, $line));
+        throw new Exception(sprintf($s, $line));
       }
       $line = substr($line, 0, $pos - strlen($line));
       if ($params['arcade'])
@@ -352,7 +352,7 @@ class EditParser
       elseif ($line !== "Edit" and !$params['arcade']) // temp measure.
       {
         $s = 'The edit must have "Edit:" on a new line after the title.';
-        throw new sfParseException($s);
+        throw new Exception($s);
       }
       $state = 5;
       break;
