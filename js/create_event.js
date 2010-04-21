@@ -678,3 +678,43 @@ function loadWebEdits(user)
     $("#intro").text("Choose your edit!");
   });
 }
+
+// Upload the intended official chart.
+
+// Upload the intended edit.
+function uploadEdit()
+{
+  var data = {};
+  data['b64'] = $("#b64").val();
+  data['title'] = $("#editName").val();
+  data['diff'] = $("#editDiff").val();
+  data['style'] = $("#stylelist").val();
+  data['editID'] = editID;
+  data['songID'] = songID;
+  data['userID'] = authID;
+  data['steps1'] = $("#statS").text().split("/")[0];
+  data['steps2'] = $("#statS").text().split("/")[1];
+  data['jumps1'] = $("#statJ").text().split("/")[0];
+  data['jumps2'] = $("#statJ").text().split("/")[1];
+  data['holds1'] = $("#statH").text().split("/")[0];
+  data['holds2'] = $("#statH").text().split("/")[1];
+  data['mines1'] = $("#statM").text().split("/")[0];
+  data['mines2'] = $("#statM").text().split("/")[1];
+  data['rolls1'] = $("#statR").text().split("/")[0];
+  data['rolls2'] = $("#statR").text().split("/")[1];
+  data['trips1'] = $("#statT").text().split("/")[0];
+  data['trips2'] = $("#statT").text().split("/")[1];
+  data['fakes1'] = $("#statF").text().split("/")[0];
+  data['fakes2'] = $("#statF").text().split("/")[1];
+  data['lifts1'] = $("#statL").text().split("/")[0];
+  data['lifts2'] = $("#statL").text().split("/")[1];
+  
+  $("#intro").text("Uploading edit...");
+  $.post(baseURL + "/upload", data, function(data, status)
+  {
+    $("#intro").text("Edit Uploaded");
+    //$("#editName").attr("disabled", "disabled");
+    $("#authorlist").attr("disabled", "disabled");
+    $(".author").hide();
+  }, "json");
+}
