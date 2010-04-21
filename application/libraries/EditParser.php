@@ -79,6 +79,19 @@ class EditParser
     }
   }
   
+  // Get the SM style difficulty based on the pump abbr.
+  public function getSMDiff($pump)
+  {
+    switch ($pump)
+    {
+      case "ez": { return "Beginner"; }
+      case "nr": { return "Easy"; }
+      case "hr": case "fs": case "hd": case "rt": { return "Medium"; }
+      case "cz": case "nm": { return "Hard"; }
+      default: { return "Challenge"; } // don't know why
+    }
+  }
+  
   protected function getOfficialStyle($style, $title)
   {
     switch ($style)
@@ -354,7 +367,9 @@ class EditParser
         $s = 'The edit must have "Edit:" on a new line after the title.';
         throw new Exception($s);
       }
+      
       $state = 5;
+      $res['difficulty'] = substr($line, 0, $pos);
       break;
     }
     case 5: /* Get the difficulty level of the edit. */

@@ -180,6 +180,77 @@ function cancelLoad()
   if (!$("#stylelist").val().length) { $(".choose").show(); }
 }
 
+// Enter this mode of an admin edits an official song.
+// Similar to EditMode, but separation is needed.
+function songMode()
+{
+  $("#intro").text("Loading chart...");
+  $("li[class^=load]").hide();
+  $("#authorlist").attr("disabled", "disabled");
+  songID = $("#loadSong").val();
+  var diff = $("#loadDifficulty").val();
+  $("#notes > g").children().remove(); // remove the old chart.
+  $(".edit").hide();
+  $("#editName").val('');
+  $("#editDiff").val('');
+  $("#statS").text(0);
+  $("#statJ").text(0);
+  $("#statH").text(0);
+  $("#statM").text(0);
+  $("#statR").text(0);
+  $("#statT").text(0);
+  $("#statF").text(0);
+  $("#statL").text(0);
+  $("#fCont").val('');
+  $("#editName").attr('maxlength', 32);
+  $("#editSong").text("Edit Author:");
+  $("#but_sub").attr('name', 'songSubmit');
+  
+  $.getJSON(baseURL + "/loadOfficial/" + songID + "/" + diff, function(data){
+    $("#intro").text("Loading chart...");
+    $(".author").hide();
+    $("#stylelist").val(data.style);
+    
+    songData = {};
+    songData['name'] = data.name;
+    songData['abbr'] = data.abbr;
+    songData['measures'] = data.measures;
+    songData['duration'] = data.duration;
+    songData['bpms'] = data.bpms;
+    songData['stps'] = data.stps;
+    songData['difficulty'] = data.difficulty;
+    measures = songData['measures'];
+    $("#scalelist").val(2.5);
+    captured = false;
+    columns = getCols();
+    $("rect[id^=sel]").attr('width', columns * ARR_HEIGHT).hide();
+    fixScale(2.5, 600);
+    
+    
+    $("nav dt.edit").show();
+    $("nav dd.edit").show();
+    
+    $("nav *.choose").hide();
+    if ($("#stylelist").val() !== "routine") { $("nav .routine").hide(); }
+    else { $("nav .routine").show(); }
+    var phrase = songData.name + " " + data.title;
+    $("h2").first().text(phrase);
+    $("title").text("Editing " + phrase + " — Pump Pro Edits");
+    $("#but_new").removeAttr('disabled');
+    $("#editName").removeAttr('disabled').val(data.author);
+    $("#editDiff").val(data.diff);
+    $("#but_load").removeAttr('disabled');
+    
+    loadChart(data.notes);
+    if (data.notes) { updateStats(data); }
+    
+    isDirty = false;
+    clipboard = null;
+    $("li.edit").show();
+    $("#intro").text("All loaded up!");
+  });
+}
+
 //Enter this mode upon choosing a song and difficulty.
 function editMode()
 {
@@ -222,6 +293,7 @@ function editMode()
     $("#but_load").removeAttr('disabled');
     $("#editName").attr('maxlength', 12);
     $("#editSong").text("Edit Name:");
+    $("#but_sub").attr('name', 'editSubmit');
     return true;
   }});
   return false; // this is to ensure the asyncing is done right.

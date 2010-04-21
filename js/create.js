@@ -165,46 +165,7 @@ $(document).ready(function()
   });
   
   // The admin is ready to load the chart (if it exists)
-  $("#song_yes").click(function(){
-    $("#intro").text("Loading chart...");
-    songID = $("#loadSong").val();
-    var diff = $("#loadDifficulty").val();
-    $("#notes > g").children().remove(); // remove the old chart.
-    $.getJSON(baseURL + "/loadOfficial/" + songID + "/" + diff, function(data){
-      $("#stylelist").val(data.style);
-      $("li[class^=load]").hide();
-      if (data.notes)
-      {
-        loadEdit(data);
-        $("#authorlist").attr("disabled", "disabled");
-        $(".author").hide();
-        $("#editName").val(data.author);
-      }
-      else // do these steps manually.
-      {
-        $(".edit").hide();
-        $("#editName").val('');
-        $("#editDiff").val('');
-        $("#statS").text(0);
-        $("#statJ").text(0);
-        $("#statH").text(0);
-        $("#statM").text(0);
-        $("#statR").text(0);
-        $("#statT").text(0);
-        $("#statF").text(0);
-        $("#statL").text(0);
-        $("#fCont").val('');
-        $("li.edit").show();
-        editMode();
-        $("#intro").text("Loading chart...");
-        $("li.author").hide();
-      }
-      isDirty = false;
-      $("#editName").attr('maxlength', 32);
-      $("#editSong").text("Edit Author:");
-      $("#intro").text("All loaded up!");
-    });
-  });
+  $("#song_yes").click(function(){ songMode(); });
   
   // The edit contents have to be placed in here due to AJAX requirements.
   $("#fCont").keyup(function(){

@@ -5,12 +5,12 @@
 // Load the data from JSON to JS/SVG.
 function loadChart(nd)
 {
-  $("#svgNote").empty();
-  $("#svg").attr('width', width);
-  $("#svgMeas").empty();
-  $("#svgSync").empty();
+  $("#notes > g").children().remove(); // remove the old chart.
+  $("#svg").attr('width', SCALE * (BUFF_LFT + BUFF_RHT + columns * ARR_HEIGHT));
   
   loadSVGMeasures();
+  
+  if (!nd) { return; }
   
   var eRow = stringMul("0", columns); // completely empty row.
   
@@ -128,11 +128,12 @@ function saveChart(data)
   var style = $("#stylelist").val();
   var title = $("#editName").val();
   var diff = $("#editDiff").val();
-  var file = "#SONG:" + songData.name + ";" + EOL;
+  var start = (songData.difficulty == "Edit" ? "#SONG:" : "#TITLE:");
+  var file = start + songData.name + ";" + EOL;
   file += "#NOTES:" + EOL;
   file += "   pump-" + style + ":" + EOL;
   file += "   " + title + ":" + EOL;
-  file += "   Edit:" + EOL;
+  file += "   " + songData.difficulty + ":" + EOL;
   file += "   " + diff + ":" + EOL;
   // pretty sure this is the style of the new radar line.
   file += "   " + data.stream[0].toFixed(3) + "," + data.voltage[0].toFixed(3) + ","

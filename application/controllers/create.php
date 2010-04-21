@@ -163,8 +163,9 @@ class Create extends Controller
     }
     header("Content-Type: application/json");
     $sid = $this->uri->segment(3);
-    
-    echo json_encode($this->_songData($sid));
+    $ret = $this->_songData($sid);
+    $ret['difficulty'] = "Edit";
+    echo json_encode($ret);
   }
   
   // Load the list of edits for the specific author.
@@ -229,6 +230,7 @@ class Create extends Controller
         $data = array('notes' => 1, 'strict_song' => 0, 'arcade' => $diff);
         $ret = $this->editparser->get_stats(gzopen($path, "r"), $data);
         $ret['style'] = substr($ret['style'], 5);
+        //$ret['difficulty'] = $this->editparser->getSMDiff($diff);
       }
       else
       {
@@ -252,6 +254,7 @@ class Create extends Controller
         // Put in defaults to keep the code flowing.
         $ret['notes'] = null;
         $ret['author'] = null;
+        $ret['difficulty'] = $this->editparser->getSMDiff($diff);
       }
       $data = $this->_songData($id);
       foreach ($data as $k => $v)
