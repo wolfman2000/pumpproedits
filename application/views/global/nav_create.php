@@ -18,10 +18,6 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <li><button id="but_help" type="button">Help</button></li>
 <li><button id="but_load" type="button">Load</button></li>
 <li><button id="but_val" type="button">Validate</button></li>
-<?php /*
-<li class="loadChoose"><button id="cho_file" type="button">Hard Drive</button></li>
-<li class="loadChoose"><button id="cho_site" type="button">Web Site</button></li>
-*/ ?>
 <li class="loadWeb long reset">What are you editing?</li>
 <li class="loadWeb long reset"><select id="web_sel">
 <?php foreach ($loads as $l): ?>
@@ -29,10 +25,6 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <?php endforeach; ?></select></li>
 <li class="loadWeb"><button id="web_yes" type="button">Select</button></li>
 <li class="loadWeb"><button id="web_no" type="button">Nevermind</button></li>
-<?php /*
-<li class="loadWeb"><button id="web_you" type="button">Yours</button></li>
-<li class="loadWeb"><button id="web_and" type="button">Andamiro's</button></li>
-*/ ?>
 <li class="loadOther long reset">Choose a person for edits...carefully.</li>
 <li class="loadOther long"><select id="other_sel">
 <?php foreach ($peeps as $p): ?>
@@ -108,7 +100,7 @@ if ($s->gid != $ind): ?>
 <option value="0" selected="selected">Yourself</option>
 <option value="1">Andamiro</option>
 </select></li>
-<li><label for="editName">Edit Name:</label></li>
+<li><label id="editSong" for="editName">Edit Name:</label></li>
 <li><input type="text" id="editName" maxlength="12" /></li>
 <li><label for="editDiff">Diff. Rating:</label></li>
 <li><input type="text" id="editDiff" maxlength="2" /></li>

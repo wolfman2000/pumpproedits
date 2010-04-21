@@ -107,15 +107,6 @@ $(document).ready(function()
     }
   });
   
-  // The account holder wishes to load from the hard drive.
-  $("#cho_file").click(function(){ loadHardDrive(); });  
-  // The account holder wishes to edit an account edit in place.
-  $("#cho_site").click(function(){
-    $(".loadChoose").hide();
-    if (andamiro > 0) { $(".loadWeb").show(); }
-    else              { loadWebEdits(authed); }
-  });
-  
   // What will the account holder load today?
   $("#web_yes").click(function(){
     var item = $("#web_sel").val();
@@ -126,6 +117,7 @@ $(document).ready(function()
       $("li.loadSong").show();
       $("li[class^=load]:not(.loadSong)").hide();
       $("#loadDifficulty").attr("disabled", true);
+      $("#loadSong").val('');
     };
     if (item == "all" && others > 0) {
       $("li.loadOther").show();
@@ -172,17 +164,46 @@ $(document).ready(function()
     else                                   { $("#song_yes").attr("disabled", true); }
   });
   
-  // The account holder wishes to edit one of his account edits.
-  $("#web_you").click(function(){
-    $(".loadWeb").hide();
-    authID = authed;
-    loadWebEdits(authID);
-  });
-  // The account holder wishes to edit one of Andamiro's account edits.
-  $("#web_and").click(function(){
-    $(".loadWeb").hide();
-    authID = 2;
-    loadWebEdits(authID);
+  // The admin is ready to load the chart (if it exists)
+  $("#song_yes").click(function(){
+    $("#intro").text("Loading chart...");
+    songID = $("#loadSong").val();
+    var diff = $("#loadDifficulty").val();
+    $("#notes > g").children().remove(); // remove the old chart.
+    $.getJSON(baseURL + "/loadOfficial/" + songID + "/" + diff, function(data){
+      $("#stylelist").val(data.style);
+      $("li[class^=load]").hide();
+      if (data.notes)
+      {
+        loadEdit(data);
+        $("#authorlist").attr("disabled", "disabled");
+        $(".author").hide();
+        $("#editName").val(data.author);
+      }
+      else // do these steps manually.
+      {
+        $(".edit").hide();
+        $("#editName").val('');
+        $("#editDiff").val('');
+        $("#statS").text(0);
+        $("#statJ").text(0);
+        $("#statH").text(0);
+        $("#statM").text(0);
+        $("#statR").text(0);
+        $("#statT").text(0);
+        $("#statF").text(0);
+        $("#statL").text(0);
+        $("#fCont").val('');
+        $("li.edit").show();
+        editMode();
+        $("#intro").text("Loading chart...");
+        $("li.author").hide();
+      }
+      isDirty = false;
+      $("#editName").attr('maxlength', 32);
+      $("#editSong").text("Edit Author:");
+      $("#intro").text("All loaded up!");
+    });
   });
   
   // The edit contents have to be placed in here due to AJAX requirements.
@@ -231,9 +252,7 @@ $(document).ready(function()
   
   // The author decides not to load an edit at all.
   $("button").filter(function(){ return $(this).text() == "Nevermind"; })
-    .click(function(){
-      cancelLoad();
-  });
+    .click(function(){ cancelLoad();});
   
   // save to your local hard drive
   $("#but_save").click(function(){

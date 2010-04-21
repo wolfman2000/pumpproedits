@@ -219,7 +219,8 @@ class Create extends Controller
       $path = sprintf("%sdata/official/%d_%s.sm.gz", APPPATH, $id, $diff);
       if (file_exists($path))
       {
-        $ret = $this->editparser->get_stats(gzopen($path, "r"), array('notes' => 1));
+        $data = array('notes' => 1, 'strict_song' => 0, 'arcade' => $diff);
+        $ret = $this->editparser->get_stats(gzopen($path, "r"), $data);
         $ret['style'] = substr($ret['style'], 5);
       }
       else

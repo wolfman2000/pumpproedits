@@ -163,13 +163,11 @@ function loadEdit(data)
   $("#editName").val(data.title);
   updateStats(data);
   $("#fCont").val('');
-  $(".loadFile").hide();
-  $(".loadSite").hide();
+  $("li[class^=load]").hide();
   $("li.edit").show();
   editMode();
   $("#intro").text("Loading chart...");
-  loadChart(data.notes);
-      
+  if (data.notes) { loadChart(data.notes); }
 }
 
 // Cancel the edit loading process, restoring the normal buttons.
@@ -222,6 +220,8 @@ function editMode()
     }
     clipboard = null;
     $("#but_load").removeAttr('disabled');
+    $("#editName").attr('maxlength', 12);
+    $("#editSong").text("Edit Name:");
     return true;
   }});
   return false; // this is to ensure the asyncing is done right.
