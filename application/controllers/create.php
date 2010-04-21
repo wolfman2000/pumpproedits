@@ -234,6 +234,7 @@ class Create extends Controller
       }
       else
       {
+        $ret['dShort'] = $diff;
         // At least get the style sorted out.
         if (in_array($diff, array('ez', 'nr', 'hr', 'cz')))
         {
@@ -291,9 +292,22 @@ class Create extends Controller
       echo json_encode($ret);
       return;
     }
+    
+    // Ensure the difficulty variable wasn't changed...easily.
+    $diff = strtolower($this->input->post('diff'));
+    $valid = array('easy', 'normal', 'hard', 'crazy', 'halfdouble', 'freestyle', 'nightmare', 'routine');
+    if (!in_array($diff, $valid))
+    {
+      $ret['error'] = "An invalid difficulty was detected. This chart can't be uploaded.";
+      echo json_encode($ret);
+      return;
+    }
     $data = $this->input->post('b64');
-    $diff = $this->input->post('diff');
     $style = $this->input->post('style');
+    $songid = $this->input->post('songid');
+    
+    
+    // See if the chart already exists.
   }
   
   // Upload the edit directly to the website.

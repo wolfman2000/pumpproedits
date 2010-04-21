@@ -356,7 +356,8 @@ class EditParser
       if ($params['arcade'])
       {
         $title = $this->getOfficialStyle($style, $line); // set title now.
-        if ($params['arcade'] !== $this->getOfficialAbbr($title))
+        $res['dShort'] = $this->getOfficialAbbr($title);
+        if ($params['arcade'] !== $res['dShort'])
         {
           $state = 10;
           break;

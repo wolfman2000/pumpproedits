@@ -219,6 +219,7 @@ function songMode()
     songData['bpms'] = data.bpms;
     songData['stps'] = data.stps;
     songData['difficulty'] = data.difficulty;
+    songData['dShort'] = data.dShort;
     measures = songData['measures'];
     $("#scalelist").val(2.5);
     captured = false;
