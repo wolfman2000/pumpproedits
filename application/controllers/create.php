@@ -287,7 +287,7 @@ class Create extends Controller
     }
     */
     // Make DOUBLY sure the user can upload the edit.
-    $upload = $this->session->userdata('id');
+    $id = $this->session->userdata('id');
     if (!$this->ppe_user_power->canEditOthers($id))
     {
       $ret['error'] = "You don't have permission to upload an official chart.";
@@ -296,21 +296,30 @@ class Create extends Controller
     }
     
     // Ensure the difficulty variable wasn't changed...easily.
-    $diff = strtolower($this->input->post('dShort'));
+    $dshort = strtolower($this->input->post('dShort'));
     $valid = array('ez', 'nr', 'hr', 'cz', 'fs', 'hd', 'nm', 'rt');
-    if (!in_array($diff, $valid))
+    if (!in_array($dshort, $valid))
     {
       $ret['error'] = "An invalid difficulty was detected. This chart can't be uploaded.";
       echo json_encode($ret);
       return;
     }
-    $data = $this->input->post('b64');
     $songid = $this->input->post('songID'); // song ID
     $dshort = $this->input->post('dShort'); // two letter difficulty
+    $style = "pump-" . $this->input->post('style'); // traditional SM style.
+    $sd = $this->input->post('difficulty'); // traditional SM difficulty.
+    $diff = strtolower($this->editparser->getOfficialStyle($style, $sd)); // needed for query below.
     
+    // Place the record in the database if it doesn't exist.
+    $this->load->model('ppe_song_difficulty');
+    $this->ppe_song_difficulty->addChart($songid, $diff);
     
+    // Finally place the edit in its place.
+    $path = sprintf("%sdata/official/%d_%s.sm.gz", APPPATH, $songid, $dshort);
+    $fp = gzopen($path, "w");
+    gzwrite($fp, $this->input->post('b64'));
+    gzclose($fp);
     
-    // See if the chart already exists.
   }
   
   // Upload the edit directly to the website.

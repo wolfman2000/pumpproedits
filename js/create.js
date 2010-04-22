@@ -224,7 +224,7 @@ $(document).ready(function()
   $("#but_sub").click(function(){
     if (songData.dShort)
     {
-      //uploadOfficial();
+      uploadOfficial();
     }
     else
     {

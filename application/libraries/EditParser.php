@@ -92,7 +92,7 @@ class EditParser
     }
   }
   
-  protected function getOfficialStyle($style, $title)
+  public function getOfficialStyle($style, $title)
   {
     switch ($style)
     {

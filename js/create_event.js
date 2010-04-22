@@ -686,6 +686,8 @@ function uploadOfficial()
   data['b64'] = $("#b64").val();
   data['songID'] = songID;
   data['dShort'] = songData.dShort;
+  data['difficulty'] = songData.difficulty;
+  data['style'] = $("#stylelist").val();
    $("#intro").text("Uploading chart...");
   $.post(baseURL + "/uploadOfficial", data, function(data, status)
   {
