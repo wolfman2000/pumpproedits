@@ -680,6 +680,20 @@ function loadWebEdits(user)
 }
 
 // Upload the intended official chart.
+function uploadOfficial()
+{
+  var data = {};
+  data['b64'] = $("#b64").val();
+  data['songID'] = songID;
+  data['dShort'] = songData.dShort;
+   $("#intro").text("Uploading chart...");
+  $.post(baseURL + "/uploadOfficial", data, function(data, status)
+  {
+    $("#intro").text("Chart Uploaded");
+    //$("#editName").attr("disabled", "disabled");
+    $("#authorlist").attr("disabled", "disabled");
+  }, "json");
+}
 
 // Upload the intended edit.
 function uploadEdit()

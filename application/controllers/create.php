@@ -276,6 +276,7 @@ class Create extends Controller
     }
     header("Content-Type: application/json");
     $row = array();
+    /*
     // Double check the hijacking variable.
     $checker = $this->input->post('but_sub');
     if ($checker !== "songSubmit")
@@ -284,6 +285,7 @@ class Create extends Controller
       echo json_encode($ret);
       return;
     }
+    */
     // Make DOUBLY sure the user can upload the edit.
     $upload = $this->session->userdata('id');
     if (!$this->ppe_user_power->canEditOthers($id))
@@ -294,8 +296,8 @@ class Create extends Controller
     }
     
     // Ensure the difficulty variable wasn't changed...easily.
-    $diff = strtolower($this->input->post('diff'));
-    $valid = array('easy', 'normal', 'hard', 'crazy', 'halfdouble', 'freestyle', 'nightmare', 'routine');
+    $diff = strtolower($this->input->post('dShort'));
+    $valid = array('ez', 'nr', 'hr', 'cz', 'fs', 'hd', 'nm', 'rt');
     if (!in_array($diff, $valid))
     {
       $ret['error'] = "An invalid difficulty was detected. This chart can't be uploaded.";
@@ -303,8 +305,9 @@ class Create extends Controller
       return;
     }
     $data = $this->input->post('b64');
-    $style = $this->input->post('style');
-    $songid = $this->input->post('songid');
+    $songid = $this->input->post('songID'); // song ID
+    $dshort = $this->input->post('dShort'); // two letter difficulty
+    
     
     
     // See if the chart already exists.
