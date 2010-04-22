@@ -22,19 +22,21 @@ function loadChart(nd)
     LOOP_MEASURE:
     for (var iM = 0; iM < songData.measures; iM++)
     {
-      // NONE of these start off empty in nd.
+      // Ensure the measure exists (mainly for song data)
+      if (!nd[iP][iM]) { continue LOOP_MEASURE; }
       var rows = nd[iP][iM].length;
       
       LOOP_BEAT:
       for (var iB = 0; iB < rows; iB++)
       {
-        if (nd[iP][iM][iB] === eRow) { continue LOOP_BEAT; }
+        var cRow = nd[iP][iM][iB];
+        if (cRow === eRow) { continue LOOP_BEAT; }
         
         var mul = (BEATS_MAX / rows) * iB;
         LOOP_ROW:
         for (var iR = 0; iR < columns; iR++)
         {
-          var ch = nd[iP][iM][iB].charAt(iR);
+          var ch = cRow.charAt(iR);
           if (ch === "0") { continue LOOP_ROW; }
           var note = getNote(mul, ch, iP);
           var x = iR * ARR_HEIGHT + BUFF_LFT;
