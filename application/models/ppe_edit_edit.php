@@ -76,6 +76,19 @@ class Ppe_edit_edit extends Model
     }
   }
   
+  // Get a list of edits with same song/style/title, excluding itself.
+  function checkDuplicates($sid, $uid, $style, $title, $eid = null)
+  {
+    $q = $this->db->select('id')
+      ->where('song_id', $sid)->where('user_id', $uid)
+      ->where('style', $style)->where('title', $title);
+    if ($eid)
+    {
+      $q->where('id !=', $eid);
+    }
+    return $q->get('ppe_edit_edit')->num_rows();
+  }
+  
   // Get the list of edits by the user. Should problem ones be included?
   function getSVGEdits($uid)
   {

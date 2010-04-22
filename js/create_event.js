@@ -692,7 +692,6 @@ function uploadOfficial()
   $.post(baseURL + "/uploadOfficial", data, function(data, status)
   {
     $("#intro").text("Chart Uploaded");
-    //$("#editName").attr("disabled", "disabled");
     $("#authorlist").attr("disabled", "disabled");
   }, "json");
 }
@@ -726,11 +725,20 @@ function uploadEdit()
   data['lifts2'] = $("#statL").text().split("/")[1];
   
   $("#intro").text("Uploading edit...");
-  $.post(baseURL + "/upload", data, function(data, status)
+  $.post(baseURL + "/upload", data, function(res, status)
   {
-    $("#intro").text("Edit Uploaded");
-    //$("#editName").attr("disabled", "disabled");
-    $("#authorlist").attr("disabled", "disabled");
-    $(".author").hide();
+    if (res.result === "duplicate")
+    {
+      $("#intro").text("Duplicate title!");
+      alert("You already have an edit titled " + data['title']
+        + "\nfor a " + data['style'] + " edit of " + songData.name
+        + ". Please use a different title.");
+    }
+    else
+    {
+      $("#intro").text("Edit Uploaded");
+      $("#authorlist").attr("disabled", "disabled");
+      $(".author").hide();
+    }
   }, "json");
 }

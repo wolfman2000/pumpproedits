@@ -203,10 +203,6 @@ $(document).ready(function()
       $("#intro").text("All loaded up!");
       $("#authorlist").attr("disabled", "disabled");
       $(".author").hide();
-      if (data.title.length)
-      {
-        $("#editName").attr('disabled', true);
-      }
       isDirty = false;
     });
   });

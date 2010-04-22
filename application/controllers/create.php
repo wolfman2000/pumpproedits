@@ -339,6 +339,26 @@ class Create extends Controller
     $row['title'] = $this->input->post('title');
     $row['style'] = "pump-" . $this->input->post('style');
     $row['diff'] = $this->input->post('diff');
+    
+    // See if any OTHER edits have the same title and style.
+    if ($eid)
+    {
+      $dupes = $this->ppe_edit_edit->checkDuplicates($row['id'], $row['uid'],
+        $this->input->post('style'), $row['title'], $eid);
+    }
+    else
+    {
+      $dupes = $this->ppe_edit_edit->checkDuplicates($row['id'], $row['uid'],
+        $this->input->post('style'), $row['title']);
+    }
+    if ($dupes)
+    {
+      $ret['result'] = "duplicate";
+      echo json_encode($ret);
+      return;
+    }
+    
+    
     $row['steps'] = array();
     $row['steps'][] = $this->input->post('steps1');
     $row['steps'][] = $this->input->post('steps2');
@@ -386,6 +406,7 @@ class Create extends Controller
     gzclose($fp);
     $ret = array();
     $ret['result'] = "successful";
+    $ret['editid'] = $eid;
     echo json_encode($ret);
   }
   
