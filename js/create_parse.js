@@ -38,7 +38,14 @@ function loadChart(nd)
         {
           var ch = cRow.charAt(iR);
           if (ch === "0") { continue LOOP_ROW; }
-          var note = getNote(mul, ch, iP);
+          if ($("#stylelist").val() !== "routine"))
+          {
+            var note = "p" + iP + " " + getSync(mul) + " " + getType(ch);
+          }
+          else
+          {
+            var note = getNote(mul, ch, iP);
+          }
           var x = iR * ARR_HEIGHT + BUFF_LFT;
           var y = ((iM * BEATS_MAX + mul) / MEASURE_RATIO) + BUFF_TOP;
           $("#svgNote").append(selectArrow(iR, x, y, note));
