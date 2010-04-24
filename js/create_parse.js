@@ -38,7 +38,7 @@ function loadChart(nd)
         {
           var ch = cRow.charAt(iR);
           if (ch === "0") { continue LOOP_ROW; }
-          if ($("#stylelist").val() !== "routine"))
+          if ($("#stylelist").val() === "routine"))
           {
             var note = "p" + iP + " " + getSync(mul) + " " + getType(ch);
           }
