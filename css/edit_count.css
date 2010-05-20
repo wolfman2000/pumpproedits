@@ -5,12 +5,17 @@
 	line-height: 1em;
 	padding-top: 0.2em;
 	padding-bottom: 0.2em;
+	clear: both;
 }
+#multiCol > p > a
+{
+	width: 14em;
+	display: inline-block;
+}
+
 #multiCol > p > span
 {
 	display: inline-block;
-	width: 16em;
-	padding-right: 2em;
 }
 
 #multiCol
