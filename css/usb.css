@@ -1,0 +1,20 @@
+@import "main.css";
+
+var
+{
+	font-style: italic;
+}
+
+#directory, ol
+{
+	margin-left: 1em;
+}
+#directory li, ol li
+{
+	padding-left: 1em;
+	list-style-type: inherit;
+}
+ol > li
+{
+	padding-bottom: 1em;
+}
