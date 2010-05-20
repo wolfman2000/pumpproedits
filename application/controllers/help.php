@@ -36,7 +36,7 @@ class Help extends Controller
     $email = $this->input->post('email');
     $this->load->model('ppe_user_user');
     $this->load->model('ppe_user_role');
-    $id = $this->ppe_user_user($email);
+    $id = $this->ppe_user_user->getIDByEmail($email);
     if (!$id)
     {
       $this->output->set_status_header(409);
@@ -49,7 +49,7 @@ class Help extends Controller
     }
     else
     {
-      $username = $this->ppe_user_user->getNameByID($id);
+      $username = $this->ppe_user_user->getUserByID($id);
       $this->ppe_user_user->confirmUser($id, 0);
       $this->load->model('ppe_user_condiment');
       $md5 = $this->ppe_user_condiment->updateOregano($id);
@@ -58,7 +58,7 @@ class Help extends Controller
       $this->email->from('jafelds@gmail.com', 'Jason "Wolfman2000" Felds');
       $this->email->to($email);
       $this->email->bcc('jafelds@gmail.com');
-      if ($this->input->load('choice') === "resend")
+      if ($this->input->post('choice') === "resend")
       {
         $this->email->subject('Pump Pro Edits - Reconfirming Account');
         $this->email->message(resendMessage($md5));

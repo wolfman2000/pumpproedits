@@ -25,7 +25,9 @@ class Ppe_user_user extends Model
     $salt = genSalt();
     $md5 = hash("md5", $pass . $salt);
     
-    $data = array('oregano' => $md5, 'salt' => $salt,
+    $oid = $this->db->select('MAX(id) AS lid')->get('ppe_user_condiment')
+      ->row()->lid + 1;
+    $data = array('oregano' => $md5, 'salt' => $salt, 'id' => $oid,
       'pepper' => hash("sha256", $pass . $salt), 'user_id' => $id);
     $this->db->insert('ppe_user_condiment', $data);
     

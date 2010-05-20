@@ -10,8 +10,9 @@ class Ppe_user_condiment extends Model
   function checkPassword($salt, $pass)
   {
     $pepper = hash("sha256", $pass . $salt);
-    return $this->db->select('id')->where('pepper', $pepper)
-      ->get('ppe_user_condiment')->row()->id;
+    $q = $this->db->select('user_id')->where('pepper', $pepper)
+      ->get('ppe_user_condiment')->row();
+    return $q ? $q->user_id : false;
   }
   
   // check the user exists.
@@ -39,6 +40,12 @@ class Ppe_user_condiment extends Model
     return $this->db->select('oregano')->where('user_id = ?', $id)
       ->get('ppe_user_condiment')->row()->oregano;
   }
+
+  function getIDByOregano($oregano)
+  {
+    return $this->db->select('user_id')->where('oregano', $oregano)
+      ->get('ppe_user_condiment')->row()->user_id;
+  }
   
   // Update the oregano value and return it.
   function updateOregano($id)
@@ -54,7 +61,8 @@ class Ppe_user_condiment extends Model
   function setPassword($id, $pass)
   {
     $this->load->helper('salter');
-    $pepper = hash("sha256", $pass . getSalt());
-    $this->db->update('ppe_user_condiment', array('pepper' => $pepper), "user_id = $id");
+    $salt = genSalt();
+    $pepper = hash("sha256", $pass . $salt);
+    $this->db->update('ppe_user_condiment', array('pepper' => $pepper, 'salt' => $salt), "user_id = $id");
   }
 }

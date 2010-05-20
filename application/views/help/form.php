@@ -7,7 +7,7 @@
 <dt><label for="choice">Choice</label></dt>
 <dd><select id="choice" name="choice">
 <option value="reset">Reset my password.</option>
-<option value="resent">Resend my confirmation email.</option>
+<option value="resend">Resend my confirmation email.</option>
 </select></dd>
 </dl>
 <p><button value="submit" type="submit" id="submit" name="submit">Submit!</button></p>
