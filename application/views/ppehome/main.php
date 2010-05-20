@@ -2,7 +2,7 @@
 <p>Welcome to the Pump Pro Edit database. Inside here, you will find
 many edits that dance players such as yourself have created, along
 with official charts that Pump creator Andamiro made themselves.</p>
-<?php if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE") !== false): ?>
+<?php if ($this->agent->is_browser() and strpos($_SERVER['HTTP_USER_AGENT'], "MSIE") !== false): ?>
 <p>Due to your choice of web browser, the entire website will not be
 available to you. Please consider switching web browsers to get the
 full experience this website has to offer. In the meantime,
