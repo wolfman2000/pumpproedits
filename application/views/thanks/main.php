@@ -34,11 +34,13 @@
 <dt><a href="http://www.ncsu.edu">North Carolina State University</a></dt>
 <dd>They gave me the majority of my education.</dd>
 <dt><a href="http://www.uncw.edu">University of North Carolina Wilmington</a></dt>
-<dd>My present college, they are helping me become a high school math teacher.</dd>
+<dd>My present college, I have recently been accepted to their graduate school program.</dd>
 <dt>Jboy AAA</dt>
 <dd>He has helped with private testing on the website, and also had a machine available that I could use.</dd>
 <dt>BAMABoxy</dt>
 <dd>General good guy, he's provided friendship and support. Part of the website is in dedication to him.</dd>
+<dt>Daemonaheart</dt>
+<dd>Another good guy, he confirmed data about the USB section of the website.</dd>
 </dl>
 <p><a href="#top">Back to Top</a></p>
 </section>
@@ -68,7 +70,7 @@
 <dt>VxJasonxV</dt>
 <dd>He provided the original website space, and is a great PHP troubleshooter.</dd>
 <dt>Rathstar</dt>
-<dd>He was an excellent guide for the step chart generator in use.</dd>
+<dd>He was an excellent guide for the old versions of my step chart generator.</dd>
 <dt>Kyrandian</dt>
 <dd>Another beta tester, he found some bugs that I was able to fix.</dd>
 <dt>dasbacon</dt>
@@ -83,6 +85,8 @@
 <dd>While on Pylons, database queries became simpler with SQLAlchemy.  They also became more fun.</dd>
 <dt><a href="http://www.symfony-project.org/">Symfony Project</a></dt>
 <dd>The second redesign was thanks to this PHP framework. The learning curve is easy to work with.</dd>
+<dt><a href="http://www.codeigniter.com/">CodeIgniter</a></dt>
+<dd>Part of the 3rd series of this website, CodeIgniter is a slim framework that offers great flexibility.</dd>
 </dl>
 <p><a href="#top">Back to Top</a></p>
 </section>
@@ -116,8 +120,10 @@
 <dd>Anyone that requires a virtual private server should check these guys out. They used to host this website.</dd>
 <dt><a href="http://www.piu-pro.com">Pump It Up Pro Blog</a></dt>
 <dd>They were one of the first fan websites to link to back here.</dd>
+<dt><a href="http://www.pumpproplus.com">Pump Pro Plus</a></dt>
+<dd>Fellow fan developer Crevolous and I have helped each other exchange data in the past.</dd>
 <dt><a href="http://www.nearlyfreespeech.net">NearlyFreeSpeech.NET</a></dt>
-<dd>My present host, they are the only A la carte web host that I know of.</dd>
+<dd>If anyone ever needs a la carte web hosting, these are the guys to go to.</dd>
 </dl>
 <p><a href="#top">Back to Top</a></p>
 </section>
