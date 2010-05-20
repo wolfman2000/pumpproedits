@@ -10,7 +10,12 @@ class Ppe_edit_edit extends Model
   function addEdit($row)
   {
     $date = date('Y-m-d H:i:s');
+    
+    $id = $this->db->select('MAX(id) AS lid')->get('ppe_edit_edit')
+      ->row()->lid + 1;
+
     $data = array(
+      'id' => $id,
       'style' => substr($row['style'], 5),
       'song_id' => $row['id'],
       'user_id' => $row['uid'],
@@ -20,7 +25,7 @@ class Ppe_edit_edit extends Model
       'updated_at' => $date,
     );
     $this->db->insert('ppe_edit_edit', $data);
-    $id = $this->db->insert_id();
+    #$id = $this->db->insert_id();
     
     $players = array(0);
     if ($row['style'] === "pump-routine")
@@ -43,6 +48,7 @@ class Ppe_edit_edit extends Model
       );
       $this->db->insert('ppe_edit_player', $data);
     }
+    return $id; // Return the edit ID.
   }
   
   // Update an edit that is already in the database.

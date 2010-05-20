@@ -9,14 +9,17 @@ class Ppe_user_user extends Model
   // Add the new user to the database.
   function addUser($name, $email, $pass)
   {
-    $data = array('name' => $name, 'lc_name' => strtolower($name),
-      'email' => $email, 'lc_email' => strtolower($email),
-    );
     // use transactions to ensure validity.
     $this->db->trans_start();
+
+    $id = $this->db->select('MAX(id) AS lid')->get('ppe_user_user')
+      ->row()->lid + 1;
+    $data = array('name' => $name, 'lc_name' => strtolower($name),
+      'email' => $email, 'lc_email' => strtolower($email), 'id' => $id,
+    );
     
     $this->db->insert('ppe_user_user', $data);
-    $id = $this->db->insert_id();
+    #$id = $this->db->insert_id();
     
     $this->load->helper('salter');
     $salt = genSalt();
@@ -72,7 +75,6 @@ class Ppe_user_user extends Model
     return $this->db->select('a.id, a.name core, COUNT(b.id) num_edits')
       ->from('ppe_user_user a')
       ->join('ppe_edit_edit b', 'a.id = b.user_id')
-      ->where('a.num_edits >', 0)
       ->where('b.is_problem', 0)
       ->where('b.deleted_at', null)
       ->where_not_in('a.id', array(2, 95))
@@ -106,7 +108,7 @@ class Ppe_user_user extends Model
       ->join('ppe_user_power p', 'a.id = p.user_id')
       ->join('ppe_edit_edit e', 'a.id = e.user_id')
       ->where_not_in('a.id', $ids)
-      ->group_by(array('a.id, a.name'))
+      ->group_by(array('a.id', 'a.name'))
       ->having('min_role >= 3')
       ->having('num_edits > 0')
       ->order_by('a.lc_name')->get()->result_array();
