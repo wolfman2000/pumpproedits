@@ -57,8 +57,9 @@ class Ppe_song_song extends Model
   {
     return $this->db->select('a.name, a.id, a.abbr, g.game_id tmp')
       ->join('ppe_song_game g', 'a.id = g.song_id AND g.game_id > 1', 'left')
+      ->where('is_problem', 0)
       ->order_by('a.lc_name')
-      ->limit(APP_BASE_EDITS_PER_PAGE, $page)
+      ->limit(APP_BASE_EDITS_PER_PAGE, ($page - 1) * APP_BASE_EDITS_PER_PAGE)
       ->get('ppe_song_song a');
   }
   

@@ -11,7 +11,7 @@ class Base extends Controller
   function index()
   {
     $this->load->library('pagination');
-    $page = $this->uri->segment('3', 0);
+    $page = $this->uri->segment('3', 1);
     $query = $this->ppe_song_song->getBaseEdits($page);
     $data['edits'] = $query->result();
     $config['base_url'] = 'http://' . $this->input->server('SERVER_NAME') . '/base/index/';

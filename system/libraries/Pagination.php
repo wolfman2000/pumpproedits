@@ -150,19 +150,24 @@ class CI_Pagination {
 
 		if ( ! is_numeric($this->cur_page))
 		{
-			$this->cur_page = 0;
+			$this->cur_page = 1;
 		}
+    
+    if ($this->cur_page == 0)
+    {
+      $this->cur_page = 1;
+    }
 
 		// Is the page number beyond the result range?
 		// If so we show the last page
 		if ($this->cur_page > $this->total_rows)
 		{
-			$this->cur_page = ($num_pages - 1) * $this->per_page;
+			$this->cur_page = $num_pages;
 		}
 
 		$uri_page_number = $this->cur_page;
-		$this->cur_page = floor(($this->cur_page/$this->per_page) + 1);
-
+		//$this->cur_page = floor(($this->cur_page/$this->per_page) + 1);
+    
 		// Calculate the start and end numbers. These determine
 		// which number to start and end the digit links with
 		$start = (($this->cur_page - $this->num_links) > 0) ? $this->cur_page - ($this->num_links - 1) : 1;
@@ -191,8 +196,8 @@ class CI_Pagination {
 		// Render the "previous" link
 		if  ($this->cur_page != 1)
 		{
-			$i = $uri_page_number - $this->per_page;
-			if ($i == 0) $i = '';
+			$i = $uri_page_number - 1;
+			if ($i == 1) $i = '';
 			$output .= $this->prev_tag_open.'<a href="'.$this->base_url.$i.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
 		}
 
@@ -209,7 +214,7 @@ class CI_Pagination {
 				}
 				else
 				{
-					$n = ($i == 0) ? '' : $i;
+					$n = ($i == 0) ? '' : $i / $this->per_page + 1;
 					$output .= $this->num_tag_open.'<a href="'.$this->base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
 				}
 			}
@@ -218,13 +223,13 @@ class CI_Pagination {
 		// Render the "next" link
 		if ($this->cur_page < $num_pages)
 		{
-			$output .= $this->next_tag_open.'<a href="'.$this->base_url.($this->cur_page * $this->per_page).'">'.$this->next_link.'</a>'.$this->next_tag_close;
+			$output .= $this->next_tag_open.'<a href="'.$this->base_url.($this->cur_page + 1).'">'.$this->next_link.'</a>'.$this->next_tag_close;
 		}
 
 		// Render the "Last" link
 		if (($this->cur_page + $this->num_links) < $num_pages)
 		{
-			$i = (($num_pages * $this->per_page) - $this->per_page);
+			$i = $num_pages;
 			$output .= $this->last_tag_open.'<a href="'.$this->base_url.$i.'">'.$this->last_link.'</a>'.$this->last_tag_close;
 		}
 
