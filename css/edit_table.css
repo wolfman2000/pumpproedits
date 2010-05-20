@@ -28,6 +28,10 @@
   {
     font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
   }
+  #edits > tbody > tr > td:first-child
+  {
+    max-width: 15em;
+  }
   #edits > tbody > tr > td > dl > dt
   {
     clear: both;
