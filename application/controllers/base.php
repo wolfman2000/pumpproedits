@@ -15,7 +15,9 @@ class Base extends Controller
     $query = $this->ppe_song_song->getBaseEdits($page);
     $data['edits'] = $query->result();
     $config['base_url'] = 'http://' . $this->input->server('SERVER_NAME') . '/base/index/';
-    $config['total_rows'] = $this->ppe_song_song->getSongCountWithGame();
+    $total = $this->ppe_song_song->getSongCountWithGame();
+    $config['total_rows'] = $total;
+    $data['baseEdits'] = $total;
     $config['per_page'] = APP_BASE_EDITS_PER_PAGE;
     $config['cur_tag_open'] = '<strong>';
     $config['cur_tag_close'] = '</strong>';
@@ -25,6 +27,21 @@ class Base extends Controller
     $config['last_link'] = '»';
     $this->pagination->initialize($config);
     $this->load->view('base/main', $data);
+  }
+  
+  // conquer the set of songs for base edits.
+  function conquer()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $ret = array();
+    $page = $this->uri->segment('3');
+    $ret['songs'] = $this->ppe_song_song->getBaseEdits($page)->result_array();
+    echo json_encode($ret);
   }
   
   // download the chosen edit to the hard drive.

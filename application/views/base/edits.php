@@ -1,4 +1,5 @@
 <?php $style = array('single', 'double', 'halfdouble', 'routine'); ?>
+<?php echo $this->pagination->create_links(); ?>
 <table id="base">
   <caption>Download the Base Edit Files</caption>
   <thead><tr>

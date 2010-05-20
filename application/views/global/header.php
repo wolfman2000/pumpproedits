@@ -27,6 +27,11 @@ const baseURL = window.location.href;
 const andamiro = <?php echo $uid === false ? 0 : $andy; ?>;
 const others = <?php echo $uid === false ? 0 : $others; ?>;
 <?php endif; ?>
+<?php if (isset($baseEdits)): 
+$maxPages = floor($baseEdits / APP_BASE_EDITS_PER_PAGE);
+if ($baseEdits % APP_BASE_EDITS_PER_PAGE) { $maxPages++; } ?>
+const maxPages = <?php echo $maxPages; ?>;
+<?php endif; ?>
 //]]>
 </script>
 <?php if (isset($scripts)): foreach ($scripts as $script): ?>
