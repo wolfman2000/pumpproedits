@@ -5,7 +5,7 @@
 $(document).ready(function()
 {
   init();
-  
+  $("#svg_nav_form").attr('style', 'display:block;');
   $("#songlist").val('');
   $("rect[id^=sel]").attr('x', BUFF_LFT);
   $("#notes").attr('transform', 'scale(' + SCALE + ')');
