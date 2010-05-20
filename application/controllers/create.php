@@ -335,6 +335,7 @@ class Create extends Controller
     $row = array();
     $eid = $this->input->post('editID');
     $row['id'] = $this->input->post('songID'); // must stay consistent.
+    $song = $this->ppe_song_song->getSongByID($row['id']);
     $row['uid'] = $this->input->post('userID');
     $row['title'] = $this->input->post('title');
     $row['style'] = "pump-" . $this->input->post('style');
@@ -388,16 +389,17 @@ class Create extends Controller
     if (!($eid > 0)) # New edit
     {
       $eid = $this->ppe_edit_edit->addEdit($row);
-      $status = "New";
+      $status = "created";
     }
     else
     {
       $this->ppe_edit_edit->updateEdit($eid, $row);
-      $status = "Updated";
+      $status = "updated";
     }
     $this->db->cache_delete_all();
     $this->load->helper('twitter');
-    $twit = genEditMessage($row['uid'], $this->ppe_user_user->getUserByID($row['uid']), $status);
+    $twit = genEditMessage($row['uid'], $this->ppe_user_user->getUserByID($row['uid']), $status,
+	$row['style'], $row['title'], $song);
     postTwitter($twit);
     
     $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);

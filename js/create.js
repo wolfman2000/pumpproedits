@@ -391,7 +391,8 @@ $(document).ready(function()
       case 73: {
         if ($("#selTop").attr('style').indexOf('none') == -1)
         {
-          mirrorRows();
+          e.preventDefault();
+          mirrorRows(e.metaKey);
         }
         break;
       }
@@ -462,6 +463,15 @@ $(document).ready(function()
           $("#playerlist").val(parseInt($("#playerlist").val()) ? 0 : 1);
         }
         break;
+      }
+
+      // /
+      case 191: {
+        if ($("#selTop").attr('style').indexOf('none') == -1)
+        {
+          e.preventDefault();
+          mirrorRows(1);
+        }
       }
     }
   });

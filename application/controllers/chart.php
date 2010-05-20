@@ -106,11 +106,12 @@ class Chart extends Controller
     $this->load->model('ppe_user_user');
     $author = $this->ppe_user_user->getUserByEditID($eid);
     $this->load->library('EditParser');
-    $p = array('notes' => 1, 'strict_song' => 0, 'strict_edit' => 0);
+    $p = array('notes' => 1, 'strict_song' => 0, 'strict_edit' => 0, 'author' => $author);
     $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
     $p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
       'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
-      'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'));
+      'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'),
+      'author' => $author);
     $this->load->library('EditCharter', $p);
     $notedata['author'] = $author;
     header("Content-Type: application/xhtml+xml");
@@ -180,6 +181,8 @@ class Chart extends Controller
     {
       # Return error here: parameters must match.
     }
+    $this->load->model('ppe_user_user');
+    $user = $this->ppe_user_user->getUserByEditID($id);
     $id = sprintf("%06d", $id);
     $name = sprintf("edit_%s.edit.gz", $id);
     $path = sprintf("%sdata/user_edits/%s", APPPATH, $name);
@@ -194,6 +197,7 @@ class Chart extends Controller
     $this->load->library('EditParser');
     $notedata = $this->editparser->get_stats(gzopen($path, "r"),
       array('notes' => 1, 'strict_edit' => 0));
+    $notedata['author'] = $user;
     $p = array('cols' => $notedata['cols'], 'kind' => $kind);
     $this->load->library('EditCharter', $p);
     header("Content-Type: application/xhtml+xml");

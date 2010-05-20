@@ -43,7 +43,7 @@ function changeArrow()
     var nX = parseInt($(this).attr('x'));
     var nY = parseFloat($(this).attr('y'));
     
-    if (nX == rX && nY == rY) // exact same: remove old
+    if (nX == rX && nY.toFixed(4) == rY.toFixed(4)) // exact same: remove old
     {
       var nStyle = $(this).attr('class');
       $("#svgNote > svg:eq(" + ind + ")").remove();
@@ -55,7 +55,7 @@ function changeArrow()
       }
       fin = true;
     }
-    else if (nY > rY || nY == rY && nX > rX)
+    else if (nY > rY || nY.toFixed(4) == rY.toFixed(4) && nX > rX)
     {
       $(this).before(sA);
       fin = true;
@@ -599,7 +599,7 @@ function rotateColumn(val)
 }
 
 // Mirror the arrows across the middle point of the chart.
-function mirrorRows()
+function mirrorRows(diagMirror)
 {
   var m = (BUFF_LFT + BUFF_RHT + columns * ARR_HEIGHT) / 2;
   getSelectedArrows().each(function(ind){
@@ -614,11 +614,11 @@ function mirrorRows()
       {
         switch (x)
         {
-          case 32: { x = 96; break FIX_X; }
-          case 48: { x = 80; break FIX_X; }
+          case 32: { x = (diagMirror ? 80 : 96); break FIX_X; }
+          case 48: { x = (diagMirror ? 96 : 80); break FIX_X; }
           case 64: { x = 64; break FIX_X; }
-          case 80: { x = 48; break FIX_X; }
-          case 96: { x = 32; break FIX_X; }
+          case 80: { x = (diagMirror ? 32 : 48); break FIX_X; }
+          case 96: { x = (diagMirror ? 48 : 32); break FIX_X; }
         }
       }
       case 6:
@@ -626,10 +626,10 @@ function mirrorRows()
         switch (x)
         {
           case 32:  { x = 112; break FIX_X; }
-          case 48:  { x = 96;  break FIX_X; }
-          case 64:  { x = 80;  break FIX_X; }
-          case 80:  { x = 64;  break FIX_X; }
-          case 96:  { x = 48;  break FIX_X; }
+          case 48:  { x = (diagMirror ? 80 : 96);  break FIX_X; }
+          case 64:  { x = (diagMirror ? 96 : 80);  break FIX_X; }
+          case 80:  { x = (diagMirror ? 48 : 64);  break FIX_X; }
+          case 96:  { x = (diagMirror ? 64 : 48);  break FIX_X; }
           case 112: { x = 32;  break FIX_X; }
         }
       }
@@ -637,16 +637,16 @@ function mirrorRows()
       {
         switch (x)
         {
-          case 32:  { x = 176; break FIX_X; }
-          case 48:  { x = 160; break FIX_X; }
+          case 32:  { x = (diagMirror ? 160 : 176); break FIX_X; }
+          case 48:  { x = (diagMirror ? 176 : 160); break FIX_X; }
           case 64:  { x = 144; break FIX_X; }
-          case 80:  { x = 128; break FIX_X; }
-          case 96:  { x = 112; break FIX_X; }
-          case 112: { x = 96;  break FIX_X; }
-          case 128: { x = 80;  break FIX_X; }
+          case 80:  { x = (diagMirror ? 112 : 128); break FIX_X; }
+          case 96:  { x = (diagMirror ? 128 : 112); break FIX_X; }
+          case 112: { x = (diagMirror ? 80 : 96);  break FIX_X; }
+          case 128: { x = (diagMirror ? 96 : 80);  break FIX_X; }
           case 144: { x = 64;  break FIX_X; }
-          case 160: { x = 48;  break FIX_X; }
-          case 176: { x = 32;  break FIX_X; }
+          case 160: { x = (diagMirror ? 32 : 48);  break FIX_X; }
+          case 176: { x = (diagMirror ? 48 : 32);  break FIX_X; }
         }
       }
     }
@@ -739,6 +739,7 @@ function uploadEdit()
       $("#intro").text("Edit Uploaded");
       $("#authorlist").attr("disabled", "disabled");
       $(".author").hide();
+      editID = res.editid;
     }
   }, "json");
 }

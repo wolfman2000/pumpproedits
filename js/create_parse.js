@@ -38,14 +38,10 @@ function loadChart(nd)
         {
           var ch = cRow.charAt(iR);
           if (ch === "0") { continue LOOP_ROW; }
-          if ($("#stylelist").val() === "routine"))
+          if ($("#stylelist").val() === "routine")
           {
-            var note = "p" + iP + " " + getSync(mul) + " " + getType(ch);
-          }
-          else
-          {
-            var note = getNote(mul, ch, iP);
-          }
+          var note = "p" + iP + " " + getSync(mul) + " " + getType(ch);
+          } else { var note = getNote(mul, ch, iP); }
           var x = iR * ARR_HEIGHT + BUFF_LFT;
           var y = ((iM * BEATS_MAX + mul) / MEASURE_RATIO) + BUFF_TOP;
           $("#svgNote").append(selectArrow(iR, x, y, note));
@@ -72,7 +68,7 @@ function loadSVGMeasures()
   {
     y = BUFF_TOP + bpms[i].beat * ARR_HEIGHT;
     $("#svgSync").append(genText(BUFF_LFT + columns * ARR_HEIGHT + 2 * SCALE,
-        y + SCALE, bpms[i].bpm, 'bpm'));
+        y + SCALE, Number(bpms[i].bpm), 'bpm'));
     $("#svgSync").append(genLine(x, y, x + columns * ARR_HEIGHT / 2, y, 'bpm'));
   }
   // place the Stop data.
@@ -80,7 +76,7 @@ function loadSVGMeasures()
   for (var i = 0; i < stps.length; i++)
   {
     y = BUFF_TOP + stps[i].beat * ARR_HEIGHT;
-    $("#svgSync").append(genText(SCALE * 3, y + SCALE, stps[i].time, 'stop'));
+    $("#svgSync").append(genText(SCALE * 3, y + SCALE, Number(stps[i].time), 'stop'));
     $("#svgSync").append(genLine(BUFF_LFT, y, BUFF_LFT + columns * ARR_HEIGHT / 2, y, 'stop'));
   }
   $("#notes > g").fadeIn(2000);

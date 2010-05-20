@@ -25,8 +25,8 @@ function postTwitter($status)
   curl_setopt($ch, CURLOPT_VERBOSE, 1); 
   curl_setopt($ch, CURLOPT_NOBODY, 0); 
   curl_setopt($ch, CURLOPT_HEADER, 0); 
-  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); 
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+  @curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); 
+  @curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
   // execute the CURL call 
   $response = curl_exec($ch); 
   // Get information about the response 
@@ -48,12 +48,30 @@ function genTinyURL($url)
   return $data;  
 }
 
+function genEditMessage($userid, $user, $status, $style, $title, $song)
+{
+  $style = substr($style, 5);
+  if ($userid != 2)
+  {
+    $url = genTinyURL("http://www.pumpproedits.com/user/$userid");
+    $person = "$user's";
+  }
+  else
+  {
+    $url = genTinyURL("http://www.pumpproedits.com/official");
+    $person = "The Official";
+  }
+  $phrase = "$url $person $style edit for $song called $title has been $status.";
+  return $phrase;
+}
+
+/*
 function genEditMessage($userid, $name, $status)
 {
   if ($userid != 2)
   {
     return $status . " edit by " . $name . " now available! Check out his/her "
-      . "work here: " . genTinyURL("http://www.pumpproedits.com/users/" . $userid);
+      . "work here: " . genTinyURL("http://www.pumpproedits.com/user/" . $userid);
   }
   else
   {
@@ -61,3 +79,4 @@ function genEditMessage($userid, $name, $status)
       . genTinyURL("http://www.pumpproedits.com/official");
   }
 }
+*/

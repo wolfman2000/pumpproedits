@@ -129,11 +129,20 @@ The transformations are as follows:</p>
 <ul>
 <li>Cycle the arrows a column to the left or right: use A or D.</li>
 <li>Move the arrows up or down based on Note Sync: use W or S.</li>
-<li>Mirror the arrows across the center of the chart: use I.</li>
+<li>Mirror the arrows across the center of the chart horizontally: use I.
+<ul><li>Hold down the control key/command key first to mirror across the chart diagonally.</li>
+<li>You can also just hit the '/' key for the same diagonal mirror action.</ul></li>
 <li>Copy a set of arrows to the clipboard: use C.</li>
 <li>Cut/Move a set of arrows to the clipboard: use X.</li>
 <li>Paste the arrows in the clipboard and wipe it clean: highlight the starting row, then use either the mouse or V.</li>
 </ul>
+
+<p>
+It is made aware that some keyboard shortcuts may be disabled through using
+these transformations. In particular, Firefox's Quick Find is disabled,
+and Page Info must be gotten through the menu. Anyone that is able to come up
+with better transformation shortcuts are encouraged to contact the webmaster.
+</p>
 <?php echo $back; ?>
 </section>
 <section id="keyb">
@@ -168,7 +177,8 @@ $keys = array('1' => sprintf($sync, '4th'),
 'D' => "Rotate the selected rows of arrows one column to the right (selection mode only).",
 'W' => "Move the selected rows of arrows up based on the selected Note Sync (selection mode only).",
 'S' => "Move the selected rows of arrows down based on the selected Note Sync (selection mode only).",
-'I' => "Mirror the selected rows of arrows across the middle of the chart (selection mode only).",
+'I' => "Mirror the selected rows of arrows across the middle of the chart horizontally (selection mode only).",
+'/' => "Mirror the selected rows of arrows across the middle of the chart diagonally (selection mode only).",
 'X' => "Cut/move the selected rows of arrows to the clipboard (selection mode only).",
 'C' => "Copy the selected rows of arrows to the clipboard (selection mode only).",
 'V' => "Paste the clipboarded arrows in the given position and wipe the clipboard clean (selection mode only).",

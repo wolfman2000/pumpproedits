@@ -53,22 +53,25 @@ class Upload extends Controller
       $this->load->model('ppe_edit_edit');
       $uid = $this->input->post('userid');
       $row['uid'] = $uid;
+      $this->load->model('ppe_song_song');
+      $song = $this->ppe_song_song->getSongByID($row['id']);
       $eid = $this->ppe_edit_edit->getIDByUpload($row);
       // if old edit: update/replace
       if ($eid)
       {
-        $status = "Updated";
+        $status = "updated";
         $this->ppe_edit_edit->updateEdit($eid, $row);
       }
       else
       {
         $eid = $this->ppe_edit_edit->addEdit($row);
-        $status = "New";
+        $status = "created";
       }
       $this->db->cache_delete_all();
       $this->load->helper('twitter');
       $this->load->model('ppe_user_user');
-      $twit = genEditMessage($uid, $this->ppe_user_user->getUserByID($uid), $status);
+      $twit = genEditMessage($uid, $this->ppe_user_user->getUserByID($uid), $status,
+        $row['style'], $row['title'], $song);
       postTwitter($twit);
       
       $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
