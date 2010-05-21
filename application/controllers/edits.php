@@ -8,6 +8,7 @@ class Edits extends Controller
     $this->load->model('ppe_song_song');
     $this->load->model('ppe_user_user');
     $this->load->model('ppe_edit_edit');
+    $this->load->library('pagination');
 	}
 	
 	function index()
@@ -27,6 +28,23 @@ class Edits extends Controller
     $page = $this->uri->segment(3, 1);
     $data['user'] = $this->ppe_user_user->getUserByID($id);
     $data['users'] = $this->ppe_edit_edit->getEditsByUser($id)->result();
+    
+    // a lot of the code below is temporary.
+    $query = $this->ppe_song_song->getBaseEdits($page);
+    $data['edits'] = $query->result();
+    $config['base_url'] = 'http://' . $this->input->server('SERVER_NAME') . '/base/index/';
+    $total = $this->ppe_song_song->getSongCountWithGame();
+    $config['total_rows'] = $total;
+    $data['baseEdits'] = $total;
+    $config['per_page'] = APP_BASE_EDITS_PER_PAGE;
+    $config['cur_tag_open'] = '<strong>';
+    $config['cur_tag_close'] = '</strong>';
+    $config['full_tag_open'] = '<p class="pager">';
+    $config['full_tag_close'] = '</p>';
+    $config['first_link'] = '«';
+    $config['last_link'] = '»';
+    $this->pagination->initialize($config);
+    
     $this->load->view('edits/user', $data);
   }
   

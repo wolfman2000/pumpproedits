@@ -1,3 +1,4 @@
+<?php echo $this->pagination->create_links(); ?>
 <table id="edits">
 <caption><?php echo html_entity_decode($caption, ENT_COMPAT, "UTF-8") ?></caption>
 <?php if (isset($showuser) and isset($showsong)): ?>
@@ -72,3 +73,4 @@ if ($z->yfakes or $z->mfakes): ?>
 <?php endforeach; ?>
 </tbody>
 </table>
+<?php echo $this->pagination->create_links(); ?>
