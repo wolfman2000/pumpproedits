@@ -1,6 +1,6 @@
 <?php $this->load->view('global/header',
   array('css' => 'css/edit_table.css', 'h2' => "Official Edits", 'title' => "Official Edits",
-  'scripts' => array('/js/jquery-1.4.2.js', '/js/jquery.pager.js', '/js/edit_official.js'),
+  'scripts' => array('/js/jquery-1.4.2.js', '/js/jquery.pager.js', '/js/edit_user.js'),
   'maxEdits' => $maxEdits, 'const_user' => 2)); ?>
 <p>These are all of the charts that the official people,
 such as Andamiro or Fun In Motion, made for in any of the

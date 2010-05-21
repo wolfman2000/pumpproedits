@@ -14,7 +14,7 @@ $(document).ready(function()
 
 var PageClick = function(pageclickednumber) {
   $(".pager").pager({ pagenumber: pageclickednumber, pagecount: maxPages, buttonClickCallback: PageClick });
-  $.getJSON("/edits/userConquer/" + userID + "/" + pageclickednumber, function(data, status){
+  $.getJSON("/edits/songConquer/" + songID + "/" + pageclickednumber, function(data, status){
     if (status == "success")
     {
       var types = Array("Steps", "Jumps", "Holds", "Mines", "Trips", "Rolls", "Lifts", "Fakes");
@@ -23,7 +23,14 @@ var PageClick = function(pageclickednumber) {
       {
         var batch = data.edits[d];
         batch = batch;
-        var row = '<td><a href="/song/' + batch.song_id + '">' + batch.sname + '</a></td>';
+        if (batch.user_id != 2)
+        {
+          var row = '<td><a href="/user/' + batch.user_id + '">' + batch.uname + '</a></td>';
+        }
+        else
+        {
+          var row = '<td><a href="/official">Official</a></td>';
+        }
         row += '<td>' + batch.title + '</td>';
 
 

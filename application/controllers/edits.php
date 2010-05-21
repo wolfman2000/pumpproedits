@@ -74,7 +74,17 @@ class Edits extends Controller
   // get all official edits.
   function official()
   {
-    $data['users'] = $this->ppe_edit_edit->getEditsByUser(2)->result();
+    $id = 2;
+    $page = $this->uri->segment(2, 1);
+    $query = $this->ppe_edit_edit->getEditsByUser($id, $page);
+    $data['users'] = $query->result();
+    
+    // a lot of the code below is temporary.
+    $config['base_url'] = sprintf('http://%s/official/', $this->input->server('SERVER_NAME'));
+    $total = $this->ppe_edit_edit->getUserEditCount($id);
+    $config['total_rows'] = $total;
+    $data['maxEdits'] = $total;
+    $this->pagination->initialize($this->_pagerSetup($config));
     $this->load->view('edits/official', $data);
   }
   
@@ -85,13 +95,39 @@ class Edits extends Controller
     $this->load->view('edits/songs', $data);
   }
   
+  // get up to (10) of a song's edits via AJAJ.
+  function songConquer()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $ret = array();
+    $song = $this->uri->segment(3);
+    $page = $this->uri->segment(4, 1);
+    $ret['edits'] = $this->ppe_edit_edit->getEditsBySong($song, $page)->result_array();
+    echo json_encode($ret);
+  }
+  
   // get all edits from the chosen song.
   function chosenSong()
   {
     $id = $this->uri->segment(2);
     $page = $this->uri->segment(3, 1);
     $data['song'] = $this->ppe_song_song->getSongByID($id);
-    $data['songs'] = $this->ppe_edit_edit->getEditsBySong($id)->result();
+    
+    $query = $this->ppe_edit_edit->getEditsBySong($id, $page);
+    $data['songs'] = $query->result();
+    
+    // a lot of the code below is temporary.
+    $config['base_url'] = sprintf('http://%s/song/%d/', $this->input->server('SERVER_NAME'), $id);
+    $total = $this->ppe_edit_edit->getSongEditCount($id);
+    $config['total_rows'] = $total;
+    $data['maxEdits'] = $total;
+    $this->pagination->initialize($this->_pagerSetup($config));
+    
     $this->load->view('edits/song', $data);
   }
   
