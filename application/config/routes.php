@@ -44,8 +44,11 @@
 #$route['base/(:num)'] = "base/index/$1";
 
 $route['official'] = "edits/official";
+$route['official/:num'] = "edits/official";
 $route['user/:num'] = "edits/chosenUser";
+$route['user/:num/:num'] = "edits/chosenUser";
 $route['song/:num'] = "edits/chosenSong";
+$route['song/:num/:num'] = "edits/chosenSong";
 $route['users'] = "edits/users";
 $route['songs'] = "edits/songs";
 
