@@ -42,15 +42,14 @@ class Edits extends Controller
     $id = $this->uri->segment(2);
     $page = $this->uri->segment(3, 1);
     $data['user'] = $this->ppe_user_user->getUserByID($id);
-    $data['users'] = $this->ppe_edit_edit->getEditsByUser($id)->result();
+    $query = $this->ppe_edit_edit->getEditsByUser($id, $page);
+    $data['users'] = $query->result();
     
     // a lot of the code below is temporary.
-    $query = $this->ppe_song_song->getBaseEdits($page);
-    $data['edits'] = $query->result();
-    $config['base_url'] = 'http://' . $this->input->server('SERVER_NAME') . '/base/index/';
-    $total = $this->ppe_song_song->getSongCountWithGame();
+    $config['base_url'] = sprintf('http://%s/user/%d/', $this->input->server('SERVER_NAME'), $id);
+    $total = $this->ppe_edit_edit->getUserEditCount($id);
     $config['total_rows'] = $total;
-    $data['baseEdits'] = $total;
+    $data['maxEdits'] = $total;
     $this->pagination->initialize($this->_pagerSetup($config));
     
     $this->load->view('edits/user', $data);

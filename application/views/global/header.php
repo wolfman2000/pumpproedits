@@ -17,7 +17,7 @@ if ($this->session->userdata('browser') === false) { $this->session->set_userdat
 if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
 <script type="text/javascript" src="js/IE8.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
-<?php endif; ?>
+<?php endif; # Info below is for various pages. ?>
 <script type="text/javascript">
 //<![CDATA[
 <?php $uid = $this->session->userdata('id'); ?>
@@ -31,6 +31,14 @@ const others = <?php echo $uid === false ? 0 : $others; ?>;
 $maxPages = floor($baseEdits / APP_BASE_EDITS_PER_PAGE);
 if ($baseEdits % APP_BASE_EDITS_PER_PAGE) { $maxPages++; } ?>
 const maxPages = <?php echo $maxPages; ?>;
+<?php endif; if (isset($maxEdits)):
+$maxPages = floor($maxEdits / APP_MAX_EDITS_PER_PAGE);
+if ($maxEdits % APP_MAX_EDITS_PER_PAGE) { $maxPages++; } ?>
+const maxPages = <?php echo $maxPages; ?>;
+<?php endif; if (isset($const_user)):?>
+const userID = <?php echo $const_user; ?>;
+<?php endif; if (isset($const_song)):?>
+const songID = <?php echo $const_song; ?>;
 <?php endif; ?>
 //]]>
 </script>
