@@ -16,6 +16,21 @@ class Edits extends Controller
     #$this->load->view('thanks/main');
 	}
   
+  /*
+   * Add the common pager settings here.
+   */
+  function _pagerSetup($config)
+  {
+    $config['per_page'] = APP_MAX_EDITS_PER_PAGE;
+    $config['cur_tag_open'] = '<strong>';
+    $config['cur_tag_close'] = '</strong>';
+    $config['full_tag_open'] = '<p class="pager">';
+    $config['full_tag_close'] = '</p>';
+    $config['first_link'] = '«';
+    $config['last_link'] = '»';
+    return $config;
+  }
+  
   function users()
   {
     $data['query'] = $this->ppe_user_user->getUsersWithEdits()->result();
@@ -36,14 +51,7 @@ class Edits extends Controller
     $total = $this->ppe_song_song->getSongCountWithGame();
     $config['total_rows'] = $total;
     $data['baseEdits'] = $total;
-    $config['per_page'] = APP_BASE_EDITS_PER_PAGE;
-    $config['cur_tag_open'] = '<strong>';
-    $config['cur_tag_close'] = '</strong>';
-    $config['full_tag_open'] = '<p class="pager">';
-    $config['full_tag_close'] = '</p>';
-    $config['first_link'] = '«';
-    $config['last_link'] = '»';
-    $this->pagination->initialize($config);
+    $this->pagination->initialize($this->_pagerSetup($config));
     
     $this->load->view('edits/user', $data);
   }
