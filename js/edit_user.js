@@ -17,28 +17,44 @@ var PageClick = function(pageclickednumber) {
   $.getJSON("/edits/userConquer/" + userID + "/" + pageclickednumber, function(data, status){
     if (status == "success")
     {
-      var style = Array('single', 'double', 'halfdouble', 'routine');
-      $("#base tbody").empty();
-      for (var d in data.songs)
+      var types = Array("Steps", "Jumps", "Holds", "Mines", "Trips", "Rolls", "Lifts", "Fakes");
+      $("#edits tbody").empty();
+      for (var d in data.edits)
       {
-        var batch = data.songs[d];
+        var batch = data.edits[d];
         batch = batch;
-        var row = '<td>' + batch.name + '</td>';
-        var link = '/base/download/';
-        // all songs have single play.
-        for (var s = 0; s < 4; s++)
+        var row = '<td><a href="/songs/' + batch.song_id + '">' + batch.sname + '</a></td>';
+        row += '<td>' + batch.title + '</td>';
+
+
+        // stats are shown here.
+        row += '<td><dl>';
+        row += '<dt>Style</dt><dd>' + batch.style.substring(0,1).toUpperCase() + batch.diff + '</dd>';
+        
+        for (var i = 0; i < 8; i++)
         {
-          if (s < 3 || batch.tmp)
+          if (eval("batch.y" + types[i].toLowerCase()) > 0 || eval("batch.m" + types[i].toLowerCase()) > 0)
           {
-            row += '<td><a href="';
-            row += link + batch.id + '/' + style[s] + '">' + batch.abbr + ' ' + style[s] + '</a></td>';
-          }
-          else
-          {
-            row += '<td></td>';
+            row += '<dt>' + types[i] + '</dt><dd>' + eval("batch.y" + types[i].toLowerCase());
+            if (batch.style == "routine")
+            {
+              row += "/" + eval("batch.m" + types[i].toLowerCase());
+            }
+            row += '</dd>';
           }
         }
-        $("#base tbody").append('<tr>' + row + '</tr>');
+
+        row += '</dl></td>';
+
+        var link = '/edits/download/';
+
+        row += '<td><ul>';
+        row += '<li><a href="/edits/download/' + batch.id + '">Download</a></li>';
+        row += '<li><a href="/chart/quick/' + batch.id + '/classic">Classic Chart</a></li>';
+        row += '<li><a href="/chart/quick/' + batch.id + '/rhythm">Rhythm Chart</a></li>';
+        row += '</ul></td>';
+
+        $("#edits tbody").append('<tr>' + row + '</tr>');
       }
     }
   });

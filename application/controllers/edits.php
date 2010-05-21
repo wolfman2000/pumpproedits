@@ -55,6 +55,22 @@ class Edits extends Controller
     $this->load->view('edits/user', $data);
   }
   
+  // get up to (10) of a user's edits via AJAJ.
+  function userConquer()
+  {
+    if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $ret = array();
+    $user = $this->uri->segment(3);
+    $page = $this->uri->segment(4, 1);
+    $ret['edits'] = $this->ppe_edit_edit->getEditsByUser($user, $page)->result_array();
+    echo json_encode($ret);
+  }
+  
   // get all official edits.
   function official()
   {
