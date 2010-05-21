@@ -173,7 +173,8 @@ class Ppe_edit_edit extends Model
     return $q->num_rows() ? $q->row()->id : null;
   }
   
-  // Common function to get all of the edits of a chosen parameter.
+  
+  // Common function to get (10) of the edits of a chosen parameter.
   private function _getEdits($params)
   {
     $cols = 'a.id, a.diff, y.steps ysteps, y.jumps yjumps, y.holds yholds, y.mines ymines';
@@ -193,22 +194,44 @@ class Ppe_edit_edit extends Model
       ->where('a.deleted_at', null)
       ->order_by('b.lc_name')
       ->order_by('a.title')
+      ->limit(APP_MAX_EDITS_PER_PAGE, ($params['page'] - 1) * APP_MAX_EDITS_PER_PAGE)
       ->get();
   }
   
   // Get all edits of the chosen song.
-  public function getEditsBySong($sid)
+  public function getEditsBySong($sid, $page = 1)
   {
     return $this->_getEdits(array('cols' => 'a.user_id, b.name uname',
       'join' => 'ppe_user_user', 'opposite' => 'user',
-      'main' => 'song_id', 'main_id' => $sid));
+      'main' => 'song_id', 'main_id' => $sid, 'page' => $page));
   }
   
   // Get all edits of the chosen user.
-  public function getEditsByUser($uid)
+  public function getEditsByUser($uid, $page = 1)
   {
     return $this->_getEdits(array('cols' => 'a.song_id, b.name sname',
       'join' => 'ppe_song_song', 'opposite' => 'song',
-      'main' => 'user_id', 'main_id' => $uid));
+      'main' => 'user_id', 'main_id' => $uid, 'page' => $page));
+  }
+  
+  // Common function to get the max number of edits possible.
+  private function _getEditCount($params)
+  {
+    return $this->db->select('id')
+      ->where($params['where'], $params['cond'])
+      ->where('a.is_problem', 0)
+      ->where('a.is_public', 1)
+      ->where('a.deleted_at', null)
+      ->get('ppe_edit_edit a')->num_rows();
+  }
+  
+  public function getUserEditCount($uid)
+  {
+    return $this->_getEditCount(array('where' => 'user_id', 'cond' => $uid));
+  }
+  
+  public function getSongEditCount($sid)
+  {
+    return $this->_getEditCount(array('where' => 'song_id', 'cond' => $sid));
   }
 }
