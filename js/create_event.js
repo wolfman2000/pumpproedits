@@ -154,7 +154,7 @@ function loadHardDrive()
   $("#intro").text("You can load your edit now.");
 }
 // Load the chosen edit...or at least, load the common stuff here.
-function loadEdit(data)
+function loadEdit(data, canPublic)
 {
   $(".edit").hide();
   songID = data.id;
@@ -165,7 +165,7 @@ function loadEdit(data)
   $("#fCont").val('');
   $("li[class^=load]").hide();
   $("li.edit").show();
-  editMode();
+  editMode(canPublic);
   $("#intro").text("Loading chart...");
   if (data.notes) { loadChart(data.notes); }
 }
@@ -253,7 +253,7 @@ function songMode()
 }
 
 //Enter this mode upon choosing a song and difficulty.
-function editMode()
+function editMode(canPublic)
 {
   $("#intro").text("Loading song data...");
   $.ajax({ async: false, dataType: 'json', url: baseURL + '/song/' + songID, success: function(data)
@@ -289,6 +289,11 @@ function editMode()
       else          { $(".author").hide(); $("#authorlist").attr('disabled', true); }
       $("#authorlist").val(0);
       authID = authed;
+      if (canPublic)
+      {
+        $("li.author:eq(0)").next().andSelf().hide();
+        $("li.author:eq(2)").next().andSelf().show();
+      }
     }
     clipboard = null;
     $("#but_load").removeAttr('disabled');

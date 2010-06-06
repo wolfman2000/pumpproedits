@@ -199,10 +199,11 @@ $(document).ready(function()
     $("#intro").text("Loading edit...");
     editID = $("#mem_edit > option:selected").attr('id');
     $.getJSON(baseURL + "/loadWebEdit/" + editID, function(data) {
-      loadEdit(data);
+      loadEdit(data, 1);
       $("#intro").text("All loaded up!");
       $("#authorlist").attr("disabled", "disabled");
       $("li.author:eq(0)").next().andSelf().hide();
+      $("li.author:eq(2)").next().andSelf().show();
       isDirty = false;
     });
   });
