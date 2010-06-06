@@ -26,6 +26,7 @@ $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <li>
 <h4>Everyone</h4>
 <ul>
+<li><a href="/blog">Pump Pro Edits Blog</a></li>
 <?php if ($this->session->userdata('browser') !== "Internet Explorer"): ?>
 <li><?php echo anchor("/chart/songs", "Official Stepcharts"); ?></li>
 <?php endif; ?>
