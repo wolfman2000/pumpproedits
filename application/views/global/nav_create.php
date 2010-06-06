@@ -104,6 +104,11 @@ if ($s->gid != $ind): ?>
 <li><input type="text" id="editName" maxlength="12" /></li>
 <li><label for="editDiff">Diff. Rating:</label></li>
 <li><input type="text" id="editDiff" maxlength="2" /></li>
+<li class="author"><label for="editPublic">Public?</label></li>
+<li class="author"><select id="editPublic">
+<option value="1" selected="selected">Yes</option>
+<option value="0">No</option>
+</select></li>
 <li><label for="quanlist">Note Sync:</label></li>
 <li><select id="quanlist">
 <option value="4" selected="selected">4th</option>
