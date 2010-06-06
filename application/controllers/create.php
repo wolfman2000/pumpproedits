@@ -340,7 +340,7 @@ class Create extends Controller
     $row['title'] = $this->input->post('title');
     $row['style'] = "pump-" . $this->input->post('style');
     $row['diff'] = $this->input->post('diff');
-    $row['public'] = $this->input->post('public') == 1 ? 1 : 0;
+    $row['public'] = ($this->input->post('public') == 1 ? 1 : 0);
     
     // See if any OTHER edits have the same title and style.
     if ($eid)
@@ -398,11 +398,14 @@ class Create extends Controller
       $status = "updated";
     }
     $this->db->cache_delete_all();
-    $this->load->helper('twitter');
-    $twit = genEditMessage($row['uid'], $this->ppe_user_user->getUserByID($row['uid']), $status,
-	$row['style'], $row['title'], $song);
-    postTwitter($twit);
-    
+    if ($row['public'])
+    {
+      $this->load->helper('twitter');
+      $twit = genEditMessage($row['uid'],
+        $this->ppe_user_user->getUserByID($row['uid']),
+        $status, $row['style'], $row['title'], $song);
+      postTwitter($twit);
+    }
     $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
     $fp = gzopen($path, "w");
     gzwrite($fp, $this->input->post('b64'));
