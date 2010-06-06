@@ -23,6 +23,7 @@ class Ppe_edit_edit extends Model
       'diff' => $row['diff'],
       'created_at' => $date,
       'updated_at' => $date,
+      'is_public' => (isset($row['public']) ? $row['public'] : 1),
     );
     $this->db->insert('ppe_edit_edit', $data);
     #$id = $this->db->insert_id();
@@ -57,7 +58,8 @@ class Ppe_edit_edit extends Model
     $data = array(
       'title' => $row['title'],
       'diff' => $row['diff'],
-      'updated_at' => date('Y-m-d H:i:s')
+      'updated_at' => date('Y-m-d H:i:s'),
+      'is_public' => $row['public'],
     );
     $this->db->update('ppe_edit_edit', $data, "id = $id");
     $players = array(0);
