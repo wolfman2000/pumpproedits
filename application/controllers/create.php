@@ -340,6 +340,7 @@ class Create extends Controller
     $row['title'] = $this->input->post('title');
     $row['style'] = "pump-" . $this->input->post('style');
     $row['diff'] = $this->input->post('diff');
+    $row['public'] = $this->input->post('public') == 1 ? 1 : 0;
     
     // See if any OTHER edits have the same title and style.
     if ($eid)

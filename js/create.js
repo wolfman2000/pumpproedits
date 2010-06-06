@@ -202,7 +202,7 @@ $(document).ready(function()
       loadEdit(data);
       $("#intro").text("All loaded up!");
       $("#authorlist").attr("disabled", "disabled");
-      $(".author").hide();
+      $("li.author:eq(0)").next().andSelf().hide();
       isDirty = false;
     });
   });
