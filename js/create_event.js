@@ -304,8 +304,9 @@ function editMode(canPublic)
       const letter = 65;
       for (var i = 0; i < data.secs.length; i++)
       {
-        var phrase = String.fromCharCode(letter + i) + ") " + data.secs[i].section;
-        var opt = "<option value=\"" + data.secs[i].measure + "\">" + phrase + "</option>";
+        var meas = data.secs[i].measure;
+        var phrase = String.fromCharCode(letter + i) + ") " + data.secs[i].section + " (Measure " + meas + ")";
+        var opt = "<option value=\"" + meas + "\">" + phrase + "</option>";
         $("#sectionList").append(opt);
       }
     }
