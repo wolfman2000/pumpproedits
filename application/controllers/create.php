@@ -133,14 +133,15 @@ class Create extends Controller
     $row = $this->ppe_song_song->getCreatorData($sid);
     $ret['name'] = $row->name;
     $ret['abbr'] = $row->abbr;
-    $ret['measures'] = $row->measures;
-    $ret['duration'] = $row->duration;
+    $ret['measures'] = intval($row->measures);
+    $ret['duration'] = ($row->duration ? floatval($row->duration) : 90);
     
     $bpms = $this->ppe_song_bpm->getBPMsBySongID($sid);
     $bArr = array();
+    
     foreach ($bpms as $b)
     {
-      $bArr[] = array('beat' => $b->beat, 'bpm' => $b->bpm);
+      $bArr[] = array('beat' => floatval($b->beat), 'bpm' => ($b->bpm ? floatval($b->bpm) : null));
     }
     $ret['bpms'] = $bArr;
     
@@ -148,7 +149,7 @@ class Create extends Controller
     $sArr = array();
     foreach ($stps as $s)
     {
-      $sArr[] = array('beat' => $s->beat, 'time' => $s->break);
+      $sArr[] = array('beat' => floatval($s->beat), 'time' => ($s->break ? floatval($s->break) : null));
     }
     $ret['stps'] = $sArr;
     
