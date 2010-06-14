@@ -295,6 +295,10 @@ function editMode(canPublic)
         $("li.author:eq(2)").next().andSelf().show();
       }
     }
+    
+    if (isEmpty(data.secs)) { $("nav .sections").hide(); $("nav .sections button").attr('disabled', true); }
+    else                    { $("nav .sections").show(); $("nav .sections button").removeAttr('disabled'); }
+    
     clipboard = null;
     $("#but_load").removeAttr('disabled');
     $("#editName").attr('maxlength', 12);

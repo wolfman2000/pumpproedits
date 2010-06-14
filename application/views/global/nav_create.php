@@ -149,6 +149,10 @@ if ($s->gid != $ind): ?>
 <option value="0" selected="selected">Player 1</option>
 <option value="1">Player 2</option>
 </select></li>
+<li class="sections long reset"><label for="sectionList">Which song section do you want?</label></li>
+<li class="sections long reset"><select id="sectionList"></select></li>
+<?php # The li below will become two when/if music is allowed. ?>
+<li class="sections long reset"><button id="sectionJump" type="button">Jump to Section</button></li>
 <li>Present Location:</li>
 <li class="reset">Measure <span id="mCheck">???</span></li>
 <li>Beat <span id="yCheck">???</span> / 192</li>
