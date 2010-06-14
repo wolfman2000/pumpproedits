@@ -297,7 +297,18 @@ function editMode(canPublic)
     }
     
     if (isEmpty(data.secs)) { $("nav .sections").hide(); $("nav .sections button").attr('disabled', true); }
-    else                    { $("nav .sections").show(); $("nav .sections button").removeAttr('disabled'); }
+    else
+    {
+      $("nav .sections").show(); $("nav .sections button").removeAttr('disabled');
+      $("#sectionList").empty();
+      const letter = 65;
+      for (var i = 0; i < data.secs.length; i++)
+      {
+        var phrase = String.fromCharCode(letter + i) + ") " + data.secs[i].section;
+        var opt = "<option value=\"" + data.secs[i].measure + "\">" + phrase + "</option>";
+        $("#sectionList").append(opt);
+      }
+    }
     
     clipboard = null;
     $("#but_load").removeAttr('disabled');
