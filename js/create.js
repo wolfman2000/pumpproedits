@@ -310,6 +310,13 @@ $(document).ready(function()
     swapCursor();
   });
 
+  // The author wishes to jump to a particular section in the song.
+  $("#sectionJump").click(function(){
+    $("html, body").animate({
+      scrollTop: $("#measureNum" + $("#sectionList").val()).offset().top
+    }, 2000);
+  });
+
   $("input").focusin(function(){ captured = true; });
   $("select").focusin(function(){ captured = true; });
   $('input').focusout(function(){ captured = false; });
