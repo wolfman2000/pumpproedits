@@ -12,6 +12,7 @@ class Create extends Controller
     $this->load->model('ppe_user_user');
     $this->load->model('ppe_song_bpm');
     $this->load->model('ppe_song_stop');
+    $this->load->model('ppe_song_section');
     $this->load->model('ppe_edit_edit');
     $this->load->library('EditParser');
   }
@@ -150,6 +151,14 @@ class Create extends Controller
       $sArr[] = array('beat' => $s->beat, 'time' => $s->break);
     }
     $ret['stps'] = $sArr;
+    
+    $secs = $this->ppe_song_section->getSectionsBySongID($sid);
+    $sArr = array();
+    foreach ($secs as $s)
+    {
+      $sArr[] = array('beat' => floatval($s->beat), 'measure' => floor($s->beat / 4) + 1, 'section' => $s->section);
+    }
+    $ret['secs'] = $sArr;
     return $ret;
   }
   
