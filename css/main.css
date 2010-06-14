@@ -2,7 +2,7 @@
 {font-weight:bold}.success_list {color:green;font-weight:bold}@media screen{ html { 
 background-color:black}  html,.sans { font-family:"DejaVu Sans",Arial,Helvetica,sans; 
 font-size:1em} .serif { font-family:"DejaVu Serif","Times New Roman",Times,serif} pre,.mono 
-{ font-family:"DejaVu Sans Mono","Courier New",Courier,monospace} .tcenter { 
+{ font-family:"DejaVu Sans Mono",Courier,"Courier New",monospace} .tcenter { 
 text-align:center}  p,pre { line-height:1.3em; padding-top:15px; padding-bottom:15px}  
 table td,table th { padding:3px}  a:link { color:#008} a:visited { color:#424}   * { 
 margin:0; padding:0}  body { margin:1em; background-color:#aaa; color:black; border:1px 
