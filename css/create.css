@@ -175,4 +175,8 @@
 	{
 		stroke-width: 1;
 	}
+	#sectionList
+	{
+		width: 20em;
+	}
 }
