@@ -79,6 +79,25 @@ function loadSVGMeasures()
     $("#svgSync").append(genText(SCALE * 3, y + SCALE, Number(stps[i].time), 'stop'));
     $("#svgSync").append(genLine(BUFF_LFT, y, BUFF_LFT + columns * ARR_HEIGHT / 2, y, 'stop'));
   }
+  
+  // place the Section data (if it's around).
+  var secs = songData.secs;
+  
+  if (isEmpty(secs)) { $("nav .sections").hide(); $("nav .sections button").attr('disabled', true); }
+    else
+    {
+      $("nav .sections").show(); $("nav .sections button").removeAttr('disabled');
+      $("#sectionList").empty();
+      const letter = 65;
+      for (var i = 0; i < secs.length; i++)
+      {
+        var meas = secs[i].measure;
+        var phrase = String.fromCharCode(letter + i) + ") " + secs[i].section + " (Measure " + meas + ")";
+        var opt = "<option value=\"" + meas + "\">" + phrase + "</option>";
+        $("#sectionList").append(opt);
+      }
+    }
+  
   $("#notes > g").fadeIn(2000);
 }
 

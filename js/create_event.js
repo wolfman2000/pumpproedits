@@ -211,15 +211,7 @@ function songMode()
     $(".author").hide();
     $("#stylelist").val(data.style);
     
-    songData = {};
-    songData['name'] = data.name;
-    songData['abbr'] = data.abbr;
-    songData['measures'] = data.measures;
-    songData['duration'] = data.duration;
-    songData['bpms'] = data.bpms;
-    songData['stps'] = data.stps;
-    songData['difficulty'] = data.difficulty;
-    songData['dShort'] = data.dShort;
+    songData = data;
     measures = songData['measures'];
     $("#scalelist").val(2.5);
     captured = false;
@@ -293,21 +285,6 @@ function editMode(canPublic)
       {
         $("li.author:eq(0)").next().andSelf().hide();
         $("li.author:eq(2)").next().andSelf().show();
-      }
-    }
-    
-    if (isEmpty(data.secs)) { $("nav .sections").hide(); $("nav .sections button").attr('disabled', true); }
-    else
-    {
-      $("nav .sections").show(); $("nav .sections button").removeAttr('disabled');
-      $("#sectionList").empty();
-      const letter = 65;
-      for (var i = 0; i < data.secs.length; i++)
-      {
-        var meas = data.secs[i].measure;
-        var phrase = String.fromCharCode(letter + i) + ") " + data.secs[i].section + " (Measure " + meas + ")";
-        var opt = "<option value=\"" + meas + "\">" + phrase + "</option>";
-        $("#sectionList").append(opt);
       }
     }
     
