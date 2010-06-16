@@ -76,7 +76,7 @@ function loadSVGMeasures()
   for (var i = 0; i < stps.length; i++)
   {
     y = BUFF_TOP + stps[i].beat * ARR_HEIGHT;
-    $("#svgSync").append(genText(SCALE * 3, y + SCALE, Number(stps[i].time), 'stop'));
+    $("#svgSync").append(genText(SCALE * (ARR_HEIGHT / 2), y + SCALE, Number(stps[i].time), 'stop'));
     $("#svgSync").append(genLine(BUFF_LFT, y, BUFF_LFT + columns * ARR_HEIGHT / 2, y, 'stop'));
   }
   
@@ -91,9 +91,11 @@ function loadSVGMeasures()
       const letter = 65;
       for (var i = 0; i < secs.length; i++)
       {
-        var meas = secs[i].measure;
-        var phrase = String.fromCharCode(letter + i) + ") " + secs[i].section + " (Measure " + meas + ")";
-        var opt = "<option value=\"" + meas + "\">" + phrase + "</option>";
+        var let = String.fromCharCode(letter + i);
+        y = BUFF_TOP + secs[i].beat * ARR_HEIGHT;
+        $("#svgSect").append(genText(SCALE * 2, y + SCALE, let + ")", 'sect'));
+        var phrase = let + ") " + secs[i].section + " (Measure " + secs[i].measure + ")";
+        var opt = "<option value=\"" + (y + SCALE) + "\">" + phrase + "</option>";
         $("#sectionList").append(opt);
       }
     }

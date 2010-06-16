@@ -313,7 +313,9 @@ $(document).ready(function()
   // The author wishes to jump to a particular section in the song.
   $("#sectionJump").click(function(){
     $("html, body").animate({
-      scrollTop: $("#measureNum" + $("#sectionList").val()).offset().top
+      scrollTop: $("text[class^=sect]").filter(function(index){
+        return $(this).attr('y') == $("#sectionList").val();
+      }).offset().top
     }, 2000);
   });
 
