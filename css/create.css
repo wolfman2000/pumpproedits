@@ -110,7 +110,7 @@
 	{
 		fill: #bebebe;
 	}
-	text.stop, text.bpm, g text
+	text.stop, text.bpm, text.sect, g text
 	{
 		font-size: 6px;
 	}

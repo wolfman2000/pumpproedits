@@ -132,3 +132,8 @@ line.stop
   stroke: red;
   stroke-width: 1;
 }
+.sect
+{
+	fill: orange;
+	font-size: 8px;
+}
