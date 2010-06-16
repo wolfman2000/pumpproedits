@@ -12,6 +12,7 @@ left to place arrows below. Have fun!</p>
   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 <g id="notes">
 <g id="svgMeas" />
+<g id="svgSect" />
 <g id="svgSync" />
 <g id="svgNote" />
 <rect id="shadow" x="0" y="0" width="16" height="16" />
