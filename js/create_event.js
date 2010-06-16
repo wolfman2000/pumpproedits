@@ -341,9 +341,7 @@ function init()
   editID = 0;
   selMode = 0;
 
-  $("#svgMeas").empty();
-  $("#svgSync").empty();
-  $("#svgNote").empty();
+  $("#notes g[id^=svg]").empty();
   
   $("#intro").text("Select your action.");
   
