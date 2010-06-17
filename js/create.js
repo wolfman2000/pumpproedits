@@ -312,11 +312,13 @@ $(document).ready(function()
 
   // The author wishes to jump to a particular section in the song.
   $("#sectionJump").click(function(){
-    $("html, body").animate({
-      scrollTop: $("text[class^=sect]").filter(function(index){
-        return $(this).attr('y') == $("#sectionList").val();
-      }).offset().top
-    }, 2000);
+    var let = $("#sectionList option:selected").text().substring(0, 1);
+    var num = $("#sect_" + let).offset().top;
+    if (navigator.userAgent.indexOf("WebKit") >= 0)
+    {
+      num = num + (parseFloat($("#sect_" + let).attr('y')) - SCALE) * SCALE;
+    }
+    $("html, body").animate({ scrollTop: num }, 2000);
   });
 
   $("input").focusin(function(){ captured = true; });
