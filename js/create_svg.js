@@ -174,12 +174,13 @@ function genEnd(x, y, css)
 }
 
 // Generate the text used either for measure counting or syncing.
-function genText(x, y, st, css)
+function genText(x, y, st, css, id)
 {
   var s = document.createElementNS(SVG_NS, "text");
   s.setAttribute('x', x);
   s.setAttribute('y', y);
   if (css) { s.setAttribute('class', css); }
+  if (id)  { s.setAttribute('id', id); }
   s.appendChild(document.createTextNode(st));
   return s;
 }
