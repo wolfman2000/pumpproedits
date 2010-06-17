@@ -93,7 +93,7 @@ function loadSVGMeasures()
       {
         var let = String.fromCharCode(letter + i);
         y = BUFF_TOP + secs[i].beat * ARR_HEIGHT;
-        $("#svgSect").append(genText(SCALE * 2, y + SCALE, let + ")", 'sect'));
+        $("#svgSect").append(genText(SCALE * 2, y + SCALE, let + ")", 'sect', 'sect_' + let));
         var phrase = let + ") " + secs[i].section + " (Measure " + secs[i].measure + ")";
         var opt = "<option value=\"" + (y + SCALE) + "\">" + phrase + "</option>";
         $("#sectionList").append(opt);
