@@ -186,6 +186,12 @@ if ($s->gid != $ind): ?>
 </ul>
 
 <ul id="navEditTransform">
+<li class="long">First Selected Row:</li>
+<li class="reset">Measure <span id="f_mCheck">???</span></li>
+<li>Beat <span id="f_yCheck">???</span> / 192</li>
+<li class="long">Second Selected Row:</li>
+<li class="reset">Measure <span id="s_mCheck">???</span></li>
+<li>Beat <span id="s_yCheck">???</span> / 192</li>
 <li><button id="transformCut" type="button">Cut</button></li>
 <li><button id="transformCopy" type="button">Copy</button></li>
 <?php #<li class="three"><button id="transformPast" type="button">Paste</button></li> ?>

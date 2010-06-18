@@ -38,6 +38,10 @@
 		margin: 0;
 		padding: 0;
 	}
+	#navEditTransform > li.long
+	{
+		width: 20em;
+	}
 	#navEditTransform > li.three
 	{
 		width: 6em;

@@ -71,21 +71,36 @@ function selectRow()
   if ($("#selBot").attr('style').indexOf('none') == -1)
   {
     $("rect[id^=sel]").hide();
+    $("#s_mCheck").text("???");
+    $("#s_yCheck").text("???");
   }
   if ($("#selTop").attr('style').indexOf('none') != -1)
   {
     $("#selTop").attr('y', rY).show();
+    rY -= BUFF_TOP;
+    $("#f_mCheck").text(parseInt(rY / (ARR_HEIGHT * BEATS_PER_MEASURE)) + 1);
+    $("#f_yCheck").text(Math.round(rY % (ARR_HEIGHT * BEATS_PER_MEASURE) * MEASURE_RATIO));
     $("#intro").text("Select the second row, or transform the data now.");
   }
   else
   {
     $("#selBot").attr('y', rY).show();
+    rY -= BUFF_TOP;
+    $("#s_mCheck").text(parseInt(rY / (ARR_HEIGHT * BEATS_PER_MEASURE)) + 1);
+    $("#s_yCheck").text(Math.round(rY % (ARR_HEIGHT * BEATS_PER_MEASURE) * MEASURE_RATIO));
+    rY += BUFF_TOP;
     $("#intro").text("Transform the rows with the keyboard, or start again.");
     
-    if (rY < parseFloat($("#selTop").attr('y')))
+    var tY = parseFloat($("#selTop").attr('y'));
+    if (rY < tY)
     {
-      $("#selBot").attr('y', $("#selTop").attr('y'));
+      $("#selBot").attr('y', tY);
       $("#selTop").attr('y', rY);
+      
+      $("#f_mCheck").text(parseInt((rY - BUFF_TOP) / (ARR_HEIGHT * BEATS_PER_MEASURE)) + 1);
+      $("#f_yCheck").text(Math.round((rY - BUFF_TOP) % (ARR_HEIGHT * BEATS_PER_MEASURE) * MEASURE_RATIO));
+      $("#s_mCheck").text(parseInt((tY - BUFF_TOP) / (ARR_HEIGHT * BEATS_PER_MEASURE)) + 1);
+      $("#s_yCheck").text(Math.round((tY - BUFF_TOP) % (ARR_HEIGHT * BEATS_PER_MEASURE) * MEASURE_RATIO));
     }
   }
 }
@@ -220,6 +235,7 @@ function songMode()
     fixScale(2.5, 600);
     
     $("#tabNav a").filter(':first').click();
+    $("#navEditTransform span[id$=Check]").text("???");
     $("nav dt.edit").show();
     $("nav dd.edit").show();
     
@@ -261,6 +277,7 @@ function editMode(canPublic)
     loadSVGMeasures();
     
     $("#tabNav a").filter(':first').click();
+    $("#navEditTransform span[id$=Check]").text("???");
     $("nav dt.edit").show();
     $("nav dd.edit").show();
     $("nav *.choose").hide();
@@ -395,6 +412,7 @@ function swapCursor()
     $("#selTop").hide();
     $("#selBot").hide();
     clipboard = null;
+    $("#navEditTransform span[id$=Check]").text("???");
   }
     else
   {
