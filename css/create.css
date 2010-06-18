@@ -38,6 +38,15 @@
 		margin: 0;
 		padding: 0;
 	}
+	#navEditTransform > li.three
+	{
+		width: 6em;
+	}
+	#navEditTransform > li.middle
+	{
+		padding-left: 1em;
+		padding-right: 1em;
+	}
 	#newEditChoice > li
 	{
 		clear: both;
