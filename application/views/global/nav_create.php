@@ -186,9 +186,9 @@ if ($s->gid != $ind): ?>
 </ul>
 
 <ul id="navEditTransform">
-<li class="three"><button id="transformCut" type="button">Cut</button></li>
-<li class="three middle"><button id="transformCopy" type="button">Copy</button></li>
-<li class="three"><button id="transformPast" type="button">Paste</button></li>
+<li><button id="transformCut" type="button">Cut</button></li>
+<li><button id="transformCopy" type="button">Copy</button></li>
+<?php #<li class="three"><button id="transformPast" type="button">Paste</button></li> ?>
 <li><button id="transformRotateLeft" type="button">Rotate Left</button></li>
 <li><button id="transformRotateRight" type="button">Rotate Right</button></li>
 <li><button id="transformMoveUp" type="button">Move Up</button></li>
