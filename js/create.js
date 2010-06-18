@@ -327,7 +327,18 @@ $(document).ready(function()
     $(this).addClass('selected');
     return false;
   });
-
+  
+  // The author wishes to transform the arrows in various ways.
+  $("#transformCut").click(function(){ commandCut(); });
+  $("#transformCopy").click(function(){ commandCopy(); });
+  $("#transformPaste").click(function(){ commandPaste(); });
+  $("#transformMirrorSimple").click(function(){ commandMirror(0); });
+  $("#transformMirrorDiag").click(function(){ commandMirror(1); });
+  $("#transformRotateLeft").click(function(){ commandRotate(-1); });
+  $("#transformRotateRight").click(function(){ commandRotate(1); });
+  $("#transformMoveUp").click(function(){ commandMove(1); });
+  $("#transformMoveDown").click(function() { commandMove(0); });
+  
   // Keyboard shortcuts.
   $("html").keydown(function(e){
     if (captured) { return; }
@@ -351,7 +362,6 @@ $(document).ready(function()
       case 56: { $("#quanlist").val(64); break; }
       // 9
       case 57: { $("#quanlist").val(192); break; }
-      
       // T
       case 84: { $("#typelist").val("1"); break; }
       // H
@@ -368,78 +378,21 @@ $(document).ready(function()
       case 70: { $("#typelist").val("F"); break; }
       
       // A
-      case 65: {
-        if ($("#selTop").attr('style').indexOf('none') == -1)
-        {
-          rotateColumn(-1); // rotate left.
-        }
-        break;
-      }
+      case 65: { commandRotate(-1); break; }
       // D
-      case 68: {
-        if ($("#selTop").attr('style').indexOf('none') == -1)
-        {
-          rotateColumn(1); // rotate right.
-        }
-        break;
-      }
+      case 68: { commandRotate(1);  break; }
       // W
-      case 87: {
-        if ($("#selTop").attr('style').indexOf('none') == -1)
-        {
-          shiftUp();
-          updateStats(gatherStats());
-        }
-        break;
-      }
+      case 87: { commandMove(1); break; }
       // S
-      case 83: {
-        if ($("#selTop").attr('style').indexOf('none') == -1)
-        {
-          shiftDown();
-          updateStats(gatherStats());
-        }
-        break;
-      }
+      case 83: { commandMove(0); break; }
       // I
-      case 73: {
-        if ($("#selTop").attr('style').indexOf('none') == -1)
-        {
-          e.preventDefault();
-          mirrorRows(e.metaKey);
-        }
-        break;
-      }
+      case 73: { commandMirror(e.metaKey, e); break; }
       // X
-      case 88: {
-        if ($("#selTop").attr('style').indexOf('none') == -1)
-        {
-          cutArrows();
-          $("#intro").text("Click a row to paste the notes, or swap cursor mode to delete.");
-          updateStats(gatherStats());
-        }
-        break;
-      }
+      case 88: { commandCut(); break; }
       // C
-      case 67: {
-        if ($("#selTop").attr('style').indexOf('none') == -1)
-        {
-          copyArrows();
-          $("#intro").text("Click a row to paste the notes, or swap cursor mode to cancel.");
-        }
-        break;
-      }
+      case 67: { commandCopy(); break; }
       // V
-      case 86: {
-        if (clipboard && Math.floor($("#shadow").attr('x')) >= BUFF_LFT)
-        {
-          pasteArrows();
-          updateStats(gatherStats());
-          $("#intro").text("Arrows pasted. Clipboard wiped.");
-        }
-        break;
-      }
-      
+      case 86: { commandPaste(); break; }
       // + or =
       case 61: {
         var tmp = $("#scalelist > option:selected").next().val();
@@ -478,15 +431,8 @@ $(document).ready(function()
         }
         break;
       }
-
       // /
-      case 191: {
-        if ($("#selTop").attr('style').indexOf('none') == -1)
-        {
-          e.preventDefault();
-          mirrorRows(1);
-        }
-      }
+      case 191: { commandMirror(1, e); break; }
     }
   });
 });

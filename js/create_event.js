@@ -358,9 +358,7 @@ function init()
 // Dynamically adjust the scale as needed.
 function fixScale(num, len, w, h)
 {
-  /*
-   * Round elements to the nearest 10 for easier calculations later.
-   */
+  // Round elements to the nearest 10 for easier calculations later.
   function round10(n)
   {
     n = Math.round(n);
@@ -404,6 +402,15 @@ function swapCursor()
   }
 }
 
+
+function commandMove(up)
+{
+  if ($("#selTop").attr('style').indexOf('none') == -1)
+  {
+    if (up) { shiftUp(); } else { shiftDown(); }
+    updateStats(gatherStats());
+  }
+}
 // Shift the selected arrows up based on the note sync.
 function shiftUp()
 {
@@ -509,6 +516,16 @@ function shiftDown()
   removeDown(mB, sH);
 }
 
+
+function commandCut()
+{
+  if ($("#selTop").attr('style').indexOf('none') == -1)
+  {
+    cutArrows();
+    $("#intro").text("Click a row to paste the notes, or swap cursor mode to delete.");
+    updateStats(gatherStats());
+  }
+}
 // Cut the arrows, and place onto the clipboard.
 function cutArrows()
 {
@@ -524,6 +541,14 @@ function cutArrows()
   });
 }
 
+function commandCopy()
+{
+  if ($("#selTop").attr('style').indexOf('none') == -1)
+  {
+    copyArrows();
+    $("#intro").text("Click a row to paste the notes, or swap cursor mode to cancel.");
+  }
+}
 // Copy the arrows, and place onto the clipboard.
 function copyArrows()
 {
@@ -532,6 +557,16 @@ function copyArrows()
   {
     clipboard = null;
     $("#intro").text("You didn't cut or copy anything.");
+  }
+}
+
+function commandPaste()
+{
+  if (clipboard && Math.floor($("#shadow").attr('x')) >= BUFF_LFT)
+  {
+    pasteArrows();
+    updateStats(gatherStats());
+    $("#intro").text("Arrows pasted. Clipboard wiped.");
   }
 }
 
@@ -575,6 +610,10 @@ function pasteArrows()
   clipboard = null;
 }
 
+function commandRotate(dir)
+{
+  if ($("#selTop").attr('style').indexOf('none') == -1) { rotateColumn(dir); }
+}
 // Cycle the arrows horizontally, changing arrow orientation as needed.
 function rotateColumn(val)
 {
@@ -593,6 +632,15 @@ function rotateColumn(val)
   });
   
   sortArrows();
+}
+
+function commandMirror(diag, e)
+{
+  if ($("#selTop").attr('style').indexOf('none') == -1)
+  {
+    if (!isEmpty(e)) { e.preventDefault(); }
+    mirrorRows(diag);
+  }
 }
 
 // Mirror the arrows across the middle point of the chart.
