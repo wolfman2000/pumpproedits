@@ -13,7 +13,7 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <input type="hidden" id="diff" name="diff" value="π" />
 <input type="hidden" id="title" name="title" value="not empty" />
 </dt>
-<dd class="buttons"><ul>
+<dd class="buttons"><ul id="topButtons">
 <li><button id="but_new" type="button">New</button></li>
 <li><button id="but_help" type="button">Help</button></li>
 <li><button id="but_load" type="button">Load</button></li>
@@ -70,9 +70,9 @@ if ($s->gid != $ind): ?>
 <li class="edit"><button id="but_sub" type="button">Submit</button></li>
 </ul></dd>
 <dt class="choose"></dt>
-<dd class="choose"><ul>
+<dd class="choose"><ul id="newEditChoice">
 <li><label for="songlist">Select your song!</label></li>
-<li class="reset"><select id="songlist" name="songlist">
+<li><select id="songlist" name="songlist">
 <option value="" selected="selected">Choose</option>
 <optgroup label="Pump it up Pro">
 <?php $ind = 1;
@@ -83,18 +83,28 @@ if ($s->gid != $ind): ?>
 <?php $ind = $s->gid; endif; ?>
 <option value="<?php echo $s->id; ?>"><?php echo htmlspecialchars($s->name); ?></option>
 <?php endforeach; ?></optgroup></select></li>
-</ul>
 <li><label for="stylelist">Select your style!</label></li>
-<li class="reset"><select id="stylelist">
+<li><select id="stylelist">
 <option value="" selected="selected">Choose</option>
 <option value="single">pump-single</option>
 <option value="double">pump-double</option>
 <option value="halfdouble">pump-halfdouble</option>
 <option value="routine">pump-routine</option>
 </select></li>
-</dd>
+</ul>
+</dd> <?php # Everything below is for Edit Mode. ?>
 <dt class="edit"></dt>
-<dd class="edit"><ul>
+<dd class="edit">
+
+<nav id="tabs">
+<ul id="tabNav">
+<li><a href="#message">Send a message</a></li>
+<li><a href="#shareFile">Share a file</a></li>
+<li><a href="#arrange">Arrange a meetup</a></li>
+</ul>
+</nav>
+
+<ul id="allEditInfo">
 <li class="author"><label for="authorlist">Edit Author:</label></li>
 <li class="author"><select id="authorlist">
 <option value="0" selected="selected">Yourself</option>

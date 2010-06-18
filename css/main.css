@@ -11,9 +11,9 @@ border-bottom:1px solid gray;height:1.5em}  header >h1 { text-align:center; font
 font-weight:bold} header >h1 >a:link,header >h1 >a:visited { color:inherit; 
 text-decoration:none}    article { margin-left:15em; padding:2em; background-color:#A0A0A0; 
 min-height:25em} article >h2 { margin:0 0 .5em 0; font-size:1.75em; font-weight:bold}    
-nav { left:1em; top:3em; position:absolute; padding:1em; width:13em} nav >p { 
-margin-top:5px; margin-bottom:5px; padding-top:10px; padding-bottom:10px}  nav >ul { 
-width:100%; margin:0 auto; text-align:center; border:1px solid black} nav >ul a { 
-display:block; text-decoration:none; padding-left:.5em; padding-right:.5em} nav >ul 
-a:hover,nav >ul a:focus { background-color:gold; text-decoration:underline} nav >ul li { 
-list-style-type:none; border-top:1px solid black; width:100%} nav >ul >li >*:first-child { font-size:1em; font-weight:bold} nav >ul >li:first-child { border-top:none} nav >ul >li { font-weight:bold; background-color:purple; color:white} nav >ul >li >ul { font-weight:normal; color:black; background-color:#7AD} nav >ul >li >ul >li { margin-right:2em}  footer { clear:both; margin:0; padding:.5em; color:#333; background-color:#ddd; border-top:1px solid gray; text-align:right}  footer p { padding-top:0; padding-bottom:0}    form fieldset legend { display:inline-block; margin-left:10px; margin-top:2px} form label { display:inline-block; vertical-align:top} form p { margin:5px; padding:3px 0}     .hide { display:none}}@media tty{ html { background-color:black; color:white}}@media print{ html { background-color:white; color:black} nav { display:none} .hide { display:none} table { font-size:smaller}}
+body >nav { left:1em; top:3em; position:absolute; padding:1em; width:13em} nav >p { 
+margin-top:5px; margin-bottom:5px; padding-top:10px; padding-bottom:10px}  #main_nav >ul { 
+width:100%; margin:0 auto; text-align:center; border:1px solid black} #main_nav >ul a { 
+display:block; text-decoration:none; padding-left:.5em; padding-right:.5em} #main_nav >ul 
+a:hover,#main_nav >ul a:focus { background-color:gold; text-decoration:underline} #main_nav >ul li { 
+list-style-type:none; border-top:1px solid black; width:100%} #main_nav >ul >li >*:first-child { font-size:1em; font-weight:bold} #main_nav >ul >li:first-child { border-top:none} #main_nav >ul >li { font-weight:bold; background-color:purple; color:white} nav >ul >li >ul { font-weight:normal; color:black; background-color:#7AD} #main_nav >ul >li >ul >li { margin-right:2em}  footer { clear:both; margin:0; padding:.5em; color:#333; background-color:#ddd; border-top:1px solid gray; text-align:right}  footer p { padding-top:0; padding-bottom:0}    form fieldset legend { display:inline-block; margin-left:10px; margin-top:2px} form label { display:inline-block; vertical-align:top} form p { margin:5px; padding:3px 0}     .hide { display:none}}@media tty{ html { background-color:black; color:white}}@media print{ html { background-color:white; color:black} nav { display:none} .hide { display:none} table { font-size:smaller}}

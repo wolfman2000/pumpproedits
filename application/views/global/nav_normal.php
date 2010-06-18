@@ -1,4 +1,4 @@
-<nav>
+<nav id="main_nav">
 <?php $uid = $this->session->userdata('id');
 $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <ul>

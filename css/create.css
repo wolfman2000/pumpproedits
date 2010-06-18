@@ -2,30 +2,67 @@
 
 @media screen
 {
-	nav
+	#svg_nav
 	{
 		position: fixed;
 		width: 20em;
 		background-color: #9999ff;
 		top: 3.6em;
 	}
-	#svg_nav_form
+	#svg_nav > p
 	{
-		display: none;
+		margin: 0;
+		padding: 0 0 10px 0;
 	}
-	.edit select
-	{
-		padding-right: 1em;
-	}
-	nav button
+	#svg_nav button
 	{
 		width: 100%;
 		text-align: center;
 	}
-	nav > p
+	#svg_nav_form
 	{
+		display: none;
+	}
+	#topButtons, #newEditChoice, #allEditInfo, #tabNav
+	{
+		width: 20em;
 		margin: 0;
-		padding: 0 0 10px 0;
+		padding: 0;
+		list-style: none;
+	}
+	#topButtons > li, #newEditChoice > li, #allEditInfo > li, #tabNav > li
+	{
+		float: left;
+		width: 10em;
+		margin: 0;
+		padding: 0;
+	}
+	#newEditChoice > li
+	{
+		clear: both;
+		width: 20em;
+	}
+	
+	#tabNav
+	{
+		
+	}
+	#tabNav > li
+	{
+		width: 6em;
+	}
+	#tabNav > li:first-child
+	{
+		padding-right: 1em;
+	}
+	#tabNav > li:last-child
+	{
+		padding-left: 1em;
+	}
+	
+	.edit select
+	{
+		padding-right: 1em;
 	}
 	#intro
 	{
@@ -35,21 +72,6 @@
 	{
 		font-weight: bold;
 	}
-	nav ul
-	{
-		float: left;
-		width: 20em;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-	nav ul li
-	{
-		float: left;
-		width: 10em;
-		margin: 0;
-		padding: 0;
-	}
 	li.long, li.long textarea
 	{
 		width: 20em;
@@ -58,7 +80,7 @@
 	{
 		clear: both;
 	}
-	nav select
+	#svg_nav select
 	{
 		max-width: 20em;
 	}
