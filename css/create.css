@@ -45,19 +45,42 @@
 	
 	#tabNav
 	{
+		padding-top: 1em;
 		
 	}
 	#tabNav > li
 	{
 		width: 6em;
+		display: inline-block;
+		text-align: center;
+		background-color: purple;
 	}
 	#tabNav > li:first-child
 	{
-		padding-right: 1em;
+		margin-right: 1em;
 	}
 	#tabNav > li:last-child
 	{
-		padding-left: 1em;
+		margin-left: 1em;
+	}
+	#tabNav > li > a
+	{
+		width: 100%;
+		display: block;
+		text-decoration: none;
+		color: white;
+	}
+	#tabNav > li > a.selected, #tabNav > li > a:hover
+	{
+		background-color: gold;
+	}
+	#tabNav > li > a:focus
+	{
+		outline: 0;
+	}
+	#allEditInfo
+	{
+		
 	}
 	
 	.edit select

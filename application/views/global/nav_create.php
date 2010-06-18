@@ -98,9 +98,9 @@ if ($s->gid != $ind): ?>
 
 <nav id="tabs">
 <ul id="tabNav">
-<li><a href="#message">Send a message</a></li>
-<li><a href="#shareFile">Share a file</a></li>
-<li><a href="#arrange">Arrange a meetup</a></li>
+<li><a href="#navEditControls">Controls</a></li>
+<li><a href="#navEditInfo">Info</a></li>
+<li><a href="#navEditTransform">Transforms</a></li>
 </ul>
 </nav>
 
