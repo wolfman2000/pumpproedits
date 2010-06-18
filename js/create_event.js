@@ -219,7 +219,7 @@ function songMode()
     $("rect[id^=sel]").attr('width', columns * ARR_HEIGHT).hide();
     fixScale(2.5, 600);
     
-    
+    $("#tabNav a").filter(':first').click();
     $("nav dt.edit").show();
     $("nav dd.edit").show();
     
@@ -260,6 +260,7 @@ function editMode(canPublic)
     
     loadSVGMeasures();
     
+    $("#tabNav a").filter(':first').click();
     $("nav dt.edit").show();
     $("nav dd.edit").show();
     $("nav *.choose").hide();

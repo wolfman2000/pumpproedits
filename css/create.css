@@ -30,7 +30,8 @@
 		padding: 0;
 		list-style: none;
 	}
-	#topButtons > li, #newEditChoice > li, #allEditInfo > li, #tabNav > li
+	#topButtons > li, #newEditChoice > li, #allEditInfo > li, #tabNav > li,
+	#navEditInfo > li, #navEditControls > li, #navEditTransform > li
 	{
 		float: left;
 		width: 10em;
@@ -73,6 +74,7 @@
 	#tabNav > li > a.selected, #tabNav > li > a:hover
 	{
 		background-color: gold;
+		color: black;
 	}
 	#tabNav > li > a:focus
 	{

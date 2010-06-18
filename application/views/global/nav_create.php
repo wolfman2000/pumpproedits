@@ -99,26 +99,19 @@ if ($s->gid != $ind): ?>
 <nav id="tabs">
 <ul id="tabNav">
 <li><a href="#navEditControls">Controls</a></li>
-<li><a href="#navEditInfo">Info</a></li>
+<li><a href="#navEditInfo">Edit Info</a></li>
 <li><a href="#navEditTransform">Transforms</a></li>
 </ul>
 </nav>
 
 <ul id="allEditInfo">
-<li class="author"><label for="authorlist">Edit Author:</label></li>
-<li class="author"><select id="authorlist">
-<option value="0" selected="selected">Yourself</option>
-<option value="1">Andamiro</option>
-</select></li>
-<li><label id="editSong" for="editName">Edit Name:</label></li>
-<li><input type="text" id="editName" maxlength="12" /></li>
-<li><label for="editDiff">Diff. Rating:</label></li>
-<li><input type="text" id="editDiff" maxlength="2" /></li>
-<li class="author"><label for="editPublic">Public?</label></li>
-<li class="author"><select id="editPublic">
-<option value="1" selected="selected">Yes</option>
-<option value="0">No</option>
-</select></li>
+<li>Present Location:</li>
+<li class="reset">Measure <span id="mCheck">???</span></li>
+<li>Beat <span id="yCheck">???</span> / 192</li>
+</ul>
+
+<ul id="navEditControls">
+
 <li><label for="quanlist">Note Sync:</label></li>
 <li><select id="quanlist">
 <option value="4" selected="selected">4th</option>
@@ -163,9 +156,23 @@ if ($s->gid != $ind): ?>
 <li class="sections long reset"><select id="sectionList"></select></li>
 <?php # The li below will become two when/if music is allowed. ?>
 <li class="sections long reset"><button id="sectionJump" type="button">Jump to Section</button></li>
-<li>Present Location:</li>
-<li class="reset">Measure <span id="mCheck">???</span></li>
-<li>Beat <span id="yCheck">???</span> / 192</li>
+</ul>
+
+<ul id="navEditInfo">
+<li class="author"><label for="authorlist">Edit Author:</label></li>
+<li class="author"><select id="authorlist">
+<option value="0" selected="selected">Yourself</option>
+<option value="1">Andamiro</option>
+</select></li>
+<li><label id="editSong" for="editName">Edit Name:</label></li>
+<li><input type="text" id="editName" maxlength="12" /></li>
+<li><label for="editDiff">Diff. Rating:</label></li>
+<li><input type="text" id="editDiff" maxlength="2" /></li>
+<li class="author"><label for="editPublic">Public?</label></li>
+<li class="author"><select id="editPublic">
+<option value="1" selected="selected">Yes</option>
+<option value="0">No</option>
+</select></li>
 <li>Step Stats:</li>
 <li class="reset">Steps: <span id="statS">0</span></li>
 <li>Jumps: <span id="statJ">0</span></li>
@@ -175,7 +182,13 @@ if ($s->gid != $ind): ?>
 <li>Rolls: <span id="statR">0</span></li>
 <li>Lifts: <span id="statL">0</span></li>
 <li>Fakes: <span id="statF">0</span></li>
-</ul></dd>
+
+</ul>
+
+<ul id="navEditTransform">
+</ul>
+
+</dd>
 </dl>
 </form>
 </nav>

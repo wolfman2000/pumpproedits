@@ -219,14 +219,8 @@ $(document).ready(function()
   
   // The author uploads the edit directly to the chosen account.
   $("#but_sub").click(function(){
-    if (songData.dShort)
-    {
-      uploadOfficial();
-    }
-    else
-    {
-      uploadEdit();
-    }
+    if (songData.dShort) { uploadOfficial(); }
+    else                 { uploadEdit(); }
   });
   
   // The author wants to work on this song.
@@ -325,6 +319,14 @@ $(document).ready(function()
   $("select").focusin(function(){ captured = true; });
   $('input').focusout(function(){ captured = false; });
   $('select').focusout(function(){ captured = false; });
+  
+  // The author wishes to switch to a different "tab".
+  $("#tabNav a").click(function(){
+    $("#allEditInfo ~ ul[id]").hide().filter(this.hash).show();
+    $("#tabNav a").removeClass('selected');
+    $(this).addClass('selected');
+    return false;
+  });
 
   // Keyboard shortcuts.
   $("html").keydown(function(e){
