@@ -74,6 +74,11 @@ footer > *
 	margin-left: 10px;
 }
 
+footer > *:first-child
+{
+	margin-top: 2em;
+}
+
 nav#main_nav
 {
 	display: inline;
