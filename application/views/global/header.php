@@ -42,6 +42,12 @@ const songID = <?php echo $const_song; ?>;
 <?php endif; ?>
 //]]>
 </script>
+<script type="text/javascript" src="/js/jquery-1.4.2.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.8.2.custom.min.js"></script>
+<script type="text/javascript" src="/js/hoverIntent.js"></script>
+<script type="text/javascript" src="/js/superfish.js"></script>
+<script type="text/javascript" src="/js/supersubs.js"></script>
+<script type="text/javascript" src="/js/allPages.js"></script>
 <?php if (isset($scripts)): foreach ($scripts as $script): ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php endforeach; endif; ?>
