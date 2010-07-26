@@ -1,5 +1,5 @@
 <?php
-$scripts = array('/js/jquery-1.4.2.js', '/js/create_vars.js', '/js/create_svg.js',
+$scripts = array('/js/create_vars.js', '/js/create_svg.js',
   '/js/create_parse.js', '/js/create_misc.js', '/js/create_event.js', '/js/create.js');
 $this->load->view('global/header',
   array('css' => 'css/create.css', 'h2' => 'Edit Creator', 'title' => 'Edit Creator',

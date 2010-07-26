@@ -1,6 +1,6 @@
 <?php $this->load->view('global/header',
   array('css' => 'css/edit_table.css', 'h2' => "Edits by $user", 'title' => "Edits by $user",
-  'scripts' => array('/js/jquery-1.4.2.js', '/js/jquery.pager.js', '/js/edit_user.js'),
+  'scripts' => array('/js/jquery.pager.js', '/js/edit_user.js'),
   'maxEdits' => $maxEdits, 'const_user' => $this->uri->segment(2))); ?>
 <p>All of the edits of the chosen user are listed below.
 Feel free to preview, download, and play.</p>
