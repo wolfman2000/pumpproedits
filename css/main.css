@@ -1,19 +1,83 @@
-@import "setup.css";.error_list { color:red; font-weight:bold}strong 
-{font-weight:bold}.success_list {color:green;font-weight:bold}@media screen{ html { 
-background-color:black}  html,.sans { font-family:"DejaVu Sans",Arial,Helvetica,sans; 
+/* @import "setup.css";*/
+.error_list { color:red; font-weight:bold}strong 
+{font-weight:bold}.success_list {color:green;font-weight:bold}
+@media screen{
+	html { 
+		background: url("images/body-bg.png") repeat-y scroll center top #404551}  
+	html,.sans { font-family:"DejaVu Sans",Arial,Helvetica,sans; 
 font-size:1em} .serif { font-family:"DejaVu Serif","Times New Roman",Times,serif} pre,.mono 
 { font-family:"DejaVu Sans Mono",Courier,"Courier New",monospace} .tcenter { 
-text-align:center}  p,pre { line-height:1.3em; padding-top:15px; padding-bottom:15px}  
-table td,table th { padding:3px}  a:link { color:#008} a:visited { color:#424}   * { 
-margin:0; padding:0}  body { margin:1em; background-color:#aaa; color:black; border:1px 
-solid gray; line-height:130%}  header { padding:.5em; background-color:#ddd; 
-border-bottom:1px solid gray;height:1.5em}  header >h1 { text-align:center; font-size:2em; 
-font-weight:bold} header >h1 >a:link,header >h1 >a:visited { color:inherit; 
-text-decoration:none}    article { margin-left:15em; padding:2em; background-color:#A0A0A0; 
-min-height:25em} article >h2 { margin:0 0 .5em 0; font-size:1.75em; font-weight:bold}    
+text-align:center}  p,pre { line-height:1.3em; /* padding-top:15px; padding-bottom:15px */}  
+table td,table th { padding:3px}  
+/* a:link { color:#008} a:visited { color:#424}   */
+
+body { margin-left: auto; margin-right: auto; line-height:130%;
+	width: 960px; }  
+
+header { width: 100%; height: 80px;
+background: url("/images/head.png") repeat-x scroll left center #000000;
+/* padding:.5em; background-color:#ddd; border-bottom:1px solid gray; height:1.5em */}
+
+header > *
+{
+	display: inline;
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+	background: url("/images/head.png") repeat-x scroll left center #000000;
+	height: 80px;
+}
+
+header >h1 { text-align:left; font-size:2em; font-weight:bold; width: 700px; margin-right: 0;
+	  }
+	 
+	header > h1 > a
+	{
+		display: block; margin-left: 10px; margin-top: 10px;
+	}
+	 
+header >h1 >a:link,header >h1 >a:visited { color:inherit; text-decoration:none}    
+
+div#userbar
+{
+	width: 240px;
+	display: inline-block;
+}
+
+article
+{
+	clear: both;
+	width: 940px;
+	background: url("/images/content-bg.png") no-repeat scroll center top #464957;
+}
+
+article > h2
+{
+	clear: both;
+	text-align: center;
+}
+
+article > *
+{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+footer
+{
+	clear: both;
+}
+
+/*
+article { margin-left:15em; padding:2em; background-color:#A0A0A0; min-height:25em} 
+article >h2 { margin:0 0 .5em 0; font-size:1.75em; font-weight:bold}    
+*/
+/*
 body >nav { left:1em; top:3em; position:absolute; padding:1em; width:13em} nav >p { 
 margin-top:5px; margin-bottom:5px; padding-top:10px; padding-bottom:10px}  #main_nav >ul { 
 width:100%; margin:0 auto; text-align:center; border:1px solid black} #main_nav >ul a { 
 display:block; text-decoration:none; padding-left:.5em; padding-right:.5em} #main_nav >ul 
 a:hover,#main_nav >ul a:focus { background-color:gold; text-decoration:underline} #main_nav >ul li { 
 list-style-type:none; border-top:1px solid black; width:100%} #main_nav >ul >li >*:first-child { font-size:1em; font-weight:bold} #main_nav >ul >li:first-child { border-top:none} #main_nav >ul >li { font-weight:bold; background-color:purple; color:white} nav >ul >li >ul { font-weight:normal; color:black; background-color:#7AD} #main_nav >ul >li >ul >li { margin-right:2em}  footer { clear:both; margin:0; padding:.5em; color:#333; background-color:#ddd; border-top:1px solid gray; text-align:right}  footer p { padding-top:0; padding-bottom:0}    form fieldset legend { display:inline-block; margin-left:10px; margin-top:2px} form label { display:inline-block; vertical-align:top} form p { margin:5px; padding:3px 0}     .hide { display:none}}@media tty{ html { background-color:black; color:white}}@media print{ html { background-color:white; color:black} nav { display:none} .hide { display:none} table { font-size:smaller}}
+*/
+}

@@ -1,23 +1,23 @@
 body {
-	background: #404551 url("images/body-bg.png") top center repeat-y;
+	background: #404551 url("/images/body-bg.png") top center repeat-y;
 	font:81.25%/1.462em Arial,Helvetica,sans-serif;
 	color: #fff;
 	}
 	
 #nav {
-	background: #404551 url("images/nav-active.png") repeat-x;
+	background: #404551 url("/images/nav-active.png") repeat-x;
 	}
 
 #content {
-		background: #464957 url("images/content-bg.png") top center no-repeat;
+		background: #464957 url("/images/content-bg.png") top center no-repeat;
 	}
 
 #bd {
 		margin: 10px 6px 6px 6px;
 		}
 		
-#logo, #userbar, #header {
-		background: #000 url("images/head.png") left repeat-x;
+#logo, #userbar, #header, header {
+		background: #000 url("/images/head.png") left repeat-x;
 		height: 80px;
 		}
 		
@@ -47,7 +47,7 @@ body {
 	text-shadow: 1px 1px #000;
 }
 .sf-menu li {
-	background: #383B47 url("images/nav-link.png") repeat-x;
+	background: #383B47 url("/images/nav-link.png") repeat-x;
 	border-left: 1px solid #383B47;
 }
 .sf-menu li li {
@@ -62,7 +62,7 @@ body {
 }
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
-	background: url("images/nav-hover.png") repeat-x;
+	background: url("/images/nav-hover.png") repeat-x;
 	outline:		0;
 }
 
@@ -78,7 +78,7 @@ body {
 	}
 	
 #userbar li a:link, #userbar li a:visited {
-	background: #383B47 url("images/nav-link.png") repeat-x;
+	background: #383B47 url("/images/nav-link.png") repeat-x;
 	color: #FFF;
 	text-shadow: 1px 1px #000;
 	border: 1px #272933;
@@ -95,5 +95,5 @@ body {
 	}
 	
 #userbar li a:hover {	
-	background: url("images/nav-hover.png") repeat-x;
+	background: url("/images/nav-hover.png") repeat-x;
 	}

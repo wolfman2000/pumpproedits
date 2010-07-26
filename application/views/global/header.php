@@ -8,10 +8,14 @@
 <meta name="keywords" content="Pump It Up Pro, Pump Pro, Pump It Up, Pro, edits, Wolfman2000, Jason Felds" />
 <meta name="lang" content="en" />
 <meta name="robots" content="index, follow" />
-<link rel="shortcut icon" href="/favicon.ico" />
 <title><?php if (isset($title)):
 $title .= " — Pump Pro Edits";
-else: $title = "Pump Pro Edits"; endif; echo $title; ?></title>
+else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/text.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/960.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/superfish.css" media="screen" />
 <?php if (!(isset($css))) { $css = 'css/main.css'; } echo link_tag($css);
 if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
 if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
@@ -53,6 +57,18 @@ const songID = <?php echo $const_song; ?>;
 <?php endforeach; endif; ?>
 </head>
 <body>
-<header><h1><?php echo anchor("/", "Pump Pro Edits"); ?></h1></header>
+
+<div id="loginbox" title="Log in">
+	Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam
+</div>
+<header>
+  <h1><?php echo anchor("/", "Pump Pro Edits"); ?></h1>
+  <div id="userbar">
+    <ul>
+      <li><?php echo anchor("/register", "Register"); ?></li>
+      <li><?php echo anchor("/login", "Log in", array("id" => "loginlink")); ?></li>
+    </ul>
+  </div>
+</header>
 <article>
 <h2><?php if (!(isset($h2))) { $h2 = "Welcome!"; } echo $h2; ?></h2>
