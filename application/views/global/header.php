@@ -15,6 +15,7 @@ else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortc
 <link rel="stylesheet" type="text/css" media="all" href="/css/text.css" />
 <link rel="stylesheet" type="text/css" media="all" href="/style.css" />
 <link rel="stylesheet" type="text/css" href="/css/superfish.css" media="screen" />
+<link type="text/css" href="/css/custom-theme/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
 <?php if (!(isset($css))) { $css = 'css/main.css'; } echo link_tag($css);
 if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
 if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
@@ -65,7 +66,7 @@ const songID = <?php echo $const_song; ?>;
   <div id="userbar">
     <ul>
       <li><?php echo anchor("/register", "Register"); ?></li>
-      <li><?php echo anchor("/login", "Log in", array("id" => "loginlink")); ?></li>
+      <li><?php echo anchor("#", "Log in", array("id" => "loginlink")); ?></li>
     </ul>
   </div>
 </header>

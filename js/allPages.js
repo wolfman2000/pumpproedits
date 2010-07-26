@@ -38,6 +38,5 @@ $(document).ready(function() {
 
   $('#loginlink').click(function() {
     $('#loginbox').dialog('open');
-    event.preventDefault();
     });  
 });
