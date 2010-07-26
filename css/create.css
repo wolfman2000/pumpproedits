@@ -145,10 +145,9 @@
 	}	
 	#svg
 	{
-		margin: 2em auto;
 		background-color: white;
 		position: relative;
-		left: 1em;
+		left: 10em;
 		display: block;
 		/* position: absolute; */
 	}
