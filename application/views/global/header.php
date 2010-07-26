@@ -13,7 +13,6 @@ $title .= " — Pump Pro Edits";
 else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
 <link rel="stylesheet" type="text/css" media="all" href="/css/reset.css" />
 <link rel="stylesheet" type="text/css" media="all" href="/css/text.css" />
-<link rel="stylesheet" type="text/css" media="all" href="/css/960.css" />
 <link rel="stylesheet" type="text/css" media="all" href="/style.css" />
 <link rel="stylesheet" type="text/css" href="/css/superfish.css" media="screen" />
 <?php if (!(isset($css))) { $css = 'css/main.css'; } echo link_tag($css);

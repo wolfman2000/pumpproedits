@@ -5,9 +5,10 @@
 	#svg_nav
 	{
 		position: fixed;
-		width: 20em;
+		width: 260px;
 		background-color: #9999ff;
-		top: 3.6em;
+		top: 120px;
+		left: 100px;
 	}
 	#svg_nav > p
 	{
@@ -137,7 +138,7 @@
 	}
 	article
 	{
-		margin-left: 22em;
+		width: 760px;
 		min-height: 40em;
 		padding-bottom: 0;
 		min-height: 50em;
@@ -146,7 +147,10 @@
 	{
 		margin: 2em auto;
 		background-color: white;
-		position: absolute;
+		position: relative;
+		left: 1em;
+		display: block;
+		/* position: absolute; */
 	}
 	#svgMeas line
 	{

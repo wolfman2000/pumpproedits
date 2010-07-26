@@ -392,12 +392,14 @@ function fixScale(num, len, w, h)
   if (!h) { var h = SCALE * (ARR_HEIGHT * BEATS_PER_MEASURE * measures + BUFF_TOP + BUFF_BOT); }
   if (!w) { var w = SCALE * ((BUFF_LFT + BUFF_RHT) + columns * ARR_HEIGHT); }
   
+  
   $("#svg").animate({
-    left: round10($("nav").first().width()) + 70,
-    top: round10($("header").first().height()) * 8 + 20,
+//    left: round10($("#svg_nav").width()) + 70,
+//    top: round10($("header").first().height()) + 50,
     width: w,
     height: h,
-  }, len).attr("width", w).attr("height", h);
+  }, len).attr("width", w).attr("height", h).css('display', 'block');
+  
   
   $("#notes").attr("transform", "scale(" + SCALE + ")");
   $("article").css("height", h + 150);
