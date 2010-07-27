@@ -26,9 +26,7 @@ $(document).ready(function()
 	},
 	function(){ 
 		$(this).removeClass("ui-state-hover"); 
-	}
-)
-
+	});
 
   init();
   $("#svg_nav_form").attr('style', 'display:block;');
