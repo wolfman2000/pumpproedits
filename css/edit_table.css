@@ -3,50 +3,51 @@
 
 @media screen
 {
-  #edits
-  {
-      margin: 0 auto;
-      border-collapse: collapse;
-  }
-  #edits > caption
-  {
-      margin-bottom: 10px;
-  }
-  #edits > col#statcol
-  {
-      /* width: 10em; */
-  }
-  #edits > thead > tr > th
-  {
-      font-weight: normal;
-      font-style: italic;
-  }
-  #edits > thead > tr > th, #edits > tbody > tr > td
-  {
-      border: 2px solid #003366;
-  }
-  #edits > tbody > tr > td > dl
-  {
-    font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
-  }
-  #edits > tbody > tr > td:first-child
-  {
-    max-width: 15em;
-  }
-  #edits > tbody > tr > td > dl > dt
-  {
-    clear: both;
-    width: 8em;
-    float: left;
-  }
-  #edits > tbody > tr > td > dl > dt:after
-  {
-    content: ":";
-  }
-  #edits > tbody > tr > td > dl > dd
-  {
-    padding-left: 8em;
-    line-height: 1.3em;
-    text-align: right;
-  }
+	#edits
+	{
+		margin: 0 auto 20px;
+		border-collapse: collapse;
+	}
+	#edits > caption
+	{
+		margin-bottom: 10px;
+	}
+	#edits > col#statcol
+	{
+		/* width: 10em; */
+	}
+	#edits > thead > tr > th
+	{
+		font-weight: normal;
+		font-style: italic;
+	}
+	#edits > thead > tr > th, #edits > tbody > tr > td
+	{
+		border: 2px solid #003366;
+	}
+	#edits > tbody > tr > td > dl
+	{
+		font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
+		margin-bottom: 0px;
+	}
+	#edits > tbody > tr > td:first-child
+	{
+		max-width: 15em;
+	}
+	#edits > tbody > tr > td > dl > dt
+	{
+		clear: both;
+		width: 8em;
+		float: left;
+	}
+	#edits > tbody > tr > td > dl > dt:after
+	{
+		content: ":";
+	}
+	#edits > tbody > tr > td > dl > dd
+	{
+		padding-left: 8em;
+		line-height: 1.3em;
+		text-align: right;
+	}
 }
