@@ -63,7 +63,7 @@ const songID = <?php echo $const_song; ?>;
 	Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam
 </div>
 <header>
-  <h1 class="grid_9" id="logo"><?php echo anchor("/", "Pump Pro Edits"); ?></h1>
+  <h1 class="grid_9" id="logo"><a href="/"><img src="/images/logo.png" alt="Pump Pro Edits" title="Pump Pro Edits" /></a></h1>
   <div class="grid_3" id="userbar">
     <ul>
       <li><?php echo anchor("/register", "Register"); ?></li>
