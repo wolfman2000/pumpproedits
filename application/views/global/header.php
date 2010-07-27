@@ -11,8 +11,9 @@
 <title><?php if (isset($title)):
 $title .= " — Pump Pro Edits";
 else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
-<link rel="stylesheet" type="text/css" media="all" href="/css/reset.css" />
-<link rel="stylesheet" type="text/css" media="all" href="/css/text.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/960/960.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/960/reset.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/960/text.css" />
 <link rel="stylesheet" type="text/css" media="all" href="/style.css" />
 <link rel="stylesheet" type="text/css" href="/css/superfish.css" media="screen" />
 <link type="text/css" href="/css/custom-theme/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
