@@ -57,23 +57,22 @@ const songID = <?php echo $const_song; ?>;
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php endforeach; endif; ?>
 </head>
-<body>
+<body class="container_12">
 
 <div id="loginbox" title="Log in">
 	Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam
 </div>
 <header>
-  <h1><?php echo anchor("/", "Pump Pro Edits"); ?></h1>
-  <div id="userbar">
+  <h1 class="grid_9" id="logo"><?php echo anchor("/", "Pump Pro Edits"); ?></h1>
+  <div class="grid_3" id="userbar">
     <ul>
       <li><?php echo anchor("/register", "Register"); ?></li>
       <li><?php echo anchor("#", "Log in", array("id" => "loginlink")); ?></li>
     </ul>
   </div>
 </header>
-<nav id="main_nav">
-
-
+<div class="clear"></div>
+<nav id="main_nav" class="grid_12">
 <?php $uid = $this->session->userdata('id');
 
 # $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
@@ -135,6 +134,5 @@ const songID = <?php echo $const_song; ?>;
 </ul>
 </nav>
 -->
-
-<article>
+<article class="grid_12">
 <h2><?php if (!(isset($h2))) { $h2 = "Welcome!"; } echo $h2; ?></h2>

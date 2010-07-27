@@ -11,22 +11,13 @@ text-align:center}  p,pre { line-height:1.3em; /* padding-top:15px; padding-bott
 table td,table th { padding:3px}  
 /* a:link { color:#008} a:visited { color:#424}   */
 
-body { margin-left: auto; margin-right: auto; line-height:130%;
-	width: 960px; }  
+body { line-height:130%; }  
 
-header { width: 100%; height: 80px;
-background: url("/images/head.png") repeat-x scroll left center #000000;
-/* padding:.5em; background-color:#ddd; border-bottom:1px solid gray; height:1.5em */}
+/*
+header { 
+background: url("/images/head.png") repeat-x scroll left center #000000; }
+*/
 
-header > *
-{
-	display: inline;
-	float: left;
-	margin-left: 10px;
-	margin-right: 10px;
-	background: url("/images/head.png") repeat-x scroll left center #000000;
-	height: 80px;
-}
 
 header >h1 { text-align:left; font-size:2em; font-weight:bold; width: 700px; margin-right: 0; margin-bottom: 0;
 	  }
@@ -46,8 +37,6 @@ div#userbar
 
 article
 {
-	clear: both;
-	width: 940px;
 	background: url("/images/content-bg.png") no-repeat scroll center top #464957;
 }
 
@@ -59,33 +48,21 @@ article > h2
 	text-align: center;
 }
 
-article > *
-{
-	padding-left: 10px;
-	padding-right: 10px;
-}
-
-footer
-{
-	clear: both;
-}
-footer > *
-{
-	margin-left: 10px;
-}
-
-footer > *:first-child
-{
-	margin-top: 2em;
-}
-
 nav#main_nav
 {
-	display: inline;
-	float: left;
-	margin-left: 10px;
 	background: #404551 url("/images/nav-active.png") repeat-x;
-	width: 940px;
+}
+
+.container_12 footer.grid_12
+{
+	width: 960px;
+	margin-left: 0;
+	margin-right: 0;
+	background: gray;
+}
+footer > p
+{
+	margin-left: 10px;
 }
 
 /*
