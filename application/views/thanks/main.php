@@ -5,6 +5,9 @@
     and places that I have to thank here.
 </p>
 
+<div class="clear"></div>
+
+<nav id="choices" class="grid_3 alpha">
 <h3 id="top">Options</h3>
 <ul>
 <li><a href="#obvious">The Obvious</a></li>
@@ -15,6 +18,9 @@
 <li><a href="#browser">The Browsers</a></li>
 <li><a href="#promote">The Promoters</a></li>
 </ul>
+</nav>
+
+<section id="content" class="grid_9 omega">
 
 <section id="obvious">
 <h3>The Obvious</h3>
@@ -126,6 +132,8 @@
 <dd>If anyone ever needs a la carte web hosting, these are the guys to go to.</dd>
 </dl>
 <p><a href="#top">Back to Top</a></p>
+</section>
+
 </section>
 
 <?php $this->load->view('global/footer'); ?>

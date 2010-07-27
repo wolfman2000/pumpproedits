@@ -11,13 +11,8 @@ text-align:center}  p,pre { line-height:1.3em; /* padding-top:15px; padding-bott
 table td,table th { padding:3px}  
 /* a:link { color:#008} a:visited { color:#424}   */
 
+a:visited { color: #f4d799; font-style: italic; }
 body { line-height:130%; }  
-
-/*
-header { 
-background: url("/images/head.png") repeat-x scroll left center #000000; }
-*/
-
 
 header >h1 { text-align:left; font-size:2em; font-weight:bold; width: 700px; margin-right: 0; margin-bottom: 0;
 	  }
