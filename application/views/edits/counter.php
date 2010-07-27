@@ -1,18 +1,9 @@
-<table id="multiCol">
-<thead><tr>
-<th><?php echo ucfirst($what); ?></th><th>Count</th>
-<th><?php echo ucfirst($what); ?></th><th>Count</th>
-</tr></thead>
-<tbody>
-<tr>
-<?php $counter = -1;
-foreach ($query as $r): ?>
-<td><?php echo anchor(sprintf("/%s%d", $what, $r->id), $r->core); ?></td>
-<td><?php echo $r->num_edits; ?></td>
-<?php if (++$counter % 2): ?>
-</tr>
-<tr>
-<?php endif; endforeach; ?>
-</tr>
-</tbody>
-</table>
+<div class="clear"></div>
+<ul id="multiCol" class="grid_12">
+<?php foreach ($query as $r): ?>
+<li class="grid_6">
+<div class="grid_4"><?php echo anchor(sprintf("/%s/%d", $what, $r->id), $r->core); ?></div>
+<div class="grid_1 suffix_1"><?php echo $r->num_edits; ?></div>
+</li>
+<?php endforeach; ?>
+</ul>
