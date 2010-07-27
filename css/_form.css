@@ -10,7 +10,7 @@
 	{ 
 		display:inline-block; margin-left:10px; margin-top:2px
 	} 
-	dl 
+	dl, form div[class*=grid_]
 	{ 
 		font-family:"DejaVu Sans Mono",Courier,"Courier New",monospace
 	} 
@@ -18,11 +18,11 @@
 	{ 
 		clear:both; width:8em; float:left
 	} 
-	fieldset >dl >dt 
+	fieldset >dl >dt
 	{ 
 		padding-left:1em; line-height:1.3em; padding-top:0.3em
 	} 
-	dt:after 
+	dt:after, form div[class*=grid_] label:after
 	{ 
 		content:":"
 	} 
