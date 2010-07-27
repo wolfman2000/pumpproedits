@@ -3,23 +3,10 @@
 @media screen
 {
 	/* Removing some of the builtin styles from jQueryUI. */
-	
 	.ui-widget-content
 	{
 		border: none;
 	}
-	
-	
-	/*
-	#svg_nav
-	{
-		position: fixed;
-		width: 260px;
-		background-color: #9999ff;
-		top: 120px;
-		left: 100px;
-	}
-	*/
 	#svg_nav > p
 	{
 		margin: 0;
@@ -75,8 +62,6 @@
 		clear: both;
 		width: 20em;
 	}
-	
-	
 	#tabNav
 	{
 		padding-top: 1em;
@@ -162,11 +147,6 @@
 		background-color: white;
 		display: block;
 		margin: 0 auto;
-		/*
-		position: relative;
-		left: 10em;
-		*/
-		/* position: absolute; */
 	}
 	#svgMeas line
 	{
