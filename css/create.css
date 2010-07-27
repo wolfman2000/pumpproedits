@@ -113,11 +113,6 @@
 	{
 		outline: 0;
 	}
-	#allEditInfo
-	{
-		
-	}
-	
 	.edit select
 	{
 		padding-right: 1em;
@@ -165,9 +160,12 @@
 	#svg
 	{
 		background-color: white;
+		display: block;
+		margin: 0 auto;
+		/*
 		position: relative;
 		left: 10em;
-		display: block;
+		*/
 		/* position: absolute; */
 	}
 	#svgMeas line
