@@ -12,11 +12,11 @@ $(document).ready(function()
     width: 300,
     height: 450,
     minHeight: 400,
-    position: "left",
+    position: Array(0, 50),
     open: function(){
       $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar-close").remove();
     }
-  });
+  }).parent().css({position: "fixed"});
   
   $("#tabs").tabs().removeClass('ui-tabs').find(">:first-child").removeClass('ui-widget-header');
 
