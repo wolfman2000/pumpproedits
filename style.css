@@ -124,3 +124,14 @@ footer p {
 #userbar li a:hover {	
 	background: url("/images/nav-hover.png") repeat-x;
 	}
+	
+	.fg-button { 
+   outline: 0; 
+   margin:0 4px 0 0; 
+   padding: .4em 1em; 
+   text-decoration:none !important; 
+   cursor:pointer; 
+   position: relative; 
+   text-align: center; 
+   zoom: 1; 
+}
