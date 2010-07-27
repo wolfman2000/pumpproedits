@@ -11,6 +11,8 @@ $(document).ready(function()
     resizable: true,
     width: 300,
     height: 500,
+    minHeight: 400,
+    position: "left",
     open: function(){
       $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar-close").remove();
     }
