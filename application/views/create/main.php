@@ -1,6 +1,7 @@
 <?php
-$scripts = array('/js/create_vars.js', '/js/create_svg.js',
-  '/js/create_parse.js', '/js/create_misc.js', '/js/create_event.js', '/js/create.js');
+$scripts = array('/js/creator/create_vars.js', '/js/creator/create_svg.js',
+  '/js/creator/create_parse.js', '/js/creator/create_misc.js',
+  '/js/creator/create_event.js', '/js/creator/create.js');
 $this->load->view('global/header',
   array('css' => 'css/create.css', 'h2' => 'Edit Creator', 'title' => 'Edit Creator',
   'andy' => $andy, 'scripts' => $scripts, 'others' => $others,
