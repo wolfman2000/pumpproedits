@@ -48,9 +48,7 @@ nav#main_nav
 	margin-left: 0;
 	margin-right: 0;
 	background: #464957;
-	border-left: 10px solid #333740;
-	border-right: 10px solid #333740;
-	border-top: 10px solid #333740;
+	border: 10px solid #333740;
 }
 footer > p
 {
