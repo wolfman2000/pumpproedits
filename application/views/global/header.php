@@ -11,13 +11,10 @@
 <title><?php if (isset($title)):
 $title .= " — Pump Pro Edits";
 else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
-<link rel="stylesheet" type="text/css" media="all" href="/css/960/960.css" />
-<link rel="stylesheet" type="text/css" media="all" href="/css/960/reset.css" />
-<link rel="stylesheet" type="text/css" media="all" href="/css/960/text.css" />
-<link rel="stylesheet" type="text/css" media="all" href="/style.css" />
-<link rel="stylesheet" type="text/css" href="/css/superfish.css" media="screen" />
-<link type="text/css" href="/css/custom-theme/jquery-ui-1.8.2.custom.css" rel="stylesheet" />
-<?php if (!(isset($css))) { $css = 'css/main.css'; } echo link_tag($css);
+<?php if (!(isset($css))) { $css = 'css/main.css'; } 
+$allCSS = array("css/960/960.css", "css/960/reset.css", "css/960/text.css", "style.css", 
+"css/superfish.css", "css/custom-theme/jquery-ui-1.8.2.custom.css", $css);
+foreach ($allCSS as $ac) { echo link_tag($ac); }
 if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
 if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
 <script type="text/javascript" src="js/IE8.js"></script>
@@ -47,15 +44,12 @@ const songID = <?php echo $const_song; ?>;
 <?php endif; ?>
 //]]>
 </script>
-<script type="text/javascript" src="/js/jquery-1.4.2.js"></script>
-<script type="text/javascript" src="/js/jquery-ui-1.8.2.custom.min.js"></script>
-<script type="text/javascript" src="/js/hoverIntent.js"></script>
-<script type="text/javascript" src="/js/superfish.js"></script>
-<script type="text/javascript" src="/js/supersubs.js"></script>
-<script type="text/javascript" src="/js/allPages.js"></script>
-<?php if (isset($scripts)): foreach ($scripts as $script): ?>
+<?php $baseScripts = array("/js/jquery-1.4.2.js", "/js/jquery-ui-1.8.2.custom.min.js",
+"/js/hoverIntent.js", "/js/superfish.js", "/js/supersubs.js", "/js/allPages.js");
+if (isset($scripts)) { $baseScripts = array_merge($baseScripts, $scripts); }
+foreach ($baseScripts as $script): ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
-<?php endforeach; endif; ?>
+<?php endforeach; ?>
 </head>
 <body class="container_12">
 
