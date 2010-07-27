@@ -4,7 +4,8 @@
 <footer class="grid_12">
 <section class="grid_9" id="footer-left">
 <p>Questions? Comments? Bugs? <a href="http://www.pumpproedits.com/contact" title="Contact">Contact me</a><br />
-Please also check out our sister site, <a href="http://www.itgedits.info/" title="ITG Edits">ITG Edits</a>
+Please also check out our sister site, <a href="http://www.itgedits.info/" title="ITG Edits">ITG Edits</a><br />
+<a href="http://www.twitter.com/pumpproedits" title="Twitter">Follow me on Twitter</a>
 </p>
 </section>
 <section class="grid_3" id="footer-right">
