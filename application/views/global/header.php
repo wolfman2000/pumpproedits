@@ -118,3 +118,4 @@ foreach ($baseScripts as $script): ?>
 -->
 <article class="grid_12">
 <h2><?php if (!(isset($h2))) { $h2 = "Welcome!"; } echo $h2; ?></h2>
+<div id="bd">

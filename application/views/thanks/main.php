@@ -7,7 +7,7 @@
 
 <div class="clear"></div>
 
-<nav id="choices" class="grid_3 alpha">
+<nav id="choices" class="grid_3 alpha omega">
 <h3 id="top">Options</h3>
 <ul>
 <li><a href="#obvious">The Obvious</a></li>
@@ -20,7 +20,7 @@
 </ul>
 </nav>
 
-<section id="content" class="grid_9 omega">
+<section id="content" class="grid_9 alpha omega">
 
 <section id="obvious">
 <h3>The Obvious</h3>

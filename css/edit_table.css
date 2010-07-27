@@ -50,4 +50,9 @@
 		line-height: 1.3em;
 		text-align: right;
 	}
+	#edits > tbody > tr > td > ul > li
+	{
+		margin-left: 0px;
+		list-style-type: none;
+	}
 }
