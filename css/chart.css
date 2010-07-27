@@ -2,27 +2,25 @@
 
 @media screen
 {
-  fieldset
-  {
-    width: 50em;
-  }
-  section > p:nth-child(odd)
-  {
-	font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
-  }
-  #edits, #songs
-  {
-	  max-width: 34em;
-  }
-  /* Note to self: this seems backwards. Test in other browsers. */
-  #edit, #song
-  {
-	float: left;
-	width: 35em;
-  }
-  ul.error_list > li
-  {
-	padding-left: 1em;
-	font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
-  }
+	fieldset
+	{
+		width: 50em;
+	}
+	section > p:nth-child(odd)
+	{
+		font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
+	}
+	#edits, #songs
+	{
+		max-width: 34em;
+	}
+	ul.error_list > li
+	{
+		padding-left: 1em;
+		font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
+	}
+	.pushDown
+	{
+		margin-bottom: 40px;
+	}
 }
