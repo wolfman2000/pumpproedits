@@ -113,18 +113,6 @@ foreach ($baseScripts as $script): ?>
 <li><?php echo anchor("/official", "Official Chart Edits"); ?></li>
 </ul>
 </li>
-<li>
-<h4>Everyone</h4>
-<ul>
-<li><a href="/blog">Pump Pro Edits Blog</a></li>
-<?php if ($this->session->userdata('browser') !== "Internet Explorer"): ?>
-<li><?php echo anchor("/chart/songs", "Official Stepcharts"); ?></li>
-<?php endif; ?>
-<li><?php echo anchor("/usb", "USB Usage"); ?></li>
-<li><?php echo anchor("/contact", "Contact"); ?></li>
-<li><?php echo anchor("/thanks", "Credits/Thanks"); ?></li>
-</ul>
-</li>
 </ul>
 </nav>
 -->
