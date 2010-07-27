@@ -1,4 +1,4 @@
-<nav id="svg_nav">
+<nav id="svg_nav" title="Edit Creator Control Panel">
 <?php if ($this->session->userdata('id')): ?>
 <p id="authIntro"><?php echo
 anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></p>
