@@ -8,15 +8,17 @@ $(document).ready(function()
   $('#svg_nav').dialog({
     autoOpen: true,
     modal: false,
-    resizable: true,
+    resizable: false,
     width: 300,
-    height: 500,
+    height: 450,
     minHeight: 400,
     position: "left",
     open: function(){
       $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar-close").remove();
     }
-  });  
+  });
+  
+  $("#tabs").tabs().removeClass('ui-tabs').find(">:first-child").removeClass('ui-widget-header');
 
   init();
   $("#svg_nav_form").attr('style', 'display:block;');

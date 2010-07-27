@@ -2,6 +2,14 @@
 
 @media screen
 {
+	/* Removing some of the builtin styles from jQueryUI. */
+	
+	.ui-widget-content
+	{
+		border: none;
+	}
+	
+	
 	/*
 	#svg_nav
 	{
@@ -42,6 +50,13 @@
 		padding: 0;
 		list-style-type: none;
 	}
+	#navEditInfo > li
+	{
+		margin-left: 0;
+		list-style-type: none;
+		width: 50%;
+		float: left;
+	}
 	#navEditTransform > li.long, #navEditControls > li.long
 	{
 		width: 20em;
@@ -61,6 +76,7 @@
 		width: 20em;
 	}
 	
+	
 	#tabNav
 	{
 		padding-top: 1em;
@@ -68,7 +84,7 @@
 	}
 	#tabNav > li
 	{
-		width: 6em;
+		width: 5.8em;
 		display: inline-block;
 		text-align: center;
 		background-color: purple;
