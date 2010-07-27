@@ -2,23 +2,6 @@
 
 @media screen
 {
-	fieldset
-	{
-		width: 50em;
-	}
-	section > p:nth-child(odd)
-	{
-		font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
-	}
-	#edits, #songs
-	{
-		max-width: 34em;
-	}
-	ul.error_list > li
-	{
-		padding-left: 1em;
-		font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
-	}
 	.pushDown
 	{
 		margin-bottom: 40px;
