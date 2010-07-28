@@ -8,6 +8,7 @@ $this->load->view('global/header',
   'xhtml' => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<?xml-stylesheet href=\"/css/_svg.css\" type=\"text/css\"?>\r\n")); ?>
 <p>Welcome to the edit creator. Use the options on the
 left to place arrows below. Have fun!</p>
+<div id="helpMenu"></div>
 
 <svg id="svg" width="200" height="200"
   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
