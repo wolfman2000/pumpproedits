@@ -25,7 +25,26 @@ $(document).ready(function() {
     height: 250,
     buttons: {
       'Log in': function(){
-        $("#loginForm").submit();
+        var good = 1;
+        if ($("#username").val().length)
+        {
+          $("#loginForm label:eq(0)").removeClass("error_list");
+        }
+        else
+        {
+          $("#loginForm label:eq(0)").addClass("error_list");
+          good = 0;
+        }
+        if ($("#password").val().length)
+        {
+          $("#loginForm label:eq(1)").removeClass("error_list");
+        }
+        else
+        {
+          $("#loginForm label:eq(1)").addClass("error_list");
+          good = 0;
+        }
+        if (good) $("#loginForm").submit();
       },
       'Forgot password?': function(){
         document.location.href = location.protocol + "//" + location.host + '/help';
