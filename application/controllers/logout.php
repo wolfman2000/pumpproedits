@@ -10,6 +10,6 @@ class Logout extends Controller
   function index()
   {
     $this->session->unset_userdata(array('id' => '', 'username' => '', 'roles' => ''));
-    $this->load->view('logout/main');
+    redirect($_SERVER['HTTP_REFERER'], "location", 303);
   }
 }
