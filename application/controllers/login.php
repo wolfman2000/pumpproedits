@@ -21,7 +21,7 @@ class Login extends Controller
     if ($this->form_validation->run() === FALSE)
     {
       $this->session->set_flashdata('loginResult', "Fill in all fields.");
-      redirect($_SERVER['HTTP_REFERER'], "location", 303);
+      redirect((strlen($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/"), "location", 303);
       #$this->load->view('login/missing');
       return;
     }
@@ -60,6 +60,6 @@ class Login extends Controller
       #$this->load->view('login/success');
     }
     
-    redirect($_SERVER['HTTP_REFERER'], "location", 303);
+    redirect((strlen($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/"), "location", 303);
   }
 }
