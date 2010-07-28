@@ -56,4 +56,32 @@ footer > p
 	
 }
 
+/* Login form details below. */
+
+form#loginForm dl
+	{ 
+		font-family:"DejaVu Sans Mono",Courier,"Courier New",monospace
+	} 
+	form#loginForm dt 
+	{ 
+		clear:both; width:8em; float:left
+	} 
+	form#loginForm > fieldset >dl >dt
+	{ 
+		padding-left:1em; line-height:1.3em; padding-top:0.3em
+	}
+	form#loginForm > fieldset
+	{
+		margin-bottom: 0px;
+		border: none;
+	}
+	form#loginForm dt:after
+	{ 
+		content:":"
+	} 
+	form#loginForm dd 
+	{ 
+		padding-left:8em; line-height:1.3em
+	}
+
 }

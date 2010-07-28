@@ -54,7 +54,18 @@ foreach ($baseScripts as $script): ?>
 <body class="container_12">
 
 <div id="loginbox" title="Log in">
-	Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam
+	<p>Please log in below. If you do not have an account, feel free to register.
+  If you forgot your password, you can still recover your account.</p>
+  <?php echo form_open('login/check', array('id' => 'loginForm')); ?>
+  <fieldset><?php #<legend>Fill in all of the fields.</legend> ?>
+  <dl>
+  <dt><label for="username">Username</label></dt>
+  <dd><input type="text" name="username" id="username" /></dd>
+  <dt><label for="password">Password</label></dt>
+  <dd><input id="password" type="password" name="password" /></dd>
+  </dl>
+  </fieldset>
+  </form>
 </div>
 <header>
   <h1 class="grid_9" id="logo"><a href="/"><img src="/images/logo.png" alt="Pump Pro Edits" title="Pump Pro Edits" /></a></h1>

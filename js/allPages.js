@@ -22,13 +22,13 @@ $(document).ready(function() {
     modal: true,
     resizable: false,
     width: 400,
-    height: 200,
+    height: 250,
     buttons: {
       'Log in': function(){
-                // Login button
+        $("#loginForm").submit();
       },
       'Forgot password?': function(){
-        document.location.href = 'http://www.pumpproedits.com/help';
+        document.location.href = location.protocol + "//" + location.host + '/help';
       },
       'Register': function(){
         // Register button
