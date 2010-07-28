@@ -56,6 +56,27 @@ footer > p
 	
 }
 
+#userbar .ui-widget
+{
+	margin-top: 27px;
+}
+
+#userbar .ui-widget > div
+{
+	padding: 0 .7em;
+}
+
+#userbar .ui-widget span
+{
+	float: left;
+	margin-right: .3em;
+}
+
+#userbar p
+{
+	margin-bottom: 0;
+}
+
 /* Login form details below. */
 
 form#loginForm dl

@@ -85,14 +85,14 @@ foreach ($baseScripts as $script): ?>
     <?php $logStat = $this->session->flashdata('loginResult'); if ($logStat): 
     if (strpos($logStat, "Welcome") !== false): ?>
     <div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px"> 
 				<p><?php echo $logStat; ?></p>
 			</div>
 		</div>
     <?php else: # Did not log in. ?>
     <div class="ui-widget">
-			<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
-				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+			<div class="ui-state-error ui-corner-all"> 
+				<p><span class="ui-icon ui-icon-alert"></span> 
 				<strong>Alert:</strong> <?php echo $logStat; ?></p>
 			</div>
 		</div>
