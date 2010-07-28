@@ -83,7 +83,7 @@ foreach ($baseScripts as $script): ?>
 <li><?php echo anchor("/chart", "View Edit Stepcharts"); ?></li>
 <li><?php echo anchor("/chart/songs", "View Official Stepcharts"); ?></li>
 </ul></li>
-<li><?php echo anchor("/usb", "USB Usage"); ?></li>
+<li><?php echo anchor("/usb", "USB Guide"); ?></li>
 <li><?php echo anchor("/contact", "Contact"); ?></li>
 <li><?php echo anchor("/thanks", "Credits"); ?></li>
 <li><a href="http://www.pumpproedits.com/blog">Blog</a></li>

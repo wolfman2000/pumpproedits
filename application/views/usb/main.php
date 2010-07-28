@@ -1,5 +1,6 @@
 <?php $this->load->view('global/header',
-  array('css' => 'css/usb.css', 'h2' => 'USB Usage', 'title' => 'USB Usage')); ?>
+  array('css' => 'css/usb.css', 'h2' => 'Guide to USB functionality in Pump it Up Pro', 
+  'title' => 'Guide to USB functionality in Pump it Up Pro')); ?>
 <p>
 One of the great features about Pump It Up Pro is the integration
 of common <abbr title="Universal Serial Bus">USB</abbr> drives.
@@ -49,9 +50,13 @@ end up overriding what is there by doing so.</li>
 <li>Screenshots folder: You are able to take pictures of your scores directly
 while at the evaluation screen. Either hit the dedicated (red) button or
 both of the arrow (yellow) buttons on the panel, and a picture of your score
-will be saved. It ends up becoming a normal PNG file. Feel free to copy the PNG
+will be saved. It ends up becoming a normal 
+<a href="http://www.libpng.org/pub/png/"><abbr title="Portable Network Graphics">PNG</abbr></a> 
+file. Feel free to copy the PNG
 out of the USB drive, but it is suggested to not rename any images in this folder.</li>
-<li>Common.xsl: This is an XML based stylesheet. There is no need to view this file.</li>
+<li>Common.xsl: This is an 
+<a href="http://www.w3.org/XML/"><abbr title="Extensible Markup Language">XML</abbr></a> 
+based stylesheet. There is no need to view this file.</li>
 <li>DontShare.sig: This file is not meant to be viewed or shared at all. It is
 a safeguard file to ensure that no one steals your stats or scores.</li>
 <li>Editable.ini: This file allows minor player customization. There are four entries
