@@ -1,6 +1,21 @@
 </div></article>
 <?php if ($this->uri->segment(1) === "create") { $this->load->view("global/nav_create"); }; ?>
 <div class="clear"></div>
+<div id="loginbox" title="Log in">
+	<p>Please log in below. If you do not have an account, feel free to register.
+  If you forgot your password, you can still recover your account.</p>
+  <?php echo form_open('login/check', array('id' => 'loginForm')); ?>
+  <fieldset><?php #<legend>Fill in all of the fields.</legend> ?>
+  <dl>
+  <dt><label for="username">Username</label></dt>
+  <dd><input type="text" name="username" id="username" /></dd>
+  <dt><label for="password">Password</label></dt>
+  <dd><input id="password" type="password" name="password" /></dd>
+  </dl>
+  </fieldset>
+  </form>
+</div>
+
 <footer class="grid_12">
 <section class="grid_9" id="footer-left">
 <p>Questions? Comments? Bugs? <a href="http://www.pumpproedits.com/contact" title="Contact">Contact me</a><br />
