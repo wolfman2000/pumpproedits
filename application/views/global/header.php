@@ -68,31 +68,33 @@ foreach ($baseScripts as $script): ?>
   </form>
 </div>
 <header>
-  <h1 class="grid_9" id="logo"><a href="/"><img src="/images/logo.png" alt="Pump Pro Edits" title="Pump Pro Edits" /></a></h1>
-  <div class="grid_3" id="userbar">
+  <h1 class="grid_7" id="logo"><a href="/"><img src="/images/logo.png" alt="Pump Pro Edits" title="Pump Pro Edits" /></a></h1>
+  <div class="grid_5 alpha" id="userbar">
     <ul>
       <?php if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
       <li><a href="http://www.firefox.com">Firefox</a></li>
       <li><a href="http://chrome.google.com">Chrome</a></li>
       <li><a href="http://www.apple.com/safari">Safari</a></li>
       <?php elseif ($this->session->userdata('id')): # logged in ?>
-      
+      <li><a href="#"><?php echo $this->session->userdata('username'); ?></a></li>
+      <li><?php echo anchor("/user/" . $this->session->userdata('id'), "Your Edits"); ?></li>
+      <li><?php echo anchor("/logout", "Log out"); ?></li>
       <?php else: ?>
       <li><?php echo anchor("/register", "Register"); ?></li>
       <li><a href="#" id="loginlink">Log in</a></li>
       <?php endif; ?>
     </ul>
     <?php $logStat = $this->session->flashdata('loginResult'); if ($logStat): 
-    if (strpos($logStat, "Welcome") !== false): ?>
+    if (strpos($logStat, "Welcome") !== false): /* ?>
     <div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px"> 
+			<div class="ui-state-highlight ui-corner-all"> 
 				<p><?php echo $logStat; ?></p>
 			</div>
 		</div>
-    <?php else: # Did not log in. ?>
+    <?php */ else: # Did not log in. ?>
     <div class="ui-widget">
 			<div class="ui-state-error ui-corner-all"> 
-				<p><span class="ui-icon ui-icon-alert"></span> 
+				<p><?php # <span class="ui-icon ui-icon-alert"></span> ?>
 				<strong>Alert:</strong> <?php echo $logStat; ?></p>
 			</div>
 		</div>

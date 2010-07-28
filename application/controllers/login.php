@@ -56,7 +56,7 @@ class Login extends Controller
       $name = $this->ppe_user_user->getCasedName($user);
       $this->session->set_userdata('username', $name);
       $this->session->set_userdata('roles', $roles);
-      $this->session->set_flashdata('loginResult', "Welcome ${name}.");
+      $this->session->set_flashdata('loginResult', "Welcome $name.");
       #$this->load->view('login/success');
     }
     
