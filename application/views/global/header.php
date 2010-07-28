@@ -75,11 +75,29 @@ foreach ($baseScripts as $script): ?>
       <li><a href="http://www.firefox.com">Firefox</a></li>
       <li><a href="http://chrome.google.com">Chrome</a></li>
       <li><a href="http://www.apple.com/safari">Safari</a></li>
+      <?php elseif ($this->session->userdata('id')): # logged in ?>
+      
       <?php else: ?>
       <li><?php echo anchor("/register", "Register"); ?></li>
       <li><?php echo anchor("#", "Log in", array("id" => "loginlink")); ?></li>
       <?php endif; ?>
     </ul>
+    <?php $logStat = $this->session->flashdata('loginResult'); if ($logStat): 
+    if (strpos($logStat, "success")): ?>
+    <div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
+				<p><?php echo $logStat; ?></p>
+			</div>
+		</div>
+    <?php else: # Did not log in. ?>
+    <div class="ui-widget">
+			<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
+				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+				<strong>Alert:</strong> <?php echo $logStat; ?></p>
+			</div>
+		</div>
+    <?php endif; # end login message ?>
+    <?php endif; # end check for login attempt ?>
   </div>
 </header>
 <div class="clear"></div>
