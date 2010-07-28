@@ -17,7 +17,7 @@ $allCSS = array("css/960/960.css", "css/960/reset.css", "css/960/text.css", "sty
 foreach ($allCSS as $ac) { echo link_tag($ac); }
 if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
 if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
-<script type="text/javascript" src="js/IE8.js"></script>
+<script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
 <?php endif; # Info below is for various pages. ?>
 <script type="text/javascript">
@@ -60,8 +60,14 @@ foreach ($baseScripts as $script): ?>
   <h1 class="grid_9" id="logo"><a href="/"><img src="/images/logo.png" alt="Pump Pro Edits" title="Pump Pro Edits" /></a></h1>
   <div class="grid_3" id="userbar">
     <ul>
+      <?php if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
+      <li><a href="http://www.firefox.com">Firefox</a></li>
+      <li><a href="http://chrome.google.com">Chrome</a></li>
+      <li><a href="http://www.apple.com/safari">Safari</a></li>
+      <?php else: ?>
       <li><?php echo anchor("/register", "Register"); ?></li>
       <li><?php echo anchor("#", "Log in", array("id" => "loginlink")); ?></li>
+      <?php endif; ?>
     </ul>
   </div>
 </header>
@@ -72,7 +78,9 @@ foreach ($baseScripts as $script): ?>
 # $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <ul class="sf-menu">
 <li><?php echo anchor("/", "Home"); ?></li>
+<?php if ($this->agent->is_browser() and $this->session->userdata('browser') !== "Internet Explorer"): ?>
 <li><?php echo anchor("#", "Account Stuff"); ?></li>
+<?php endif; ?>
 <li><?php echo anchor("#", "Edits"); ?><ul>
 <li><?php echo anchor("/songs", "List by Song"); ?></li>
 <li><?php echo anchor("/users", "List by Author"); ?></li>
