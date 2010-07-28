@@ -15,7 +15,8 @@ $(function(){
   }); 
 });
 		
-$(document).ready(function() {  
+$(document).ready(function() {
+  $("#userbar li").removeClass("hide");
   // Tell jQuery that our div is to be a dialog  
   $('#loginbox').dialog({
     autoOpen: false,
@@ -56,6 +57,6 @@ $(document).ready(function() {
   });  
 
   $('#loginlink').click(function() {
-    $('#loginbox').dialog('open');
+    $('#loginbox').removeClass("hide").dialog('open');
     });  
 });

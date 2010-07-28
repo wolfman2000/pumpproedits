@@ -67,7 +67,7 @@ foreach ($baseScripts as $script): ?>
       <li><?php echo anchor("/logout", "Log out"); ?></li>
       <?php else: ?>
       <li><?php echo anchor("/register", "Register"); ?></li>
-      <li><a href="#" id="loginlink">Log in</a></li>
+      <li class="hide"><a href="#" id="loginlink">Log in</a></li>
       <?php endif; ?>
     </ul>
     <?php $logStat = $this->session->flashdata('loginResult'); if ($logStat): 
