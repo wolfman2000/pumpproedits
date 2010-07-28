@@ -79,11 +79,11 @@ foreach ($baseScripts as $script): ?>
       
       <?php else: ?>
       <li><?php echo anchor("/register", "Register"); ?></li>
-      <li><?php echo anchor("#", "Log in", array("id" => "loginlink")); ?></li>
+      <li><a href="#" id="loginlink">Log in</a></li>
       <?php endif; ?>
     </ul>
     <?php $logStat = $this->session->flashdata('loginResult'); if ($logStat): 
-    if (strpos($logStat, "success")): ?>
+    if (strpos($logStat, "Welcome") !== false): ?>
     <div class="ui-widget">
 			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
 				<p><?php echo $logStat; ?></p>

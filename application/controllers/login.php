@@ -20,7 +20,9 @@ class Login extends Controller
     $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
     if ($this->form_validation->run() === FALSE)
     {
-      $this->load->view('login/missing');
+      $this->session->set_flashdata('loginResult', "Fill in all fields.");
+      redirect($_SERVER['HTTP_REFERER'], "location", 303);
+      #$this->load->view('login/missing');
       return;
     }
     $this->load->model('ppe_user_condiment');
@@ -36,22 +38,28 @@ class Login extends Controller
     {
       $this->session->unset_userdata($unset);
       $this->output->set_status_header(409);
-      $this->load->view('login/invalid');
+      $this->session->set_flashdata('loginResult', "Invalid username/password combination.");
+      # $this->load->view('login/invalid');
     }
     elseif ($this->ppe_user_role->getIsUserBanned($id))
     {
       $this->session->unset_userdata($unset);
       $this->output->set_status_header(409);
-      $this->load->view('login/banned');
+      $this->session->set_flashdata('loginResult', "This account is banned.");
+      #$this->load->view('login/banned');
     }
     else
     {
       $roles = $this->ppe_user_role->getRolesByID($id);
       $this->load->model('ppe_user_user');
       $this->session->set_userdata('id', $id);
-      $this->session->set_userdata('username', $this->ppe_user_user->getCasedName($user));
+      $name = $this->ppe_user_user->getCasedName($user);
+      $this->session->set_userdata('username', $name);
       $this->session->set_userdata('roles', $roles);
-      $this->load->view('login/success');
+      $this->session->set_flashdata('loginResult', "Welcome ${name}.");
+      #$this->load->view('login/success');
     }
+    
+    redirect($_SERVER['HTTP_REFERER'], "location", 303);
   }
 }
