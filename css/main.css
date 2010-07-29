@@ -3,89 +3,128 @@ header, footer, nav, article, section
 {
 	display: block;
 }
-.error_list { color:red; font-weight:bold}
-.hide { display: none; visibility: hidden; }
-strong  {font-weight:bold}.success_list {color:green;font-weight:bold}
-@media screen{
-	html { 
-		background: url("/images/body-bg.png") repeat-y scroll center top #404551}  
-	html,.sans { font-family:"DejaVu Sans",Arial,Helvetica,sans; 
-font-size:1em} .serif { font-family:"DejaVu Serif","Times New Roman",Times,serif} 
-pre,.mono 
-{ font-family:"DejaVu Sans Mono",Courier,"Courier New",monospace} .tcenter { 
-text-align:center}
-p,pre { line-height:1.3em; /* padding-top:15px; padding-bottom:15px */}  
-table td,table th { padding:3px}  
-
-body { line-height:130%; }  
-
-header >h1 { text-align:left; font-size:2em; font-weight:bold; width: 700px; margin-right: 0; margin-bottom: 0;
-	  }
-	 
-header >h1 >a:link,header >h1 >a:visited { color:inherit; text-decoration:none}    
-
-div#userbar
-{
-	padding-left: 10px;
-	padding-right: 10px;
-	display: inline-block;
+.error_list
+{ 
+	color:red; font-weight:bold;
 }
-
-article
-{
-	background: url("/images/content-bg.png") no-repeat scroll center top #464957;
+.hide
+{ 
+	display: none; visibility: hidden; 
 }
-
-article > h2
+strong
 {
-	clear: both;
-	display: block;
-	padding-top: 1em;
-	text-align: center;
+	font-weight:bold
 }
-
-nav#main_nav
+.success_list
 {
-	background: #404551 url("/images/nav-active.png") repeat-x;
+	color:green; font-weight:bold;
 }
-
-footer
+@media screen
 {
-	margin-left: 0;
-	margin-right: 0;
-	background: #464957;
-}
-footer > p
-{
-	
-}
+	html
+	{ 
+		background: url("/images/body-bg.png") repeat-y scroll center top #404551;
+	}  
+	html,.sans 
+	{ 
+		font-family:"DejaVu Sans",Arial,Helvetica,sans; font-size:1em;
+	}
+	.serif 
+	{ 
+		font-family:"DejaVu Serif","Times New Roman",Times,serif;
+	} 
+	pre,.mono
+	{ 
+		font-family:"DejaVu Sans Mono",Courier,"Courier New",monospace;
+	} 
+	.tcenter 
+	{ 
+		text-align:center
+	}
+	p,pre 
+	{ 
+		line-height:1.3em;
+	}  
+	table td,table th 
+	{ 
+		padding:3px
+	}
+	body
+	{ 
+		line-height:130%; 
+	}
+	header > h1 
+	{ 
+		text-align:left; font-size:2em; font-weight:bold; 
+		width: 700px; margin-right: 0; margin-bottom: 0;
+	}
+	header >h1 >a:link, header >h1 >a:visited
+	{ 
+		color:inherit; text-decoration:none
+	}
 
-#userbar .ui-widget
-{
-	margin-top: 27px;
-	margin-left: 175px;
-	width: 200px;
-}
+	div#userbar
+	{
+		padding-left: 10px;
+		padding-right: 10px;
+		display: inline-block;
+	}
 
-#userbar .ui-widget > div
-{
-	padding: 0 .7em;
-}
+	article
+	{
+		background: url("/images/content-bg.png") no-repeat scroll center top #464957;
+	}
 
-#userbar .ui-widget span
-{
-	float: left;
-	margin-right: .3em;
-}
+	article > h2
+	{
+		clear: both;
+		display: block;
+		padding-top: 1em;
+		text-align: center;
+	}
 
-#userbar p
-{
-	margin-bottom: 0;
-}
+	nav#main_nav
+	{
+		background: #404551 url("/images/nav-active.png") repeat-x;
+	}
 
-/* Login form details below. */
+	footer
+	{
+		margin-left: 0;
+		margin-right: 0;
+		background: #464957;
+	}
+	footer > p
+	{
+		
+	}
 
-form#loginForm dl
+	#userbar .ui-widget
+	{
+		margin-top: 27px;
+		margin-left: 175px;
+		width: 200px;
+	}
+
+	#userbar .ui-widget > div
+	{
+		padding: 0 .7em;
+	}
+
+	#userbar .ui-widget span
+	{
+		float: left;
+		margin-right: .3em;
+	}
+
+	#userbar p
+	{
+		margin-bottom: 0;
+	}
+
+	/* Login form details below. */
+
+	form#loginForm dl
 	{ 
 		font-family:"DejaVu Sans Mono",Courier,"Courier New",monospace
 	} 
