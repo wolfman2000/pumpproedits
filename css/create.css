@@ -110,7 +110,7 @@
 	{
 		font-weight: bold;
 	}
-	li.long, li.long textarea
+	#topButtons > li.long, li.long, li.long textarea
 	{
 		width: 20em;
 	}
