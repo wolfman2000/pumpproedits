@@ -12,7 +12,7 @@
 $title .= " — Pump Pro Edits";
 else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
 <?php if (!(isset($css))) { $css = 'css/main.css'; } 
-$allCSS = array("css/960/960.css", "css/960/reset.css", "css/960/text.css", "style.css", 
+$allCSS = array("css/960/960.css", "css/960/reset.css", "css/960/text.css",
 "css/superfish.css", "css/custom-theme/jquery-ui-1.8.2.custom.css", $css);
 foreach ($allCSS as $ac) { echo link_tag($ac); }
 if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
