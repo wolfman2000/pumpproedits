@@ -1,8 +1,4 @@
 <nav id="svg_nav" title="Edit Creator Draggable Control Panel">
-<?php if ($this->session->userdata('id')): ?>
-<p id="authIntro"><?php echo
-anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></p>
-<?php endif; ?>
 <p id="intro">Javascript required!</p>
 <?php echo form_open_multipart('create/download', array('id' => 'svg_nav_form')); ?>
 <dl>
