@@ -6,7 +6,7 @@
 // Indicate where the shadow square goes.
 function showRect(x, y)
 {
-  $("#shadow#").attr('x', x).attr('y', y + BUFF_TOP).show();
+  $("#shadow").attr('x', x).attr('y', y + BUFF_TOP).attr('class', '');
   $("#mCheck").text(Math.floor(y / BEATS_MAX * MEASURE_RATIO) + 1);
   $("#yCheck").text(Math.round(y * MEASURE_RATIO) % BEATS_MAX);
 }
@@ -20,22 +20,15 @@ function shadow(pX, pY, pnt)
   
   if (navigator.userAgent.indexOf("WebKit") >= 0)
   {
-    var curleft = curtop = 0;
-    pnt = pnt[0]; // force HTML mode.
-    do
-    {
-      curleft += pnt.offsetLeft;
-      curtop += pnt.offsetTop;
-    } while (pnt = pnt.offsetParent);
-  
-    mX = Math.floor(pX - curleft - BUFF_LFT * SCALE);
-    mY = Math.floor(pY - curtop - BUFF_TOP * SCALE);
+    mX = pX - $("#svg").offset().left - BUFF_LFT * SCALE;
+    mY = pY - $("#svg").offset().top - BUFF_TOP * SCALE;
   }
   else
   {
-    mX = pX - pnt.offset().left;
-    mY = pY - pnt.offset().top;
+    mX = pX - pnt.left;
+    mY = pY - pnt.top;
   }
+  
   var maxY = Math.floor($("#svgMeas > svg:last-child").attr('y')) + 3 * ARR_HEIGHT;
   var maxX = columns * ADJUST_SIZE;
   if (!(mX < 0 || mX > maxX || mY < 0 || mY > SCALE * maxY))

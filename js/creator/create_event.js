@@ -5,7 +5,7 @@
 // Hide the rectangle when not in use.
 function hideRect()
 {
-  $("#shadow").attr('x', 0).attr('y', 0).hide();
+  $("#shadow").attr('x', 0).attr('y', 0).attr('class', 'hide');
   $("#yCheck").text("???");
   $("#mCheck").text("???");
 }
@@ -15,8 +15,7 @@ function checkShadow(e)
 {
   // No placing arrows while loading stuff.
   if ($(".buttons li[class^=load]:visible").length) { return; }
-  var pnt = $("#m1r0");
-  if (pnt.offset()) { shadow(e.pageX, e.pageY, pnt); }
+  shadow(e.pageX, e.pageY, $("#m1r0").offset());
 }
 
 // Add the arrow in the appropriate position.
@@ -335,7 +334,9 @@ function init()
   $("nav dd.edit").hide();
   $("nav li[class^=load]").hide();
   $(".loadOther").hide();
-  $("#notes > rect").hide();
+  $("#selTop").hide();
+  $("#selBot").hide();
+  $("#shadow").attr('class', 'hide');
   $("nav *.choose").show();
   $("#stylelist").addClass('ui-state-disabled');
   $("#but_sub").addClass('ui-state-disabled');
