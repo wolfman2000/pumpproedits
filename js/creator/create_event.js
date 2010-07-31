@@ -5,7 +5,7 @@
 // Hide the rectangle when not in use.
 function hideRect()
 {
-  $("#shadow").attr('x', 0).attr('y', 0).attr('class', 'hide');
+  $("#shadow").attr('x', 0).attr('y', 0).addClass('hide');
   $("#yCheck").text("???");
   $("#mCheck").text("???");
 }
@@ -336,7 +336,7 @@ function init()
   $(".loadOther").hide();
   $("#selTop").hide();
   $("#selBot").hide();
-  $("#shadow").attr('class', 'hide');
+  $("#shadow").addClass('hide');
   $("nav *.choose").show();
   $("#stylelist").addClass('ui-state-disabled');
   $("#but_sub").addClass('ui-state-disabled');

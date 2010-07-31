@@ -1,5 +1,6 @@
 <?php
-$scripts = array('/js/creator/create_vars.js', '/js/creator/create_svg.js',
+$scripts = array('/js/jquery.svg.js', '/js/jquery.svgdom.js',
+  '/js/creator/create_vars.js', '/js/creator/create_svg.js',
   '/js/creator/create_parse.js', '/js/creator/create_misc.js',
   '/js/creator/create_event.js', '/js/creator/create.js');
 $this->load->view('global/header',

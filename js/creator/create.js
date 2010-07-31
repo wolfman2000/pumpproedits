@@ -41,7 +41,7 @@ $(document).ready(function()
   $("#svg").mousemove(function(e){ if (songID) checkShadow(e); });
   // If the shadow rectangle is out, perform these.
   $("#svg").click(function(){
-    if ($("#shadow").attr('class').length) return;
+    if ($("#shadow").hasClass('hide')) return;
     if (selMode == 0) // insert mode
     {
       changeArrow();

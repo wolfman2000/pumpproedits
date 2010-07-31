@@ -6,7 +6,7 @@
 // Indicate where the shadow square goes.
 function showRect(x, y)
 {
-  $("#shadow").attr('x', x).attr('y', y + BUFF_TOP).attr('class', '');
+  $("#shadow").attr('x', x).attr('y', y + BUFF_TOP).removeClass('hide');
   $("#mCheck").text(Math.floor(y / BEATS_MAX * MEASURE_RATIO) + 1);
   $("#yCheck").text(Math.round(y * MEASURE_RATIO) % BEATS_MAX);
 }
