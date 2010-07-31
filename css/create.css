@@ -44,6 +44,10 @@
 		width: 50%;
 		float: left;
 	}
+	#navEditControls > li, #allEditInfo > li, #navEditInfo > li, #navEditTransform > li
+	{
+		width: 9.5em;
+	}
 	#navEditTransform > li.long, #navEditControls > li.long
 	{
 		width: 20em;
