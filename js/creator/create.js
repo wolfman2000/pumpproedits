@@ -37,15 +37,11 @@ $(document).ready(function()
   // Don't show the rectangle when not in play.
   $("#svg").mouseout(function(){ hideRect(); });
   // Show the rectangle if the mouse is over a measure.
-  $("#svg").mouseover(function(e){ checkShadow(e); });
-  $("#svg").mousemove(function(e){ checkShadow(e); });
+  $("#svg").mouseover(function(e){ if (songID) checkShadow(e); });
+  $("#svg").mousemove(function(e){ if (songID) checkShadow(e); });
   // If the shadow rectangle is out, perform these.
   $("#svg").click(function(){
-    /* if (navigator.userAgent.indexOf("WebKit") >= 0)
-    {
-      if (Math.floor($("#shadow").attr('x')) <= 0) return;
-    }
-    else */if ($("#shadow").attr('class').length) return;
+    if ($("#shadow").attr('class').length) return;
     if (selMode == 0) // insert mode
     {
       changeArrow();
