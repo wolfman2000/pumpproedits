@@ -12,9 +12,5 @@ browser. The recommended browsers are listed at the top of this page.
 available for you to use. As an added bonus, if you log in before visiting,
 you will be able to upload your work directly to your account!</p>
 <?php endif; ?>
-<p>If you want instant access on when edits are contributed or
-when there is an internal website update,
-<a href="http://www.twitter.com/pumpproedits">follow pumpproedits
-on Twitter</a>.</p>
 <p>Hope you enjoy the place and the new look!</p>
 <?php $this->load->view('global/footer'); ?>
