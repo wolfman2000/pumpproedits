@@ -139,7 +139,9 @@ strong
 		
 	#footer-right 
 	{
-		width:240px;	
+		width:230px;
+		padding-right: 10px;
+		text-align: right;
 	}
 	
 	/* Menu skin information */
