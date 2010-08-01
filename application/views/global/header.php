@@ -61,11 +61,13 @@ foreach ($baseScripts as $script): ?>
       <li><a href="http://www.firefox.com">Firefox</a></li>
       <li><a href="http://chrome.google.com">Chrome</a></li>
       <li><a href="http://www.apple.com/safari">Safari</a></li>
+      <li><a href="http://www.opera.com">Opera</a></li>
       <?php elseif ($this->session->userdata('id')): # logged in ?>
       <li><a href="#"><?php echo $this->session->userdata('username'); ?></a></li>
       <li><?php echo anchor("/user/" . $this->session->userdata('id'), "Your Edits"); ?></li>
       <li><?php echo anchor("/logout", "Log out"); ?></li>
       <?php else: ?>
+      <li><?php echo anchor("/help", "Account Help"); ?></li>
       <li><?php echo anchor("/register", "Register"); ?></li>
       <li class="hide"><a href="#" id="loginlink">Log in</a></li>
       <?php endif; ?>

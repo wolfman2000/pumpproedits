@@ -5,13 +5,6 @@
 # $this->load->view('global/mess_' . ($uid === false ? 'out' : 'in')); ?>
 <ul class="sf-menu">
 <li><?php echo anchor("/", "Home"); ?></li>
-<?php if (!$uid and $this->agent->is_browser() and $this->session->userdata('browser') !== "Internet Explorer"): ?>
-<li><?php echo anchor("#", "Account Stuff"); ?><ul>
-<li><?php echo anchor("/confirm", "Confirm Account"); ?></li>
-<li><?php echo anchor("/help", "Account Help"); ?></li>
-<li><?php echo anchor("/reset", "Reset Password"); ?></li>
-</ul></li>
-<?php endif; ?>
 <li><?php echo anchor("#", "Browse Edits"); ?><ul>
 <li><?php echo anchor("/songs", "List by Song"); ?></li>
 <li><?php echo anchor("/users", "List by Author"); ?></li>
