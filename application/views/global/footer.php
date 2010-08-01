@@ -18,13 +18,12 @@
 
 <footer class="grid_12">
 <section class="grid_9" id="footer-left">
-<p>Questions? Comments? Bugs? <a href="http://www.pumpproedits.com/contact" title="Contact">Contact me</a><br />
-Please also check out our sister site, <a href="http://www.itgedits.info/" title="ITG Edits">ITG Edits</a><br />
-<a href="http://www.twitter.com/pumpproedits" title="Twitter">Follow me on Twitter</a>
+<p>Sister Site: <a href="http://www.itgedits.info/" title="ITG Edits">ITG Edits</a><br />
+<a href="http://www.twitter.com/pumpproedits" title="Twitter">Follow PumpProEdits on Twitter</a>
 </p>
 </section>
 <section class="grid_3" id="footer-right">
-<p>Proudly built by Jason "Wolfman2000" Felds</p>
+<p>Proudly built by <a href="mailto:jafelds@gmail.com">Jason "Wolfman2000" Felds</a></p>
 <?php if (strpos($_SERVER['SERVER_NAME'], "localhost") === false): ?>
 <!-- Site Meter -->
 <script type="text/javascript" src="http://s36.sitemeter.com/js/counter.js?site=s36pumpproedits">
