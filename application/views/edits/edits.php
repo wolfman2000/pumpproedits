@@ -56,7 +56,7 @@ foreach ($query as $z): ?>
     </div>
   </div>
   <div class="edit-right">
-    <div class="edit-difficulty" title="Difficulty"><?php echo $z->diff; ?></div>
+    <div class="edit-difficulty" title="<?php echo ucfirst($z->style); ?> Difficulty"><?php echo $z->diff; ?></div>
   </div>
 </div>
 <?php endforeach; ?>
