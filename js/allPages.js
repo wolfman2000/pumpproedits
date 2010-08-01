@@ -7,9 +7,9 @@ $(function(){
                        // due to slight rounding differences and font-family 
   })
   .superfish({
-    delay:       200,                            // one second delay on mouseout 
+    delay:       400,                            // one second delay on mouseout 
     animation:   {height:'show'},  // fade-in and slide-down animation 
-    speed:       'fast',                          // faster animation speed 
+    speed:       100,                          // faster animation speed 
     autoArrows:  true,                           // disable generation of arrow mark-up 
     dropShadows: false                     // disable drop shadows 
   }); 
