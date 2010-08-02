@@ -67,7 +67,6 @@ foreach ($baseScripts as $script): ?>
       <li><?php echo anchor("/user/" . $this->session->userdata('id'), "Your Edits"); ?></li>
       <li><?php echo anchor("/logout", "Log out"); ?></li>
       <?php else: ?>
-      <li><?php echo anchor("/help", "Account Help"); ?></li>
       <li><?php echo anchor("/register", "Register"); ?></li>
       <li class="hide"><a href="#" id="loginlink">Log in</a></li>
       <?php endif; ?>
