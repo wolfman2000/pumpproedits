@@ -23,7 +23,7 @@ $(document).ready(function() {
     modal: true,
     resizable: false,
     width: 400,
-    height: 250,
+    height: 270,
     buttons: {
       'Log in': function(){
         var good = 1;
@@ -47,11 +47,11 @@ $(document).ready(function() {
         }
         if (good) $("#loginForm").submit();
       },
-      'Forgot password?': function(){
+      'Trouble logging in?': function(){
         document.location.href = location.protocol + "//" + location.host + '/help';
       },
       'Register': function(){
-        // Register button
+        document.location.href = location.protocol + "//" + location.host + "/register";
       }
     }
   });  
