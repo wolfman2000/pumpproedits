@@ -1,5 +1,5 @@
 This is the repository for Pump Pro Edits V3: Player Power.
-The website is at http://beta.pumpproedits.com for now.
+The website is at http://www.pumpproedits.com for now.
 It is called as such because the players can now directly
 contribute to how the website looks, feels, and behaves.
 You can now follow the source contributions to the website
@@ -11,7 +11,7 @@ While this is designed to be a standard project, minor
 configuration and setup is required to play around
 with this website on your own computer.
 
-1) The project uses SQLite 3 by default. However,
+1) The project uses MySQL by default. However,
 the database is not included. For that matter,
 nothing in the data folder is included. That data
 will have to be recreated for your own use.
