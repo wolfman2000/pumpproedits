@@ -4,6 +4,30 @@
  */
 $(document).ready(function()
 {
+  // Set up the portable dialog.
+  $('#svg_nav').dialog({
+    autoOpen: true,
+    modal: false,
+    resizable: false,
+    width: 300,
+    height: 450,
+    minHeight: 400,
+    position: Array(0, 50),
+    open: function(){
+      $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar-close").remove();
+    }
+  }).parent().css({position: "fixed"});
+  
+  $("#tabs").tabs().removeClass('ui-tabs').find(">:first-child").removeClass('ui-widget-header');
+
+  $("button").hover(
+	function(){ 
+		$(this).addClass("ui-state-hover"); 
+	},
+	function(){ 
+		$(this).removeClass("ui-state-hover"); 
+	});
+
   init();
   $("#svg_nav_form").attr('style', 'display:block;');
   $("#songlist").val('');
@@ -13,15 +37,11 @@ $(document).ready(function()
   // Don't show the rectangle when not in play.
   $("#svg").mouseout(function(){ hideRect(); });
   // Show the rectangle if the mouse is over a measure.
-  $("#svg").mouseover(function(e){ checkShadow(e); });
-  $("#svg").mousemove(function(e){ checkShadow(e); });
+  $("#svg").mouseover(function(e){ if (songID) checkShadow(e); });
+  $("#svg").mousemove(function(e){ if (songID) checkShadow(e); });
   // If the shadow rectangle is out, perform these.
   $("#svg").click(function(){
-    if (navigator.userAgent.indexOf("WebKit") >= 0)
-    {
-      if (Math.floor($("#shadow").attr('x')) <= 0) return;
-    }
-    else if (!$("#shadow").is(":visible")) return;
+    if ($("#shadow").hasClass('hide')) return;
     if (selMode == 0) // insert mode
     {
       changeArrow();
@@ -57,7 +77,7 @@ $(document).ready(function()
     }
     if (checking)
     {
-      $("#but_load").attr('disabled', true);
+      $("#but_load").removeClass('ui-state-disabled')
       function loadButtons()
       {
         $("li.edit").hide();
@@ -90,9 +110,9 @@ $(document).ready(function()
     {
       saveChart(data);
       $("#intro").text("You can save your work!");
-      $("#but_save").removeAttr('disabled');
-      $("#but_val").attr('disabled', true);
-      if (authed > 0) { $("#but_sub").removeAttr('disabled'); }
+      $("#but_save").removeClass('ui-state-disabled');
+      $("#but_val").addClass('ui-state-disabled');
+      if (authed > 0) { $("#but_sub").removeClass('ui-state-disabled'); }
     }
     else
     {
@@ -116,7 +136,7 @@ $(document).ready(function()
     if (item == "off" && others > 0) {
       $("li.loadSong").show();
       $("li[class^=load]:not(.loadSong)").hide();
-      $("#loadDifficulty").attr("disabled", true);
+      $("#loadDifficulty").addClass('ui-state-disabled');
       $("#loadSong").val('');
     };
     if (item == "all" && others > 0) {
@@ -136,7 +156,7 @@ $(document).ready(function()
     if (songID.length > 0)
     {
       $("#intro").text("Setting up styles...")
-      $("#loadDifficulty").attr("disabled", true);
+      $("#loadDifficulty").addClass('ui-state-disabled');
       $.getJSON(baseURL + "/routine/" + songID, function(data, status)
       {
         var diff = $("#loadDifficulty").val();
@@ -145,23 +165,23 @@ $(document).ready(function()
           if (diff == "rt")
           {
             $("#loadDifficulty").val("");
-            $("#song_yes").attr("disabled", true);
+            $("#song_yes").addClass('ui-state-disabled');
           }
         }
-        $("#loadDifficulty").removeAttr("disabled");
+        $("#loadDifficulty").removeClass('ui-state-disabled');
       });
     }
     else
     {
-      $("#loadDifficulty").attr("disabled", "disabled");
-      $("#song_yes").removeAttr("disabled");
+      $("#loadDifficulty").addClass('ui-state-disabled');
+      $("#song_yes").removeClass('ui-state-disabled');
     }
   });
   
   // The admin has chosen a song and style, and thus can load the chart.
   $("#loadDifficulty").change(function(){
-    if ($("#loadDifficulty").val().length) { $("#song_yes").removeAttr("disabled"); }
-    else                                   { $("#song_yes").attr("disabled", true); }
+    if ($("#loadDifficulty").val().length) { $("#song_yes").removeClass('ui-state-disabled'); }
+    else                                   { $("#song_yes").addClass('ui-state-disabled'); }
   });
   
   // The admin is ready to load the chart (if it exists)
@@ -171,11 +191,11 @@ $(document).ready(function()
   $("#fCont").keyup(function(){
     if ($("#fCont").val().length)
     {
-      $("#but_file").removeAttr('disabled');
+      $("#but_file").removeClass('ui-state-disabled');
     }
     else
     {
-      $("#but_file").attr('disabled', true);
+      $("#but_file").addClass('ui-state-disabled');
     }
   });
   
@@ -186,10 +206,10 @@ $(document).ready(function()
     {
       loadEdit(data);
       $("#intro").text("All loaded up!");
-      $("#but_save").removeAttr('disabled');
-      $("#but_val").attr('disabled', 'disabled');
-      if (andamiro) { $(".author").show(); $("#authorlist").removeAttr('disabled'); }
-      else          { $(".author").hide(); $("#authorlist").attr("disabled", true); }
+      $("#but_save").removeClass('ui-state-disabled');
+      $("#but_val").addClass('ui-state-disabled');
+      if (andamiro) { $(".author").show(); $("#authorlist").removeClass('ui-state-disabled'); }
+      else          { $(".author").hide(); $("#authorlist").addClass('ui-state-disabled'); }
       isDirty = false;
     }, "json");
   });
@@ -201,7 +221,7 @@ $(document).ready(function()
     $.getJSON(baseURL + "/loadWebEdit/" + editID, function(data) {
       loadEdit(data, 1);
       $("#intro").text("All loaded up!");
-      $("#authorlist").attr("disabled", "disabled");
+      $("#authorlist").addClass('ui-state-disabled');
       $("li.author:eq(0)").next().andSelf().hide();
       $("li.author:eq(2)").next().andSelf().show();
       isDirty = false;
@@ -231,13 +251,13 @@ $(document).ready(function()
       $("#intro").text("Setting up styles...")
       $.getJSON(baseURL + "/routine/" + songID, function(data, status)
       {
-        $("#stylelist").removeAttr("disabled");
+        $("#stylelist").removeClass('ui-state-disabled');
         if (data.isRoutine > 0) { $("#stylelist > option:last-child").show(); }
         else                    { $("#stylelist > option:last-child").hide(); }
         $("#intro").text("What style for today?");
       });
     }
-    else { $("#stylelist").attr("disabled", "disabled"); }
+    else { $("#stylelist").addClass('ui-state-disabled'); }
   });
 
   // The author wants to work with this style.
@@ -254,41 +274,41 @@ $(document).ready(function()
   
   // The author wishes to change the edit title / name.
   $("#editName").keyup(function(){
-    $("#but_save").attr('disabled', true);
-    $("#but_sub").attr('disabled', true);
+    $("#but_save").addClass('ui-state-disabled');
+    $("#but_sub").addClass('ui-state-disabled');
     var t = $("#editName").val().length;
     if (t > 0 && t <= 12)
     {
       if (Math.floor($("#editDiff").val()) > 0)
       {
-        $("#but_val").removeAttr('disabled');
+        $("#but_val").removeClass('ui-state-disabled');
         $("#intro").text("Validate your edit before saving.");
       }
     }
     else
     {
-      $("#but_val").attr('disabled', true);
+      $("#but_val").addClass('ui-state-disabled');
       $("#intro").text("Provide an edit title and difficulty.");
     }
   });
 
   // The author wishes to rate the edit.
   $("#editDiff").keyup(function(){
-    $("#but_save").attr('disabled', true);
-    $("#but_sub").attr('disabled', true);
+    $("#but_save").addClass('ui-state-disabled');
+    $("#but_sub").addClass('ui-state-disabled');
     var t = parseInt($("#editDiff").val());
     if (t > 0 && t < 100)
     {
       t = $("#editName").val().length;
       if (t > 0 && t <= 12)
       {
-        $("#but_val").removeAttr('disabled');
+        $("#but_val").removeClass('ui-state-disabled');
         $("#intro").text("Validate your edit before saving.");
       }
     }
     else
     {
-      $("#but_val").attr('disabled', true);
+      $("#but_val").addClass('ui-state-disabled');
       $("#intro").text("Provide an edit title and difficulty.");
     }
   });

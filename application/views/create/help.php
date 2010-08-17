@@ -7,6 +7,7 @@
 <body>
 <h1>Edit Creator Help</h1>
 <ul id="top">
+<li><a href="#yout">YouTube</a></li>
 <li><a href="#core">Core Buttons</a></li>
 <li><a href="#song">Song Mode</a></li>
 <li><a href="#edit">Edit Mode</a>
@@ -17,6 +18,16 @@
 <li><a href="#keyb">Keyboard Shortcuts</a></li>
 <li><a href="#thnk">Thanks</a></li>
 </ul>
+<section id="yout">
+<h2>YouTube</h2>
+<p>A 4 part miniseries for using this editor is available
+<a href="http://www.youtube.com/watch?v=hXzzuNheA_I" target="_blank">here
+(new tab/window)</a>.
+It can actually show you how to use this Edit Creator rather
+than just tell you how.</p>
+<?php echo $back; ?>
+</section>
+
 <section id="core">
 <h2>Core Buttons</h2>
 <dl>

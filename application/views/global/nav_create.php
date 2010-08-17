@@ -1,8 +1,4 @@
-<nav id="svg_nav">
-<?php if ($this->session->userdata('id')): ?>
-<p id="authIntro"><?php echo
-anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></p>
-<?php endif; ?>
+<nav id="svg_nav" title="Edit Creator Draggable Control Panel">
 <p id="intro">Javascript required!</p>
 <?php echo form_open_multipart('create/download', array('id' => 'svg_nav_form')); ?>
 <dl>
@@ -14,24 +10,24 @@ anchor('/user/' . $this->session->userdata('id'), 'View your edits here!'); ?></
 <input type="hidden" id="title" name="title" value="not empty" />
 </dt>
 <dd class="buttons"><ul id="topButtons">
-<li><button id="but_new" type="button">New</button></li>
-<li><button id="but_help" type="button">Help</button></li>
-<li><button id="but_load" type="button">Load</button></li>
-<li><button id="but_val" type="button">Validate</button></li>
+<li><button id="but_new" type="button" class="fg-button ui-state-default ui-corner-all">New</button></li>
+<li><button id="but_help" type="button" class="fg-button ui-state-default ui-corner-all">Help</button></li>
+<li><button id="but_load" type="button" class="fg-button ui-state-default ui-corner-all">Load</button></li>
+<li><button id="but_val" type="button" class="fg-button ui-state-default ui-corner-all">Validate</button></li>
 <li class="loadWeb long reset">What are you editing?</li>
 <li class="loadWeb long reset"><select id="web_sel">
 <?php foreach ($loads as $l): ?>
 <option value="<?php echo $l['id']; ?>"><?php echo $l['value']; ?></option>
 <?php endforeach; ?></select></li>
-<li class="loadWeb"><button id="web_yes" type="button">Select</button></li>
-<li class="loadWeb"><button id="web_no" type="button">Nevermind</button></li>
+<li class="loadWeb"><button id="web_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
+<li class="loadWeb"><button id="web_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadOther long reset">Choose a person for edits...carefully.</li>
 <li class="loadOther long"><select id="other_sel">
 <?php foreach ($peeps as $p): ?>
 <option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
 <?php endforeach; ?></select></li>
-<li class="loadOther"><button id="other_yes" type="button">Select</button></li>
-<li class="loadOther"><button id="other_no" type="button">Nevermind</button></li>
+<li class="loadOther"><button id="other_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
+<li class="loadOther"><button id="other_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadSong long reset"><label for="loadSong">Select your song!</label></li>
 <li class="loadSong long"><select id="loadSong" name="loadSong">
 <option value="" selected="selected">Choose</option>
@@ -56,18 +52,18 @@ if ($s->gid != $ind): ?>
 <option value="nm">Nightmare</option>
 <option value="rt">Routine</option>
 </select></li>
-<li class="loadSong"><button id="song_yes" type="button">Select</button></li>
-<li class="loadSong"><button id="song_no" type="button">Nevermind</button></li>
+<li class="loadSong"><button id="song_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
+<li class="loadSong"><button id="song_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadSite long">Select your edit below.</li>
 <li class="loadSite long"><select id="mem_edit"></select></li>
-<li class="loadSite reset"><button id="mem_load" type="button">Load Edit</button></li>
-<li class="loadSite"><button id="mem_nogo" type="button">Nevermind</button></li>
+<li class="loadSite reset"><button id="mem_load" type="button" class="fg-button ui-state-default ui-corner-all">Load Edit</button></li>
+<li class="loadSite"><button id="mem_nogo" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadFile long reset">Paste the edit contents below.</li>
 <li class="loadFile long reset"><textarea id="fCont" name="fCont"></textarea></li>
-<li class="loadFile reset"><button id="but_file" type="button">Load File</button></li>
-<li class="loadFile"><button id="rem_file" type="button">Nevermind</button></li>
-<li class="edit"><button id="but_save" type="submit">Save</button></li>
-<li class="edit"><button id="but_sub" type="button">Submit</button></li>
+<li class="loadFile reset"><button id="but_file" type="button" class="fg-button ui-state-default ui-corner-all">Load File</button></li>
+<li class="loadFile"><button id="rem_file" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
+<li class="edit"><button id="but_save" type="submit" class="fg-button ui-state-default ui-corner-all">Save</button></li>
+<li class="edit"><button id="but_sub" type="button" class="fg-button ui-state-default ui-corner-all">Submit</button></li>
 </ul></dd>
 <dt class="choose"></dt>
 <dd class="choose"><ul id="newEditChoice">
@@ -155,7 +151,7 @@ if ($s->gid != $ind): ?>
 <li class="sections long reset"><label for="sectionList">Which song section do you want?</label></li>
 <li class="sections long reset"><select id="sectionList"></select></li>
 <?php # The li below will become two when/if music is allowed. ?>
-<li class="sections long reset"><button id="sectionJump" type="button">Jump to Section</button></li>
+<li class="sections long reset"><button id="sectionJump" type="button" class="fg-button ui-state-default ui-corner-all">Jump to Section</button></li>
 </ul>
 
 <ul id="navEditInfo">
@@ -192,15 +188,15 @@ if ($s->gid != $ind): ?>
 <li class="long">Second Selected Row:</li>
 <li class="reset">Measure <span id="s_mCheck">???</span></li>
 <li>Beat <span id="s_yCheck">???</span> / 192</li>
-<li><button id="transformCut" type="button">Cut</button></li>
-<li><button id="transformCopy" type="button">Copy</button></li>
-<?php #<li class="three"><button id="transformPast" type="button">Paste</button></li> ?>
-<li><button id="transformRotateLeft" type="button">Rotate Left</button></li>
-<li><button id="transformRotateRight" type="button">Rotate Right</button></li>
-<li><button id="transformMoveUp" type="button">Move Up</button></li>
-<li><button id="transformMoveDown" type="button">Move Down</button></li>
-<li><button id="transformMirrorSimple" type="button">Mirror</button></li>
-<li><button id="transformMirrorDiag" type="button">Mirror Diagonally</button></li>
+<li><button id="transformCut" type="button" class="fg-button ui-state-default ui-corner-all">Cut</button></li>
+<li><button id="transformCopy" type="button" class="fg-button ui-state-default ui-corner-all">Copy</button></li>
+<?php #<li class="three"><button id="transformPast" type="button" class="fg-button ui-state-default ui-corner-all">Paste</button></li> ?>
+<li><button id="transformRotateLeft" type="button" class="fg-button ui-state-default ui-corner-all">Rotate Left</button></li>
+<li><button id="transformRotateRight" type="button" class="fg-button ui-state-default ui-corner-all">Rotate Right</button></li>
+<li><button id="transformMoveUp" type="button" class="fg-button ui-state-default ui-corner-all">Move Up</button></li>
+<li><button id="transformMoveDown" type="button" class="fg-button ui-state-default ui-corner-all">Move Down</button></li>
+<li><button id="transformMirrorSimple" type="button" class="fg-button ui-state-default ui-corner-all">Mirror</button></li>
+<li><button id="transformMirrorDiag" type="button" class="fg-button ui-state-default ui-corner-all">Mirror Diagonally</button></li>
 </ul>
 
 </dd>

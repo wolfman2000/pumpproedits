@@ -5,7 +5,7 @@
 // Hide the rectangle when not in use.
 function hideRect()
 {
-  $("#shadow").attr('x', 0).attr('y', 0).hide();
+  $("#shadow").attr('x', 0).attr('y', 0).addClass('hide');
   $("#yCheck").text("???");
   $("#mCheck").text("???");
 }
@@ -15,8 +15,7 @@ function checkShadow(e)
 {
   // No placing arrows while loading stuff.
   if ($(".buttons li[class^=load]:visible").length) { return; }
-  var pnt = $("#m1r0");
-  if (pnt.offset()) { shadow(e.pageX, e.pageY, pnt); }
+  shadow(e.pageX, e.pageY, $("#m1r0").offset());
 }
 
 // Add the arrow in the appropriate position.
@@ -26,7 +25,7 @@ function changeArrow()
   var rX = parseInt(r.attr('x'));
   var rY = parseFloat(r.attr('y'));
   isDirty = true;
-  $("#but_val").attr('disabled', true);
+  $("#but_val").addClass('ui-state-disabled');
 
   var css = getNote($("#yCheck").text()); // get the class based on the beat.
   var cX = (rX - BUFF_LFT) / ARR_HEIGHT; // which column are we using?
@@ -136,15 +135,15 @@ function updateStats(data)
   $("#statL").text(L);
   $("#statF").text(F);
 
-  $("#but_save").attr('disabled', true);
-  $("#but_sub").attr('disabled', true);
+  $("#but_save").addClass('ui-state-disabled');
+  $("#but_sub").addClass('ui-state-disabled');
   var t = $("#editName").val().length;
   if (t > 0 && t <= 12 && parseInt($("#editDiff").val()) > 0)
   {
     if (data.steps[0] || data.steps[1] || data.mines[0] || data.mines[1] ||
         data.lifts[0] || data.lifts[1] || data.fakes[0] || data.fakes[1])
     {
-      $("#but_val").removeAttr('disabled');
+      $("#but_val").removeClass('ui-state-disabled');
       $("#intro").text("Validate your edit before saving.");
     }
     else
@@ -164,8 +163,8 @@ function loadHardDrive()
   $("#fCont").val('');
   $(".loadFile").show();
   $("li[class^=load]:not(.loadFile)").hide();
-  $("li.loadFile > *").removeAttr('disabled');
-  $("#but_file").attr('disabled', true);
+  $("li.loadFile > *").removeClass('ui-state-disabled');
+  $("#but_file").addClass('ui-state-disabled');
   $("#intro").text("You can load your edit now.");
 }
 // Load the chosen edit...or at least, load the common stuff here.
@@ -191,7 +190,7 @@ function cancelLoad()
   $("nav li[class^=load]").hide();
   $("#fCont").val('');
   $("li.edit").show();
-  $("#but_load").removeAttr('disabled');
+  $("#but_load").removeClass('ui-state-disabled');
   if (!$("#stylelist").val().length) { $(".choose").show(); }
 }
 
@@ -201,7 +200,7 @@ function songMode()
 {
   $("#intro").text("Loading chart...");
   $("li[class^=load]").hide();
-  $("#authorlist").attr("disabled", "disabled");
+  $("#authorlist").addClass('ui-state-disabled');
   songID = $("#loadSong").val();
   var diff = $("#loadDifficulty").val();
   $("#notes > g").children().remove(); // remove the old chart.
@@ -245,10 +244,10 @@ function songMode()
     var phrase = songData.name + " " + data.title;
     $("h2").first().text(phrase);
     $("title").text("Editing " + phrase + " — Pump Pro Edits");
-    $("#but_new").removeAttr('disabled');
-    $("#editName").removeAttr('disabled').val(data.author);
+    $("#but_new").removeClass('ui-state-disabled');
+    $("#editName").removeClass('ui-state-disabled').val(data.author);
     $("#editDiff").val(data.diff);
-    $("#but_load").removeAttr('disabled');
+    $("#but_load").removeClass('ui-state-disabled');
     
     loadChart(data.notes);
     if (data.notes) { updateStats(data); }
@@ -286,8 +285,8 @@ function editMode(canPublic)
     var phrase = songData.name + " " + $("#stylelist").val().capitalize();
     $("h2").first().text(phrase);
     $("title").text("Editing " + phrase + " — Pump Pro Edits");
-    $("#but_new").removeAttr('disabled');
-    $("#editName").removeAttr('disabled');
+    $("#but_new").removeClass('ui-state-disabled');
+    $("#editName").removeClass('ui-state-disabled');
     
     if (!authed)
     {
@@ -295,8 +294,8 @@ function editMode(canPublic)
     }
     else
     {
-      if (andamiro) { $(".author").show(); $("#authorlist").removeAttr('disabled'); }
-      else          { $(".author").hide(); $("#authorlist").attr('disabled', true); }
+      if (andamiro) { $(".author").show(); $("#authorlist").removeClass('ui-state-disabled'); }
+      else          { $(".author").hide(); $("#authorlist").addClass('ui-state-disabled'); }
       $("#authorlist").val(0);
       authID = authed;
       if (canPublic)
@@ -307,7 +306,7 @@ function editMode(canPublic)
     }
     
     clipboard = null;
-    $("#but_load").removeAttr('disabled');
+    $("#but_load").removeClass('ui-state-disabled');
     $("#editName").attr('maxlength', 12);
     $("#editSong").text("Edit Name:");
     $("#but_sub").attr('name', 'editSubmit');
@@ -335,16 +334,18 @@ function init()
   $("nav dd.edit").hide();
   $("nav li[class^=load]").hide();
   $(".loadOther").hide();
-  $("#notes > rect").hide();
+  $("#selTop").hide();
+  $("#selBot").hide();
+  $("#shadow").addClass('hide');
   $("nav *.choose").show();
-  $("#stylelist").attr("disabled", true);
-  $("#but_sub").attr("disabled", true);
-  $("#but_save").attr("disabled", true);
-  $("#but_val").attr("disabled", true);
-  $("#but_new").attr("disabled", true);
-  $("#cho_file").removeAttr('disabled');
-  if (authed > 0) { $("#cho_site").removeAttr('disabled'); }
-  else            { $("#cho_site").attr('disabled', true); }
+  $("#stylelist").addClass('ui-state-disabled');
+  $("#but_sub").addClass('ui-state-disabled');
+  $("#but_save").addClass('ui-state-disabled');
+  $("#but_val").addClass('ui-state-disabled');
+  $("#but_new").addClass('ui-state-disabled');
+  $("#cho_file").removeClass('ui-state-disabled');
+  if (authed > 0) { $("#cho_site").removeClass('ui-state-disabled'); }
+  else            { $("#cho_site").addClass('ui-state-disabled'); }
   
   // reset the drop downs (and corresponding variables) to default values.
   $("#songlist").val('');
@@ -364,12 +365,12 @@ function init()
   $("#intro").text("Select your action.");
   
   isDirty = false;
-  $("#but_load").removeAttr('disabled');
-  $("#songlist").removeAttr('disabled');
+  $("#but_load").removeClass('ui-state-disabled');
+  $("#songlist").removeClass('ui-state-disabled');
   
   $("#loadDifficulty").val("");
   $("#loadSong").val("");
-  $("#song_yes").attr("disabled", true);
+  $("#song_yes").addClass('ui-state-disabled');
 }
 
 // Dynamically adjust the scale as needed.
@@ -392,12 +393,14 @@ function fixScale(num, len, w, h)
   if (!h) { var h = SCALE * (ARR_HEIGHT * BEATS_PER_MEASURE * measures + BUFF_TOP + BUFF_BOT); }
   if (!w) { var w = SCALE * ((BUFF_LFT + BUFF_RHT) + columns * ARR_HEIGHT); }
   
+  
   $("#svg").animate({
-    left: round10($("nav").first().width()) + 70,
-    top: round10($("header").first().height()) * 8 + 20,
+//    left: round10($("#svg_nav").width()) + 70,
+//    top: round10($("header").first().height()) + 50,
     width: w,
     height: h,
-  }, len).attr("width", w).attr("height", h);
+  }, len).attr("width", w).attr("height", h).css('display', 'block');
+  
   
   $("#notes").attr("transform", "scale(" + SCALE + ")");
   $("article").css("height", h + 150);
@@ -737,7 +740,7 @@ function loadWebEdits(user)
       var html = '<option id="' + data[i].id + '">' + out + '</option>';
       $("#mem_edit").append(html);
     }
-    $("#mem_nogo").removeAttr('disabled');
+    $("#mem_nogo").removeClass('ui-state-disabled');
     $("#intro").text("Choose your edit!");
   });
 }
@@ -755,7 +758,7 @@ function uploadOfficial()
   $.post(baseURL + "/uploadOfficial", data, function(data, status)
   {
     $("#intro").text("Chart Uploaded");
-    $("#authorlist").attr("disabled", "disabled");
+    $("#authorlist").addClass('ui-state-disabled');
   }, "json");
 }
 
@@ -801,7 +804,7 @@ function uploadEdit()
     else
     {
       $("#intro").text("Edit Uploaded");
-      $("#authorlist").attr("disabled", "disabled");
+      $("#authorlist").addClass('ui-state-disabled');
       $("li.author:eq(0)").next().andSelf().hide();
       editID = res.editid;
     }

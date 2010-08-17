@@ -5,16 +5,21 @@
     and places that I have to thank here.
 </p>
 
+<div class="clear"></div>
+
+<nav id="choices" class="grid_3 alpha omega">
 <h3 id="top">Options</h3>
 <ul>
 <li><a href="#obvious">The Obvious</a></li>
 <li><a href="#reallife">Real Life</a></li>
 <li><a href="#pumppro">Pump Pro</a></li>
-
 <li><a href="#internet">The Internet</a></li>
 <li><a href="#browser">The Browsers</a></li>
 <li><a href="#promote">The Promoters</a></li>
 </ul>
+</nav>
+
+<section id="content" class="grid_9 alpha omega">
 
 <section id="obvious">
 <h3>The Obvious</h3>
@@ -58,6 +63,8 @@
 <dd>He has kept my head cool in previous endeavors, so I thank him again here.</dd>
 <dt>Jason Dread</dt>
 <dd>Another nice guy, he has brought traffic to this page in the past.</dd>
+<dt>Chris Danford and Kristina Proctor</dt>
+<dd>I can't separate these two, nor do I want to. Both of them were a big help.</dd>
 <dt>The other Pump Pro/StepMania Staffers and Developers</dt>
 <dd>Too many to name, but all have contribtued to the Pump It Up: Pro engine in their own way.</dd>
 </dl>
@@ -87,6 +94,10 @@
 <dd>The second redesign was thanks to this PHP framework. The learning curve is easy to work with.</dd>
 <dt><a href="http://www.codeigniter.com/">CodeIgniter</a></dt>
 <dd>Part of the 3rd series of this website, CodeIgniter is a slim framework that offers great flexibility.</dd>
+<dt><a href="http://liroxiv.sheezyart.com/">Lirodon</a></dt>
+<dd>He helped design the latest look to Pump Pro Edits thanks to...</dd>
+<dt><a href="http://www.jqueryui.com">JQuery UI</a></dt>
+<dd>Web development is made easier with their frameworks and widgets.</dd>
 </dl>
 <p><a href="#top">Back to Top</a></p>
 </section>
@@ -124,8 +135,12 @@
 <dd>Fellow fan developer Crevolous and I have helped each other exchange data in the past.</dd>
 <dt><a href="http://www.nearlyfreespeech.net">NearlyFreeSpeech.NET</a></dt>
 <dd>If anyone ever needs a la carte web hosting, these are the guys to go to.</dd>
+<dt><a href="http://www.dreamhost.com">Dreamhost</a></dt>
+<dd>My current host, I have many contacts that use them.</dd>
 </dl>
 <p><a href="#top">Back to Top</a></p>
+</section>
+
 </section>
 
 <?php $this->load->view('global/footer'); ?>

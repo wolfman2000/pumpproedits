@@ -83,10 +83,10 @@ function loadSVGMeasures()
   // place the Section data (if it's around).
   var secs = songData.secs;
   
-  if (isEmpty(secs)) { $("nav .sections").hide(); $("nav .sections button").attr('disabled', true); }
+  if (isEmpty(secs)) { $("nav .sections").hide(); $("nav .sections button").addClass('ui-state-disabled'); }
     else
     {
-      $("nav .sections").show(); $("nav .sections button").removeAttr('disabled');
+      $("nav .sections").show(); $("nav .sections button").removeClass('ui-state-disabled');
       $("#sectionList").empty();
       const letter = 65;
       for (var i = 0; i < secs.length; i++)

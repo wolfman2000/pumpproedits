@@ -2,12 +2,10 @@
 
 @media screen
 {
-	#svg_nav
+	/* Removing some of the builtin styles from jQueryUI. */
+	.ui-widget-content
 	{
-		position: fixed;
-		width: 20em;
-		background-color: #9999ff;
-		top: 3.6em;
+		border: none;
 	}
 	#svg_nav > p
 	{
@@ -37,6 +35,18 @@
 		width: 10em;
 		margin: 0;
 		padding: 0;
+		list-style-type: none;
+	}
+	#navEditInfo > li
+	{
+		margin-left: 0;
+		list-style-type: none;
+		width: 50%;
+		float: left;
+	}
+	#navEditControls > li, #allEditInfo > li, #navEditInfo > li, #navEditTransform > li
+	{
+		width: 9.5em;
 	}
 	#navEditTransform > li.long, #navEditControls > li.long
 	{
@@ -56,7 +66,6 @@
 		clear: both;
 		width: 20em;
 	}
-	
 	#tabNav
 	{
 		padding-top: 1em;
@@ -64,7 +73,7 @@
 	}
 	#tabNav > li
 	{
-		width: 6em;
+		width: 5.8em;
 		display: inline-block;
 		text-align: center;
 		background-color: purple;
@@ -93,11 +102,6 @@
 	{
 		outline: 0;
 	}
-	#allEditInfo
-	{
-		
-	}
-	
 	.edit select
 	{
 		padding-right: 1em;
@@ -110,7 +114,7 @@
 	{
 		font-weight: bold;
 	}
-	li.long, li.long textarea
+	#topButtons > li.long, li.long, li.long textarea
 	{
 		width: 20em;
 	}
@@ -137,16 +141,16 @@
 	}
 	article
 	{
-		margin-left: 22em;
+		width: 760px;
 		min-height: 40em;
 		padding-bottom: 0;
 		min-height: 50em;
 	}	
 	#svg
 	{
-		margin: 2em auto;
 		background-color: white;
-		position: absolute;
+		display: block;
+		margin: 0 auto;
 	}
 	#svgMeas line
 	{

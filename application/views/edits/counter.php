@@ -1,6 +1,9 @@
-<section id="multiCol">
+<div class="clear"></div>
+<ul id="multiCol" class="grid_12">
 <?php foreach ($query as $r): ?>
-<p><?php echo anchor(sprintf("/%s/%d", $what, $r->id), $r->core); ?>
-<span><?php echo $r->num_edits; ?></span></p>
+<li class="grid_6">
+<div class="grid_4"><?php echo anchor(sprintf("/%s/%d", $what, $r->id), $r->core); ?></div>
+<div class="grid_1 suffix_1"><?php echo $r->num_edits; ?></div>
+</li>
 <?php endforeach; ?>
-</section>
+</ul>
