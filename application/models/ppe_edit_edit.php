@@ -176,7 +176,17 @@ class Ppe_edit_edit extends Model
   }
   
   
-  // Common function to get (10) of the edits of a chosen parameter.
+  // Have a separate place to get common columns used.
+	private function _getCommonCols()
+	{
+		$cols = 'a.id, a.diff, y.steps ysteps, y.jumps yjumps, y.holds yholds, y.mines ymines';
+    $cols .= ', y.trips ytrips, y.rolls yrolls, y.fakes yfakes, y.lifts ylifts';
+    $cols .= ', m.steps msteps, m.jumps mjumps, m.holds mholds, m.mines mmines';
+    $cols .= ', m.trips mtrips, m.rolls mrolls, m.fakes mfakes, m.lifts mlifts';
+    return $cols . ', a.title, a.style';
+	}
+	
+	// Common function to get (10) of the edits of a chosen parameter.
   private function _getEdits($params)
   {
     $cols = 'a.id, a.diff, y.steps ysteps, y.jumps yjumps, y.holds yholds, y.mines ymines';
@@ -200,6 +210,26 @@ class Ppe_edit_edit extends Model
       ->get();
   }
   
+	// Common function that uses the full view.
+	private function _getGoodEdits($order, $limit = 10000)
+	{
+		$this->db->from('full_edit_stats')
+			->where('a.is_problem', 0)
+			->where('a.is_public', 1)
+			->where('a.deleted_at', null);
+		foreach ($order as $o):
+			$this->db->order_by($o['column'], $o['direction']);
+		endforeach;
+		$this->db->limit($limit);
+		return $this->db->get();
+	}
+	
+	// Get 5 edits for the entry page.
+	public function getEditsEntry()
+	{
+		return $this->_getGoodEdits(array('column' => 'random', 'direction' => 'asc'));
+	}
+	
   // Get all edits of the chosen song.
   public function getEditsBySong($sid, $page = 1)
   {
