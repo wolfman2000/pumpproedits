@@ -176,44 +176,53 @@ class Ppe_edit_edit extends Model
   }
   
   
-  // Common function to get (10) of the edits of a chosen parameter.
-  private function _getEdits($params)
-  {
-    $cols = 'a.id, a.diff, y.steps ysteps, y.jumps yjumps, y.holds yholds, y.mines ymines';
+  // Have a separate place to get common columns used.
+	private function _getCommonCols()
+	{
+		$cols = 'a.id, a.diff, y.steps ysteps, y.jumps yjumps, y.holds yholds, y.mines ymines';
     $cols .= ', y.trips ytrips, y.rolls yrolls, y.fakes yfakes, y.lifts ylifts';
     $cols .= ', m.steps msteps, m.jumps mjumps, m.holds mholds, m.mines mmines';
     $cols .= ', m.trips mtrips, m.rolls mrolls, m.fakes mfakes, m.lifts mlifts';
-    $cols .= ', a.title, a.style, ' . $params['cols'];
-    return $this->db->select($cols)
-      ->from('ppe_edit_edit a')
-      ->join($params['join'] . ' b', 'a.' . $params['opposite'] . '_id = b.id')
-      ->join('ppe_edit_player y', 'a.id = y.edit_id AND y.player = 1')
-      ->join('ppe_edit_player m', 'a.id = m.edit_id AND m.player = 2', 'left')
-      
-      ->where($params['main'], $params['main_id'])
-      ->where('a.is_problem', 0)
-      ->where('a.is_public', 1)
-      ->where('a.deleted_at', null)
-      ->order_by('b.lc_name')
-      ->order_by('a.title')
-      ->limit(APP_MAX_EDITS_PER_PAGE, ($params['page'] - 1) * APP_MAX_EDITS_PER_PAGE)
-      ->get();
-  }
+    return $cols . ', a.title, a.style';
+	}
   
+	// Common function that uses the full view.
+	private function _getGoodEdits($order, $where = null, $limit = 10000)
+	{
+		$this->db->from('full_edit_stats')
+			->where('is_problem', 0)
+			->where('is_public', 1)
+			->where('deleted_at', null);
+		if (isset($where)):
+			$this->db->where($where['main'], $where['main_id']);
+		endif;
+		foreach ($order as $o):
+			$this->db->order_by($o['column'], $o['direction']);
+		endforeach;
+		$this->db->limit($limit);
+		return $this->db->get();
+	}
+	
+	// Get 5 edits for the entry page.
+	public function getEditsEntry()
+	{
+		return $this->_getGoodEdits(array(array('column' => 'title', 'direction' => 'random')), null, 5);
+	}
+	
   // Get all edits of the chosen song.
   public function getEditsBySong($sid, $page = 1)
   {
-    return $this->_getEdits(array('cols' => 'a.user_id, b.name uname',
-      'join' => 'ppe_user_user', 'opposite' => 'user',
-      'main' => 'song_id', 'main_id' => $sid, 'page' => $page));
+		$order = array(array('column' => 'LOWER(uname)', 'direction' => 'asc'),
+			array('column' => 'title', 'direction' => 'asc'));
+		return $this->_getGoodEdits($order, array('main' => 'song_id', 'main_id' => $sid));
   }
   
   // Get all edits of the chosen user.
   public function getEditsByUser($uid, $page = 1)
   {
-    return $this->_getEdits(array('cols' => 'a.song_id, b.name sname',
-      'join' => 'ppe_song_song', 'opposite' => 'song',
-      'main' => 'user_id', 'main_id' => $uid, 'page' => $page));
+		$order = array(array('column' => 'LOWER(sname)', 'direction' => 'asc'),
+			array('column' => 'title', 'direction' => 'asc'));
+		return $this->_getGoodEdits($order, array('main' => 'user_id', 'main_id' => $uid));
   }
   
   // Common function to get the max number of edits possible.

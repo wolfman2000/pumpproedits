@@ -12,5 +12,7 @@ browser. The recommended browsers are listed at the top of this page.
 available for you to use. As an added bonus, if you log in before visiting,
 you will be able to upload your work directly to your account!</p>
 <?php endif; ?>
-<p>Hope you enjoy the place and the new look!</p>
-<?php $this->load->view('global/footer'); ?>
+<p>To whet your appetite for edits, here are five of them chosen at random.</p>
+<?php $this->load->library('pagination'); # Dummy for now.
+$this->load->view('edits/edits');
+$this->load->view('global/footer');
