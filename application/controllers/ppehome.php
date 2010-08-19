@@ -9,6 +9,8 @@ class Ppehome extends Controller
 	
 	function index()
 	{
-    $this->load->view('ppehome/main');
+		$this->load->model('ppe_edit_edit');
+		$data['query'] = $this->ppe_edit_edit->getEditsEntry()->result();
+		$this->load->view('ppehome/main', $data);
 	}
 }

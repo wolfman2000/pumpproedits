@@ -13,4 +13,6 @@ available for you to use. As an added bonus, if you log in before visiting,
 you will be able to upload your work directly to your account!</p>
 <?php endif; ?>
 <p>To whet your appetite for edits, here are five of them chosen at random.</p>
-<?php $this->load->view('global/footer'); ?>
+<?php $this->load->library('pagination'); # Dummy for now.
+$this->load->view('edits/edits');
+$this->load->view('global/footer');

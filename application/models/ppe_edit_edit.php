@@ -214,9 +214,9 @@ class Ppe_edit_edit extends Model
 	private function _getGoodEdits($order, $limit = 10000)
 	{
 		$this->db->from('full_edit_stats')
-			->where('a.is_problem', 0)
-			->where('a.is_public', 1)
-			->where('a.deleted_at', null);
+			->where('is_problem', 0)
+			->where('is_public', 1)
+			->where('deleted_at', null);
 		foreach ($order as $o):
 			$this->db->order_by($o['column'], $o['direction']);
 		endforeach;
@@ -227,7 +227,7 @@ class Ppe_edit_edit extends Model
 	// Get 5 edits for the entry page.
 	public function getEditsEntry()
 	{
-		return $this->_getGoodEdits(array('column' => 'random', 'direction' => 'asc'));
+		return $this->_getGoodEdits(array(array('column' => 'title', 'direction' => 'random')), 5);
 	}
 	
   // Get all edits of the chosen song.
