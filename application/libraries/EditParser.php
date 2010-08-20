@@ -415,6 +415,7 @@ class EditParser
         $steps_on[] = 0;
       }
       $notes[] = array();
+      if ($couple) { $notes[] = array(); }
       $state = 7;
       $side = 0; // routine compatible switch.
       break;
@@ -426,6 +427,7 @@ class EditParser
       {
         $measure++;
         $notes[$side][] = array();
+        if ($couple) { $notes[1][] = array(); }
       }
       elseif (substr($line, 0, 1) === "&") /* New routine step partner. */
       {
@@ -442,11 +444,20 @@ class EditParser
       {
         $steps_per_row = 0;
         $row = substr($line, 0, $cols);
-        $notes[$side][$measure][] = $row;
+        if ($couple)
+        {
+          $notes[0][$measure][] = substr($row, 0, 5) . '00000';
+          $notes[1][$measure][] = '00000' . substr($row, 5, 5);
+        }
+        else
+        {
+          $notes[$side][$measure][] = $row;
+        }
 
         for ($i = 0; $i < $cols; $i++)
         {
           $steps_on[$i] = 0; // Reset previous info.
+          if ($couple) { $steps_on[1] = 0; }
           $char = substr($row, $i, 1);
           switch ($char):
 
@@ -466,7 +477,14 @@ class EditParser
             $holds_on[$i] = 1;
             $steps_on[$i] = 1;
             $steps_per_row++;
-            $holds[$side]++;
+            if ($couple and $i >= 5)
+            {
+              $holds[1]++;
+            }
+            else
+            {
+              $holds[$side]++;
+            }
             break;
           }
           case "3": // End of hold/roll note
@@ -480,25 +498,53 @@ class EditParser
             $holds_on[$i] = 1;
             $steps_on[$i] = 1;
             $steps_per_row++;
-            $rolls[$side]++;
+            if ($couple and $i >= 5)
+            {
+              $rolls[1]++;
+            }
+            else
+            {
+              $rolls[$side]++;
+            }
             break;
           }
           case "M": // Mine
           {
             $holds_on[$i] = 0;
-            $mines[$side]++;
+            if ($couple and $i >= 5)
+            {
+              $mines[1]++;
+            }
+            else
+            {
+              $mines[$side]++;
+            }
             break;
           }
           case "L": // Lift note (not fully implemented)
           {
             $holds_on[$i] = 0;
-            $lifts[$side]++;
+            if ($couple and $i >= 5)
+            {
+              $lifts[1]++;
+            }
+            else
+            {
+              $lifts[$side]++;
+            }
             break;
           }
-          case "F": // Fake note (will be in future builds)
+          case "F": // Fake note
           {
             $holds_on[$i] = 0;
-            $fakes[$side]++;
+            if ($couple and $i >= 5)
+            {
+              $fakes[1]++;
+            }
+            else
+            {
+              $fakes[$side]++;
+            }
             break;
           }
           default: // Invalid data found.
@@ -514,9 +560,17 @@ class EditParser
         {
           $actve_on[$i] = ($holds_on[$i] === 1 or $steps_on[$i] === 1 ? 1 : 0);
         }
-        if ($steps_per_row > 0 and array_sum($actve_on) >= 3) { $trips[$side]++; }
-        if ($steps_per_row >= 2) { $jumps[$side]++; }
-        if ($steps_per_row) { $steps[$side]++; }
+
+        if ($couple)
+        {
+
+        }
+        else
+        {
+          if ($steps_per_row > 0 and array_sum($actve_on) >= 3) { $trips[$side]++; }
+          if ($steps_per_row >= 2) { $jumps[$side]++; }
+          if ($steps_per_row) { $steps[$side]++; }
+        }
       }
       break;
     }
