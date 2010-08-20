@@ -165,14 +165,13 @@ function saveChart(data)
   file += "   " + data.stream[0].toFixed(3) + "," + data.voltage[0].toFixed(3) + ","
     + data.air[0].toFixed(3) + "," + data.freeze[0].toFixed(3) + ","
     + data.chaos[0].toFixed(3) + "," + data.steps[0] + ',' + data.jumps[0]
-    + ',' + data.holds[0] + ',' + data.mines[0] + ',' + data.trips[0] + ',' + data.rolls[0]
-    + ',0,0,';
+    + ',' + data.holds[0] + ',' + data.mines[0] + ',' + data.trips[0] + ',' + data.rolls[0];
   var i = (style !== "routine" ? 0 : 1);
   file += data.stream[i].toFixed(3) + "," + data.voltage[i].toFixed(3) + ","
     + data.air[i].toFixed(3) + "," + data.freeze[i].toFixed(3) + ","
     + data.chaos[i].toFixed(3) + "," + data.steps[i] + ',' + data.jumps[i]
     + ',' + data.holds[i] + ',' + data.mines[i] + ',' + data.trips[i] + ',' + data.rolls[i]
-    + ',0,0:' + EOL + EOL;
+    + ':' + EOL + EOL;
   
   notes = SVGtoNOTES();
   
