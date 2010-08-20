@@ -18,7 +18,7 @@ if ($oid !== $nid):
 if ($oid !== "無"): ?>
 </optgroup>
 <?php endif; ?>
-<optgroup label="<?php echo "Pump it up Pro" . ($nid == 1 ? "" : " 2"); ?>">
+<optgroup label="<?php echo $r['game']; ?>">
 <?php $oid = $nid;
 endif; ?>
 <option value="<?php echo $r['id']; ?>"><?php echo $r['name']; ?></option>
