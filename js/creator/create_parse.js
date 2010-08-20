@@ -347,12 +347,17 @@ function gatherStats(useRadar)
       oY = y;
     }
     
+    if (t !== "0")
+    {
+    	var noteObj = genObject(p, m, b, c);
+    	
+    
     if (t === "1") // tap
     {
       // if tap follows hold/roll head
-      if (holdCheck[c]) { data.badds.push(holdCheck[c], genObject(p, m, b, c)); }
+      if (holdCheck[c]) { data.badds.push(holdCheck[c], noteObj); }
       holdCheck[c] = false;
-      stepCheck[c] = genObject(p, m, b, c);
+      stepCheck[c] = noteObj;
       numSteps[p]++;
       data.allT[p]++;
     }
@@ -360,8 +365,8 @@ function gatherStats(useRadar)
     {
       // if hold head follows hold/roll head
       if (holdCheck[c]) { data.badds.push(holdCheck[c]); }
-      holdCheck[c] = genObject(p, m, b, c);
-      stepCheck[c] = genObject(p, m, b, c);
+      holdCheck[c] = noteObj;
+      stepCheck[c] = noteObj;
       numSteps[p]++;
       data.holds[p]++;
       data.allT[p]++;
@@ -369,39 +374,41 @@ function gatherStats(useRadar)
     else if (t === "3") // hold/roll end
     {
       // if hold/roll end doesn't follow head
-      if (!holdCheck[c]) { data.badds.push(genObject(p, m, b, c)); }
+      if (!holdCheck[c]) { data.badds.push(noteObj); }
       holdCheck[c] = false;
-      stepCheck[c] = genObject(p, m, b, c);
+      stepCheck[c] = noteObj;
     }
     else if (t === "4") // roll
     {
       // if roll head follows hold/roll head
       if (holdCheck[c]) { data.badds.push(holdCheck[c]); }
-      holdCheck[c] = genObject(p, m, b, c);
-      stepCheck[c] = genObject(p, m, b, c);
+      holdCheck[c] = noteObj;
+      stepCheck[c] = noteObj;
       numSteps[p]++;
       data.rolls[p]++;
     }
     else if (t === 'M') // mine
     {
       // if mine follows hold/roll head
-      if (holdCheck[c]) { data.badds.push(holdCheck[c], genObject(p, m, b, c)); }
+      if (holdCheck[c]) { data.badds.push(holdCheck[c], noteObj); }
       holdCheck[c] = false;
       data.mines[p]++;
     }
     else if (t === 'L') // lift
     {
       // if lift follows hold/roll head
-      if (holdCheck[c]) { badds.push(holdCheck[c], genObject(p, m, b, c)); }
+      if (holdCheck[c]) { badds.push(holdCheck[c], noteObj); }
       holdCheck[c] = false;
       data.lifts[p]++;
     }
     else if (t === 'F') // fake
     {
        // if fake follows hold/roll head
-      if (holdCheck[c]) { data.badds.push(holdCheck[c], genObject(p, m, b, c)); }
+      if (holdCheck[c]) { data.badds.push(holdCheck[c], noteObj); }
       holdCheck[c] = false;
       data.fakes[p]++;
+    }
+    
     }
   });
   checkBasics(stepCheck, holdCheck);
