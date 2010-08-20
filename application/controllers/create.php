@@ -28,7 +28,7 @@ class Create extends Controller
     }
     header("Content-Type: application/xhtml+xml");
     $data = array();
-    $data['songs'] = $this->ppe_song_song->getSongsWithGame();
+    $data['songs'] = $this->ppe_song_song->getSongsWithGame()->result();
     $data['andy'] = 0;
     $data['others'] = 0;
     $id = $this->session->userdata('id');
