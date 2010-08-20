@@ -24,8 +24,8 @@ class EditParser
     $file .= sprintf("     pump-%s:%s", $kind, $eol);
     $file .= sprintf("     NameEditHere:%s", $eol);
     $file .= sprintf("     Edit:%s     10:%s     ", $eol, $eol);
-    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, 0, 0, ", $measures - 1);
-    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, 0, 0:%s%s", $measures - 1, $eol, $eol);
+    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0, ", $measures - 1);
+    $file .= sprintf("0, 0, 0, 0, 0, %d, 0, 0, 0, 0, 0:%s%s", $measures - 1, $eol, $eol);
 
     $cols = $this->getCols("pump-" . $kind);
     
@@ -368,8 +368,11 @@ class EditParser
       }
       elseif ($line !== "Edit" and !$params['arcade']) // temp measure.
       {
-        $s = 'The edit must have "Edit:" on a new line after the title.';
+      	$line = "Edit";
+        /*
+      	$s = 'The edit must have "Edit:" on a new line after the title.';
         throw new Exception($s);
+        */
       }
       
       $state = 5;
@@ -442,7 +445,9 @@ class EditParser
       }
       elseif (!$this->checkCommentLine($line)) // Parse.
       {
-        $steps_per_row = 0;
+        $steps_per_row = array();
+        $steps_per_row[] = 0;
+        $steps_per_row[] = 0; // for both sides.
         $row = substr($line, 0, $cols);
         if ($couple)
         {
@@ -469,7 +474,14 @@ class EditParser
           {
             $holds_on[$i] = 0;
             $steps_on[$i] = 1;
-            $steps_per_row++;
+            if ($couple and $i >= 5)
+            {
+            	$steps_per_row[1]++;
+            }
+            else
+            {
+            	$steps_per_row[$side]++;
+            }
             break;
           }
           case "2": // Start of hold note
@@ -563,13 +575,24 @@ class EditParser
 
         if ($couple)
         {
-
+          if ($steps_per_row[0] > 0 and array_sum(array_slice($actve_on, 0, 5)) >= 3)
+          {
+          	  $trips[0]++;
+          }
+          if ($steps_per_row[0] >= 2) { $jumps[0]++; }
+          if ($steps_per_row[0]) { $steps[0]++; }
+          if ($steps_per_row[1] > 0 and array_sum(array_slice($actve_on, 5, 5)) >= 3)
+          {
+          	  $trips[1]++;
+          }
+          if ($steps_per_row[1] >= 2) { $jumps[1]++; }
+          if ($steps_per_row[1]) { $steps[1]++; }
         }
         else
         {
-          if ($steps_per_row > 0 and array_sum($actve_on) >= 3) { $trips[$side]++; }
-          if ($steps_per_row >= 2) { $jumps[$side]++; }
-          if ($steps_per_row) { $steps[$side]++; }
+          if ($steps_per_row[$side] > 0 and array_sum($actve_on) >= 3) { $trips[$side]++; }
+          if ($steps_per_row[$side] >= 2) { $jumps[$side]++; }
+          if ($steps_per_row[$side]) { $steps[$side]++; }
         }
       }
       break;
@@ -602,7 +625,7 @@ class EditParser
     $res['song'] = $song;
     $res['diff'] = $diff;
     $res['cols'] = $cols;
-    $res['style'] = $style;
+    $res['style'] = ($couple ? "pump-routine" : $style);
     $res['title'] = $title;
     $res['steps'] = $steps;
     $res['jumps'] = $jumps;
