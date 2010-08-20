@@ -30,14 +30,15 @@
 <li class="loadOther"><button id="other_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadSong long reset"><label for="loadSong">Select your song!</label></li>
 <li class="loadSong long"><select id="loadSong" name="loadSong">
-<option value="" selected="selected">Choose</option>
-<optgroup label="Pump it up Pro">
-<?php $ind = 1;
-foreach ($songs as $s):
-if ($s->gid != $ind): ?>
+<?php $oid = "無"; /* Start with no match. */ ?>
+<option value="無" selected="selected">Choose</option>
+<?php foreach ($songs as $s):
+if ($s->gid != $oid):
+if ($oid !== "無"): ?>
 </optgroup>
-<optgroup label="Pump it up Pro 2">
-<?php $ind = $s->gid; endif; ?>
+<?php endif; /* end mu/first part. */ ?>
+<optgroup label="<?php echo $s->game; ?>">
+<?php $oid = $s->gid; endif; ?>
 <option value="<?php echo $s->id; ?>"><?php echo htmlspecialchars($s->name); ?></option>
 <?php endforeach; ?></optgroup></select></li>
 <li class="loadSong long"><label for="loadDifficulty">Select your difficulty!</label></li>
@@ -69,14 +70,15 @@ if ($s->gid != $ind): ?>
 <dd class="choose"><ul id="newEditChoice">
 <li><label for="songlist">Select your song!</label></li>
 <li><select id="songlist" name="songlist">
-<option value="" selected="selected">Choose</option>
-<optgroup label="Pump it up Pro">
-<?php $ind = 1;
-foreach ($songs as $s):
-if ($s->gid != $ind): ?>
+<?php $oid = "無"; /* Start with no match. */ ?>
+<option value="無" selected="selected">Choose</option>
+<?php foreach ($songs as $s):
+if ($s->gid != $oid):
+if ($oid !== "無"): ?>
 </optgroup>
-<optgroup label="Pump it up Pro 2">
-<?php $ind = $s->gid; endif; ?>
+<?php endif; /* end mu/first part. */ ?>
+<optgroup label="<?php echo $s->game; ?>">
+<?php $oid = $s->gid; endif; ?>
 <option value="<?php echo $s->id; ?>"><?php echo htmlspecialchars($s->name); ?></option>
 <?php endforeach; ?></optgroup></select></li>
 <li><label for="stylelist">Select your style!</label></li>
@@ -88,7 +90,7 @@ if ($s->gid != $ind): ?>
 <option value="routine">pump-routine</option>
 </select></li>
 </ul>
-</dd> <?php # Everything below is for Edit Mode. ?>
+</dd> <?php /* Everything below is for Edit Mode. */ ?>
 <dt class="edit"></dt>
 <dd class="edit">
 
@@ -150,7 +152,7 @@ if ($s->gid != $ind): ?>
 </select></li>
 <li class="sections long reset"><label for="sectionList">Which song section do you want?</label></li>
 <li class="sections long reset"><select id="sectionList"></select></li>
-<?php # The li below will become two when/if music is allowed. ?>
+<?php /* The li below will become two when/if music is allowed.*/ ?>
 <li class="sections long reset"><button id="sectionJump" type="button" class="fg-button ui-state-default ui-corner-all">Jump to Section</button></li>
 </ul>
 
@@ -190,7 +192,7 @@ if ($s->gid != $ind): ?>
 <li>Beat <span id="s_yCheck">???</span> / 192</li>
 <li><button id="transformCut" type="button" class="fg-button ui-state-default ui-corner-all">Cut</button></li>
 <li><button id="transformCopy" type="button" class="fg-button ui-state-default ui-corner-all">Copy</button></li>
-<?php #<li class="three"><button id="transformPast" type="button" class="fg-button ui-state-default ui-corner-all">Paste</button></li> ?>
+<?php /*<li class="three"><button id="transformPast" type="button" class="fg-button ui-state-default ui-corner-all">Paste</button></li>*/ ?>
 <li><button id="transformRotateLeft" type="button" class="fg-button ui-state-default ui-corner-all">Rotate Left</button></li>
 <li><button id="transformRotateRight" type="button" class="fg-button ui-state-default ui-corner-all">Rotate Right</button></li>
 <li><button id="transformMoveUp" type="button" class="fg-button ui-state-default ui-corner-all">Move Up</button></li>
