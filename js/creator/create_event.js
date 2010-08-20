@@ -775,6 +775,7 @@ function uploadEdit()
   data['editID'] = editID;
   data['songID'] = songID;
   data['userID'] = authID;
+  data['notes'] = $("#noteJSON").val();
   data['public'] = $("#editPublic").val();
   data['steps1'] = $("#statS").text().split("/")[0];
   data['steps2'] = $("#statS").text().split("/")[1];

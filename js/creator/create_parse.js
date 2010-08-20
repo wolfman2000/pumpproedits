@@ -224,6 +224,7 @@ function saveChart(data)
   $("#style").val(style);
   $("#diff").val(diff);
   $("#title").val(title);
+  $("#noteJSON").val(JSON.stringify(data.notes));
 }
 
 function genObject(p, m, b, n)
@@ -270,6 +271,7 @@ function gatherStats(useRadar)
   const range = ARR_HEIGHT * BEATS_PER_MEASURE * 2;
   
   data.badds = Array(); // make a note of where the bad points are.
+  data.notes = Array(); // keep up with the notes to eventually return.
   
   
   var holdCheck = Array();
@@ -350,6 +352,7 @@ function gatherStats(useRadar)
     if (t !== "0")
     {
     	var noteObj = genObject(p, m, b, c);
+    	data.notes.push(noteObj);
     	
     
     if (t === "1") // tap
