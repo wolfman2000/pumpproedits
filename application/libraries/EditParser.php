@@ -73,6 +73,7 @@ class EditParser
     {
       case "pump-single": return 5;
       case "pump-double": return 10;
+      case "pump-couple": return 10;
       case "pump-routine": return 10;
       case "pump-halfdouble": return 6;
       default: return 5; // Lazy right now.
