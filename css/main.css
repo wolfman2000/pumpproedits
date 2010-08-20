@@ -280,7 +280,7 @@ strong
 		padding-left:8em; line-height:1.3em
 	}
 	/* common edit stuff. */
-	.edit
+	div.edit
 	{
 		margin: 0px 20px 0px 20px;
 		border-bottom: 1px solid #25262E;
