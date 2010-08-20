@@ -112,7 +112,7 @@ class EditParser
         return $title == "Hard" ? "Nightmare" : "Freestyle";
       }
       case "pump-halfdouble": return "Halfdouble";
-      case "pump-routine": return "Routine";
+      case "pump-routine": case "pump-couple": return "Routine";
       default: return "Undefined"; // Lazy right now.
     }
   }
@@ -171,6 +171,7 @@ class EditParser
     $notes = array(0 => array(), 1 => array());
     $state = $diff = $cols = $measure = $songid = 0;
     $title = $song = $style = "";
+    $couple = false; # Turn couple into routine.
     $CI =& get_instance();
     $CI->load->model('ppe_song_song');
     $base = $CI->ppe_song_song;
@@ -264,7 +265,7 @@ class EditParser
       $state = 2;
       break;
     }
-    case 2: /* Confirm this is pump-single, double, halfdouble, or routine. */
+    case 2: /* Confirm this is a valid difficulty. */
     {
       if ($this->checkCommentLine($line)) { continue; }
       $line = ltrim($line);
@@ -275,7 +276,8 @@ class EditParser
         throw new Exception(sprintf($s, $line));
       }
       $style = substr($line, 0, $pos - strlen($line));
-      if (!in_array($style, array("pump-single", "pump-double", "pump-halfdouble", "pump-routine")))
+      if ($style === "pump-couple") { $couple = true; }
+      if (!in_array($style, array("pump-single", "pump-double", "pump-halfdouble", "pump-couple", "pump-routine")))
       {
         if ($params['arcade'])
         {
