@@ -14,6 +14,7 @@ function hideRect()
 function checkShadow(e)
 {
   // No placing arrows while loading stuff.
+  if (isEmpty('songData')) { return; }
   if ($(".buttons li[class^=load]:visible").length) { return; }
   shadow(e.pageX, e.pageY, $("#m1r0").offset());
 }
@@ -321,6 +322,7 @@ function init()
 {
   captured = false;
   clipboard = null;
+  songData = null;
   measures = 3; // temp variable.
   columns = 5; // reasonable default.
   $("article").css('height', '50em');
