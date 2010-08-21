@@ -100,7 +100,7 @@ class Ppe_edit_edit extends Model
       
       $this->db->update('ppe_edit_player', $data, $where);
       $pid = $this->db->select('id')->get('ppe_edit_player')
-    		where($where)->row()->id;
+    		->where($where)->row()->id;
       
       // remove what's there, and reupload.
       
