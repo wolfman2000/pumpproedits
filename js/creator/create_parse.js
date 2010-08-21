@@ -373,7 +373,7 @@ function gatherStats(useRadar)
       oY = y;
     }
     
-    if (t !== "0")
+    if (t != "0")
     {
     	var noteObj = genObject(p, m, b, c, t);
     	data.notes.push(noteObj);
