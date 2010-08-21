@@ -18,8 +18,28 @@ class Ppe_edit_measure extends Model
 		$rows = array();
 		for ($i = 0; $i < $length; $i++)
 		{
-			switch($notes[$i])
+			switch($notes[$i]['note'])
 			{
+			case "1":
+				{
+					$nid = 1;
+					break;
+				}
+			case "2":
+				{
+					$nid = 2;
+					break;
+				}
+			case "3":
+				{
+					$nid = 3;
+					break;
+				}
+			case "4":
+				{
+					$nid = 4;
+					break;
+				}
 			case "M": 
 				{
 					$nid = 5;
@@ -37,7 +57,8 @@ class Ppe_edit_measure extends Model
 				}
 			default:
 				{
-					$nid = $notes[$i]['note'];
+					echo "Invalid note. You got: ";
+					print_r($notes[$i]['note']); exit;
 				}
 			}
 			$rows[$i] = sprintf("%d, %d, %d, %d, %d", $pid, 
