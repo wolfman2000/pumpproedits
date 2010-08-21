@@ -100,8 +100,8 @@ class Ppe_edit_edit extends Model
       $where = array('edit_id' => $id, 'player' => $player + 1);
       
       $this->db->update('ppe_edit_player', $data, $where);
-      $pid = $this->db->select('id')->get('ppe_edit_player')
-    		->where($where)->row()->id;
+      $pid = $this->db->select('id')->where($where)
+      	->get('ppe_edit_player')->row()->id;
       
       // remove what's there, and reupload.
       $this->ppe_edit_measure->placeNotes($pid, $row['notes']);
