@@ -174,17 +174,16 @@ function saveChart(data)
   // pretty sure this is the style of the new radar line.
   file += "   " + s1 + "," + v1 + "," + a1 + "," + f1 + "," + c1
     + "," + data.steps[0] + ',' + data.jumps[0] + ',' + data.holds[0] 
-    + ',' + data.mines[0] + ',' + data.trips[0] + ',' + data.rolls[0]
-    + ',' + EOL;
+    + ',' + data.mines[0] + ',' + data.trips[0] + ',' + data.rolls[0] + ',';
   if (style !== "routine")
   {
-  	  file += "   " + s1 + "," + v1 + "," + a1 + "," + f1 + "," + c1
+  	  file += s1 + "," + v1 + "," + a1 + "," + f1 + "," + c1
   	  	+ "," + data.steps[0] + ',' + data.jumps[0] + ',' + data.holds[0] 
   	  	+ ',' + data.mines[0] + ',' + data.trips[0] + ',' + data.rolls[0];
   }
   else
   {
-  	  file += "   " + s2 + "," + v2 + "," + a2 + "," + f2 + "," + c2
+  	  file += s2 + "," + v2 + "," + a2 + "," + f2 + "," + c2
   	  	+ "," + data.steps[1] + ',' + data.jumps[1] + ',' + data.holds[1] 
   	  	+ ',' + data.mines[1] + ',' + data.trips[1] + ',' + data.rolls[1];
   }
