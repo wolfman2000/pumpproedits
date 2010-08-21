@@ -6,6 +6,7 @@
 <input type="hidden" id="abbr" name="abbr" value="BOGUS" />
 <input type="hidden" id="b64" name="b64" value="longvalue" />
 <input type="hidden" id="noteJSON" name="noteJSON" value="fillThis" />
+<input type="hidden" id="radar" name="radar" value="need10" />
 <input type="hidden" id="style" name="style" value="none" />
 <input type="hidden" id="diff" name="diff" value="π" />
 <input type="hidden" id="title" name="title" value="not empty" />
