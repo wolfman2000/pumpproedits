@@ -251,13 +251,14 @@ function saveChart(data)
   $("#noteJSON").val(JSON.stringify(data.notes));
 }
 
-function genObject(p, m, b, n)
+function genObject(p, m, b, c, n)
 {
   var t = {};
   t['player'] = p + 1;
   t['measure'] = m;
   t['beat'] = b;
-  t['note'] = n + 1;
+  t['column'] = c + 1;
+  t['note'] = n;
   return t;  
 }
 
@@ -375,7 +376,7 @@ function gatherStats(useRadar)
     
     if (t !== "0")
     {
-    	var noteObj = genObject(p, m, b, c);
+    	var noteObj = genObject(p, m, b, c, t);
     	data.notes.push(noteObj);
     	
     
