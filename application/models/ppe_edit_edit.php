@@ -4,6 +4,7 @@ class Ppe_edit_edit extends Model
   function __construct()
   {
     parent::Model();
+    $this->load->model('ppe_edit_measure');
   }
   
   // Add an edit that is new to the database.
@@ -57,7 +58,7 @@ class Ppe_edit_edit extends Model
       );
       $this->db->insert('ppe_edit_player', $data);
       
-      // insert note data here.
+      $this->ppe_edit_measure->placeNotes($pid, $row['notes']);
       
     }
     return $id; // Return the edit ID.
@@ -103,7 +104,7 @@ class Ppe_edit_edit extends Model
     		->where($where)->row()->id;
       
       // remove what's there, and reupload.
-      
+      $this->ppe_edit_measure->placeNotes($pid, $row['notes']);
     }
   }
   

@@ -415,6 +415,8 @@ class Create extends Controller
     $row['fakes'][] = $this->input->post('fakes1');
     $row['fakes'][] = $this->input->post('fakes2');
     
+    $row['notes'] = json_decode($this->input->post('notes'), true);
+    
     # Can't use <= on the below: what if it's null?
     if (!($eid > 0)) # New edit
     {
