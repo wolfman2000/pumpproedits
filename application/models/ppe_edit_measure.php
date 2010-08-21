@@ -4,6 +4,7 @@ class Ppe_edit_measure extends Model
 	function __construct()
 	{
 		parent::Model();
+		$this->load->model('ppe_edit_player');
 	}
 	
 	function placeNotes($pid, $notes)
@@ -16,8 +17,11 @@ class Ppe_edit_measure extends Model
 		
 		$length = count($notes);
 		$rows = array();
+		$player = $this->ppe_edit_player->getPlayerByID($pid);
 		for ($i = 0; $i < $length; $i++)
 		{
+			if ($notes[$i]['player'] != $player) { continue; } # Routine hack.
+			
 			switch($notes[$i]['note'])
 			{
 			case "1":
