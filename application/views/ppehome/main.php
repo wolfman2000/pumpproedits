@@ -1,7 +1,7 @@
 <?php $this->load->view('global/header', array('css' => 'css/main.css')); ?>
 <p>Welcome to the Pump Pro Edit database. Inside here, you will find
 many edits that dance players such as yourself have created, along
-with official charts that Pump creator Andamiro made themselves.</p>
+with official charts that Andamiro and Fun In Motion staff made themselves.</p>
 <?php if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
 <p>To actually view the charts in a graphical format or contribute
 edit content to the website, you will have to use a different web
