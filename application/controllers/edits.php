@@ -144,13 +144,10 @@ class Edits extends Controller
       $this->load->view('edits/deleted', $data);
       return;
     }
-    $id = sprintf("%06d", $id);
-    $name = sprintf("edit_%s.edit", $id);
-    $gz = $name . '.gz';
-    $path = sprintf("%s/data/user_edits/%s", APPPATH, $gz);
-    $file = gzopen($path, 'r');
-    $data = gzread($file, APP_MAX_EDIT_FILE_SIZE);
-    gzclose($file);
+    
+    $pro1 = $this->uri->segment(4, false);
+    $name = sprintf("piu_%06d%s.edit", $id, ($pro1 !== false ? "_Pro1" : ""));
+    $data = $this->ppe_edit_edit->downloadEdit($id, (boolean) $pro1);
     
     $this->load->helper('download');
     force_download($name, $data);

@@ -121,7 +121,7 @@ $(document).ready(function()
       for (var i = 0; i < data.badds.length; i++)
       {
         ouch += "Player " + data.badds[i]['player'] + " Measure " + data.badds[i]['measure']
-          + " Beat " + data.badds[i]['beat'] + " Column " + data.badds[i]['note'] + "\n";
+          + " Beat " + data.badds[i]['beat'] + " Column " + data.badds[i]['column'] + "\n";
       }
       alert(ouch);
     }

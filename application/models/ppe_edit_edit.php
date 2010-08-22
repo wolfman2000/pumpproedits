@@ -4,6 +4,7 @@ class Ppe_edit_edit extends Model
   function __construct()
   {
     parent::Model();
+    $this->load->model('ppe_edit_measure');
   }
   
   // Add an edit that is new to the database.
@@ -35,7 +36,15 @@ class Ppe_edit_edit extends Model
     }
     foreach ($players as $player)
     {
+    	$pid = $this->db->select('MAX(id) AS pid')->get('ppe_edit_player')
+    		->row()->pid + 1;
        $data = array(
+       	   'id' => $pid,
+       	   'air' => $row['air'][$player],
+       	   'stream' => $row['stream'][$player],
+       	   'voltage' => $row['voltage'][$player],
+       	   'freeze' => $row['freeze'][$player],
+       	   'chaos' => $row['chaos'][$player],
         'steps' => $row['steps'][$player],
         'jumps' => $row['jumps'][$player],
         'holds' => $row['holds'][$player],
@@ -48,6 +57,9 @@ class Ppe_edit_edit extends Model
         'edit_id' => $id,
       );
       $this->db->insert('ppe_edit_player', $data);
+      
+      $this->ppe_edit_measure->placeNotes($pid, $row['notes']);
+      
     }
     return $id; // Return the edit ID.
   }
@@ -69,7 +81,13 @@ class Ppe_edit_edit extends Model
     }
     foreach ($players as $player)
     {
+    	
       $data = array(
+      	  'air' => $row['air'][$player],
+       	   'stream' => $row['stream'][$player],
+       	   'voltage' => $row['voltage'][$player],
+       	   'freeze' => $row['freeze'][$player],
+       	   'chaos' => $row['chaos'][$player],
         'steps' => $row['steps'][$player],
         'jumps' => $row['jumps'][$player],
         'holds' => $row['holds'][$player],
@@ -80,7 +98,13 @@ class Ppe_edit_edit extends Model
         'fakes' => $row['fakes'][$player],
       );
       $where = array('edit_id' => $id, 'player' => $player + 1);
+      
       $this->db->update('ppe_edit_player', $data, $where);
+      $pid = $this->db->select('id')->where($where)
+      	->get('ppe_edit_player')->row()->id;
+      
+      // remove what's there, and reupload.
+      $this->ppe_edit_measure->placeNotes($pid, $row['notes']);
     }
   }
   
@@ -244,5 +268,12 @@ class Ppe_edit_edit extends Model
   public function getSongEditCount($sid)
   {
     return $this->_getEditCount(array('where' => 'song_id', 'cond' => $sid));
+  }
+  
+  // Download the chosen edit using the database.
+  public function downloadEdit($id, $pro1 = 0)
+  {
+  	  $this->db->query(sprintf("CALL buildEdit(%d, @file, %d);", $id, $pro1));
+  	  return $this->db->query("SELECT @file AS wanted")->row()->wanted;
   }
 }

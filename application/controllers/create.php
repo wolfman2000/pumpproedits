@@ -370,6 +370,25 @@ class Create extends Controller
       return;
     }
     
+    $radars = explode('_', $this->input->post('radar'), 10);
+    $row['stream'] = array();
+    $row['voltage'] = array();
+    $row['air'] = array();
+    $row['freeze'] = array();
+    $row['chaos'] = array();
+    $row['stream'][] = $radars[0];
+    $row['voltage'][] = $radars[1];
+    $row['air'][] = $radars[2];
+    $row['freeze'][] = $radars[3];
+    $row['chaos'][] = $radars[4];
+    if ($row['style'] === "pump-routine")
+    {
+    	$row['stream'][] = $radars[5];
+		$row['voltage'][] = $radars[6];
+		$row['air'][] = $radars[7];
+		$row['freeze'][] = $radars[8];
+		$row['chaos'][] = $radars[9];
+    }
     
     $row['steps'] = array();
     $row['steps'][] = $this->input->post('steps1');
@@ -395,6 +414,8 @@ class Create extends Controller
     $row['fakes'] = array();
     $row['fakes'][] = $this->input->post('fakes1');
     $row['fakes'][] = $this->input->post('fakes2');
+    
+    $row['notes'] = json_decode($this->input->post('notes'), true);
     
     # Can't use <= on the below: what if it's null?
     if (!($eid > 0)) # New edit

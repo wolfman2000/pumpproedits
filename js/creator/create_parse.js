@@ -161,18 +161,33 @@ function saveChart(data)
   file += "   " + title + ":" + EOL;
   file += "   " + songData.difficulty + ":" + EOL;
   file += "   " + diff + ":" + EOL;
+  var s1 = data.stream[0].toFixed(3);
+  var s2 = data.stream[1].toFixed(3);
+  var v1 = data.voltage[0].toFixed(3);
+  var v2 = data.voltage[1].toFixed(3);
+  var a1 = data.air[0].toFixed(3);
+  var a2 = data.air[1].toFixed(3);
+  var f1 = data.freeze[0].toFixed(3);
+  var f2 = data.freeze[1].toFixed(3);
+  var c1 = data.chaos[0].toFixed(3);
+  var c2 = data.chaos[1].toFixed(3);
   // pretty sure this is the style of the new radar line.
-  file += "   " + data.stream[0].toFixed(3) + "," + data.voltage[0].toFixed(3) + ","
-    + data.air[0].toFixed(3) + "," + data.freeze[0].toFixed(3) + ","
-    + data.chaos[0].toFixed(3) + "," + data.steps[0] + ',' + data.jumps[0]
-    + ',' + data.holds[0] + ',' + data.mines[0] + ',' + data.trips[0] + ',' + data.rolls[0]
-    + ',0,0,';
-  var i = (style !== "routine" ? 0 : 1);
-  file += data.stream[i].toFixed(3) + "," + data.voltage[i].toFixed(3) + ","
-    + data.air[i].toFixed(3) + "," + data.freeze[i].toFixed(3) + ","
-    + data.chaos[i].toFixed(3) + "," + data.steps[i] + ',' + data.jumps[i]
-    + ',' + data.holds[i] + ',' + data.mines[i] + ',' + data.trips[i] + ',' + data.rolls[i]
-    + ',0,0:' + EOL + EOL;
+  file += "   " + s1 + "," + v1 + "," + a1 + "," + f1 + "," + c1
+    + "," + data.steps[0] + ',' + data.jumps[0] + ',' + data.holds[0] 
+    + ',' + data.mines[0] + ',' + data.trips[0] + ',' + data.rolls[0] + ',';
+  if (style !== "routine")
+  {
+  	  file += s1 + "," + v1 + "," + a1 + "," + f1 + "," + c1
+  	  	+ "," + data.steps[0] + ',' + data.jumps[0] + ',' + data.holds[0] 
+  	  	+ ',' + data.mines[0] + ',' + data.trips[0] + ',' + data.rolls[0];
+  }
+  else
+  {
+  	  file += s2 + "," + v2 + "," + a2 + "," + f2 + "," + c2
+  	  	+ "," + data.steps[1] + ',' + data.jumps[1] + ',' + data.holds[1] 
+  	  	+ ',' + data.mines[1] + ',' + data.trips[1] + ',' + data.rolls[1];
+  }
+  file += ':' + EOL + EOL;
   
   notes = SVGtoNOTES();
   
@@ -220,20 +235,29 @@ function saveChart(data)
   }
   file += ";" + EOL + EOL;
   
+  var allRadar = s1 + "_" + v1 + "_" + a1 + "_" + f1 + "_" + c1;
+  if (style === "routine")
+  {
+  	  allRadar += "_" + s2 + "_" + v2 + "_" + a2 + "_" + f2 + "_" + c2;
+  }
+  
   $("#b64").val(file);
   $("#abbr").val(songData.abbr);
   $("#style").val(style);
+  $("#radar").val(allRadar);
   $("#diff").val(diff);
   $("#title").val(title);
+  $("#noteJSON").val(JSON.stringify(data.notes));
 }
 
-function genObject(p, m, b, n)
+function genObject(p, m, b, c, n)
 {
   var t = {};
   t['player'] = p + 1;
   t['measure'] = m;
   t['beat'] = b;
-  t['note'] = n + 1;
+  t['column'] = c + 1;
+  t['note'] = n;
   return t;  
 }
 
@@ -271,6 +295,7 @@ function gatherStats(useRadar)
   const range = ARR_HEIGHT * BEATS_PER_MEASURE * 2;
   
   data.badds = Array(); // make a note of where the bad points are.
+  data.notes = Array(); // keep up with the notes to eventually return.
   
   
   var holdCheck = Array();
@@ -348,12 +373,18 @@ function gatherStats(useRadar)
       oY = y;
     }
     
+    if (t != "0")
+    {
+    	var noteObj = genObject(p, m, b, c, t);
+    	data.notes.push(noteObj);
+    	
+    
     if (t === "1") // tap
     {
       // if tap follows hold/roll head
-      if (holdCheck[c]) { data.badds.push(holdCheck[c], genObject(p, m, b, c)); }
+      if (holdCheck[c]) { data.badds.push(holdCheck[c], noteObj); }
       holdCheck[c] = false;
-      stepCheck[c] = genObject(p, m, b, c);
+      stepCheck[c] = noteObj;
       numSteps[p]++;
       data.allT[p]++;
     }
@@ -361,8 +392,8 @@ function gatherStats(useRadar)
     {
       // if hold head follows hold/roll head
       if (holdCheck[c]) { data.badds.push(holdCheck[c]); }
-      holdCheck[c] = genObject(p, m, b, c);
-      stepCheck[c] = genObject(p, m, b, c);
+      holdCheck[c] = noteObj;
+      stepCheck[c] = noteObj;
       numSteps[p]++;
       data.holds[p]++;
       data.allT[p]++;
@@ -370,39 +401,41 @@ function gatherStats(useRadar)
     else if (t === "3") // hold/roll end
     {
       // if hold/roll end doesn't follow head
-      if (!holdCheck[c]) { data.badds.push(genObject(p, m, b, c)); }
+      if (!holdCheck[c]) { data.badds.push(noteObj); }
       holdCheck[c] = false;
-      stepCheck[c] = genObject(p, m, b, c);
+      stepCheck[c] = noteObj;
     }
     else if (t === "4") // roll
     {
       // if roll head follows hold/roll head
       if (holdCheck[c]) { data.badds.push(holdCheck[c]); }
-      holdCheck[c] = genObject(p, m, b, c);
-      stepCheck[c] = genObject(p, m, b, c);
+      holdCheck[c] = noteObj;
+      stepCheck[c] = noteObj;
       numSteps[p]++;
       data.rolls[p]++;
     }
     else if (t === 'M') // mine
     {
       // if mine follows hold/roll head
-      if (holdCheck[c]) { data.badds.push(holdCheck[c], genObject(p, m, b, c)); }
+      if (holdCheck[c]) { data.badds.push(holdCheck[c], noteObj); }
       holdCheck[c] = false;
       data.mines[p]++;
     }
     else if (t === 'L') // lift
     {
       // if lift follows hold/roll head
-      if (holdCheck[c]) { badds.push(holdCheck[c], genObject(p, m, b, c)); }
+      if (holdCheck[c]) { badds.push(holdCheck[c], noteObj); }
       holdCheck[c] = false;
       data.lifts[p]++;
     }
     else if (t === 'F') // fake
     {
        // if fake follows hold/roll head
-      if (holdCheck[c]) { data.badds.push(holdCheck[c], genObject(p, m, b, c)); }
+      if (holdCheck[c]) { data.badds.push(holdCheck[c], noteObj); }
       holdCheck[c] = false;
       data.fakes[p]++;
+    }
+    
     }
   });
   checkBasics(stepCheck, holdCheck);

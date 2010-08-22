@@ -2,5 +2,6 @@
 application/config/email.php
 application/config/database.php
 application/data
+application/backup_data
 tmp
 index.htm

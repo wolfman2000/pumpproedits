@@ -39,4 +39,11 @@ class Ppe_edit_player extends Model
     $where = array('edit_id' => $id, 'player' => $player);
     $this->db->update('ppe_edit_player', $data, $where);
   }
+  
+  // Get the player involved with this player id.
+  function getPlayerByID($id)
+  {
+  	  return $this->db->select('player')->from('ppe_edit_player')
+  	  	->where('id', $id)->get()->row()->player;
+  }
 }

@@ -3,9 +3,12 @@ foreach ($query as $z): ?>
 <div class="edit <?php echo $z->style; ?>-style">
   <div class="edit-left">
     <div class="edit-information">
-      <span class="edit-title"><?php echo anchor("/edits/download/$z->id", $z->title); ?></span><br />
-      <?php 
-      if (isset($showuser)): 
+      <span class="edit-title"><?php echo anchor("/edits/download/$z->id", $z->title); ?></span>
+      <?php if ($z->first_game_id <= 2 and $z->last_game_id >= 3 and
+      	  ($z->style === "routine" or $z->yfakes > 0)): ?>
+      <span class="edit_title"><?php echo anchor("/edits/download/$z->id/pro1", "(Pro 1 version)"); ?>
+      <?php endif; ?><br />
+      <?php if (isset($showuser)): 
         if ($z->user_id == 2):
           $route = "/official";
         else:
