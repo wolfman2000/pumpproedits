@@ -269,4 +269,11 @@ class Ppe_edit_edit extends Model
   {
     return $this->_getEditCount(array('where' => 'song_id', 'cond' => $sid));
   }
+  
+  // Download the chosen edit using the database.
+  public function downloadEdit($id, $pro1 = 0)
+  {
+  	  $this->db->query(sprintf("CALL buildEdit(%d, @file, %d);", $id, $pro1));
+  	  return $this->db->query("SELECT @file AS wanted")->row()->wanted;
+  }
 }
