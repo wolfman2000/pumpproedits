@@ -58,5 +58,8 @@ $(document).ready(function() {
 
   $('#loginlink').click(function() {
     $('#loginbox').removeClass("hide").dialog('open');
-    });  
+    });
+
+  // Ensure you can't click on an arrow box to return home.
+  $("nav#main_nav > ul > li a[href$=#]").click(function(){ return false; })
 });
