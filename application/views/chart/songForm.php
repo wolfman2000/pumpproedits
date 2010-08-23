@@ -54,8 +54,8 @@ endif; ?>
   (
     "for" => "red4", "label" => "4th Note Color", "choices" => array
     (
-      array("value" => "blue", "text" => "Red", "selected" => true),
-      array("value" => "red", "text" => "Blue", "selected" => false),
+      array("value" => "blue", "text" => "Blue", "selected" => true),
+      array("value" => "red", "text" => "Red", "selected" => false),
     ),
   ),
   array
