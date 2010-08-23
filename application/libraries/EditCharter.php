@@ -27,7 +27,7 @@ class EditCharter
     $this->kind = $params['kind'];
     
     # Have the rhythm skin use red as the quarter note.
-    if (array_key_exists('red4', $params) and $params['red4'])
+    if (array_key_exists('red4', $params) and $params['red4'] == "red")
     {
       $this->red4 = 1;
     }
