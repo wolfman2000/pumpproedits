@@ -105,6 +105,7 @@ $(document).ready(function()
   
   // Force all edits to be validated before saving/uploading.
   $("#but_val").click(function(){
+    $("#intro").text("Validating the edit...");
     var data = gatherStats(1);
     if (!data.badds.length)
     {
