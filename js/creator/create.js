@@ -206,6 +206,7 @@ $(document).ready(function()
     $.post(baseURL + "/loadTextarea", { file: $("#fCont").val()}, function(data, status)
     {
       loadEdit(data);
+      editID = 0;
       $("#intro").text("All loaded up!");
       $("#but_save").removeClass('ui-state-disabled');
       $("#but_val").addClass('ui-state-disabled');
