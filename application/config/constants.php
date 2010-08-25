@@ -38,6 +38,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
 // Constants relating to my own work.
+define('HELPERPATH', APPPATH . 'helpers/');
+
 define('APP_BASE_EDITS_PER_PAGE', 30);
 define('APP_MAX_EDITS_PER_PAGE', 1000); # was 10
 define('APP_MAX_EDIT_FILE_SIZE', 61440);
