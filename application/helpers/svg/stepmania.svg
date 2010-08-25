@@ -1,0 +1,167 @@
+<defs>
+	<g id="beat1">
+		<rect x="0" y="0" width="16" height="16"/>
+		<rect x="0" y="16" width="16" height="16"/>
+		<line x1="0" y1="0.1" x2="16" y2="0.1"/>
+	</g>
+	<g id="beat2">
+		<rect x="0" y="0" width="16" height="16"/>
+		<rect x="0" y="16" width="16" height="16"/>
+	</g>
+	<g id="measure">
+		<use xlink:href="#beat1"/>
+		<use y="32" xlink:href="#beat2"/>
+		<line x1="0.05" y1="0" x2="0.05" y2="64"/>
+		<line x1="15.95" y1="0" x2="15.95" y2="64"/>
+	</g>
+	<g id="arrowDL">
+		<path d="m 1 15 h 14 v -2 h -6 v -12 h -2 l -6,6 1,1 5,-5 v 10 h -6 v 2 z" />
+        </g>
+	<g id="arrowUL">
+		<use xlink:href="#arrowDL" />
+	</g>
+	<g id="arrowCN">
+		<use xlink:href="#arrowDL" />
+	</g>
+	<g id="arrowUR">
+		<use xlink:href="#arrowDL" />
+	</g>
+	<g id="arrowDR">
+		<use xlink:href="#arrowDL" />
+	</g>
+	<g id="holdDL">
+		<path d="m 1 15 h 14 v -2 h -12 v -4 h 12 v -8 h -14 v 2 h 12 v 4 h -12 z" />
+        </g>
+	<g id="holdUL">
+		<use xlink:href="#holdUL" />
+	</g>
+	<g id="holdCN">
+		<use xlink:href="#holdUL" />
+	</g>
+	<g id="holdUR">
+		<use xlink:href="#holdUL" />
+	</g>
+	<g id="holdDR">
+		<use xlink:href="#holdUL" />
+	</g>
+	<g id="holdBodyDL">
+		<line x1="0" y1="0" x2="0" y2="0" />
+	</g>
+	<g id="holdBodyUL">
+		<use xlink:href="#holdBodyDL" />
+	</g>
+        <g id="holdBodyCN">
+                <use xlink:href="#holdBodyDL" />
+        </g>
+        <g id="holdBodyUR">
+                <use xlink:href="#holdBodyDL" />
+        </g>
+        <g id="holdBodyDR">
+                <use xlink:href="#holdBodyDL" />
+        </g>
+	<g id="holdEndDL">
+		<path d="m 1 15 h 14 v -14 h -14 v 2 h 12 v 4 h -12 v 2 h 12 v 4 h -12 z" />
+        </g>
+	<g id="holdEndUL">
+		<use xlink:href="#holdEndDL" />
+	</g>
+	<g id="holdEndCN">
+                <use xlink:href="#holdEndDL" />
+        </g>
+	<g id="holdEndUR">
+                <use xlink:href="#holdEndDL" />
+        </g>
+	<g id="holdEndDR">
+                <use xlink:href="#holdEndDL" />
+        </g>
+	<g id="rollDL">
+		<path d="m 7 15 h 2 v -6 h 6 v -2 h -6 v -6 h -2 l -6,6 v 2 h 6 z" />
+        </g>
+	<g id="rollUL">
+		<use xlink:href="#rollUL" />
+	</g>
+	<g id="rollCN">
+                <use xlink:href="#rollUL" />
+        </g>
+	<g id="rollUR">
+                <use xlink:href="#rollUL" />
+        </g>
+	<g id="rollDR">
+                <use xlink:href="#rollUL" />
+        </g>
+	<g id="rollBodyDL">
+		<use xlink:href="#holdBodyDL" />
+	</g>
+	<g id="rollBodyUL">
+                <use xlink:href="#holdBodyDL" />
+        </g>
+	<g id="rollBodyCN">
+                <use xlink:href="#holdBodyDL" />
+        </g>
+	<g id="rollBodyUR">
+                <use xlink:href="#holdBodyDL" />
+        </g>
+	<g id="rollBodyDR">
+                <use xlink:href="#holdBodyDL" />
+        </g>
+	<g id="rollEndDL">
+		<use xlink:href="#holdEndDL" />
+	</g>
+	<g id="rollEndUL">
+                <use xlink:href="#holdEndDL" />
+        </g>
+	<g id="rollEndCN">
+                <use xlink:href="#holdEndDL" />
+        </g>
+	<g id="rollEndUR">
+                <use xlink:href="#holdEndDL" />
+        </g>
+	<g id="rollEndDR">
+                <use xlink:href="#holdEndDL" />
+        </g>
+	<g id="mineDL">
+		<path d="m 1 15 h 2 v -12 l 5,5 5,-5 v 12 h 2 v -14 h -2 l -5,5 -5,-5 h -2 z" />
+        </g>
+	<g id="mineUL">
+		<use xlink:href="#mineDL" />
+	</g>
+	<g id="mineCN">
+                <use xlink:href="#mineDL" />
+        </g>
+	<g id="mineUR">
+                <use xlink:href="#mineDL" />
+        </g>
+	<g id="mineDR">
+                <use xlink:href="#mineDL" />
+        </g>
+	<g id="liftDL">
+		<path d="m 1 15 h 14 v -2 h -12 v -12 h -2 z" />
+        </g>
+	<g id="liftUL">
+		<use xlink:href="#liftDL" />
+	</g>
+	<g id="liftCN">
+                <use xlink:href="#liftDL" />
+        </g>
+	<g id="liftUR">
+                <use xlink:href="#liftDL" />
+        </g>
+	<g id="liftDR">
+                <use xlink:href="#liftDL" />
+        </g>
+	<g id="fakeDL">
+		<path d="m 1 15 h 2 v -6 h 7 v -2 h -7 v -4 h 12 v -2 h -14 z" />
+        </g>
+	<g id="fakeUL">
+		<use xlink:href="#fakeUL" />
+	</g>
+	<g id="fakeCN">
+                <use xlink:href="#fakeUL" />
+        </g>
+	<g id="fakeUR">
+                <use xlink:href="#fakeUL" />
+        </g>
+	<g id="fakeDR">
+                <use xlink:href="#fakeUL" />
+        </g>
+</defs>
