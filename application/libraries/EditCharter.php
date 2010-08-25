@@ -26,7 +26,7 @@ class EditCharter
     $this->bm = APP_CHART_BEAT_P_MEASURE;
     $this->kind = $params['kind'];
     
-    # Have the rhythm skin use red as the quarter note.
+    # Have the rhythm skin use red as the quarter note if requested.
     if (array_key_exists('red4', $params) and $params['red4'] == "red")
     {
       $this->red4 = 1;
@@ -57,6 +57,16 @@ class EditCharter
     else
     {
       $this->arcade = 0;
+    }
+
+    # What noteskin is being requested?
+    if (array_key_exists('noteskin', $params) and $params['noteskin'])
+    {
+      $this->noteskin = $params['noteskin'];
+    }
+    else
+    {
+      $this->noteskin = 'stepmania';
     }
     
     # How much of a zoom is there for the chart?
