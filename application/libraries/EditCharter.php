@@ -137,7 +137,9 @@ class EditCharter
     $height += $this->headheight + $this->footheight;
     $svg->setAttribute('height', $height * $this->scale);
     $this->svgheight = $height;
-    
+
+    $defs = new DOMDocument();    
+
     $svg->appendChild($this->xml->importNode($this->CI->svgmaker->genDefs($style), true));
     
     $this->xml->appendChild($html);
