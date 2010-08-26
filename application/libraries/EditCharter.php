@@ -305,11 +305,11 @@ class EditCharter
     $pre = ($counter === false ? '' : 'P' . $counter);
     if ($this->kind == "classic")
     {
-      $dl = array('a' => 'DL', 'c' => 'note_004', 't' => '');
-      $ul = array('a' => 'UL', 'c' => 'note_008', 't' => "rotate(90 %d %d)");
-      $cn = array('a' => 'CN', 'c' => 'note_016', 't' => '');
-      $ur = array('a' => 'UR', 'c' => 'note_008', 't' => "rotate(180 %d %d)");
-      $dr = array('a' => 'DR', 'c' => 'note_004', 't' => "rotate(270 %d %d)");
+      $dl = array('a' => 'DL', 'c' => 'note_004');
+      $ul = array('a' => 'UL', 'c' => 'note_008');
+      $cn = array('a' => 'CN', 'c' => 'note_016');
+      $ur = array('a' => 'UR', 'c' => 'note_008');
+      $dr = array('a' => 'DR', 'c' => 'note_004');
       $ret = array($dl, $ul, $cn, $ur, $dr);
       if ($this->cols == APP_CHART_DBL_COLS)
       {
@@ -335,11 +335,11 @@ class EditCharter
           else $g = sprintf('note_%03d', intval($d));
         }
         else $g = sprintf('note_%03d', intval($d));
-        $dl = array('a' => 'DL', 'c' => $g, 't' => '');
-        $ul = array('a' => 'UL', 'c' => $g, 't' => "rotate(90 %d %d)");
-        $cn = array('a' => 'CN', 'c' => $g, 't' => '');
-        $ur = array('a' => 'UR', 'c' => $g, 't' => "rotate(180 %d %d)");
-        $dr = array('a' => 'DR', 'c' => $g, 't' => "rotate(270 %d %d)");
+        $dl = array('a' => 'DL', 'c' => $g);
+        $ul = array('a' => 'UL', 'c' => $g);
+        $cn = array('a' => 'CN', 'c' => $g);
+        $ur = array('a' => 'UR', 'c' => $g);
+        $dr = array('a' => 'DR', 'c' => $g);
         $ret[$d] = array($dl, $ul, $cn, $ur, $dr);
         if ($this->cols == APP_CHART_DBL_COLS)
         {
