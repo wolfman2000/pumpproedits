@@ -1,5 +1,12 @@
 @import "_svg.css";
 
+defs > g
+{
+	fill-opacity: 1;
+	stroke-opacity: 1;
+	stroke-width: 0.5;
+}
+
 g#arrowDL > path,
 g#holdDL > path,
 g#holdEndDL > path,
@@ -10,7 +17,30 @@ g#liftDL > path,
 g#fakeDL > path
 {
 	stroke: black;
-	stroke-width: 0.7;
+}
+
+g#P0arrowDL > path,
+g#P0holdDL > path,
+g#P0holdEndDL > path,
+g#P0rollDL > path,
+g#P0rollEndDL > path,
+g#P0mineDL > path,
+g#P0liftDL > path,
+g#P0fakeDL > path
+{
+        stroke: #483D8B;
+}
+
+g#P1arrowDL > path,
+g#P1holdDL > path,
+g#P1holdEndDL > path,
+g#P1rollDL > path,
+g#P1rollEndDL > path,
+g#P1mineDL > path,
+g#P1liftDL > path,
+g#P1fakeDL > path
+{
+	stroke: #B22222;
 }
 
 .note_004 { fill: blue;    }
