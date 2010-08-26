@@ -4,8 +4,8 @@
 $chartCommon = array(
 	array(
 	'field' => 'kind',
-		'label' => 'Noteskin',
-		'rules' => 'callback__noteskin_exists'
+		'label' => 'Note Colors',
+		'rules' => 'callback__notecolor_exists'
 	),
 	array(
 		'field' => 'red4',

@@ -40,10 +40,10 @@ class Chart extends Controller
   }
   
   // confirm the noteskin exists.
-  function _noteskin_exists($str)
+  function _notecolor_exists($str)
   {
     if (in_array($str, array('classic', 'rhythm'))) return true;
-    $this->form_validation->set_message('_noteskin_exists', "Please choose either the classic or rhythm noteskin.");
+    $this->form_validation->set_message('_notecolor_exists', "Please choose either the classic or rhythm color setup.");
     return false;
   }
   

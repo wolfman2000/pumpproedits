@@ -30,7 +30,7 @@ endif; ?>
 (
   array
   (
-    "for" => "kind", "label" => "Noteskin", "choices" => array
+    "for" => "kind", "label" => "Note Color", "choices" => array
     (
       array("value" => "classic", "text" => "Classic", "selected" => true),
       array("value" => "rhythm", "text" => "Rhythm", "selected" => false),
