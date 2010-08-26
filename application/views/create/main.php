@@ -6,7 +6,7 @@ $scripts = array('/js/jquery.svg.js', '/js/jquery.svgdom.js',
 $this->load->view('global/header',
   array('css' => 'css/create.css', 'h2' => 'Edit Creator', 'title' => 'Edit Creator',
   'andy' => $andy, 'scripts' => $scripts, 'others' => $others,
-  'xhtml' => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<?xml-stylesheet href=\"/css/_svg.css\" type=\"text/css\"?>\r\n")); ?>
+  'xhtml' => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<?xml-stylesheet href=\"/css/svg/_svg.css\" type=\"text/css\"?>\r\n")); ?>
 <p>Welcome to the edit creator. Use the options on the
 left to place arrows below. Have fun!</p>
 <div id="helpMenu"></div>
