@@ -477,7 +477,7 @@ class EditCharter
             $opt = array('href' => $rCheck . $bod . $arr, 'transform' => "scale(1 $sy)");
             $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
             $nt->appendChild($node);
-            $opt = array('href' => $rCheck . $end . $arr, 'class' => $a['c']);
+            $opt = array('href' => $rCheck . $end . $arr, 'class' => $arow[$pcounter]['c']);
             $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
           }
           else
@@ -493,7 +493,7 @@ class EditCharter
               $nt->appendChild($node);
             }
             # Tail next
-            $opt = array('href' => $rCheck . $end . $arr, 'class' => $a['c']);
+            $opt = array('href' => $rCheck . $end . $arr, 'class' => $arow[$pcounter]['c']);
             $node = $this->xml->importNode($sm->genUse($nx, $ny, $opt));
             $nt->appendChild($node);
             # Tap note last.
