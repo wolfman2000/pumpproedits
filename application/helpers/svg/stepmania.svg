@@ -16,68 +16,168 @@
 	</g>
 	<g id="arrowDL">
 		<path d="m 1 15 h 14 v -2 h -6 v -12 h -2 l -6,6 1,1 5,-5 v 10 h -6 v 2 z" />
-        </g>
+	</g>
+	<g id="P0arrowDL"><use xlink:href="#arrowDL" /></g>
+	<g id="P1arrowDL"><use xlink:href="#arrowDL" /></g>
 	<g id="arrowUL"><use xlink:href="#arrowDL" /></g>
+	<g id="P0arrowUL"><use xlink:href="#arrowDL" /></g>
+	<g id="P1arrowUL"><use xlink:href="#arrowDL" /></g>
 	<g id="arrowCN"><use xlink:href="#arrowDL" /></g>
+	<g id="P0arrowCN"><use xlink:href="#arrowDL" /></g>
+	<g id="P1arrowCN"><use xlink:href="#arrowDL" /></g>
 	<g id="arrowUR"><use xlink:href="#arrowDL" /></g>
+	<g id="P0arrowUR"><use xlink:href="#arrowDL" /></g>
+	<g id="P1arrowUR"><use xlink:href="#arrowDL" /></g>
 	<g id="arrowDR"><use xlink:href="#arrowDL" /></g>
+	<g id="P0arrowDR"><use xlink:href="#arrowDL" /></g>
+	<g id="P1arrowDR"><use xlink:href="#arrowDL" /></g>
 	<g id="holdDL">
 		<path d="m 1 15 h 14 v -2 h -12 v -4 h 12 v -8 h -14 v 2 h 12 v 4 h -12 z" />
 	</g>
+	<g id="P0holdDL"><use xlink:href="#holdDL" /></g>
+	<g id="P1holdDL"><use xlink:href="#holdDL" /></g>
 	<g id="holdUL"><use xlink:href="#holdDL" /></g>
+	<g id="P0holdUL"><use xlink:href="#holdDL" /></g>
+	<g id="P1holdUL"><use xlink:href="#holdDL" /></g>
 	<g id="holdCN"><use xlink:href="#holdDL" /></g>
+	<g id="P0holdCN"><use xlink:href="#holdDL" /></g>
+	<g id="P1holdCN"><use xlink:href="#holdDL" /></g>
 	<g id="holdUR"><use xlink:href="#holdDL" /></g>
+	<g id="P0holdUR"><use xlink:href="#holdDL" /></g>
+	<g id="P1holdUR"><use xlink:href="#holdDL" /></g>
 	<g id="holdDR"><use xlink:href="#holdDL" /></g>
+	<g id="P0holdDR"><use xlink:href="#holdDL" /></g>
+	<g id="P1holdDR"><use xlink:href="#holdDL" /></g>
 	<g id="holdBodyDL">
 		<line x1="0" y1="0" x2="0" y2="0" />
 	</g>
+	<g id="P0holdBodyDL"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P1holdBodyDL"><use xlink:href="#holdBodyDL" /></g>
 	<g id="holdBodyUL"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0holdBodyUL"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P1holdBodyUL"><use xlink:href="#holdBodyDL" /></g>
 	<g id="holdBodyCN"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0holdBodyCN"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P1holdBodyCN"><use xlink:href="#holdBodyDL" /></g>
 	<g id="holdBodyUR"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0holdBodyUR"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P1holdBodyUR"><use xlink:href="#holdBodyDL" /></g>
 	<g id="holdBodyDR"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0holdBodyDR"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P1holdBodyDR"><use xlink:href="#holdBodyDL" /></g>
 	<g id="holdEndDL">
 		<path d="m 1 15 h 14 v -14 h -14 v 2 h 12 v 4 h -12 v 2 h 12 v 4 h -12 z" />
 	</g>
+	<g id="P0holdEndDL"><use xlink:href="#holdEndDL" /></g>
+	<g id="P1holdEndDL"><use xlink:href="#holdEndDL" /></g>
 	<g id="holdEndUL"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0holdEndUL"><use xlink:href="#holdEndDL" /></g>
+	<g id="P1holdEndUL"><use xlink:href="#holdEndDL" /></g>
 	<g id="holdEndCN"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0holdEndCN"><use xlink:href="#holdEndDL" /></g>
+	<g id="P1holdEndCN"><use xlink:href="#holdEndDL" /></g>
 	<g id="holdEndUR"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0holdEndUR"><use xlink:href="#holdEndDL" /></g>
+	<g id="P1holdEndUR"><use xlink:href="#holdEndDL" /></g>
 	<g id="holdEndDR"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0holdEndDR"><use xlink:href="#holdEndDL" /></g>
+	<g id="P1holdEndDR"><use xlink:href="#holdEndDL" /></g>
 	<g id="rollDL">
 		<path d="m 7 15 h 2 v -6 h 6 v -2 h -6 v -6 h -2 l -6,6 v 2 h 6 z" />
 	</g>
+	<g id="P0rollDL"><use xlink:href="#rollDL" /></g>
+	<g id="P1rollDL"><use xlink:href="#rollDL" /></g>
 	<g id="rollUL"><use xlink:href="#rollDL" /></g>
+	<g id="P0rollUL"><use xlink:href="#rollDL" /></g>
+	<g id="P1rollUL"><use xlink:href="#rollDL" /></g>
 	<g id="rollCN"><use xlink:href="#rollDL" /></g>
+	<g id="P0rollCN"><use xlink:href="#rollDL" /></g>
+	<g id="P1rollCN"><use xlink:href="#rollDL" /></g>
 	<g id="rollUR"><use xlink:href="#rollDL" /></g>
+	<g id="P0rollUR"><use xlink:href="#rollDL" /></g>
+	<g id="P1rollUR"><use xlink:href="#rollDL" /></g>
 	<g id="rollDR"><use xlink:href="#rollDL" /></g>
+	<g id="P0rollDR"><use xlink:href="#rollDL" /></g>
+	<g id="P1rollDR"><use xlink:href="#rollDL" /></g>
 	<g id="rollBodyDL"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0rollBodyDL"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P1rollBodyDL"><use xlink:href="#rollBodyDL" /></g>
 	<g id="rollBodyUL"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0rollBodyUL"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P1rollBodyUL"><use xlink:href="#rollBodyDL" /></g>
 	<g id="rollBodyCN"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0rollBodyCN"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P1rollBodyCN"><use xlink:href="#rollBodyDL" /></g>
 	<g id="rollBodyUR"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0rollBodyUR"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P1rollBodyUR"><use xlink:href="#rollBodyDL" /></g>
 	<g id="rollBodyDR"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0rollBodyDR"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P1rollBodyDR"><use xlink:href="#rollBodyDL" /></g>
 	<g id="rollEndDL"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0rollEndDL"><use xlink:href="#rollEndDL" /></g>
+	<g id="P1rollEndDL"><use xlink:href="#rollEndDL" /></g>
 	<g id="rollEndUL"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0rollEndUL"><use xlink:href="#rollEndDL" /></g>
+	<g id="P1rollEndUL"><use xlink:href="#rollEndDL" /></g>
 	<g id="rollEndCN"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0rollEndCN"><use xlink:href="#rollEndDL" /></g>
+	<g id="P1rollEndCN"><use xlink:href="#rollEndDL" /></g>
 	<g id="rollEndUR"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0rollEndUR"><use xlink:href="#rollEndDL" /></g>
+	<g id="P1rollEndUR"><use xlink:href="#rollEndDL" /></g>
 	<g id="rollEndDR"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0rollEndDR"><use xlink:href="#rollEndDL" /></g>
+	<g id="P1rollEndDR"><use xlink:href="#rollEndDL" /></g>
 	<g id="mineDL">
 		<path d="m 1 15 h 2 v -12 l 5,5 5,-5 v 12 h 2 v -14 h -2 l -5,5 -5,-5 h -2 z" />
 	</g>
+	<g id="P0mineDL"><use xlink:href="#mineDL" /></g>
+	<g id="P1mineDL"><use xlink:href="#mineDL" /></g>
 	<g id="mineUL"><use xlink:href="#mineDL" /></g>
+	<g id="P0mineUL"><use xlink:href="#mineDL" /></g>
+	<g id="P1mineUL"><use xlink:href="#mineDL" /></g>
 	<g id="mineCN"><use xlink:href="#mineDL" /></g>
+	<g id="P0mineCN"><use xlink:href="#mineDL" /></g>
+	<g id="P1mineCN"><use xlink:href="#mineDL" /></g>
 	<g id="mineUR"><use xlink:href="#mineDL" /></g>
+	<g id="P0mineUR"><use xlink:href="#mineDL" /></g>
+	<g id="P1mineUR"><use xlink:href="#mineDL" /></g>
 	<g id="mineDR"><use xlink:href="#mineDL" /></g>
+	<g id="P0mineDR"><use xlink:href="#mineDL" /></g>
+	<g id="P1mineDR"><use xlink:href="#mineDL" /></g>
 	<g id="liftDL">
 		<path d="m 1 15 h 14 v -2 h -12 v -12 h -2 z" />
 	</g>
+	<g id="P0liftDL"><use xlink:href="#liftDL" /></g>
+	<g id="P1liftDL"><use xlink:href="#liftDL" /></g>
 	<g id="liftUL"><use xlink:href="#liftDL" /></g>
+	<g id="P0liftUL"><use xlink:href="#liftDL" /></g>
+	<g id="P1liftUL"><use xlink:href="#liftDL" /></g>
 	<g id="liftCN"><use xlink:href="#liftDL" /></g>
+	<g id="P0liftCN"><use xlink:href="#liftDL" /></g>
+	<g id="P1liftCN"><use xlink:href="#liftDL" /></g>
 	<g id="liftUR"><use xlink:href="#liftDL" /></g>
+	<g id="P0liftUR"><use xlink:href="#liftDL" /></g>
+	<g id="P1liftUR"><use xlink:href="#liftDL" /></g>
 	<g id="liftDR"><use xlink:href="#liftDL" /></g>
+	<g id="P0liftDR"><use xlink:href="#liftDL" /></g>
+	<g id="P1liftDR"><use xlink:href="#liftDL" /></g>
 	<g id="fakeDL">
 		<path d="m 1 15 h 2 v -6 h 7 v -2 h -7 v -4 h 12 v -2 h -14 z" />
 	</g>
+	<g id="P0fakeDL"><use xlink:href="#fakeDL" /></g>
+	<g id="P1fakeDL"><use xlink:href="#fakeDL" /></g>
 	<g id="fakeUL"><use xlink:href="#fakeDL" /></g>
+	<g id="P0fakeUL"><use xlink:href="#fakeDL" /></g>
+	<g id="P1fakeUL"><use xlink:href="#fakeDL" /></g>
 	<g id="fakeCN"><use xlink:href="#fakeDL" /></g>
+	<g id="P0fakeCN"><use xlink:href="#fakeDL" /></g>
+	<g id="P1fakeCN"><use xlink:href="#fakeDL" /></g>
 	<g id="fakeUR"><use xlink:href="#fakeDL" /></g>
+	<g id="P0fakeUR"><use xlink:href="#fakeDL" /></g>
+	<g id="P1fakeUR"><use xlink:href="#fakeDL" /></g>
 	<g id="fakeDR"><use xlink:href="#fakeDL" /></g>
+	<g id="P0fakeDR"><use xlink:href="#fakeDL" /></g>
+	<g id="P1fakeDR"><use xlink:href="#fakeDL" /></g>
 </defs>
