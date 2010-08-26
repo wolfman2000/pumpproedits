@@ -66,7 +66,7 @@ class EditCharter
     }
     else
     {
-      $this->noteskin = 'stepmania';
+      $this->noteskin = 'original';
     }
     
     # How much of a zoom is there for the chart?
