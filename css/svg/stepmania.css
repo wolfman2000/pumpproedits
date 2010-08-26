@@ -1,5 +1,18 @@
 @import "_svg.css";
 
+g#arrowDL > path,
+g#holdDL > path,
+g#holdEndDL > path,
+g#rollDL > path,
+g#rollEndDL > path,
+g#mineDL > path,
+g#liftDL > path,
+g#fakeDL > path
+{
+	stroke: black;
+	stroke-width: 0.7;
+}
+
 .note_004 { fill: blue;    }
 .note_008 { fill: red;     }
 .note_012 { fill: purple;  }
