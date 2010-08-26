@@ -32,9 +32,9 @@
 		<path d="m 11, 8 l -3, -3" />
 		<path d="m 7.75, 11.25 l -3, -3" />
 	</g>
-	<g id="arrowUL"><use xlink:href="#arrowDL" /></g>
-	<g id="P0arrowUL"><use xlink:href="#P0arrowDL" /></g>
-	<g id="P1arrowUL"><use xlink:href="#P1arrowDL" /></g>
+	<g id="arrowUL"><use xlink:href="#arrowDL" transform="rotate(90 8 8)" /></g>
+	<g id="P0arrowUL"><use xlink:href="#P0arrowDL" transform="rotate(90 8 8)" /></g>
+	<g id="P1arrowUL"><use xlink:href="#P1arrowDL" transform="rotate(90 8 8)" /></g>
 	<g id="arrowCN">
 		<path d="m 1,2 v 12 l 1,1 h 12 l 1,-1 v -12 l -1,-1 h -12 z" />
 		<rect x="4"  y="6" width="2" height="4" rx="0.5" />
@@ -50,12 +50,12 @@
 		<rect x="4"  y="6" width="2" height="4" rx="0.5" />
 		<rect x="10" y="6" width="2" height="4" rx="0.5" />
 	</g>
-	<g id="arrowUR"><use xlink:href="#arrowDL" /></g>
-	<g id="P0arrowUR"><use xlink:href="#P0arrowDL" /></g>
-	<g id="P1arrowUR"><use xlink:href="#P1arrowDL" /></g>
-	<g id="arrowDR"><use xlink:href="#arrowDL" /></g>
-	<g id="P0arrowDR"><use xlink:href="#P0arrowDL" /></g>
-	<g id="P1arrowDR"><use xlink:href="#P1arrowDL" /></g>
+	<g id="arrowUR"><use xlink:href="#arrowDL" transform="rotate(180 8 8)" /></g>
+	<g id="P0arrowUR"><use xlink:href="#P0arrowDL" transform="rotate(180 8 8)" /></g>
+	<g id="P1arrowUR"><use xlink:href="#P1arrowDL" transform="rotate(180 8 8)" /></g>
+	<g id="arrowDR"><use xlink:href="#arrowDL" transform="rotate(270 8 8)" /></g>
+	<g id="P0arrowDR"><use xlink:href="#P0arrowDL" transform="rotate(270 8 8)" /></g>
+	<g id="P1arrowDR"><use xlink:href="#P1arrowDL" transform="rotate(270 8 8)" /></g>
 	<g id="holdDL"><use xlink:href="#arrowDL" /></g>
 	<g id="P0holdDL"><use xlink:href="#P0arrowDL" /></g>
 	<g id="P1holdDL"><use xlink:href="#P1arrowDL" /></g>
