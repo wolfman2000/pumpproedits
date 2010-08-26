@@ -1,6 +1,40 @@
 <?php
 // This file handles all of the validation rules.
 
+$chartCommon = array(
+	array(
+	'field' => 'kind',
+		'label' => 'Noteskin',
+		'rules' => 'callback__noteskin_exists'
+	),
+	array(
+		'field' => 'red4',
+		'label' => '4th Note Color',
+		'rules' => 'callback__red_exists'
+	),
+	array(
+		'field' => 'speed',
+		'label' => 'Speed Mod',
+		'rules' => 'callback__speed_valid'
+	),
+	array(
+		'field' => 'mpcol',
+		'label' => 'Measures per Column',
+		'rules' => 'callback__mpc_valid'
+	),
+	array(
+		'field' => 'scale',
+		'label' => 'Scale',
+		'rules' => 'callback__scale_valid'
+	),
+);
+$chartEdit = $chartCommon;
+$chartEdit[] = array(
+	'field' => 'edits',
+	'label' => 'Edit',
+	'rules' => 'callback__edit_exists'
+);
+
 $config = array(
 	'reset/check' => array(
 		array(
