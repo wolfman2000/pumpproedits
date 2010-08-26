@@ -120,7 +120,7 @@ class EditCharter
     $link = $this->xml->createElement('link');
     $link->setAttribute('type', 'text/css');
     $link->setAttribute('rel', 'stylesheet');
-    $link->setAttribute('href', '/css/_svg.css');
+    $link->setAttribute('href', sprintf('/css/svg/%s.css', $this->noteskin));
     $head->appendChild($title);
     $head->appendChild($link);
     $html->appendChild($head);
