@@ -305,11 +305,11 @@ class EditCharter
     $pre = ($counter === false ? '' : 'P' . $counter);
     if ($this->kind == "classic")
     {
-      $dl = array('a' => 'DL', 'c' => 'note_004');
-      $ul = array('a' => 'UL', 'c' => 'note_008');
-      $cn = array('a' => 'CN', 'c' => 'note_016');
-      $ur = array('a' => 'UR', 'c' => 'note_008');
-      $dr = array('a' => 'DR', 'c' => 'note_004');
+      $dl = array('a' => "$pre%sDL", 'c' => 'note_004');
+      $ul = array('a' => "$pre%sUL", 'c' => 'note_008');
+      $cn = array('a' => "$pre%sCN", 'c' => 'note_016');
+      $ur = array('a' => "$pre%sUR", 'c' => 'note_008');
+      $dr = array('a' => "$pre%sDR", 'c' => 'note_004');
       $ret = array($dl, $ul, $cn, $ur, $dr);
       if ($this->cols == APP_CHART_DBL_COLS)
       {
@@ -335,11 +335,11 @@ class EditCharter
           else $g = sprintf('note_%03d', intval($d));
         }
         else $g = sprintf('note_%03d', intval($d));
-        $dl = array('a' => 'DL', 'c' => $g);
-        $ul = array('a' => 'UL', 'c' => $g);
-        $cn = array('a' => 'CN', 'c' => $g);
-        $ur = array('a' => 'UR', 'c' => $g);
-        $dr = array('a' => 'DR', 'c' => $g);
+        $dl = array('a' => "$pre%sDL", 'c' => $g);
+        $ul = array('a' => "$pre%sUL", 'c' => $g);
+        $cn = array('a' => "$pre%sCN", 'c' => $g);
+        $ur = array('a' => "$pre%sUR", 'c' => $g);
+        $dr = array('a' => "$pre%sDR", 'c' => $g);
         $ret[$d] = array($dl, $ul, $cn, $ur, $dr);
         if ($this->cols == APP_CHART_DBL_COLS)
         {
@@ -415,7 +415,7 @@ class EditCharter
     {
       case "1": # Tap note. Just add to the chart.
       {
-        $opt = array('href' => $rCheck . 'arrow' . $arr, 'class' => $arow[$pcounter]['c']);
+        $opt = array('href' => sprintf($arr, 'arrow'), 'class' => $arow[$pcounter]['c']);
         $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
@@ -451,12 +451,12 @@ class EditCharter
             $range = $bot - $hy;
             $sy = $range / $this->aw;
             
-            $opt = array('href' => $rCheck . $bod . $arr, 'transform' => "scale(1 $sy)");
+            $opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
             $node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
             $nt->appendChild($node);
             
             # Place the tap.
-            $opt = array('href' => $rCheck . $id . $arr, 'class' => $a['c']);
+            $opt = array('href' => sprintf($arr, $id), 'class' => $a['c']);
             $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
             
             $ox += $w;
@@ -465,7 +465,7 @@ class EditCharter
             {
               $range = $bot - $hy;
               $sy = $range / $this->aw;
-              $opt = array('href' => $rCheck . $bod . $arr, 'transform' => "scale(1 $sy)");
+              $opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
               $node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
               $nt->appendChild($node);
               $ox += $w;
@@ -474,10 +474,10 @@ class EditCharter
             $bot = $ny + $this->aw / 2;
             $range = $bot - $hy;
             $sy = $range / $this->aw;
-            $opt = array('href' => $rCheck . $bod . $arr, 'transform' => "scale(1 $sy)");
+            $opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
             $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
             $nt->appendChild($node);
-            $opt = array('href' => $rCheck . $end . $arr, 'class' => $arow[$pcounter]['c']);
+            $opt = array('href' => sprintf($arr, $end), 'class' => $arow[$pcounter]['c']);
             $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
           }
           else
@@ -488,16 +488,16 @@ class EditCharter
               $hy = $oy + $this->aw / 2;
               $range = $bot - $hy;
               $sy = $range / $this->aw;
-              $opt = array('href' => $rCheck . $bod . $arr, 'transform' => "scale(1 $sy)");
+              $opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
               $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
               $nt->appendChild($node);
             }
             # Tail next
-            $opt = array('href' => $rCheck . $end . $arr, 'class' => $arow[$pcounter]['c']);
+            $opt = array('href' => sprintf($arr, $end), 'class' => $arow[$pcounter]['c']);
             $node = $this->xml->importNode($sm->genUse($nx, $ny, $opt));
             $nt->appendChild($node);
             # Tap note last.
-            $opt = array('href' => $rCheck . $id . $arr, 'class' => $a['c']);
+            $opt = array('href' => sprintf($arr, $id), 'class' => $a['c']);
             $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
           }
         }
@@ -506,21 +506,21 @@ class EditCharter
       case "M": # Mine. Don't step on these!
       {
         $holds[$pcounter]['on'] = false;
-        $opt = array('href' => $rCheck . 'mine' . $arr, 'class' => $arow[$pcounter]['c']);
+        $opt = array('href' => sprintf($arr, 'mine'), 'class' => $arow[$pcounter]['c']);
         $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
       case "L": # Lift note. Can be placed in chart. No image yet.
       {
         $holds[$pcounter]['on'] = false;
-        $opt = array('href' => $rCheck . 'lift' . $arr, 'class' => $arow[$pcounter]['c']);
+        $opt = array('href' => sprintf($arr, 'lift'), 'class' => $arow[$pcounter]['c']);
         $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
       case "F": # Fake note. Officially in Pro 2.
       {
         $holds[$pcounter]['on'] = false;
-        $opt = array('href' => $rCheck . 'fake' . $arr, 'class' => $arow[$pcounter]['c']);
+        $opt = array('href' => sprintf($arr, 'fake'), 'class' => $arow[$pcounter]['c']);
         $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
         break;
       }
