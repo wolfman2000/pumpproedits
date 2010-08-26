@@ -40,14 +40,14 @@ g#arrowCN > rect, g#P0arrowCN > rect, g#P1arrowCN > rect
 }
 
 g#holdBodyDL > rect, g#P0holdBodyDL > rect, g#P1holdBodyDL > rect,
-g#holdEndDL > path, g#P0holdEndDL > path, g#P1holdBodyDL > path
+g#holdEndDL > path, g#P0holdEndDL > path, g#P1holdEndDL > path
 {
   fill-opacity: 1;
   fill:darkblue;
   stroke:none;
 }
 g#rollBodyDL > rect, g#P0rollBodyDL > rect, g#P1rollBodyDL > rect,
-g#rollEndDL > path, g#P0rollEndDL > path, g#P1rollBodyDL > path
+g#rollEndDL > path, g#P0rollEndDL > path, g#P1rollEndDL > path
 {
   fill-opacity: 1;
   fill:#9932CC;
@@ -63,15 +63,17 @@ g#rollEndDL > path, g#P0rollEndDL > path, g#P1rollEndDL > path
   stroke-width: 0.3;
 }
 
-g#P0arrow > *:first-child, g#P0center > *:first-child,
-g#P0mine > *:first-child, g#P0fake > *:first-child,
-g#P0lift > *:first-child
+g#P0arrowDL > *:first-child, g#P0arrowCN > *:first-child,
+g#P0mineDL > *:first-child, g#P0liftDL > *:first-child,
+g#P0fakeDL > *:first-child
 {
-	stroke: #483D8B;
+	stroke: black;
+	stroke-width: 0.7;
 }
-g#P1arrow > *:first-child, g#P1center > *:first-child,
-g#P1mine > *:first-child, g#P1fake > *:first-child,
-g#P1lift > *:first-child
+g#P1arrowDL > *:first-child, g#P1arrowCN > *:first-child,
+g#P1mineDL > *:first-child, g#P1liftDL > *:first-child,
+g#P1fakeDL > *:first-child
 {
 	stroke: #b22222;
+	stroke-width: 0.7;
 }
