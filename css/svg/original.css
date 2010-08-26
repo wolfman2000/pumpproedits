@@ -38,20 +38,22 @@ g#arrowCN > rect, g#P0arrowCN > rect, g#P1arrowCN > rect
 {
   fill:black;
 }
-
 g#holdBodyDL > rect, g#P0holdBodyDL > rect, g#P1holdBodyDL > rect,
-g#holdEndDL > path, g#P0holdEndDL > path, g#P1holdEndDL > path
-{
-  fill-opacity: 1;
-  fill:darkblue;
-  stroke:none;
-}
+g#holdEndDL > path, g#P0holdEndDL > path, g#P1holdEndDL > path,
 g#rollBodyDL > rect, g#P0rollBodyDL > rect, g#P1rollBodyDL > rect,
 g#rollEndDL > path, g#P0rollEndDL > path, g#P1rollEndDL > path
 {
-  fill-opacity: 1;
+	fill-opacity: 1;
+	stroke: none;
+}
+
+g#holdBodyDL > rect, g#P0holdBodyDL > rect, g#P1holdBodyDL > rect
+{
+  fill:darkblue;
+}
+g#rollBodyDL > rect, g#P0rollBodyDL > rect, g#P1rollBodyDL > rect
+{
   fill:#9932CC;
-  stroke:none;
 }
 
 g#holdBodyDL > line, g#P0holdBodyDL > line, g#P1holdBodyDL > line,
