@@ -1,73 +1,67 @@
 @import "_svg.css";
 
-g#arrow, g#center, g#mine, g#fake, g#lift,
-g#P0arrow, g#P0center, g#P0mine, g#P0fake, g#P0lift,
-g#P1arrow, g#P1center, g#P1mine, g#P1fake, g#P1lift
+defs > g
 {
-  fill-opacity:1;
-  stroke:black;
-  stroke-width:0.5;
-  stroke-opacity:1;
-}
-g#arrow path, g#center path,
-g#P0arrow path, g#P0center path,
-g#P1arrow path, g#P1center path
-{
-	stroke-width: 1;
+	fill-opacity: 1;
+	stroke-width: 0.5;
+	stroke-opacity: 1;
 }
 
-g#mine > circle, g#P0mine > circle, g#P1mine > circle
+g#arrowDL > path, g#P0arrowDL > path, g#P1arrowDL > path,
+g#arrowCN > path, g#P0arrowCN > path, g#P1arrowCN > path,
+g#liftDL > path, g#P0liftDL > path, g#P1liftDL > path,
+g#fakeDL > path, g#P0fakeDL > path, g#P1fakeDL > path
 {
-	stroke-width: 0.1;
+	stroke-width: 1;
+	stroke: black;
 }
-g#mine > circle:first-child
-g#P0mine > circle:first-child,
-g#P1mine > circle:first-child
+
+g#mineDL > circle, g#P0mineDL > circle, g#P1mineDL > circle
+{
+	stroke-width: 1;
+	stroke: black;
+}
+
+g#mineDL > circle:first-child,
+g#P0mineDL > circle:first-child,
+g#P1mineDL > circle:first-child
 {
   fill:red;
 }
-g#mine > circle:first-child + circle,
-g#P0mine > circle:first-child + circle,
-g#P1mine > circle:first-child + circle
+g#mineDL > circle:first-child + circle,
+g#P0mineDL > circle:first-child + circle,
+g#P1mineDL > circle:first-child + circle
 {
   fill:black;
 }
-g#center > rect, g#P0center > rect, g#P1center > rect
+g#arrowCN > rect, g#P0arrowCN > rect, g#P1arrowCN > rect
 {
   fill:black;
-}
-g#arrow > line, g#P0arrow > line, g#P1arrow > line
-{
-  stroke: black;
-  stroke-width: 0.1;
 }
 
-g#hold_bdy > rect, g#hold_end > path
+g#holdBodyDL > rect, g#P0holdBodyDL > rect, g#P1holdBodyDL > rect,
+g#holdEndDL > path, g#P0holdEndDL > path, g#P1holdBodyDL > path
 {
   fill-opacity: 1;
   fill:darkblue;
   stroke:none;
 }
-g#roll_bdy > rect, g#roll_end > path
+g#rollBodyDL > rect, g#P0rollBodyDL > rect, g#P1rollBodyDL > rect,
+g#rollEndDL > path, g#P0rollEndDL > path, g#P1rollBodyDL > path
 {
   fill-opacity: 1;
-  fill:purple;
+  fill:#9932CC;
   stroke:none;
 }
-g#hold_bdy > line, g#hold_end > path, g#roll_bdy > line, g#roll_end > path
+
+g#holdBodyDL > line, g#P0holdBodyDL > line, g#P1holdBodyDL > line,
+g#holdEndDL > path, g#P0holdEndDL > path, g#P1holdEndDL > path,
+g#rollBodyDL > line, g#P0rollBodyDL > line, g#P1rollBodyDL > line,
+g#rollEndDL > path, g#P0rollEndDL > path, g#P1rollEndDL > path
 {
   stroke:black;
   stroke-width: 0.3;
 }
-.note_004 { fill: blue;    }
-.note_008 { fill: red;     }
-.note_012 { fill: purple;  }
-.note_016 { fill: yellow;  }
-.note_024 { fill: pink;    }
-.note_032 { fill: orange;  }
-.note_048 { fill: aqua;    }
-.note_064 { fill: lime;    }
-.note_192 { fill: #808080; }
 
 g#P0arrow > *:first-child, g#P0center > *:first-child,
 g#P0mine > *:first-child, g#P0fake > *:first-child,
@@ -80,35 +74,4 @@ g#P1mine > *:first-child, g#P1fake > *:first-child,
 g#P1lift > *:first-child
 {
 	stroke: #b22222;
-}
-
-text
-{
-  font-family: "DejaVu Sans Mono", "Courier New", Courier, monospace;
-  font-size: 0.8em;
-}
-.bpm
-{
-  font-size: 8px;
-  fill: blue;
-}
-line.bpm
-{
-  stroke: blue;
-  stroke-width: 1;
-}
-.stop
-{
-  font-size: 8px;
-  fill: red;
-}
-line.stop
-{
-  stroke: red;
-  stroke-width: 1;
-}
-.sect
-{
-	fill: orange;
-	font-size: 8px;
 }
