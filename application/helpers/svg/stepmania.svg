@@ -153,15 +153,15 @@
 		<path d="m 1 15 h 2 v -6 h 7 v -2 h -7 v -4 h 12 v -2 h -14 z" />
         </g>
 	<g id="fakeUL">
-		<use xlink:href="#fakeUL" />
+		<use xlink:href="#fakeDL" />
 	</g>
 	<g id="fakeCN">
-		<use xlink:href="#fakeUL" />
+		<use xlink:href="#fakeDL" />
 	</g>
 	<g id="fakeUR">
-		<use xlink:href="#fakeUL" />
+		<use xlink:href="#fakeDL" />
 	</g>
 	<g id="fakeDR">
-		<use xlink:href="#fakeUL" />
+		<use xlink:href="#fakeDL" />
 	</g>
 </defs>
