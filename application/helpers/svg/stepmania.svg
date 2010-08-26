@@ -33,16 +33,16 @@
 		<path d="m 1 15 h 14 v -2 h -12 v -4 h 12 v -8 h -14 v 2 h 12 v 4 h -12 z" />
         </g>
 	<g id="holdUL">
-		<use xlink:href="#holdUL" />
+		<use xlink:href="#holdDL" />
 	</g>
 	<g id="holdCN">
-		<use xlink:href="#holdUL" />
+		<use xlink:href="#holdDL" />
 	</g>
 	<g id="holdUR">
-		<use xlink:href="#holdUL" />
+		<use xlink:href="#holdDL" />
 	</g>
 	<g id="holdDR">
-		<use xlink:href="#holdUL" />
+		<use xlink:href="#holdDL" />
 	</g>
 	<g id="holdBodyDL">
 		<line x1="0" y1="0" x2="0" y2="0" />
