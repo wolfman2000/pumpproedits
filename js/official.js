@@ -20,7 +20,7 @@ $(document).ready(function()
           if (d === "id") { continue; }
           if (data[d]) { $("#diff > option[value=" + d + "]").show(); }
         }
-        if ($("#diff > option[value=" + diff + "]").attr('style').indexOf('none') == -1)
+        if ($("#diff > optgroup > option:selected"))
         {
           $("#submit").removeAttr('disabled');
         }
