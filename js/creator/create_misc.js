@@ -14,7 +14,7 @@ function showRect(x, y)
 // Trace the mouse to see where the shadow falls.
 function shadow(pX, pY, pnt)
 {
-	if (!$("#measureNum1")) return;
+	if (!$("#measureNum1").length) return;
 	
   var mX = -1000;
   var mY = -1000;
