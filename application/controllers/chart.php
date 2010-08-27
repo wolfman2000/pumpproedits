@@ -119,7 +119,7 @@ class Chart extends Controller
     $p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
       'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
       'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'),
-      'author' => $author);
+      'author' => $author, 'noteskin' => $this->input->post('noteskin'));
     $this->load->library('EditCharter', $p);
     $notedata['author'] = $author;
     header("Content-Type: application/xhtml+xml");
@@ -164,7 +164,8 @@ class Chart extends Controller
     $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
     $p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
       'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
-      'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'), 'arcade' => 1);
+      'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'),
+      'arcade' => 1, 'noteskin' => $this->input->post('noteskin'));
     $this->load->library('EditCharter', $p);
     header("Content-Type: application/xhtml+xml");
     $xml = $this->editcharter->genChart($notedata);
