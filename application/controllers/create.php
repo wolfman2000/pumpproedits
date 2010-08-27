@@ -14,6 +14,7 @@ class Create extends Controller
     $this->load->model('ppe_song_stop');
     $this->load->model('ppe_song_section');
     $this->load->model('ppe_edit_edit');
+    $this->load->model('ppe_play_style');
     $this->load->library('EditParser');
   }
   
@@ -368,7 +369,9 @@ class Create extends Controller
     $song = $this->ppe_song_song->getSongByID($row['id']);
     $row['uid'] = $this->input->post('userID');
     $row['title'] = $this->input->post('title');
-    $row['style'] = "pump-" . $this->input->post('style');
+    $st = $this->input->post('style');
+    $row['style'] = "pump-" . $st;
+    $row['style_id'] = $this->ppe_play_style->getPlayStyleID($st);
     $row['diff'] = $this->input->post('diff');
     $row['public'] = ($this->input->post('public') == 1 ? 1 : 0);
     
