@@ -114,7 +114,7 @@ class Create extends Controller
   }
   
   // Get the possible difficulties for each song that comes in.
-  function _songDifficulties()
+  function songDifficulties()
   {
   	if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
       strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
