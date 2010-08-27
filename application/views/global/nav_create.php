@@ -86,10 +86,6 @@ if ($oid !== "無"): ?>
 <li><label for="stylelist">Select your style!</label></li>
 <li><select id="stylelist">
 <option value="" selected="selected">Choose</option>
-<option value="single">pump-single</option>
-<option value="double">pump-double</option>
-<option value="halfdouble">pump-halfdouble</option>
-<option value="routine">pump-routine</option>
 </select></li>
 </ul>
 </dd> <?php /* Everything below is for Edit Mode. */ ?>

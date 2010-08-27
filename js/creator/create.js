@@ -158,9 +158,11 @@ $(document).ready(function()
     {
       $("#intro").text("Setting up styles...")
       $("#loadDifficulty").addClass('ui-state-disabled');
-      $.getJSON(baseURL + "/routine/" + songID, function(data, status)
+      $.getJSON(baseURL + "/songDifficulties/" + songID, function(data, status)
       {
-        var diff = $("#loadDifficulty").val();
+        
+      	  
+      	  var diff = $("#loadDifficulty").val();
         if (data.isRoutine > 0) { $("#loadDifficulty > option:last-child").show(); }
         else                    { $("#loadDifficulty > option:last-child").hide();
           if (diff == "rt")
@@ -251,11 +253,23 @@ $(document).ready(function()
     if (songID.length > 0)
     {
       $("#intro").text("Setting up styles...")
-      $.getJSON(baseURL + "/routine/" + songID, function(data, status)
+      $("#stylelist").empty();
+      $.getJSON(baseURL + "/songDifficulties/" + songID, function(data, status)
       {
+      	  for (var i = 0; i < data.length; i++)
+      	  {
+      	  	  if (i == 0)
+      	  	  {
+      	  	  	  $("#stylelist").append("<option value=\"\">" + data[i]["label"] + "</option>");
+      	  	  }
+      	  	  else
+      	  	  {
+      	  	  	  $("#stylelist").append("<option value=\"" + data[i]["value"]
+      	  	  	  	  + "\">" + data[i]["label"] + "</option>");
+      	  	  }
+      	  }
+      	  
         $("#stylelist").removeClass('ui-state-disabled');
-        if (data.isRoutine > 0) { $("#stylelist > option:last-child").show(); }
-        else                    { $("#stylelist > option:last-child").hide(); }
         $("#intro").text("What style for today?");
       });
     }
