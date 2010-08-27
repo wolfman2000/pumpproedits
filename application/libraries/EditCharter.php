@@ -304,55 +304,82 @@ class EditCharter
   private function prepArrows($counter)
   {
     $pre = ($counter === false ? '' : 'P' . $counter);
-    if ($this->kind == "classic")
+    $ret = array();
+    
+    switch($this->kind)
     {
-      $dl = array('a' => "$pre%sDL", 'c' => 'note_004');
-      $ul = array('a' => "$pre%sUL", 'c' => 'note_008');
-      $cn = array('a' => "$pre%sCN", 'c' => 'note_016');
-      $ur = array('a' => "$pre%sUR", 'c' => 'note_008');
-      $dr = array('a' => "$pre%sDR", 'c' => 'note_004');
-      $ret = array($dl, $ul, $cn, $ur, $dr);
-      if ($this->cols == APP_CHART_DBL_COLS)
-      {
-        array_push($ret, $dl, $ul, $cn, $ur, $dr);
-      }
-      elseif ($this->cols == APP_CHART_HDB_COLS)
-      {
-        $ret = array($cn, $ur, $dr, $dl, $ul, $cn);
-      }
-      return $ret;
+    	case "classic":
+    	{
+    		$dl = array('a' => "$pre%sDL", 'c' => 'note_004');
+    		$ul = array('a' => "$pre%sUL", 'c' => 'note_008');
+    		$cn = array('a' => "$pre%sCN", 'c' => 'note_016');
+    		$ur = array('a' => "$pre%sUR", 'c' => 'note_008');
+    		$dr = array('a' => "$pre%sDR", 'c' => 'note_004');
+    		$ret = array($dl, $ul, $cn, $ur, $dr);
+    		if ($this->cols == APP_CHART_DBL_COLS)
+    		{
+    			array_push($ret, $dl, $ul, $cn, $ur, $dr);
+    		}
+    		elseif ($this->cols == APP_CHART_HDB_COLS)
+    		{
+    			$ret = array($cn, $ur, $dr, $dl, $ul, $cn);
+    		}
+    		break;
+    	}
+	    case "flat":
+    	{
+    		$g = (array_key_exists('red4', $this) ? 'note_008' : 'note_004');
+    		$dl = array('a' => "$pre%sDL", 'c' => $g);
+			$ul = array('a' => "$pre%sUL", 'c' => $g);
+			$cn = array('a' => "$pre%sCN", 'c' => $g);
+			$ur = array('a' => "$pre%sUR", 'c' => $g);
+			$dr = array('a' => "$pre%sDR", 'c' => $g);
+			$ret = array($dl, $ul, $cn, $ur, $dr);
+    		if ($this->cols == APP_CHART_DBL_COLS)
+    		{
+    			array_push($ret, $dl, $ul, $cn, $ur, $dr);
+    		}
+    		elseif ($this->cols == APP_CHART_HDB_COLS)
+    		{
+    			$ret = array($cn, $ur, $dr, $dl, $ul, $cn);
+    		}
+    		break;
+    	}
+	    case "rhythm":
+    	{
+    		$div = array('4th', '8th', '12th', '16th', '24th', '32nd', '48th', '64th', '192nd');
+    		foreach ($div as $d)
+    		{
+    			if (array_key_exists('red4', $this))
+    			{
+    				if (intval($d) == 4) $g = 'note_008';
+    				elseif (intval($d) == 8) $g = 'note_004';
+    				else $g = sprintf('note_%03d', intval($d));
+    			}
+    			else $g = sprintf('note_%03d', intval($d));
+    			$dl = array('a' => "$pre%sDL", 'c' => $g);
+    			$ul = array('a' => "$pre%sUL", 'c' => $g);
+    			$cn = array('a' => "$pre%sCN", 'c' => $g);
+    			$ur = array('a' => "$pre%sUR", 'c' => $g);
+    			$dr = array('a' => "$pre%sDR", 'c' => $g);
+    			$ret[$d] = array($dl, $ul, $cn, $ur, $dr);
+    			if ($this->cols == APP_CHART_DBL_COLS)
+    			{
+    				array_push($ret[$d], $dl, $ul, $cn, $ur, $dr);
+    			}
+    			elseif ($this->cols == APP_CHART_HDB_COLS)
+    			{
+    				$ret[$d] = array($cn, $ur, $dr, $dl, $ul, $cn);
+    			}
+    		}
+    		break;
+    	}
+	    default:
+    	{
+    		exit;
+    	}
     }
-    if ($this->kind == "rhythm")
-    {
-      $ret = array();
-      $div = array('4th', '8th', '12th', '16th',
-        '24th', '32nd', '48th', '64th', '192nd');
-      foreach ($div as $d)
-      {
-        if (array_key_exists('red4', $this))
-        {
-          if (intval($d) == 4) $g = 'note_008';
-          elseif (intval($d) == 8) $g = 'note_004';
-          else $g = sprintf('note_%03d', intval($d));
-        }
-        else $g = sprintf('note_%03d', intval($d));
-        $dl = array('a' => "$pre%sDL", 'c' => $g);
-        $ul = array('a' => "$pre%sUL", 'c' => $g);
-        $cn = array('a' => "$pre%sCN", 'c' => $g);
-        $ur = array('a' => "$pre%sUR", 'c' => $g);
-        $dr = array('a' => "$pre%sDR", 'c' => $g);
-        $ret[$d] = array($dl, $ul, $cn, $ur, $dr);
-        if ($this->cols == APP_CHART_DBL_COLS)
-        {
-          array_push($ret[$d], $dl, $ul, $cn, $ur, $dr);
-        }
-        elseif ($this->cols == APP_CHART_HDB_COLS)
-        {
-          $ret[$d] = array($cn, $ur, $dr, $dl, $ul, $cn);
-        }
-      }
-      return $ret;
-    }
+    return $ret;
   }
   
   private function getBeat($beat)
@@ -398,9 +425,9 @@ class EditCharter
     foreach ($measure as $row):
     
     $curbeat = intval(round($m * $rcounter / count($measure)));
-      
-    $arow = $this->kind == "classic" ? $arrows :
-      $arrows[$this->getBeat(192 * $rcounter / count($measure))];
+    
+    $arow = $this->kind == "rhythm" ? 
+    $arrows[$this->getBeat(192 * $rcounter / count($measure))] : $arrows;
     
     $pcounter = 0;
     foreach (str_split($row) as $let): # For each note in the row
