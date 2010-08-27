@@ -68,3 +68,15 @@ function stringMul(str, num)
 	return acc.join("");
 
 }
+
+// Disable elements using both jQuery and HTML
+function _disable(str)
+{
+	$(str).addClass('ui-state-disabled').attr('disabled', 'disabled');
+}
+
+// Enable elements using both jQuery and HTML.
+function _enable(str)
+{
+	$(str).removeClass('ui-state-disabled').removeAttr('disabled');
+}
