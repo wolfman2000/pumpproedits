@@ -113,6 +113,26 @@ class Create extends Controller
     $this->load->view('create/help');
   }
   
+  // Get the possible difficulties for each song that comes in.
+  function _songDifficulties()
+  {
+  	if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+    {
+      return;
+    }
+    header("Content-Type: application/json");
+    $sid = $this->uri->segment(3);
+    $ret = array();
+    $ret[] = array("value" => "", "label" => "Choose!");
+    foreach ($this->ppe_song_game->getValidDifficulties($sid)->result() as $q)
+    {
+    	$ret[] = array("value" => $q->style, "label" => "pump-" . $q->style);
+    }
+    
+    echo json_encode($ret);
+  }
+  
   // Determine if the chosen song can have routine charts.
   function routine()
   {

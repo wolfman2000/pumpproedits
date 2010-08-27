@@ -12,4 +12,11 @@ class Ppe_song_game extends Model
   	  return $this->db->where('song_id', $sid)
   	  	->get('song_routine_compatible')->num_rows();
   }
+  
+  // Get the list of difficulties that this song can play under.
+  function getValidDifficulties($sid)
+  {
+  	  return $this->db->select('style')->where('sond_id', $sid)
+  	  	->order_by('pid')->get('valid_song_styles');
+  }
 }
