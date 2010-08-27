@@ -7,6 +7,7 @@ class EditCharter
     $this->CI =& get_instance();
     $this->CI->load->model('ppe_song_bpm');
     $this->CI->load->model('ppe_song_stop');
+    $this->CI->load->model('ppe_note_style');
     $this->CI->load->library('SVGMaker');
   
     if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS, APP_CHART_HDB_COLS)))
@@ -15,7 +16,7 @@ class EditCharter
         APP_CHART_SIN_COLS, APP_CHART_HDB_COLS, APP_CHART_DBL_COLS);
       throw new Exception($e);
     }
-    if (!in_array($params['kind'], array("classic", "rhythm")))
+    if (!in_array($params['kind'], $this->CI->ppe_note_style->getNoteStyles()))
     {
       $e = "The notetype chosen is not valid!";
       throw new Exception($e);
