@@ -44,7 +44,7 @@ endif; ?>
   ),
   array
   (
-    "for" => "kind", "label" => "Note Color", "choices" => array
+    "for" => "kind", "label" => "Note Style", "choices" => array
     (
       array("value" => "classic", "text" => "Classic", "selected" => true),
       array("value" => "rhythm", "text" => "Rhythm", "selected" => false),
@@ -57,6 +57,14 @@ endif; ?>
       array("value" => "blue", "text" => "Blue", "selected" => true),
       array("value" => "red", "text" => "Red", "selected" => false),
     ),
+  ),
+  array
+  (
+  	"for" => "noteskin", "label" => "Noteskin", "choices" => array
+  	(
+  	  array("value" => "original", "text" => "Original", "selected" => true),
+  	  array("value" => "stepmania", "text" => "StepMania", "selected" => false),
+	),
   ),
   array
   (

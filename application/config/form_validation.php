@@ -3,9 +3,14 @@
 
 $chartCommon = array(
 	array(
-	'field' => 'kind',
+		'field' => 'kind',
 		'label' => 'Note Colors',
 		'rules' => 'callback__notecolor_exists'
+	),
+	array(
+		'field' => 'noteskin',
+		'label' => 'Noteskin',
+		'rules' => 'callback__noteskin_exists'
 	),
 	array(
 		'field' => 'red4',

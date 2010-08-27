@@ -39,12 +39,20 @@ class Chart extends Controller
     return false;
   }
   
-  // confirm the noteskin exists.
+  // confirm the note color exists.
   function _notecolor_exists($str)
   {
     if (in_array($str, array('classic', 'rhythm'))) return true;
     $this->form_validation->set_message('_notecolor_exists', "Please choose either the classic or rhythm color setup.");
     return false;
+  }
+  
+  // confirm the note skin exists.
+  function _noteskin_exists($str)
+  {
+  	if (in_array($str, array('original', 'stepmania'))) return true;
+  	$this->form_validation->set_message('_noteskin_exists', "Please choose either the original or stepmania noteskin.");
+  	return false;
   }
   
   // confirm the 4th note color is valid.
