@@ -77,7 +77,7 @@ $(document).ready(function()
     }
     if (checking)
     {
-      $("#but_load").removeClass('ui-state-disabled')
+      _enable("#but_load");
       function loadButtons()
       {
         $("li.edit").hide();
@@ -111,9 +111,9 @@ $(document).ready(function()
     {
       saveChart(data);
       $("#intro").text("You can save your work!");
-      $("#but_save").removeClass('ui-state-disabled');
-      $("#but_val").addClass('ui-state-disabled');
-      if (authed > 0) { $("#but_sub").removeClass('ui-state-disabled'); }
+      _enable("#but_save");
+      _disable("#but_val");
+      if (authed > 0) { _enable("#but_sub"); }
     }
     else
     {
@@ -137,7 +137,7 @@ $(document).ready(function()
     if (item == "off" && others > 0) {
       $("li.loadSong").show();
       $("li[class^=load]:not(.loadSong)").hide();
-      $("#loadDifficulty").addClass('ui-state-disabled');
+      _disable("#loadDifficulty");
       $("#loadSong").val('');
     };
     if (item == "all" && others > 0) {
@@ -157,34 +157,32 @@ $(document).ready(function()
     if (songID.length > 0)
     {
       $("#intro").text("Setting up styles...")
-      $("#loadDifficulty").addClass('ui-state-disabled');
+      _disable("#loadDifficulty");
       $.getJSON(baseURL + "/songDifficulties/" + songID, function(data, status)
       {
-        
-      	  
-      	  var diff = $("#loadDifficulty").val();
+        var diff = $("#loadDifficulty").val();
         if (data.isRoutine > 0) { $("#loadDifficulty > option:last-child").show(); }
         else                    { $("#loadDifficulty > option:last-child").hide();
           if (diff == "rt")
           {
             $("#loadDifficulty").val("");
-            $("#song_yes").addClass('ui-state-disabled');
+            _disable("#song_yes");
           }
         }
-        $("#loadDifficulty").removeClass('ui-state-disabled');
+        _enable("#loadDifficulty");
       });
     }
     else
     {
-      $("#loadDifficulty").addClass('ui-state-disabled');
-      $("#song_yes").removeClass('ui-state-disabled');
+      _disable("#loadDifficulty");
+      _enable("#song_yes");
     }
   });
   
   // The admin has chosen a song and style, and thus can load the chart.
   $("#loadDifficulty").change(function(){
-    if ($("#loadDifficulty").val().length) { $("#song_yes").removeClass('ui-state-disabled'); }
-    else                                   { $("#song_yes").addClass('ui-state-disabled'); }
+    if ($("#loadDifficulty").val().length) { _enable("#song_yes"); }
+    else                                   { _disable("#song_yes"); }
   });
   
   // The admin is ready to load the chart (if it exists)
@@ -194,11 +192,11 @@ $(document).ready(function()
   $("#fCont").keyup(function(){
     if ($("#fCont").val().length)
     {
-      $("#but_file").removeClass('ui-state-disabled');
+      _enable("#but_file");
     }
     else
     {
-      $("#but_file").addClass('ui-state-disabled');
+      _disable("#but_file");
     }
   });
   
@@ -210,10 +208,10 @@ $(document).ready(function()
       loadEdit(data);
       editID = 0;
       $("#intro").text("All loaded up!");
-      $("#but_save").removeClass('ui-state-disabled');
-      $("#but_val").addClass('ui-state-disabled');
-      if (andamiro) { $(".author").show(); $("#authorlist").removeClass('ui-state-disabled'); }
-      else          { $(".author").hide(); $("#authorlist").addClass('ui-state-disabled'); }
+      _enable("#but_save");
+      _disable("#but_val");
+      if (andamiro) { $(".author").show(); _enable("#authorlist"); }
+      else          { $(".author").hide(); _disable("#authorlist"); }
       isDirty = false;
     }, "json");
   });
@@ -225,7 +223,7 @@ $(document).ready(function()
     $.getJSON(baseURL + "/loadWebEdit/" + editID, function(data) {
       loadEdit(data, 1);
       $("#intro").text("All loaded up!");
-      $("#authorlist").addClass('ui-state-disabled');
+      _disable("#authorlist");
       $("li.author:eq(0)").next().andSelf().hide();
       $("li.author:eq(2)").next().andSelf().show();
       isDirty = false;
@@ -250,7 +248,7 @@ $(document).ready(function()
   // The author wants to work on this song.
   $('#songlist').change(function(){
     songID = $("#songlist").val();
-    if (songID.length > 0)
+    if (!isNaN(songID))
     {
       $("#intro").text("Setting up styles...")
       $("#stylelist").empty();
@@ -269,11 +267,11 @@ $(document).ready(function()
       	  	  }
       	  }
       	  
-        $("#stylelist").removeClass('ui-state-disabled');
+        _enable("#stylelist");
         $("#intro").text("What style for today?");
       });
     }
-    else { $("#stylelist").addClass('ui-state-disabled'); }
+    else { _disable("#stylelist"); }
   });
 
   // The author wants to work with this style.
@@ -290,41 +288,41 @@ $(document).ready(function()
   
   // The author wishes to change the edit title / name.
   $("#editName").keyup(function(){
-    $("#but_save").addClass('ui-state-disabled');
-    $("#but_sub").addClass('ui-state-disabled');
+    _disable("#but_save");
+    _disable("but_sub");
     var t = $("#editName").val().length;
     if (t > 0 && t <= 12)
     {
       if (Math.floor($("#editDiff").val()) > 0)
       {
-        $("#but_val").removeClass('ui-state-disabled');
+        _enable("#but_val");
         $("#intro").text("Validate your edit before saving.");
       }
     }
     else
     {
-      $("#but_val").addClass('ui-state-disabled');
+      _disable("#but_val");
       $("#intro").text("Provide an edit title and difficulty.");
     }
   });
 
   // The author wishes to rate the edit.
   $("#editDiff").keyup(function(){
-    $("#but_save").addClass('ui-state-disabled');
-    $("#but_sub").addClass('ui-state-disabled');
+    _disable("#but_save");
+    _disable("#but_sub");
     var t = parseInt($("#editDiff").val());
     if (t > 0 && t < 100)
     {
       t = $("#editName").val().length;
       if (t > 0 && t <= 12)
       {
-        $("#but_val").removeClass('ui-state-disabled');
+        _enable("#but_val");
         $("#intro").text("Validate your edit before saving.");
       }
     }
     else
     {
-      $("#but_val").addClass('ui-state-disabled');
+      _disable("#but_val");
       $("#intro").text("Provide an edit title and difficulty.");
     }
   });

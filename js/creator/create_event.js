@@ -26,7 +26,7 @@ function changeArrow()
   var rX = parseInt(r.attr('x'));
   var rY = parseFloat(r.attr('y'));
   isDirty = true;
-  $("#but_val").addClass('ui-state-disabled');
+  _disable("#but_val");
 
   var css = getNote($("#yCheck").text()); // get the class based on the beat.
   var cX = (rX - BUFF_LFT) / ARR_HEIGHT; // which column are we using?
@@ -136,15 +136,15 @@ function updateStats(data)
   $("#statL").text(L);
   $("#statF").text(F);
 
-  $("#but_save").addClass('ui-state-disabled');
-  $("#but_sub").addClass('ui-state-disabled');
+  _disable("#but_save");
+  _disable("#but_sub");
   var t = $("#editName").val().length;
   if (t > 0 && t <= 12 && parseInt($("#editDiff").val()) > 0)
   {
     if (data.steps[0] || data.steps[1] || data.mines[0] || data.mines[1] ||
         data.lifts[0] || data.lifts[1] || data.fakes[0] || data.fakes[1])
     {
-      $("#but_val").removeClass('ui-state-disabled');
+      _enable("#but_val");
       $("#intro").text("Validate your edit before saving.");
     }
     else
@@ -164,8 +164,8 @@ function loadHardDrive()
   $("#fCont").val('');
   $(".loadFile").show();
   $("li[class^=load]:not(.loadFile)").hide();
-  $("li.loadFile > *").removeClass('ui-state-disabled');
-  $("#but_file").addClass('ui-state-disabled');
+  _enable("li.loadFile > *");
+  _disable("#but_file");
   $("#intro").text("You can load your edit now.");
 }
 // Load the chosen edit...or at least, load the common stuff here.
@@ -191,7 +191,7 @@ function cancelLoad()
   $("nav li[class^=load]").hide();
   $("#fCont").val('');
   $("li.edit").show();
-  $("#but_load").removeClass('ui-state-disabled');
+  _enable("#but_load");
   if (!$("#stylelist").val().length) { $(".choose").show(); }
 }
 
@@ -201,7 +201,7 @@ function songMode()
 {
   $("#intro").text("Loading chart...");
   $("li[class^=load]").hide();
-  $("#authorlist").addClass('ui-state-disabled');
+  _disable("#authorlist");
   songID = $("#loadSong").val();
   var diff = $("#loadDifficulty").val();
   $("#notes > g").children().remove(); // remove the old chart.
@@ -245,10 +245,11 @@ function songMode()
     var phrase = songData.name + " " + data.title;
     $("h2").first().text(phrase);
     $("title").text("Editing " + phrase + " — Pump Pro Edits");
-    $("#but_new").removeClass('ui-state-disabled');
-    $("#editName").removeClass('ui-state-disabled').val(data.author);
+    _enable("#but_new");
+    _enable("#editName");
+    _enable("#but_load");
+    $("#editName").val(data.author);
     $("#editDiff").val(data.diff);
-    $("#but_load").removeClass('ui-state-disabled');
     
     loadChart(data.notes);
     if (data.notes) { updateStats(data); }
@@ -286,8 +287,8 @@ function editMode(canPublic)
     var phrase = songData.name + " " + $("#stylelist").val().capitalize();
     $("h2").first().text(phrase);
     $("title").text("Editing " + phrase + " — Pump Pro Edits");
-    $("#but_new").removeClass('ui-state-disabled');
-    $("#editName").removeClass('ui-state-disabled');
+    _enable("#but_new");
+    _enable("#editName");
     
     if (!authed)
     {
@@ -295,8 +296,8 @@ function editMode(canPublic)
     }
     else
     {
-      if (andamiro) { $(".author").show(); $("#authorlist").removeClass('ui-state-disabled'); }
-      else          { $(".author").hide(); $("#authorlist").addClass('ui-state-disabled'); }
+      if (andamiro) { $(".author").show(); _enable("#authorlist"); }
+      else          { $(".author").hide(); _disable("#authorlist"); }
       $("#authorlist").val(0);
       authID = authed;
       if (canPublic)
@@ -307,7 +308,7 @@ function editMode(canPublic)
     }
     
     clipboard = null;
-    $("#but_load").removeClass('ui-state-disabled');
+    _enable("#but_load");
     $("#editName").attr('maxlength', 12);
     $("#editSong").text("Edit Name:");
     $("#but_sub").attr('name', 'editSubmit');
@@ -340,14 +341,14 @@ function init()
   $("#selBot").hide();
   $("#shadow").addClass('hide');
   $("nav *.choose").show();
-  $("#stylelist").addClass('ui-state-disabled');
-  $("#but_sub").addClass('ui-state-disabled');
-  $("#but_save").addClass('ui-state-disabled');
-  $("#but_val").addClass('ui-state-disabled');
-  $("#but_new").addClass('ui-state-disabled');
-  $("#cho_file").removeClass('ui-state-disabled');
-  if (authed > 0) { $("#cho_site").removeClass('ui-state-disabled'); }
-  else            { $("#cho_site").addClass('ui-state-disabled'); }
+  _disable("#stylelist");
+  _disable("#but_sub");
+  _disable("#but_save");
+  _disable("#but_val");
+  _disable("#but_new");
+  _enable("#cho_file");
+  if (authed > 0) { _enable("#cho_site"); }
+  else            { _disable("#cho_site"); }
   
   // reset the drop downs (and corresponding variables) to default values.
   $("#songlist").val('');
@@ -367,12 +368,12 @@ function init()
   $("#intro").text("Select your action.");
   
   isDirty = false;
-  $("#but_load").removeClass('ui-state-disabled');
-  $("#songlist").removeClass('ui-state-disabled');
+  _enable("#but_load");
+  _enable("#songlist");
   
   $("#loadDifficulty").val("");
   $("#loadSong").val("");
-  $("#song_yes").addClass('ui-state-disabled');
+  _disable("#song_yes");
 }
 
 // Dynamically adjust the scale as needed.
@@ -742,7 +743,7 @@ function loadWebEdits(user)
       var html = '<option id="' + data[i].id + '">' + out + '</option>';
       $("#mem_edit").append(html);
     }
-    $("#mem_nogo").removeClass('ui-state-disabled');
+    _enable("#mem_nogo");
     $("#intro").text("Choose your edit!");
   });
 }
@@ -760,7 +761,7 @@ function uploadOfficial()
   $.post(baseURL + "/uploadOfficial", data, function(data, status)
   {
     $("#intro").text("Chart Uploaded");
-    $("#authorlist").addClass('ui-state-disabled');
+    _disable("#authorlist");
   }, "json");
 }
 
@@ -808,7 +809,7 @@ function uploadEdit()
     else
     {
       $("#intro").text("Edit Uploaded");
-      $("#authorlist").addClass('ui-state-disabled');
+      _disable("#authorlist");
       $("li.author:eq(0)").next().andSelf().hide();
       editID = res.editid;
     }

@@ -72,11 +72,13 @@ function stringMul(str, num)
 // Disable elements using both jQuery and HTML
 function _disable(str)
 {
-	$(str).addClass('ui-state-disabled').attr('disabled', 'disabled');
+	$(str).addClass('ui-state-disabled');
+	$(str).attr('disabled', 'disabled');
 }
 
 // Enable elements using both jQuery and HTML.
 function _enable(str)
 {
-	$(str).removeClass('ui-state-disabled').removeAttr('disabled');
+	$(str).removeClass('ui-state-disabled')
+	$(str).removeAttr('disabled');
 }
