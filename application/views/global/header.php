@@ -12,9 +12,7 @@
 $title .= " — Pump Pro Edits";
 else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
 <?php if (!(isset($css))) { $css = 'css/main.css'; } 
-$allCSS = array("css/960/960.css", "css/960/reset.css", "css/960/text.css",
-"css/superfish.css", "css/custom-theme/jquery-ui-1.8.2.custom.css", $css);
-foreach ($allCSS as $ac) { echo link_tag($ac); }
+echo link_tag($css);
 if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
 if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
 <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
@@ -44,8 +42,7 @@ const songID = <?php echo $const_song; ?>;
 <?php endif; ?>
 //]]>
 </script>
-<?php $baseScripts = array("/js/jquery-1.4.2.js", "/js/jquery-ui-1.8.2.custom.min.js",
-"/js/hoverIntent.js", "/js/superfish.js", "/js/supersubs.js", "/js/allPages.js");
+<?php $baseScripts = array("/js/jsAll.js");
 if (isset($scripts)) { $baseScripts = array_merge($baseScripts, $scripts); }
 foreach ($baseScripts as $script): ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
