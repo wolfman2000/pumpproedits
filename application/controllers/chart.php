@@ -42,8 +42,9 @@ class Chart extends Controller
   // confirm the note color exists.
   function _notecolor_exists($str)
   {
-    if (in_array($str, array('classic', 'rhythm'))) return true;
-    $this->form_validation->set_message('_notecolor_exists', "Please choose either the classic or rhythm color setup.");
+  	$this->load->model('ppe_note_style');
+    if (in_array($str, $this->ppe_note_style->getNoteStyles())) return true;
+    $this->form_validation->set_message('_notecolor_exists', "Please choose a valid note style.");
     return false;
   }
   
