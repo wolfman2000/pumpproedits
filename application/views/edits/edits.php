@@ -53,7 +53,7 @@ foreach ($query as $z): ?>
         <dd>
           <?php echo anchor("/chart/quick/$z->id/classic", "Classic", array("title" => "View stepchart using classic Pump it Up arrow colors")); ?>,
           <?php echo anchor("/chart/quick/$z->id/rhythm", "Rhythm", array("title" => "View stepchart with colors based off the rhythm of the song")); ?>
-        </dt>
+        </dd>
         <?php endif; ?>
       </dl>
     </div>
