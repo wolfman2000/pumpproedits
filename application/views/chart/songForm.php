@@ -48,6 +48,7 @@ endif; ?>
     (
       array("value" => "classic", "text" => "Classic", "selected" => true),
       array("value" => "rhythm", "text" => "Rhythm", "selected" => false),
+      array("value" => "flat", "text" => "Flat", "selected" => false),
     ),
   ),
   array
