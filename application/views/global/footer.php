@@ -30,7 +30,7 @@
 </script>
 <noscript>
 <a href="http://s36.sitemeter.com/stats.asp?site=s36pumpproedits" target="_top">
-<img src="http://s36.sitemeter.com/meter.asp?site=s36pumpproedits" alt="Site Meter" border="0"/></a>
+<img src="http://s36.sitemeter.com/meter.asp?site=s36pumpproedits" alt="Site Meter" width="80px" height="15px" border="0"/></a>
 </noscript>
 <!-- Copyright (c)2009 Site Meter -->
 <?php endif; ?>

@@ -54,7 +54,9 @@ foreach ($baseScripts as $script): ?>
 <body class="container_12">
 
 <header>
-  <h1 class="grid_7" id="logo"><a href="/"><img src="/images/logo.png" alt="Pump Pro Edits" title="Pump Pro Edits" /></a></h1>
+  <h1 class="grid_7" id="logo"><a href="/">
+    <img src="/images/logo.png" width="392px" height="80px" alt="Pump Pro Edits" title="Pump Pro Edits" />
+  </a></h1>
   <div class="grid_5 alpha" id="userbar">
     <ul>
       <?php if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
