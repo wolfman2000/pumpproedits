@@ -42,15 +42,7 @@ endif; ?>
       array("value" => "rt", "text" => "Routine", "selected" => false),
     ),
   ),
-  array
-  (
-    "for" => "kind", "label" => "Note Style", "choices" => array
-    (
-      array("value" => "classic", "text" => "Classic", "selected" => true),
-      array("value" => "rhythm", "text" => "Rhythm", "selected" => false),
-      array("value" => "flat", "text" => "Flat", "selected" => false),
-    ),
-  ),
+  $form['style'],
   array
   (
     "for" => "red4", "label" => "4th Note Color", "choices" => array
@@ -59,15 +51,7 @@ endif; ?>
       array("value" => "red", "text" => "Red", "selected" => false),
     ),
   ),
-  array
-  (
-  	"for" => "noteskin", "label" => "Noteskin", "choices" => array
-  	(
-  	  array("value" => "original", "text" => "Original", "selected" => true),
-  	  array("value" => "stepmania", "text" => "StepMania", "selected" => false),
-  	  array("value" => "smiley", "text" => "Smiley", "selected" => false),
-	),
-  ),
+  $form['skin'],
   array
   (
     "for" => "speed", "label" => "Speed Mod", "choices" => array

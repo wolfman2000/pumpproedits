@@ -10,18 +10,9 @@ class Chart extends Controller
     $this->load->model('ppe_edit_edit');
     $this->load->model('ppe_song_song');
     $this->load->model('ppe_user_user');
+    $this->load->model('ppe_note_skin');
+    $this->load->model('ppe_note_style');
     $this->difficulties = array('ez', 'nr', 'hr', 'cz', 'hd', 'fs', 'nm', 'rt');
-  }
-  
-  function index()
-  {
-    redirect('chart/edits');
-  }
-  
-  function edits()
-  {
-    $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
-    $this->load->view('chart/edits', $data);
   }
   
   // confirm the song and difficulty exist.
@@ -43,8 +34,7 @@ class Chart extends Controller
   // confirm the note color exists.
   function _notecolor_exists($str)
   {
-  	$this->load->model('ppe_note_style');
-    if (in_array($str, $this->ppe_note_style->getNoteStyles(1))) return true;
+  	if (in_array($str, $this->ppe_note_style->getNoteStyles(1))) return true;
     $this->form_validation->set_message('_notecolor_exists', "Please choose a valid note style.");
     return false;
   }
@@ -52,7 +42,6 @@ class Chart extends Controller
   // confirm the note skin exists.
   function _noteskin_exists($str)
   {
-  	$this->load->model('ppe_note_skin');
   	if (in_array($str, $this->ppe_note_skin->getNoteSkins(1))) return true;
   	$this->form_validation->set_message('_noteskin_exists', "Please choose a valid note skin.");
   	return false;
@@ -86,6 +75,20 @@ class Chart extends Controller
     if (in_array($str, array(0.5, 0.75, 1, 1.25, 1.5, 1.75, 2))) return true;
     $this->form_validation->set_message('_edit_exists', 'The scale chosen was not a valid scale.');
     return false;
+  }
+  
+  function index()
+  {
+    redirect('chart/edits');
+  }
+  
+  function edits()
+  {
+    $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
+    $data['form'] = array();
+    $data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
+    $data['form']['style'] = $this->ppe_note_style->getSelectStyles();
+    $this->load->view('chart/edits', $data);
   }
   
   // Use this common GET function to show the edit.
@@ -158,6 +161,9 @@ class Chart extends Controller
   function songs()
   {
     $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
+    $data['form'] = array();
+    $data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
+    $data['form']['style'] = $this->ppe_note_style->getSelectStyles();
     $this->load->view('chart/songs', $data);
   }
   

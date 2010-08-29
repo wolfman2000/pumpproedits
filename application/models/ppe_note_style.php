@@ -9,13 +9,27 @@ class Ppe_note_style extends Model
   // Get the list of valid note styles
   function getNoteStyles($lower = false)
   {
-  	  $r = $this->db->select(($lower ? 'LOWER(name)' : 'name') . 'AS name')
-  	  	->get('ppe_note_style')->result();
+  	  $r = $this->db->select(($lower ? 'LOWER(name)' : 'name') . ' AS name')
+  	  	->order_by('id')->get('ppe_note_style')->result();
   	  $ret = array();
   	  foreach ($r as $q)
   	  {
   	  	  $ret[] = $q->name;
   	  }
   	  return $ret;
+  }
+  
+  // Format the list of note styles used by the forms.
+  function getSelectStyles()
+  {
+	  $choices = array();
+	  foreach ($this->getNoteStyles() as $c)
+	  {
+		  $choices[] = array("value" => strtolower($c), "text" => $c,
+		  	  "selected" => ($c == "Classic" ? true : false));
+	  }
+	  $ret = array("for" => "kind", "label" => "Note Style", 
+	  	  "choices" => $choices);
+	  return $ret;
   }
 }

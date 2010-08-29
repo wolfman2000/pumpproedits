@@ -9,13 +9,27 @@ class Ppe_note_skin extends Model
   // Get the list of valid note styles
   function getNoteSkins($lower = false)
   {
-  	  $r = $this->db->select(($lower ? 'LOWER(name)' : 'name') . 'AS name')
-  	  	->get('ppe_note_skin')->result();
+  	  $r = $this->db->select(($lower ? 'LOWER(name)' : 'name') . ' AS name')
+  	  	->order_by('id')->get('ppe_note_skin')->result();
   	  $ret = array();
   	  foreach ($r as $q)
   	  {
   	  	  $ret[] = $q->name;
   	  }
   	  return $ret;
+  }
+  
+  // Format the list of noteskins used by the forms.
+  function getSelectSkins()
+  {
+	  $choices = array();
+	  foreach ($this->getNoteSkins() as $c)
+	  {
+		  $choices[] = array("value" => strtolower($c), "text" => $c,
+		  	  "selected" => ($c == "Original" ? true : false));
+	  }
+	  $ret = array("for" => "noteskin", "label" => "Noteskin", 
+	  	  "choices" => $choices);
+	  return $ret;
   }
 }
