@@ -9,6 +9,7 @@ class Chart extends Controller
     $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
     $this->load->model('ppe_edit_edit');
     $this->load->model('ppe_song_song');
+    $this->load->model('ppe_user_user');
     $this->difficulties = array('ez', 'nr', 'hr', 'cz', 'hd', 'fs', 'nm', 'rt');
   }
   
@@ -86,17 +87,11 @@ class Chart extends Controller
     return false;
   }
   
-  function editProcess()
+  // Use this common GET function to show the edit.
+  function showEdit()
   {
-    if ($this->form_validation->run() === FALSE)
-    {
-      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
-      $this->load->view('chart/editError', $data);
-      return;
-    }
-    $eid = $this->input->post('edits');
-    
-    // Confirm the edit isn't "deleted".
+  	  $eid = $this->uri->segment(3, -1);
+  	  // Confirm the edit isn't "deleted".
     if (!$this->ppe_edit_edit->checkExistsAndActive($eid))
     {
       $this->output->set_status_header(404);
@@ -112,20 +107,50 @@ class Chart extends Controller
       $this->load->view('chart/editError', $data);
       return;
     }
-    $this->load->model('ppe_user_user');
+    
     $author = $this->ppe_user_user->getUserByEditID($eid);
     $this->load->library('EditParser');
     $p = array('notes' => 1, 'strict_song' => 0, 'strict_edit' => 0, 'author' => $author);
     $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
-    $p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
-      'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
-      'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'),
-      'author' => $author, 'noteskin' => $this->input->post('noteskin'));
+    $p = array
+    (
+    	'kind' => $this->uri->segment(4, 'classic'),
+    	'red4' => $this->uri->segment(5, 0),
+    	'noteskin' => $this->uri->segment(6, 'original'),
+    	'speed_mod' => $this->uri->segment(7, 2),
+    	'mpcol' => $this->uri->segment(8, 6),
+    	'scale' => $this->uri->segment(9, 1),
+    	'cols' => $notedata['cols'],
+      'author' => $author,
+    );
     $this->load->library('EditCharter', $p);
     $notedata['author'] = $author;
     header("Content-Type: application/xhtml+xml");
     $xml = $this->editcharter->genChart($notedata);
     echo $xml->saveXML();
+  }
+  
+  function editProcess()
+  {
+    if ($this->form_validation->run() === FALSE)
+    {
+      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
+      $this->load->view('chart/editError', $data);
+      return;
+    }
+    
+    $url = sprintf("/chart/showEdit/%d/%s/%s/%s/%1.2f/%d/%1.2f",
+    	$this->input->post('edits'),
+    	$this->input->post('kind'),
+    	$this->input->post('red4'),
+    	$this->input->post('noteskin'),
+    	$this->input->post('speed'),
+    	$this->input->post('mpcol'),
+    	$this->input->post('scale')
+	);
+	redirect($url, 'location', 303);
+	return;
+    
   }
   
   // get the list of songs for possible chart previewing.
@@ -175,44 +200,10 @@ class Chart extends Controller
   
   function quick()
   {
-    $id = $this->uri->segment(3, FALSE);
-    
-    // Confirm the edit isn't "deleted".
-    if (!$this->ppe_edit_edit->checkExistsAndActive($id))
-    {
-      $this->output->set_status_header(404);
-      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
-      $this->load->view('chart/deleted', $data);
-      return;
-    }
-    
-    $kind = $this->uri->segment(4, FALSE);
-    if (!(is_numeric($id) and ($kind === "classic" or $kind === "rhythm")))
-    {
-      # Return error here: parameters must match.
-    }
-    $this->load->model('ppe_user_user');
-    $user = $this->ppe_user_user->getUserByEditID($id);
-    $id = sprintf("%06d", $id);
-    $name = sprintf("edit_%s.edit.gz", $id);
-    $path = sprintf("%sdata/user_edits/%s", APPPATH, $name);
-    
-    if (!file_exists($path))
-    {
-      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
-      $this->load->view('chart/none', $data);
-      return;
-    }
-    // Validate the file and print the chart here.
-    $this->load->library('EditParser');
-    $notedata = $this->editparser->get_stats(gzopen($path, "r"),
-      array('notes' => 1, 'strict_edit' => 0));
-    $notedata['author'] = $user;
-    $p = array('cols' => $notedata['cols'], 'kind' => $kind);
-    $this->load->library('EditCharter', $p);
-    header("Content-Type: application/xhtml+xml");
-    $xml = $this->editcharter->genChart($notedata);
-    
-    echo $xml->saveXML();
+  	redirect(sprintf("/chart/showEdit/%d/%s/blue/original/2/6/1",
+  		$this->uri->segment(3, -1),
+  		$this->uri->segment(4, 'classic')
+  		), 'location', 303);
+  	return;
   }
 }
