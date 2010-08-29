@@ -9,7 +9,7 @@ class Ppe_note_skin extends Model
   // Get the list of valid note styles
   function getNoteSkins()
   {
-  	  $r = $this->db->select('name')
+  	  $r = $this->db->select('LOWER(name) name')
   	  	->get('ppe_note_skin')->result();
   	  $ret = array();
   	  foreach ($r as $q)
