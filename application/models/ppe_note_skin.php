@@ -6,7 +6,7 @@ class Ppe_note_skin extends Model
     parent::Model();
   }
   
-  // Get the list of valid note styles
+  // Get the list of valid note skins
   function getNoteSkins($lower = false)
   {
   	  $r = $this->db->select(($lower ? 'LOWER(name)' : 'name') . ' AS name')
