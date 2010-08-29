@@ -1,0 +1,49 @@
+@import "_svg.css";
+
+g[id$="DL"] > circle, g[id$="DL"] > path, 
+g[id$="DL"] > line, g[id*="Body"] > line
+{
+	stroke-width: 0.5;
+	stroke: black;
+	stroke-opacity: 1;
+	fill-opacity: 1;
+}
+
+g[id*="End"] > path, g[id*="Body"] > line
+{
+	stroke-width: 1;
+}
+
+g[id$="holdBodyDL"] > rect, g[id$="holdEndDL"] > path
+{
+  fill:darkblue;
+}
+g[id$="rollBodyDL"] > rect, g[id$="rollEndDL"] > path
+{
+  fill:#9932CC;
+}
+
+g[id$="DL"] > circle:first-child
+{
+	stroke-width: 1;
+}
+
+g[id^="P0"][id$="DL"] > circle
+{
+        stroke: #483D8B;
+}
+
+g[id^="P1"][id$="DL"] > circle
+{
+	stroke: #B22222;
+}
+
+.note_004 { fill: #3366ff;    }
+.note_008 { fill: red;     }
+.note_012 { fill: purple;  }
+.note_016 { fill: yellow;  }
+.note_024 { fill: pink;    }
+.note_032 { fill: orange;  }
+.note_048 { fill: aqua;    }
+.note_064 { fill: lime;    }
+.note_192 { fill: #808080; } 

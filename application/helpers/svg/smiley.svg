@@ -1,0 +1,258 @@
+<defs xmlns:xlink="http://www.w3.org/1999/xlink">
+	<g id="beat1">
+		<rect x="0" y="0" width="16" height="16"/>
+		<rect x="0" y="16" width="16" height="16"/>
+		<line x1="0" y1="0.1" x2="16" y2="0.1"/>
+	</g>
+	<g id="beat2">
+		<rect x="0" y="0" width="16" height="16"/>
+		<rect x="0" y="16" width="16" height="16"/>
+	</g>
+	<g id="measure">
+		<use xlink:href="#beat1"/>
+		<use y="32" xlink:href="#beat2"/>
+		<line x1="0.05" y1="0" x2="0.05" y2="64"/>
+		<line x1="15.95" y1="0" x2="15.95" y2="64"/>
+	</g>
+	<g id="arrowDL">
+		<circle cx="8" cy="8" r="7" />
+		<circle cx="5.5" cy="6" r="2" />
+		<circle cx="10.5" cy="6" r="2" />
+		<path d="m 3.5, 10 a 4.5,3 0 0,0 9,0" />
+	</g>
+	<g id="P0arrowDL">
+		<circle cx="8" cy="8" r="7" />
+		<circle cx="5.5" cy="6" r="2" />
+		<circle cx="10.5" cy="6" r="2" />
+		<path d="m 3.5, 10 a 4.5,3 0 0,0 9,0" />
+	</g>
+	<g id="P1arrowDL">
+		<circle cx="8" cy="8" r="7" />
+		<circle cx="5.5" cy="6" r="2" />
+		<circle cx="10.5" cy="6" r="2" />
+		<path d="m 3.5, 10 a 4.5,3 0 0,0 9,0" />
+	</g>
+	<g id="arrowUL"><use xlink:href="#arrowDL" /></g>
+	<g id="P0arrowUL"><use xlink:href="#P0arrowDL" /></g>
+	<g id="P1arrowUL"><use xlink:href="#P1arrowDL" /></g>
+	<g id="arrowCN"><use xlink:href="#arrowDL" /></g>
+	<g id="P0arrowCN"><use xlink:href="#P0arrowDL" /></g>
+	<g id="P1arrowCN"><use xlink:href="#P1arrowDL" /></g>
+	<g id="arrowUR"><use xlink:href="#arrowDL" /></g>
+	<g id="P0arrowUR"><use xlink:href="#P0arrowDL" /></g>
+	<g id="P1arrowUR"><use xlink:href="#P1arrowDL" /></g>
+	<g id="arrowDR"><use xlink:href="#arrowDL" /></g>
+	<g id="P0arrowDR"><use xlink:href="#P0arrowDL" /></g>
+	<g id="P1arrowDR"><use xlink:href="#P1arrowDL" /></g>
+	<g id="holdDL"><use xlink:href="#arrowDL" /></g>
+	<g id="P0holdDL"><use xlink:href="#P0arrowDL" /></g>
+	<g id="P1holdDL"><use xlink:href="#P1arrowDL" /></g>
+	<g id="holdUL"><use xlink:href="#arrowUL" /></g>
+	<g id="P0holdUL"><use xlink:href="#P0arrowUL" /></g>
+	<g id="P1holdUL"><use xlink:href="#P1arrowUL" /></g>
+	<g id="holdCN"><use xlink:href="#arrowCN" /></g>
+	<g id="P0holdCN"><use xlink:href="#P0arrowCN" /></g>
+	<g id="P1holdCN"><use xlink:href="#P1arrowCN" /></g>
+	<g id="holdUR"><use xlink:href="#arrowUR" /></g>
+	<g id="P0holdUR"><use xlink:href="#P0arrowUR" /></g>
+	<g id="P1holdUR"><use xlink:href="#P1arrowUR" /></g>
+	<g id="holdDR"><use xlink:href="#arrowDR" /></g>
+	<g id="P0holdDR"><use xlink:href="#P0arrowDR" /></g>
+	<g id="P1holdDR"><use xlink:href="#P1arrowDR" /></g>
+	<g id="holdBodyDL">
+		<rect x="1" y="0" width="14" height="16" />
+		<line x1="1" y1="0" x2="1" y2="16" />
+		<line x1="15" y="0" x2="15" y2="16" />
+	</g>
+	<g id="P0holdBodyDL">
+		<rect x="1" y="0" width="14" height="16" />
+		<line x1="1" y1="0" x2="1" y2="16" />
+		<line x1="15" y="0" x2="15" y2="16" />
+	</g>
+	<g id="P1holdBodyDL">
+		<rect x="1" y="0" width="14" height="16" />
+		<line x1="1" y1="0" x2="1" y2="16" />
+		<line x1="15" y="0" x2="15" y2="16" />
+	</g>
+	<g id="holdBodyUL"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0holdBodyUL"><use xlink:href="#P0holdBodyDL" /></g>
+	<g id="P1holdBodyUL"><use xlink:href="#P1holdBodyDL" /></g>
+	<g id="holdBodyCN"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0holdBodyCN"><use xlink:href="#P0holdBodyDL" /></g>
+	<g id="P1holdBodyCN"><use xlink:href="#P1holdBodyDL" /></g>
+	<g id="holdBodyUR"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0holdBodyUR"><use xlink:href="#P0holdBodyDL" /></g>
+	<g id="P1holdBodyUR"><use xlink:href="#P1holdBodyDL" /></g>
+	<g id="holdBodyDR"><use xlink:href="#holdBodyDL" /></g>
+	<g id="P0holdBodyDR"><use xlink:href="#P0holdBodyDL" /></g>
+	<g id="P1holdBodyDR"><use xlink:href="#P1holdBodyDL" /></g>
+	<g id="holdEndDL">
+		<path d="m 1,0 v 8 a 7,7 0 0,0 14,0 v -8" />
+	</g>
+	<g id="P0holdEndDL">
+		<path d="m 1,0 v 8 a 7,7 0 0,0 14,0 v -8" />
+	</g>
+	<g id="P1holdEndDL">
+		<path d="m 1,0 v 8 a 7,7 0 0,0 14,0 v -8" />
+	</g>
+	<g id="holdEndUL"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0holdEndUL"><use xlink:href="#P0holdEndDL" /></g>
+	<g id="P1holdEndUL"><use xlink:href="#P1holdEndDL" /></g>
+	<g id="holdEndCN"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0holdEndCN"><use xlink:href="#P0holdEndDL" /></g>
+	<g id="P1holdEndCN"><use xlink:href="#P1holdEndDL" /></g>
+	<g id="holdEndUR"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0holdEndUR"><use xlink:href="#P0holdEndDL" /></g>
+	<g id="P1holdEndUR"><use xlink:href="#P1holdEndDL" /></g>
+	<g id="holdEndDR"><use xlink:href="#holdEndDL" /></g>
+	<g id="P0holdEndDR"><use xlink:href="#P0holdEndDL" /></g>
+	<g id="P1holdEndDR"><use xlink:href="#P1holdEndDL" /></g>
+	<g id="rollDL"><use xlink:href="#arrowDL" /></g>
+	<g id="P0rollDL"><use xlink:href="#P0arrowDL" /></g>
+	<g id="P1rollDL"><use xlink:href="#P1arrowDL" /></g>
+	<g id="rollUL"><use xlink:href="#arrowUL" /></g>
+	<g id="P0rollUL"><use xlink:href="#P0arrowUL" /></g>
+	<g id="P1rollUL"><use xlink:href="#P1arrowUL" /></g>
+	<g id="rollCN"><use xlink:href="#arrowCN" /></g>
+	<g id="P0rollCN"><use xlink:href="#P0arrowCN" /></g>
+	<g id="P1rollCN"><use xlink:href="#P1arrowCN" /></g>
+	<g id="rollUR"><use xlink:href="#arrowUR" /></g>
+	<g id="P0rollUR"><use xlink:href="#P0arrowUR" /></g>
+	<g id="P1rollUR"><use xlink:href="#P1arrowUR" /></g>
+	<g id="rollDR"><use xlink:href="#arrowDR" /></g>
+	<g id="P0rollDR"><use xlink:href="#P0arrowDR" /></g>
+	<g id="P1rollDR"><use xlink:href="#P1arrowDR" /></g>
+	<g id="rollBodyDL">
+		<rect x="1" y="0" width="14" height="16" />
+		<line x1="1" y1="0" x2="1" y2="16" />
+		<line x1="15" y="0" x2="15" y2="16" />
+	</g>
+	<g id="P0rollBodyDL">
+		<rect x="1" y="0" width="14" height="16" />
+		<line x1="1" y1="0" x2="1" y2="16" />
+		<line x1="15" y="0" x2="15" y2="16" />
+	</g>
+	<g id="P1rollBodyDL">
+		<rect x="1" y="0" width="14" height="16" />
+		<line x1="1" y1="0" x2="1" y2="16" />
+		<line x1="15" y="0" x2="15" y2="16" />
+	</g>
+	<g id="rollBodyUL"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P0rollBodyUL"><use xlink:href="#P0rollBodyDL" /></g>
+	<g id="P1rollBodyUL"><use xlink:href="#P1rollBodyDL" /></g>
+	<g id="rollBodyCN"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P0rollBodyCN"><use xlink:href="#P0rollBodyDL" /></g>
+	<g id="P1rollBodyCN"><use xlink:href="#P1rollBodyDL" /></g>
+	<g id="rollBodyUR"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P0rollBodyUR"><use xlink:href="#P0rollBodyDL" /></g>
+	<g id="P1rollBodyUR"><use xlink:href="#P1rollBodyDL" /></g>
+	<g id="rollBodyDR"><use xlink:href="#rollBodyDL" /></g>
+	<g id="P0rollBodyDR"><use xlink:href="#P0rollBodyDL" /></g>
+	<g id="P1rollBodyDR"><use xlink:href="#P1rollBodyDL" /></g>
+	<g id="rollEndDL">
+		<path d="m 1,0 v 8 a 7,7 0 0,0 14,0 v -8" />
+	</g>
+	<g id="P0rollEndDL">
+		<path d="m 1,0 v 8 a 7,7 0 0,0 14,0 v -8" />
+	</g>
+	<g id="P1rollEndDL">
+		<path d="m 1,0 v 8 a 7,7 0 0,0 14,0 v -8" />
+	</g>
+	<g id="rollEndUL"><use xlink:href="#rollEndDL" /></g>
+	<g id="P0rollEndUL"><use xlink:href="#P0rollEndDL" /></g>
+	<g id="P1rollEndUL"><use xlink:href="#P1rollEndDL" /></g>
+	<g id="rollEndCN"><use xlink:href="#rollEndDL" /></g>
+	<g id="P0rollEndCN"><use xlink:href="#P0rollEndDL" /></g>
+	<g id="P1rollEndCN"><use xlink:href="#P1rollEndDL" /></g>
+	<g id="rollEndUR"><use xlink:href="#rollEndDL" /></g>
+	<g id="P0rollEndUR"><use xlink:href="#P0rollEndDL" /></g>
+	<g id="P1rollEndUR"><use xlink:href="#P1rollEndDL" /></g>
+	<g id="rollEndDR"><use xlink:href="#rollEndDL" /></g>
+	<g id="P0rollEndDR"><use xlink:href="#P0rollEndDL" /></g>
+	<g id="P1rollEndDR"><use xlink:href="#P1rollEndDL" /></g>
+	<g id="mineDL">
+		<circle cx="8" cy="8" r="7" />
+		<circle cx="5.5" cy="6" r="2" />
+		<circle cx="10.5" cy="6" r="2" />
+		<path d="m 3.5, 12 a 4.5,3 0 0,1 9,0" />
+	</g><g id="P0mineDL">
+		<circle cx="8" cy="8" r="7" />
+		<circle cx="5.5" cy="6" r="2" />
+		<circle cx="10.5" cy="6" r="2" />
+		<path d="m 3.5, 12 a 4.5,3 0 0,1 9,0" />
+	</g>
+	<g id="P1mineDL">
+		<circle cx="8" cy="8" r="7" />
+		<circle cx="5.5" cy="6" r="2" />
+		<circle cx="10.5" cy="6" r="2" />
+		<path d="m 3.5, 12 a 4.5,3 0 0,1 9,0" />
+	</g>
+	<g id="mineUL"><use xlink:href="#mineDL" /></g>
+	<g id="P0mineUL"><use xlink:href="#P0mineDL" /></g>
+	<g id="P1mineUL"><use xlink:href="#P1mineDL" /></g>
+	<g id="mineCN"><use xlink:href="#mineDL" /></g>
+	<g id="P0mineCN"><use xlink:href="#P0mineDL" /></g>
+	<g id="P1mineCN"><use xlink:href="#P1mineDL" /></g>
+	<g id="mineUR"><use xlink:href="#mineDL" /></g>
+	<g id="P0mineUR"><use xlink:href="#P0mineDL" /></g>
+	<g id="P1mineUR"><use xlink:href="#P1mineDL" /></g>
+	<g id="mineDR"><use xlink:href="#mineDL" /></g>
+	<g id="P0mineDR"><use xlink:href="#P0mineDL" /></g>
+	<g id="P1mineDR"><use xlink:href="#P1mineDL" /></g>
+	<g id="liftDL">
+		<circle cx="8" cy="8" r="7" />
+		<path d="m 8,1 -7,7 2,2 3,-3 0,7 2,-2 2,2 0,-7 3,3 2,-2 z"/>
+		<path d="m 6,10.5 2,-2 2,2"/>
+		<path d="m 6,7 2,-2 2,2"/>
+	</g>
+	<g id="P0liftDL">
+		<circle cx="8" cy="8" r="7" />
+		<path d="m 8,1 -7,7 2,2 3,-3 0,7 2,-2 2,2 0,-7 3,3 2,-2 z"/>
+		<path d="m 6,10.5 2,-2 2,2"/>
+		<path d="m 6,7 2,-2 2,2"/>
+	</g>
+	<g id="P1liftDL">
+		<circle cx="8" cy="8" r="7" />
+		<path d="m 8,1 -7,7 2,2 3,-3 0,7 2,-2 2,2 0,-7 3,3 2,-2 z"/>
+		<path d="m 6,10.5 2,-2 2,2"/>
+		<path d="m 6,7 2,-2 2,2"/>
+	</g>
+	<g id="liftUL"><use xlink:href="#liftDL" /></g>
+	<g id="P0liftUL"><use xlink:href="#P0liftDL" /></g>
+	<g id="P1liftUL"><use xlink:href="#P1liftDL" /></g>
+	<g id="liftCN"><use xlink:href="#liftDL" /></g>
+	<g id="P0liftCN"><use xlink:href="#P0liftDL" /></g>
+	<g id="P1liftCN"><use xlink:href="#P1liftDL" /></g>
+	<g id="liftUR"><use xlink:href="#liftDL" /></g>
+	<g id="P0liftUR"><use xlink:href="#P0liftDL" /></g>
+	<g id="P1liftUR"><use xlink:href="#P1liftDL" /></g>
+	<g id="liftDR"><use xlink:href="#liftDL" /></g>
+	<g id="P0liftDR"><use xlink:href="#P0liftDL" /></g>
+	<g id="P1liftDR"><use xlink:href="#P1liftDL" /></g>
+	<g id="fakeDL">
+		<circle cx="8" cy="8" r="7" />
+		<line x1="3.5" y1="4" x2="7.5" y2="8" />
+		<line x1="7.5" y1="4" x2="3.5" y2="8" />
+		<line x1="8.5" y1="4" x2="12.5" y2="8" />
+		<line x1="12.5" y1="4" x2="8.5" y2="8" />
+		<path d="m 3.5, 10 a 4.5,3 0 0,0 9,0" />
+	</g>
+	<g id="P0fakeDL">
+		<path d="m 1 15 h 2 v -6 h 7 v -2 h -7 v -4 h 12 v -2 h -14 z" />
+	</g>
+	<g id="P1fakeDL">
+		<path d="m 1 15 h 2 v -6 h 7 v -2 h -7 v -4 h 12 v -2 h -14 z" />
+	</g>
+	<g id="fakeUL"><use xlink:href="#fakeDL" /></g>
+	<g id="P0fakeUL"><use xlink:href="#P0fakeDL" /></g>
+	<g id="P1fakeUL"><use xlink:href="#P1fakeDL" /></g>
+	<g id="fakeCN"><use xlink:href="#fakeDL" /></g>
+	<g id="P0fakeCN"><use xlink:href="#P0fakeDL" /></g>
+	<g id="P1fakeCN"><use xlink:href="#P1fakeDL" /></g>
+	<g id="fakeUR"><use xlink:href="#fakeDL" /></g>
+	<g id="P0fakeUR"><use xlink:href="#P0fakeDL" /></g>
+	<g id="P1fakeUR"><use xlink:href="#P1fakeDL" /></g>
+	<g id="fakeDR"><use xlink:href="#fakeDL" /></g>
+	<g id="P0fakeDR"><use xlink:href="#P0fakeDL" /></g>
+	<g id="P1fakeDR"><use xlink:href="#P1fakeDL" /></g>
+</defs>
