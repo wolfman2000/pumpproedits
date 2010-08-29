@@ -44,7 +44,9 @@ class Chart extends Controller
   function _notecolor_exists($str)
   {
   	$this->load->model('ppe_note_style');
-    if (in_array($str, $this->ppe_note_style->getNoteStyles())) return true;
+  	$choices = $this->ppe_note_style->getNoteStyles();
+  	foreach ($choices as $c) { $c = strtolower($c); }
+    if (in_array($str, $choices)) return true;
     $this->form_validation->set_message('_notecolor_exists', "Please choose a valid note style.");
     return false;
   }
@@ -53,7 +55,9 @@ class Chart extends Controller
   function _noteskin_exists($str)
   {
   	$this->load->model('ppe_note_skin');
-  	if (in_array($str, $this->ppe_note_skin->getNoteSkins())) return true;
+  	$choices = $this->ppe_note_skin->getNoteSkins();
+  	foreach ($choices as $c) { $c = strtolower($c); }
+  	if (in_array($str, $choices)) return true;
   	$this->form_validation->set_message('_noteskin_exists', "Please choose a valid note skin.");
   	return false;
   }
