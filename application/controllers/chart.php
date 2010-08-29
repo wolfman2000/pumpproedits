@@ -52,8 +52,9 @@ class Chart extends Controller
   // confirm the note skin exists.
   function _noteskin_exists($str)
   {
-  	if (in_array($str, array('original', 'stepmania'))) return true;
-  	$this->form_validation->set_message('_noteskin_exists', "Please choose either the original or stepmania noteskin.");
+  	$this->load->model('ppe_note_skin');
+  	if (in_array($str, $this->ppe_note_skin->getNoteSkins())) return true;
+  	$this->form_validation->set_message('_noteskin_exists', "Please choose a valid note skin.");
   	return false;
   }
   
