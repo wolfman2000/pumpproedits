@@ -57,7 +57,6 @@ endif; ?>
     (
       array("value" => "blue", "text" => "Blue", "selected" => true),
       array("value" => "red", "text" => "Red", "selected" => false),
-      array("value" => "smiley", "text" => "Smiley", "selected" => false),
     ),
   ),
   array
