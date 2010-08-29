@@ -7,59 +7,49 @@ defs > g
 	stroke-opacity: 1;
 }
 
-g#arrowDL > path, g#P0arrowDL > path, g#P1arrowDL > path,
-g#arrowCN > path, g#P0arrowCN > path, g#P1arrowCN > path,
-g#liftDL > path, g#P0liftDL > path, g#P1liftDL > path,
-g#fakeDL > path, g#P0fakeDL > path, g#P1fakeDL > path
+g[id$="arrowDL"] > path, g[id$="arrowCN"] > path,
+g[id$="liftDL"] > path, g[id$="fakeDL"] > path
 {
 	stroke-width: 1;
 	stroke: black;
 }
 
-g#mineDL > circle, g#P0mineDL > circle, g#P1mineDL > circle
+g[id$="mineDL"] > circle
 {
 	stroke-width: 1;
 	stroke: black;
 }
 
-g#mineDL > circle:first-child,
-g#P0mineDL > circle:first-child,
-g#P1mineDL > circle:first-child
+g[id$="mineDL"] > circle:first-child
 {
   fill:red;
 }
-g#mineDL > circle:first-child + circle,
-g#P0mineDL > circle:first-child + circle,
-g#P1mineDL > circle:first-child + circle
+
+g[id$="mineDL"] > circle:first-child + circle
 {
   fill:black;
 }
-g#arrowCN > rect, g#P0arrowCN > rect, g#P1arrowCN > rect
+g[id$="arrowCN"] > rect
 {
   fill:black;
 }
-g#holdBodyDL > rect, g#P0holdBodyDL > rect, g#P1holdBodyDL > rect,
-g#holdEndDL > path, g#P0holdEndDL > path, g#P1holdEndDL > path,
-g#rollBodyDL > rect, g#P0rollBodyDL > rect, g#P1rollBodyDL > rect,
-g#rollEndDL > path, g#P0rollEndDL > path, g#P1rollEndDL > path
+g[id$="holdBodyDL"] > rect, g[id$="holdEndDL"] > path,
+g[id$="rollBodyDL"] > rect, g[id$="rollEndDL"] > path
 {
 	fill-opacity: 1;
-	stroke: none;
 }
 
-g#holdBodyDL > rect, g#P0holdBodyDL > rect, g#P1holdBodyDL > rect
+g[id$="holdBodyDL"] > rect, g[id$="holdEndDL"] > path
 {
   fill:darkblue;
 }
-g#rollBodyDL > rect, g#P0rollBodyDL > rect, g#P1rollBodyDL > rect
+g[id$="rollBodyDL"] > rect, g[id$="rollEndDL"] > path
 {
   fill:#9932CC;
 }
 
-g#holdBodyDL > line, g#P0holdBodyDL > line, g#P1holdBodyDL > line,
-g#holdEndDL > path, g#P0holdEndDL > path, g#P1holdEndDL > path,
-g#rollBodyDL > line, g#P0rollBodyDL > line, g#P1rollBodyDL > line,
-g#rollEndDL > path, g#P0rollEndDL > path, g#P1rollEndDL > path
+g[id$="holdBodyDL"] > line, g[id$="holdEndDL"] > path,
+g[id$="rollBodyDL"] > line, g[id$="rollEndDL"] > path
 {
   stroke:black;
   stroke-width: 0.3;
