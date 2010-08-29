@@ -17,7 +17,8 @@ class EditCharter
         APP_CHART_SIN_COLS, APP_CHART_HDB_COLS, APP_CHART_DBL_COLS);
       throw new Exception($e);
     }
-    if (!in_array($params['kind'], $this->CI->ppe_note_style->getNoteStyles()))
+    
+    if (!in_array($params['kind'], $this->CI->ppe_note_style->getNoteStyles(1)))
     {
       $e = "The notetype chosen is not valid!";
       throw new Exception($e);
@@ -71,7 +72,7 @@ class EditCharter
       $this->noteskin = 'original';
     }
     
-    if (!in_array($this->noteskin, $this->CI->ppe_note_skin->getNoteSkins()))
+    if (!in_array($this->noteskin, $this->CI->ppe_note_skin->getNoteSkins(1)))
     {
     	$this->noteskin = 'original'; # don't feel this should error out.
     }

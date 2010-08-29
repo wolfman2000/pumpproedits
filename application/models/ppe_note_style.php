@@ -7,9 +7,9 @@ class Ppe_note_style extends Model
   }
   
   // Get the list of valid note styles
-  function getNoteStyles()
+  function getNoteStyles($lower = false)
   {
-  	  $r = $this->db->select('LOWER(name) name')
+  	  $r = $this->db->select(($lower ? 'LOWER(name)' : 'name') . 'AS name')
   	  	->get('ppe_note_style')->result();
   	  $ret = array();
   	  foreach ($r as $q)
