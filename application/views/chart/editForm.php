@@ -51,6 +51,7 @@ endif; ?>
   	(
   	  array("value" => "original", "text" => "Original", "selected" => true),
   	  array("value" => "stepmania", "text" => "StepMania", "selected" => false),
+  	  array("value" => "smiley", "text" => "Smiley", "selected" => false),
 	),
   ),
   array
