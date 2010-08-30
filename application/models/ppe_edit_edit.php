@@ -187,15 +187,15 @@ class Ppe_edit_edit extends Model
 	$this->db->where_in('id', $ids)->update('ppe_edit_edit', $data);
   }
 
-  // Determine if the edit being uploaded is new or old.
-  function getIDByUpload($row)
-  {
-	$q = $this->db->select('id')->where('title', $row['title'])
-	  ->where('style', substr($row['style'], 5))
-	  ->where('user_id', $row['uid'])
-	  ->get('ppe_edit_edit');
-	return $q->num_rows() ? $q->row()->id : null;
-  }
+	// Determine via view if the edit being uploaded is new or old.
+	function getIDByUpload($row)
+	{
+		$q = $this->db->select('id')->where('title', $row['title'])
+		->where('style', substr($row['style'], 5))
+		->where('user_id', $row['uid'])
+		->get('edits_uploaded');
+		return $q->num_rows() ? $q->row()->id : null;
+	}
 
   // Common function that uses the full view.
 	private function _getGoodEdits($order, $where = null, $limit = 10000)
