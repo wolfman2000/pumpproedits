@@ -146,21 +146,14 @@ class Ppe_edit_edit extends Model
 		->get('ppe_edit_edit')->num_rows() > 0;
 	}
 
-  // Get all of the user edits for possible charting.
-  public function getNonProblemEdits()
-  {
-	return $this->db->select('a.id, u.name uname, a.style, a.title, a.diff, s.name sname')
-	  ->from('ppe_edit_edit a')
-	  ->join('ppe_user_user u', 'a.user_id = u.id')
-	  ->join('ppe_song_song s', 'a.song_id = s.id')
-	  ->where('a.is_problem', 0)
-	  ->where('a.deleted_at', null)
-	  ->order_by('u.lc_name')
-	  ->order_by('s.lc_name')
-	  ->order_by('a.title')
-	  ->order_by('a.style')
-	  ->get();
-  }
+	// Get all of the user edits for possible charting.
+	public function getNonProblemEdits()
+	{
+		return $this->db->select('id, uname, style, title, diff, sname')
+		->where('a.is_problem', 0)
+		->where('a.deleted_at', null)
+		->get('edits_non_problem');
+	}
 
 	// Get all of the user edits that could be deleted.
 	public function getEditsToDelete($uid)
