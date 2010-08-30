@@ -162,30 +162,25 @@ class Ppe_edit_edit extends Model
 	  ->get();
   }
 
-  // Get all of the user edits that could be deleted.
-  public function getEditsToDelete($uid)
-  {
-	return $this->db->select('a.id, a.style, a.title, a.diff, s.name sname')
-	  ->from('ppe_edit_edit a')
-	  ->join('ppe_song_song s', 'a.song_id = s.id')
-	  ->where('a.is_problem', 0)
-	  ->where('a.deleted_at', null)
-	  ->where('a.user_id', $uid)
-	  ->order_by('s.lc_name')
-	  ->order_by('a.title')
-	  ->order_by('a.style')
-	  ->get();
-  }
+	// Get all of the user edits that could be deleted.
+	public function getEditsToDelete($uid)
+	{
+		return $this->db->select('id, style, title, diff, sname')
+		->where('is_problem', 0)
+		->where('deleted_at', null)
+		->where('user_id', $uid)
+		->get('edits_to_delete');
+	}
 
-  // "Remove" the selected edits. Or maybe reactivate.
-  function removeEdits($ids, $time = 1)
-  {
-	if ($time) { $time = date('Y-m-d H:i:s'); }
-	else { $time = null; }
-	$data['deleted_at'] = $time;
-	if ($time) { $data['title'] = null; }
-	$this->db->where_in('id', $ids)->update('ppe_edit_edit', $data);
-  }
+	// "Remove" the selected edits. Or maybe reactivate.
+	function removeEdits($ids, $time = 1)
+	{
+		if ($time) { $time = date('Y-m-d H:i:s'); }
+		else { $time = null; }
+		$data['deleted_at'] = $time;
+		if ($time) { $data['title'] = null; }
+		$this->db->where_in('id', $ids)->update('ppe_edit_edit', $data);
+	}
 
 	// Determine via view if the edit being uploaded is new or old.
 	function getIDByUpload($row)
