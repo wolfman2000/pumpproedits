@@ -116,7 +116,7 @@ class Ppe_edit_edit extends Model
 		{
 			$q->where('id !=', $eid);
 		}
-		return $q->get('ppe_edit_edit')->num_rows();
+		return $q->get('full_edit_stats')->num_rows();
 	}
 
 	// Get the list of edits by the user. Should problem ones be included?
