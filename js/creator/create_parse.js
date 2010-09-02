@@ -60,6 +60,7 @@ function loadSVGMeasures()
   {
     $("#svgMeas").append(genMeasure(BUFF_LFT, BUFF_TOP + ARR_HEIGHT * BEATS_PER_MEASURE * i, i + 1));
   }
+  var tmp;
   // place the BPM data.
   var bpms = songData.bpms;
   var x = parseInt($("#svg").attr('width')) / 2 / SCALE;
@@ -67,8 +68,16 @@ function loadSVGMeasures()
   for (var i = 0; i < bpms.length; i++)
   {
     y = BUFF_TOP + bpms[i].beat * ARR_HEIGHT;
+    if (isNaN(bpms[i].bpm))
+    {
+    	tmp = '???';
+    }
+    else
+    {
+    	tmp = Number(bpms[i].bpm);
+    }
     $("#svgSync").append(genText(BUFF_LFT + columns * ARR_HEIGHT + 2 * SCALE,
-        y + SCALE, Number(bpms[i].bpm), 'bpm'));
+        y + SCALE, tmp, 'bpm'));
     $("#svgSync").append(genLine(x, y, x + columns * ARR_HEIGHT / 2, y, 'bpm'));
   }
   // place the Stop data.
@@ -76,7 +85,15 @@ function loadSVGMeasures()
   for (var i = 0; i < stps.length; i++)
   {
     y = BUFF_TOP + stps[i].beat * ARR_HEIGHT;
-    $("#svgSync").append(genText(SCALE * (ARR_HEIGHT / 2), y + SCALE, Number(stps[i].time), 'stop'));
+    if (isNaN(stps[i].time))
+    {
+    	tmp = '???';
+    }
+    else
+    {
+    	tmp = Number(stps[i].time);
+    }
+    $("#svgSync").append(genText(BUFF_LFT / 2, y + SCALE, tmp, 'stop'));
     $("#svgSync").append(genLine(BUFF_LFT, y, BUFF_LFT + columns * ARR_HEIGHT / 2, y, 'stop'));
   }
   

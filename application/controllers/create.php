@@ -162,7 +162,7 @@ class Create extends Controller
     
     foreach ($bpms as $b)
     {
-      $bArr[] = array('beat' => floatval($b->beat), 'bpm' => ($b->bpm ? floatval($b->bpm) : null));
+      $bArr[] = array('beat' => floatval($b->beat), 'bpm' => ($b->bpm ? floatval($b->bpm) : '?'));
     }
     $ret['bpms'] = $bArr;
     
@@ -170,7 +170,7 @@ class Create extends Controller
     $sArr = array();
     foreach ($stps as $s)
     {
-      $sArr[] = array('beat' => floatval($s->beat), 'time' => ($s->break ? floatval($s->break) : null));
+      $sArr[] = array('beat' => floatval($s->beat), 'time' => ($s->break ? floatval($s->break) : '?'));
     }
     $ret['stps'] = $sArr;
     
