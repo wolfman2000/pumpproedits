@@ -122,9 +122,12 @@ class Ppe_edit_edit extends Model
 	// Get the list of edits by the user. Should problem ones be included?
 	function getSVGEdits($uid)
 	{
-	return $this->db->select('id, style, title, diff, abbr, name')
-		->where('user_id', $uid)
-		->get('edits_svg')->result_array();
+		return $this->db->select('id, style, title, diff, abbr, name')
+			->where('user_id', $uid)
+			->order_by('LOWER(name)')
+			->order_by('title')
+			->order_by('style')
+			->get('edits_svg')->result_array();
 	}
 
 	// Confirm if the edit exists.
@@ -148,6 +151,10 @@ class Ppe_edit_edit extends Model
 		return $this->db->select('id, uname, style, title, diff, sname')
 		->where('a.is_problem', 0)
 		->where('a.deleted_at', null)
+		->order_by('LOWER(uname)')
+		->order_by('LOWER(sname)')
+		->order_by('title')
+		->order_by('style')
 		->get('edits_non_problem');
 	}
 
@@ -158,6 +165,9 @@ class Ppe_edit_edit extends Model
 		->where('is_problem', 0)
 		->where('deleted_at', null)
 		->where('user_id', $uid)
+		->order_by('LOWER(sname')
+		->order_by('title')
+		->order_by('style')
 		->get('edits_to_delete');
 	}
 
