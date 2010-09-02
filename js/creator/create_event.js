@@ -173,6 +173,9 @@ function loadEdit(data, canPublic)
 {
   $(".edit").hide();
   songID = data.id;
+  columns = data.cols;
+  var tmp = "<option value=\"" + data.style + "\">Tmp</option>";
+  $("#stylelist").append(tmp);
   $("#stylelist").val(data.style);
   $("#editDiff").val(data.diff);
   $("#editName").val(data.title);
