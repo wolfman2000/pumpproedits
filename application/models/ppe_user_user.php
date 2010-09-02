@@ -108,7 +108,7 @@ class Ppe_user_user extends Model
 	{
 		return $this->db
 			->where('min_role >=', 3)
-			->where_not_in('a.id', $ids)
+			->where_not_in('id', $ids)
 			->order_by('LOWER(name)')
 			->get('users_with_edits')->result_array();
 	}
