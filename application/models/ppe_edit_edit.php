@@ -16,7 +16,6 @@ class Ppe_edit_edit extends Model
 
 		$data = array(
 			'id' => $id,
-			'style' => substr($row['style'], 5),
 			'style_id' => $row['style_id'],
 			'song_id' => $row['id'],
 			'user_id' => $row['uid'],
