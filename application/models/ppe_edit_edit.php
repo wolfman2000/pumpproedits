@@ -148,8 +148,8 @@ class Ppe_edit_edit extends Model
 	public function getNonProblemEdits()
 	{
 		return $this->db->select('id, uname, style, title, diff, sname')
-		->where('a.is_problem', 0)
-		->where('a.deleted_at', null)
+		->where('is_problem', 0)
+		->where('deleted_at', null)
 		->order_by('LOWER(uname)')
 		->order_by('LOWER(sname)')
 		->order_by('title')
