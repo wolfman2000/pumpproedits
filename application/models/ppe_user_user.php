@@ -103,17 +103,13 @@ class Ppe_user_user extends Model
       ->get('ppe_user_user')->row()->name;
   }
   
-  // get the list of other users that have edits.
-  function getOtherUsers($ids)
-  {
-    return $this->db->select('a.id, a.name, MIN(p.role_id) min_role, COUNT(e.id) num_edits')
-      ->from('ppe_user_user a')
-      ->join('ppe_user_power p', 'a.id = p.user_id')
-      ->join('ppe_edit_edit e', 'a.id = e.user_id')
-      ->where_not_in('a.id', $ids)
-      ->group_by(array('a.id', 'a.name'))
-      ->having('min_role >= 3')
-      ->having('num_edits > 0')
-      ->order_by('a.lc_name')->get()->result_array();
-  }
+	// get the list of other users that have edits.
+	function getOtherUsers($ids)
+	{
+		return $this->db
+			->where('min_role >=', 3)
+			->where_not_in('a.id', $ids)
+			->order_by('LOWER(name)')
+			->get('users_with_edits')->result_array();
+	}
 }
