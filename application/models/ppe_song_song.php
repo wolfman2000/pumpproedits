@@ -91,7 +91,7 @@ class Ppe_song_song extends Model
 	public function getSongsWithGameAndDiff()
 	{
 		return $this->db
-			->order_by('first_game_id')
+			->order_by('gid')
 			->order_by('name')
 			->get('song_game_chart_sort');
   }
