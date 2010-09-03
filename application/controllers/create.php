@@ -228,6 +228,7 @@ class Create extends Controller
     
     $ret = $this->editparser->get_stats(gzopen($path, "r"), array('notes' => 1));
     $ret['style'] = substr($ret['style'], 5);
+    $ret['authID'] = $this->ppe_edit_edit->getEditAuthor($id);
     echo json_encode($ret);
 
   }

@@ -257,4 +257,12 @@ class Ppe_edit_edit extends Model
 		$this->db->query(sprintf($str, $id, $pro1));
 		return $this->db->query("SELECT @file AS wanted")->row()->wanted;
 	}
+	
+	// Get the name of the author for this edit.
+	public function getEditAuthor($eid)
+	{
+		return $this->db->select('user_id')
+			->where('id', $eid)
+			->get('edit_authors')->row()->user_id;
+	}
 }
