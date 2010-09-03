@@ -7,6 +7,17 @@ class Ppe_edit_measure extends Model
 		$this->load->model('ppe_edit_player');
 	}
 	
+	// Get all of the notes that this song uses.
+	function getNotes($eid)
+	{
+		return $this->db->where('id', $eid)
+			->order_by('player')
+			->order_by('measure')
+			->order_by('beat')
+			->order_by('column')
+			->get('edit_chart_notes');
+	}
+	
 	function placeNotes($pid, $notes)
 	{
 		// ignore what's already there.
