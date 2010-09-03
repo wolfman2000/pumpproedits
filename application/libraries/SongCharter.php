@@ -56,8 +56,7 @@ class SongCharter extends EditCharter
     
     $curbeat = intval(round($m * $rcounter / count($measure)));
     
-    $arow = $this->kind == "rhythm" ? 
-    $arrows[$this->getBeat(192 * $rcounter / count($measure))] : $arrows;
+    $arow = $arrows[$this->getBeat(192 * $rcounter / count($measure))];
     
     $pcounter = 0;
     foreach (str_split($row) as $let): # For each note in the row
