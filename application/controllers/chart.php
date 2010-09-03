@@ -182,6 +182,7 @@ class Chart extends Controller
   
   function songProcess()
   {
+  	  
     if ($this->form_validation->run() === FALSE)
     {
       $data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
@@ -199,9 +200,9 @@ class Chart extends Controller
       'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
       'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'),
       'arcade' => 1, 'noteskin' => $this->input->post('noteskin'));
-    $this->load->library('EditCharter', $p);
+    $this->load->library('SongCharter', $p);
     header("Content-Type: application/xhtml+xml");
-    $xml = $this->editcharter->genChart($notedata);
+    $xml = $this->songcharter->genChart($notedata);
     echo $xml->saveXML();
   }
   

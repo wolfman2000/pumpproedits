@@ -18,7 +18,8 @@ class EditCharter
       throw new Exception($e);
     }
     
-    if (!in_array($params['kind'], $this->CI->ppe_note_style->getNoteStyles(1)))
+    $kinds = $this->CI->ppe_note_style->getNoteStyles(1);
+    if (!in_array($params['kind'], $kinds))
     {
       $e = "The notetype chosen is not valid!";
       throw new Exception($e);
