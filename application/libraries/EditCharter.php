@@ -51,18 +51,6 @@ class EditCharter
     {
       $this->showstop = 1;
     }
-    
-    # Is the header supposed to be arcade style?
-    
-    if (array_key_exists('arcade', $params) and $params['arcade'])
-    {
-      $this->arcade = 1;
-    }
-    else
-    {
-      $this->arcade = 0;
-    }
-
     # What noteskin is being requested?
     if (array_key_exists('noteskin', $params) and $params['noteskin'])
     {
