@@ -8,12 +8,12 @@ class SongCharter extends EditCharter
 		$this->arcade = 1;
 	}
 	
-	protected function genXMLHeader($measures, $style)
+	protected function genXMLHeader($measures, $notedata)
 	{
 		// Take advantage of the header already in play.
-		parent::genXMLHeader($measures, $style);
+		parent::genXMLHeader($measures, $notedata);
 		
-		$str = "Arcade $style chart";
+		$str = "Arcade ${notedata['style']} chart";
 		$txt = $this->xml->createTextNode($str);
 		$node = $this->xml->getElementById("headTitle");
 		$node->replaceChild($txt, $node->firstChild);
@@ -29,7 +29,7 @@ class SongCharter extends EditCharter
 		$node->replaceChild($txt, $node->firstChild);
 	}
   
-  protected function genArrows($notes, $style = "pump-single")
+  protected function genArrows($notes, $style = "single")
   {
     for ($i = 0; $i < $this->cols; $i++)
     {
@@ -45,8 +45,8 @@ class SongCharter extends EditCharter
     $ucounter = 0;
     foreach ($notes as $player):
     
-    $arrows = $this->prepArrows($style === "pump-routine" ? $ucounter : false);
-    $rCheck = ($style === "pump-routine" ? "P" . $ucounter : '');
+    $arrows = $this->prepArrows($style === "routine" ? $ucounter : false);
+    $rCheck = ($style === "routine" ? "P" . $ucounter : '');
 
     $mcounter = 0;    
     foreach ($player as $measure):
@@ -200,7 +200,7 @@ class SongCharter extends EditCharter
   public function genChart($notedata)
   {
     $measures = count($notedata['notes'][0]);
-    $this->genXMLHeader($measures, $notedata['style']);
+    $this->genXMLHeader($measures, $notedata);
     $this->genEditHeader($notedata);
     $this->genMeasures($measures);
     if ($this->showbpm) $this->genBPM($notedata['id']);

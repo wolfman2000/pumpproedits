@@ -108,7 +108,7 @@ class EditCharter
     $this->xml->formatOutput = true; # May change this.
   }
 
-  protected function genXMLHeader($measures, $style)
+  protected function genXMLHeader($measures, $notedata)
   {
     // Place the surrounding HTML in first.
     $html = $this->xml->createElement('html');
@@ -529,7 +529,7 @@ class EditCharter
   public function genChart($notedata)
   {
     $measures = $this->CI->ppe_edit_edit->getMeasureCount($this->eid);
-    $this->genXMLHeader($measures, $notedata['style']);
+    $this->genXMLHeader($measures, $notedata);
     $this->genEditHeader($notedata);
     $this->genMeasures($measures);
     if ($this->showbpm) $this->genBPM($notedata['id']);
