@@ -10,7 +10,9 @@ class EditCharter
     $this->CI->load->model('ppe_note_style');
     $this->CI->load->model('ppe_note_skin');
     $this->CI->load->library('SVGMaker');
-  
+    
+    $this->eid = (array_key_exists('eid', $params) ? $params['eid'] : null);
+    
     if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS, APP_CHART_HDB_COLS)))
     {
       $e = sprintf("There must be either %d, %d, or %d columns in the chart!",
@@ -371,6 +373,7 @@ class EditCharter
   
   protected function genArrows($notes, $style = "pump-single")
   {
+    $this->CI->load->model('ppe_edit_measure');
     for ($i = 0; $i < $this->cols; $i++)
     {
       $holds[] = array('on' => false, 'hold' => true, 'x' => 0, 'y' => 0, 'beat' => 0);

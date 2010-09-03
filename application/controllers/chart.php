@@ -125,6 +125,7 @@ class Chart extends Controller
     	'mpcol' => $this->uri->segment(8, 6),
     	'scale' => $this->uri->segment(9, 1),
     	'cols' => $notedata['cols'],
+    	'eid' => $eid,
       'author' => $author,
     );
     $this->load->library('EditCharter', $p);
