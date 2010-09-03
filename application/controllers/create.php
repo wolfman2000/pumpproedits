@@ -459,14 +459,7 @@ class Create extends Controller
         $this->ppe_user_user->getUserByID($row['uid']),
         $status, $row['style'], $row['title'], $song);
         $this->oauth->postTwitter($twit);
-    	
-    	/*
-      $this->load->helper('twitter');
-      $twit = genEditMessage($row['uid'],
-        $this->ppe_user_user->getUserByID($row['uid']),
-        $status, $row['style'], $row['title'], $song);
-      postTwitter($twit);
-      */
+
     }
     $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
     $fp = gzopen($path, "w");
