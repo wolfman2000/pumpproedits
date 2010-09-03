@@ -227,7 +227,7 @@ $(document).ready(function()
       $("li.author:eq(0)").next().andSelf().hide();
       $("li.author:eq(2)").next().andSelf().show();
       isDirty = false;
-      authID = data.authID;
+      authID = parseInt(data.authID);
     });
   });
   
