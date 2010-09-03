@@ -125,6 +125,7 @@ class EditCharter
     $html->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
     $head = $this->xml->createElement('head');
     $title = $this->xml->createElement('title');
+    $title->setAttribute('xml:id', 'headTitle');
     $title->appendChild($this->xml->createTextNode("The Chart"));
     $link = $this->xml->createElement('link');
     $link->setAttribute('type', 'text/css');

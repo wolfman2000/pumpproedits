@@ -12,19 +12,11 @@ class SongCharter extends EditCharter
 	{
 		// Take advantage of the header already in play.
 		parent::genXMLHeader($measures, $style);
-		$node = $this->xml->getElementsByTagName("head")->item(0);
 		
-		$title = $this->xml->getElementsByTagName("title")->item(0);
-		
-		$link = $this->xml->getElementsByTagName("link")->item(0);
-		
-		$node->removeChild($title);
-		
-		$title = $this->xml->createElement('title');
-		$text = "Arcade $style chart";
-		$title->appendChild($this->xml->createTextNode($text));
-		
-		$node->insertBefore($title, $link);
+		$str = "Arcade $style chart";
+		$txt = $this->xml->createTextNode($str);
+		$node = $this->xml->getElementById("headTitle");
+		$node->replaceChild($txt, $node->firstChild);
 	}
 	
 	protected function genEditHeader($nd)
