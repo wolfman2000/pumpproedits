@@ -104,18 +104,9 @@ class Chart extends Controller
       return;
     }
     
-    $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
-    if (!file_exists($path))
-    {
-      $data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
-      $this->load->view('chart/editError', $data);
-      return;
-    }
-    
     $author = $this->ppe_user_user->getUserByEditID($eid);
-    $this->load->library('EditParser');
-    $p = array('strict_song' => 0, 'strict_edit' => 0, 'author' => $author);
-    $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
+    $notedata = $this->ppe_edit_edit->getEditChartStats($eid);
+    
     $p = array
     (
     	'kind' => $this->uri->segment(4, 'classic'),
@@ -126,7 +117,6 @@ class Chart extends Controller
     	'scale' => $this->uri->segment(9, 1),
     	'cols' => $notedata['cols'],
     	'eid' => $eid,
-      'author' => $author,
     );
     $this->load->library('EditCharter', $p);
     $notedata['author'] = $author;

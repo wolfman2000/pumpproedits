@@ -195,32 +195,32 @@ class EditCharter
     $g->setAttribute('id', 'svgHead');
     
     $options = array("id" => "editHead");
-    $isR = ($nd['style'] === "pump-routine");
+    $isR = ($nd['style'] === "routine");
     
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s Edit: %s - %d",
-        $nd['song'], ucfirst(substr($nd['style'], 5)), $nd['title'], $nd['diff']), $options), true));
+        $nd['sname'], ucfirst($nd['style']), $nd['title'], $nd['diff']), $options), true));
     
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 32, $nd['author']), true));
     
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 64,
-      "Steps: " . $nd['steps'][0] . ($isR ? "/" .$nd['steps'][1] : "")), true));
+      "Steps: " . $nd['ysteps'] . ($isR ? "/" .$nd['msteps'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 80,
-      "Jumps: " . $nd['jumps'][0] . ($isR ? "/" .$nd['jumps'][1] : "")), true));
+      "Jumps: " . $nd['yjumps'] . ($isR ? "/" .$nd['mjumps'] : "")), true));
     
     $w = $this->cw + $lbuff + $this->rb;
     
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 64,
-      "Holds: " . $nd['holds'][0] . ($isR ? "/" .$nd['holds'][1] : "")), true));
+      "Holds: " . $nd['yholds'] . ($isR ? "/" .$nd['mholds'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 80,
-      "Mines: " . $nd['mines'][0] . ($isR ? "/" .$nd['mines'][1] : "")), true));
+      "Mines: " . $nd['ymines'] . ($isR ? "/" .$nd['mmines'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 64,
-      "Trips: " . $nd['trips'][0] . ($isR ? "/" .$nd['trips'][1] : "")), true));
+      "Trips: " . $nd['ytrips'] . ($isR ? "/" .$nd['mtrips'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 80,
-      "Rolls: " . $nd['rolls'][0] . ($isR ? "/" .$nd['rolls'][1] : "")), true));
+      "Rolls: " . $nd['yrolls'] . ($isR ? "/" .$nd['mrolls'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 64,
-      "Lifts: " . $nd['lifts'][0] . ($isR ? "/" .$nd['lifts'][1] : "")), true));
+      "Lifts: " . $nd['ylifts'] . ($isR ? "/" .$nd['mlifts'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 80,
-      "Fakes: " . $nd['fakes'][0] . ($isR ? "/" .$nd['fakes'][1] : "")), true));
+      "Fakes: " . $nd['yfakes'] . ($isR ? "/" .$nd['mfakes'] : "")), true));
     $this->svg->appendChild($g);
   }
   
@@ -373,7 +373,7 @@ class EditCharter
     }
   }
   
-  protected function genArrows($notes, $style = "pump-single")
+  protected function genArrows($notes, $style = "single")
   {
     $this->CI->load->model('ppe_edit_measure');
     for ($i = 0; $i < $this->cols; $i++)
@@ -404,7 +404,7 @@ class EditCharter
     
     $arow = $arrows[$this->getBeat($beat)];
     
-    $arr = ($style === "pump-routine" ? "P" . $player : '')
+    $arr = ($style === "routine" ? "P" . $player : '')
     	. $arow[$column]['a'];
     
     switch ($symbol)
