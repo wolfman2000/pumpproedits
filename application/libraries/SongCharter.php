@@ -1,16 +1,10 @@
 <?php
-
+require "EditCharter.php";
 class SongCharter extends EditCharter
 {
-  function __construct($params)
-  {
-  	  parent::EditCharter($params);
-    $this->CI =& get_instance();
-    $this->CI->load->model('ppe_song_bpm');
-    $this->CI->load->model('ppe_song_stop');
-    $this->CI->load->model('ppe_note_style');
-    $this->CI->load->model('ppe_note_skin');
-    $this->CI->load->library('SVGMaker');
+	function __construct($params)
+	{
+		parent::__construct($params);
   
     if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS, APP_CHART_HDB_COLS)))
     {
@@ -29,6 +23,8 @@ class SongCharter extends EditCharter
     $this->aw = APP_CHART_ARROW_WIDTH;
     $this->bm = APP_CHART_BEAT_P_MEASURE;
     $this->kind = $params['kind'];
+        
+    $this->arcade = 1;
     
     # Have the rhythm skin use red as the quarter note if requested.
     if (array_key_exists('red4', $params) and $params['red4'] == "red")
@@ -51,17 +47,7 @@ class SongCharter extends EditCharter
     {
       $this->showstop = 1;
     }
-    
-    # Is the header supposed to be arcade style?
-    
-    if (array_key_exists('arcade', $params) and $params['arcade'])
-    {
-      $this->arcade = 1;
-    }
-    else
-    {
-      $this->arcade = 0;
-    }
+
 
     # What noteskin is being requested?
     if (array_key_exists('noteskin', $params) and $params['noteskin'])
