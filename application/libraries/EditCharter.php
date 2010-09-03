@@ -203,16 +203,10 @@ class EditCharter
     $g = $this->xml->createElement('g');
     $g->setAttribute('id', 'svgHead');
     
-    if ($this->arcade)
-    {
-      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s - %d",
-        $nd['song'], $nd['title'], $nd['diff'])), true));
-    }
-    else
-    {
-      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s Edit: %s - %d",
-        $nd['song'], ucfirst(substr($nd['style'], 5)), $nd['title'], $nd['diff'])), true));
-    }
+    $options = array("id" => "editHead");
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s Edit: %s - %d",
+        $nd['song'], ucfirst(substr($nd['style'], 5)), $nd['title'], $nd['diff']), $options), true));
+    
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 32, $nd['author']), true));
     
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 64,
