@@ -29,70 +29,40 @@ class SongCharter extends EditCharter
 		
 		$node->insertBefore($title, $link);
 	}
-  
-  protected function genMeasures($measures)
-  {
-    $numcols = ceil($measures / $this->mpcol); // mpcol is measures per column
-    $beatheight = APP_CHART_BEAT_HEIGHT; // default beat height
-    $spd = $this->speedmod; // speed mod: also affects columns.
-    $breather = $this->lb + $this->rb;
-    $m = $this->xml->createElement('g');
-    $m->setAttribute('id', 'svgMeas');
-    for ($i = 0; $i < $numcols; $i++)
-    {
-      $x = ($this->aw * $this->cols + $breather) * $i + $this->lb;
-      $sx = $this->cols;
-      for ($j = 0; $j < $this->mpcol * $spd; $j++)
-      {
-        $y = $beatheight * $j * $this->bm + $this->headheight;
-        $tmp = $this->CI->svgmaker->genUse($x / $sx, $y, array('href' => "measure", 'transform' => "scale($sx 1)"));
-        $use = $this->xml->importNode($tmp);
-        $m->appendChild($use);
-      }
-    }
-    $this->svg->appendChild($m);
-  }
-  
-  protected function genEditHeader($nd)
-  {
-    $lbuff = $this->lb;
-    $sm = $this->CI->svgmaker;
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('id', 'svgHead');
-    
-    if ($this->arcade)
-    {
-      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s - %d",
-        $nd['song'], $nd['title'], $nd['diff'])), true));
-    }
-    else
-    {
-      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s Edit: %s - %d",
-        $nd['song'], ucfirst(substr($nd['style'], 5)), $nd['title'], $nd['diff'])), true));
-    }
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 32, $nd['author']), true));
-    
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 64,
-      "Steps: " . $nd['steps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['steps'][1] : "")), true));
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 80,
-      "Jumps: " . $nd['jumps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['jumps'][1] : "")), true));
-    
-    $w = $this->cw + $lbuff + $this->rb;
-    
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 64,
-      "Holds: " . $nd['holds'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['holds'][1] : "")), true));
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 80,
-      "Mines: " . $nd['mines'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['mines'][1] : "")), true));
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 64,
-      "Trips: " . $nd['trips'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['trips'][1] : "")), true));
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 80,
-      "Rolls: " . $nd['rolls'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['rolls'][1] : "")), true));
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 64,
-      "Lifts: " . $nd['lifts'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['lifts'][1] : "")), true));
-    $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 80,
-      "Fakes: " . $nd['fakes'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['fakes'][1] : "")), true));
-    $this->svg->appendChild($g);
-  }
+	
+	protected function genEditHeader($nd)
+	{
+		$lbuff = $this->lb;
+		$sm = $this->CI->svgmaker;
+		$g = $this->xml->createElement('g');
+		$g->setAttribute('id', 'svgHead');
+		
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s - %d",
+			$nd['song'], $nd['title'], $nd['diff'])), true));
+		
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff, 32, $nd['author']), true));
+		
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff, 64,
+			"Steps: " . $nd['steps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['steps'][1] : "")), true));
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff, 80,
+			"Jumps: " . $nd['jumps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['jumps'][1] : "")), true));
+		
+		$w = $this->cw + $lbuff + $this->rb;
+		
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 64,
+			"Holds: " . $nd['holds'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['holds'][1] : "")), true));
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 80,
+			"Mines: " . $nd['mines'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['mines'][1] : "")), true));
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 64,
+			"Trips: " . $nd['trips'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['trips'][1] : "")), true));
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 80,
+			"Rolls: " . $nd['rolls'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['rolls'][1] : "")), true));
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 64,
+			"Lifts: " . $nd['lifts'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['lifts'][1] : "")), true));
+		$g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 80,
+			"Fakes: " . $nd['fakes'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['fakes'][1] : "")), true));
+		$this->svg->appendChild($g);
+	}
   
   protected function genBPM($id)
   {
