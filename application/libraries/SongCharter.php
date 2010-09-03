@@ -23,7 +23,7 @@ class SongCharter extends EditCharter
 	{
 		parent::genEditHeader($nd);
 		
-		$str = sprintf("%s %s - %d", $nd['song'], $nd['title'], $nd['diff']);
+		$str = sprintf("%s %s - %d", $nd['sname'], $nd['title'], $nd['diff']);
 		$txt = $this->xml->createTextNode($str);		
 		$node = $this->xml->getElementById("editHead");
 		$node->replaceChild($txt, $node->firstChild);
