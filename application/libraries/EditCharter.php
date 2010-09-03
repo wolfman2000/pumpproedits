@@ -108,7 +108,7 @@ class EditCharter
     $this->xml->formatOutput = true; # May change this.
   }
 
-  protected function genXMLHeader($measures, $notedata)
+  protected function genXMLHeader($measures, $nd)
   {
     // Place the surrounding HTML in first.
     $html = $this->xml->createElement('html');
@@ -116,7 +116,9 @@ class EditCharter
     $head = $this->xml->createElement('head');
     $title = $this->xml->createElement('title');
     $title->setAttribute('xml:id', 'headTitle');
-    $title->appendChild($this->xml->createTextNode("The Chart"));
+    $str = sprintf("%s's %s edit “%s” (%d) for %s — Pump Pro Edits",
+    	$nd['author'], ucfirst($nd['style']), $nd['title'], $nd['diff'], $nd['sname']);
+    $title->appendChild($this->xml->createTextNode($str));
     $link = $this->xml->createElement('link');
     $link->setAttribute('type', 'text/css');
     $link->setAttribute('rel', 'stylesheet');

@@ -13,7 +13,7 @@ class SongCharter extends EditCharter
 		// Take advantage of the header already in play.
 		parent::genXMLHeader($measures, $notedata);
 		
-		$str = "Arcade ${notedata['style']} chart";
+		$str = "Arcade ${notedata['style']} chart — Pump Pro Edits";
 		$txt = $this->xml->createTextNode($str);
 		$node = $this->xml->getElementById("headTitle");
 		$node->replaceChild($txt, $node->firstChild);
