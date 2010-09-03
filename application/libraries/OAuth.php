@@ -34,10 +34,10 @@ class OAuth {
     // default configuration options
     $this->config = array_merge(
       array(
-        'consumer_key' => $CI->constants->getConsumerKey(),
-        'consumer_secret' => $CI->constants->getConsumerSecret(),
-        'user_token' => $CI->constants->getUserToken(),
-        'user_secret' => $CI->constants->getUserSecret(),
+        'consumer_key' => $this->CI->constants->getConsumerKey(),
+        'consumer_secret' => $this->CI->constants->getConsumerSecret(),
+        'user_token' => $this->CI->constants->getUserToken(),
+        'user_secret' => $this->CI->constants->getUserSecret(),
         'host' => 'http://api.twitter.com',
         'v' => '1',
         'debug' => false,
@@ -583,10 +583,12 @@ class OAuth {
 		
 		if ($this->response['code'] == 200)
 		{
+			return true;
 			$this->pr(json_decode($this->response['response']));
 		}
 		else
 		{
+			return false;
 			$this->pr(htmlentities($this->response['response']));
 		}
 	}
