@@ -296,7 +296,7 @@ class EditCharter
     $this->svg->appendChild($g);
   }
   
-	protected function prepArrows($counter)
+	protected function prepArrows($counter = false)
 	{
 		$pre = ($counter === false ? '' : 'P' . $counter);
 		$ret = array();
@@ -386,6 +386,17 @@ class EditCharter
     $sm = $this->CI->svgmaker;
     $nt = $this->xml->createElement('g');
     $nt->setAttribute('id', 'svgNote');
+    
+    $arrows = $this->prepArrows();
+    
+    
+    $allNotes = $this->CI->ppe_edit_measure->getNotes($this->eid)->result_array();
+    
+    foreach ($allNotes as $note):
+    
+    
+    
+    endforeach;
     
     $ucounter = 0;
     foreach ($notes as $player):
