@@ -1,9 +1,10 @@
 <?php
 
-class EditCharter
+class SongCharter extends EditCharter
 {
   function __construct($params)
   {
+  	  parent::EditCharter($params);
     $this->CI =& get_instance();
     $this->CI->load->model('ppe_song_bpm');
     $this->CI->load->model('ppe_song_stop');
