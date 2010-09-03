@@ -7,61 +7,28 @@ class SongCharter extends EditCharter
 		parent::__construct($params);
 		$this->arcade = 1;
 	}
-
-  protected function genXMLHeader($measures, $style)
-  {
-    // Place the surrounding HTML in first.
-    $html = $this->xml->createElement('html');
-    $html->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
-    $head = $this->xml->createElement('head');
-    $title = $this->xml->createElement('title');
-    $title->appendChild($this->xml->createTextNode("The Chart"));
-    $link = $this->xml->createElement('link');
-    $link->setAttribute('type', 'text/css');
-    $link->setAttribute('rel', 'stylesheet');
-    $link->setAttribute('href', sprintf('/css/svg/%s.css', $this->noteskin));
-    $head->appendChild($title);
-    $head->appendChild($link);
-    $html->appendChild($head);
-    $body = $this->xml->createElement('body');
-    
-    $svg = $this->xml->createElement('svg');
-    $svg->setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    $svg->setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
-    $svg->setAttribute('version', 1.1);
-    
-    $body->appendChild($svg);
-    $html->appendChild($body);
-    
-    // Calculate the width of the outer svg.
-    $numcols = ceil($measures / $this->mpcol);
-    $breather = $this->lb + $this->rb;
-    $width = ($this->aw * $this->cols + $breather) * $numcols + $breather;
-    $svg->setAttribute('width', $width * $this->scale);
-    
-    // Calculate the height of the outer svg.
-    $beatheight = APP_CHART_BEAT_HEIGHT;
-        
-    $height = $beatheight * $this->bm * $this->speedmod * $this->mpcol;
-    $height += $this->headheight + $this->footheight;
-    $svg->setAttribute('height', $height * $this->scale);
-    $this->svgheight = $height;
-
-    $defs = new DOMDocument('1.0', 'utf-8');
-    $defStr = $this->CI->load->file(HELPERPATH . sprintf("svg/%s.svg", $this->noteskin), true);
-    $defs->loadXML($defStr);
-
-    $svg->appendChild($this->xml->importNode($defs->firstChild, true));
-    
-    $this->xml->appendChild($html);
-    
-    $g = $this->xml->createElement('g');
-    $g->setAttribute('transform', "scale($this->scale)");
-    $svg->appendChild($g);
-    
-    $this->svg = $g; # Will be used for arrow placements.
-    
-  }
+	
+	protected function genXMLHeader($measures, $style)
+	{
+		// Take advantage of the header already in play.
+		parent::genXMLHeader($measures, $style);
+		$node = $this->xml->getElementsByTagName("head");
+		$node = $node->item(0);
+		
+		$title = $this->xml->getElementsByTagName("title");
+		$title = $title->item(0);
+		
+		$link = $this->xml->getElementsByTagName("link");
+		$link = $link->item(0);
+		
+		$node->removeChild($title);
+		
+		$title = $this->xml->createElement('title');
+		$text = "Arcade $style chart";
+		$title->appendChild($this->xml->createTextNode($text));
+		
+		$node->insertBefore($title, $link);
+	}
   
   protected function genMeasures($measures)
   {
