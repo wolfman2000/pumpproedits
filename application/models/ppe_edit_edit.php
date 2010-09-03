@@ -265,4 +265,12 @@ class Ppe_edit_edit extends Model
 			->where('id', $eid)
 			->get('edit_authors')->row()->user_id;
 	}
+	
+	// Get the number of measures the song has.
+	public function getMeasureCount($eid)
+	{
+		return $this->db->select('measures')
+			->where('id', $eid)
+			->get('measures_in_edits')->row()->measures;
+	}
 }

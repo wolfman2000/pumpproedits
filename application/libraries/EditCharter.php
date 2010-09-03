@@ -528,7 +528,7 @@ class EditCharter
   
   public function genChart($notedata)
   {
-    $measures = count($notedata['notes'][0]);
+    $measures = $this->CI->ppe_edit_edit->getMeasureCount($this->eid);
     $this->genXMLHeader($measures, $notedata['style']);
     $this->genEditHeader($notedata);
     $this->genMeasures($measures);
