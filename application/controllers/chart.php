@@ -131,7 +131,7 @@ class Chart extends Controller
     $notedata['author'] = $author;
     header("Content-Type: application/xhtml+xml");
     $xml = $this->editcharter->genChart($notedata);
-    echo $xml->saveXML();
+    echo str_replace("xml:id", "id", $xml->saveXML());
   }
   
   function editProcess()
@@ -203,7 +203,7 @@ class Chart extends Controller
     $this->load->library('SongCharter', $p);
     header("Content-Type: application/xhtml+xml");
     $xml = $this->songcharter->genChart($notedata);
-    echo $xml->saveXML();
+    echo str_replace("xml:id", "id", $xml->saveXML());
   }
   
   function quick()
