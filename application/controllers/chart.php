@@ -114,7 +114,7 @@ class Chart extends Controller
     
     $author = $this->ppe_user_user->getUserByEditID($eid);
     $this->load->library('EditParser');
-    $p = array('notes' => 1, 'strict_song' => 0, 'strict_edit' => 0, 'author' => $author);
+    $p = array('strict_song' => 0, 'strict_edit' => 0, 'author' => $author);
     $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
     $p = array
     (
@@ -130,6 +130,7 @@ class Chart extends Controller
     );
     $this->load->library('EditCharter', $p);
     $notedata['author'] = $author;
+    $notedata['notes'] = false;
     header("Content-Type: application/xhtml+xml");
     $xml = $this->editcharter->genChart($notedata);
     echo str_replace("xml:id", "id", $xml->saveXML());
