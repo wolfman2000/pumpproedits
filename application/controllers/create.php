@@ -454,11 +454,19 @@ class Create extends Controller
     $this->db->cache_delete_all();
     if ($row['public'])
     {
+    	$this->load->library('OAuth');
+    	$twit = $this->oauth->genEditMessage($row['uid'],
+        $this->ppe_user_user->getUserByID($row['uid']),
+        $status, $row['style'], $row['title'], $song);
+        $this->oauth->postTwitter($twit);
+    	
+    	/*
       $this->load->helper('twitter');
       $twit = genEditMessage($row['uid'],
         $this->ppe_user_user->getUserByID($row['uid']),
         $status, $row['style'], $row['title'], $song);
       postTwitter($twit);
+      */
     }
     $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $eid);
     $fp = gzopen($path, "w");
