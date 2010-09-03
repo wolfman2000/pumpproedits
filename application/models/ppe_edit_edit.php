@@ -273,4 +273,11 @@ class Ppe_edit_edit extends Model
 			->where('id', $eid)
 			->get('measures_in_edits')->row()->measures;
 	}
+	
+	// Get the stats needed to generate the chart without using files.
+	public function getEditChartStats($eid)
+	{
+		return $this->db->where('id', $eid)
+			->get('edit_chart_stats')->row_array();
+	}
 }
