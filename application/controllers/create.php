@@ -228,6 +228,7 @@ class Create extends Controller
     $ret = $this->ppe_edit_edit->getEditChartStats($id);
     $ret['notes'] = $this->ppe_edit_measure->getNotes($id)->result();
     $ret['authID'] = $this->ppe_edit_edit->getEditAuthor($id);
+    $ret['songData'] = $this->_songData($ret['song_id']);
     echo json_encode($ret);
 
   }
