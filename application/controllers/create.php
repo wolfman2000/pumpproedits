@@ -227,7 +227,6 @@ class Create extends Controller
     $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $id);
     
     $ret = $this->editparser->get_stats(gzopen($path, "r"), array('notes' => 1));
-    $ret['style'] = substr($ret['style'], 5);
     $ret['authID'] = $this->ppe_edit_edit->getEditAuthor($id);
     echo json_encode($ret);
 
