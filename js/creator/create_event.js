@@ -108,24 +108,24 @@ function selectRow()
 // Display the updated stats. Primarily asynchronous.
 function updateStats(data)
 {
-  var S = data.steps[0];
-  var J = data.jumps[0];
-  var H = data.holds[0];
-  var M = data.mines[0];
-  var T = data.trips[0];
-  var R = data.rolls[0];
-  var L = data.lifts[0];
-  var F = data.fakes[0];
+  var S = data.ysteps;
+  var J = data.yjumps;
+  var H = data.yholds;
+  var M = data.ymines;
+  var T = data.ytrips;
+  var R = data.yrolls;
+  var L = data.ylifts;
+  var F = data.yfakes;
   if ($("#stylelist").val() === "routine")
   {
-    S += "/" + data.steps[1];
-    J += "/" + data.jumps[1];
-    H += "/" + data.holds[1];
-    M += "/" + data.mines[1];
-    T += "/" + data.trips[1];
-    R += "/" + data.rolls[1];
-    L += "/" + data.lifts[1];
-    F += "/" + data.fakes[1];
+    S += "/" + data.msteps;
+    J += "/" + data.mjumps;
+    H += "/" + data.mholds;
+    M += "/" + data.mmines;
+    T += "/" + data.mtrips;
+    R += "/" + data.mrolls;
+    L += "/" + data.mlifts;
+    F += "/" + data.mfakes;
   }
   $("#statS").text(S);
   $("#statJ").text(J);
@@ -141,8 +141,8 @@ function updateStats(data)
   var t = $("#editName").val().length;
   if (t > 0 && t <= 12 && parseInt($("#editDiff").val()) > 0)
   {
-    if (data.steps[0] || data.steps[1] || data.mines[0] || data.mines[1] ||
-        data.lifts[0] || data.lifts[1] || data.fakes[0] || data.fakes[1])
+    if (data.ysteps || data.msteps || data.ymines || data.mmines ||
+        data.ylifts || data.mlifts || data.yfakes || data.mfakes)
     {
       _enable("#but_val");
       $("#intro").text("Validate your edit before saving.");
