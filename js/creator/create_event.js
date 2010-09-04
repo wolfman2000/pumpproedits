@@ -251,6 +251,8 @@ function songMode()
   $.getJSON(baseURL + "/loadOfficial/" + songID + "/" + diff, function(data){
     $("#intro").text("Loading chart...");
     $(".author").hide();
+    var tmp = "<option value=\"" + data.style + "\">Tmp</option>";
+    $("#stylelist").append(tmp);
     $("#stylelist").val(data.style);
     
     songData = data;

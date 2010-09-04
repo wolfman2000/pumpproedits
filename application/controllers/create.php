@@ -261,7 +261,6 @@ class Create extends Controller
       {
         $data = array('notes' => 1, 'strict_song' => 0, 'arcade' => $diff);
         $ret = $this->editparser->get_stats(gzopen($path, "r"), $data);
-        $ret['style'] = substr($ret['style'], 5);
         //$ret['difficulty'] = $this->editparser->getSMDiff($diff);
       }
       else
