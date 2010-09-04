@@ -172,7 +172,8 @@ function loadHardDrive()
 function loadEdit(data, canPublic)
 {
   $(".edit").hide();
-  songID = data.id;
+  editID = data.id;
+  songID = data.song_id;
   columns = data.cols;
   var tmp = "<option value=\"" + data.style + "\">Tmp</option>";
   $("#stylelist").append(tmp);
