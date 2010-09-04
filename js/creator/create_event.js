@@ -208,9 +208,8 @@ function loadEdit(data)
   songData = data.songData;
   $("#intro").text("Loading song data...");
   setupMenus();
-  // editMode(canPublic);
   $("#intro").text("Loading chart...");
-  if (data.notes) { loadChart(data.notes); }
+  loadDatabaseChart(data.notes);
 }
 
 // Cancel the edit loading process, restoring the normal buttons.
