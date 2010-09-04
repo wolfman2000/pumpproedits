@@ -8,6 +8,8 @@ function loadDatabaseChart(nd)
 {
 	if (!nd) { return; }
 	$("#notes > g").children().remove(); // clear the old chart.
+	
+	// todo later.
 }
 
 // Load the data from JSON to JS/SVG.
