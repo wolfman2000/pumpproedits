@@ -2,6 +2,14 @@
  * This file deals with parsing the SVG file to gather stats,
  * load charts, and save/upload charts.
  */
+
+// Load the data from database JSON to SVG.
+function loadDatabaseChart(nd)
+{
+	if (!nd) { return; }
+	$("#notes > g").children().remove(); // clear the old chart.
+}
+
 // Load the data from JSON to JS/SVG.
 function loadChart(nd)
 {
