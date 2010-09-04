@@ -10,8 +10,20 @@ class Ppe_edit_measure extends Model
 	// Get all of the notes that this song uses.
 	function getNotes($eid)
 	{
-		return $this->db->where('id', $eid)
+		return $this->db->select('player, measure, beat, column, symbol')
+			->where('id', $eid)
 			->order_by('player')
+			->order_by('measure')
+			->order_by('beat')
+			->order_by('column')
+			->get('edit_chart_notes');
+	}
+	
+	// Get all of the notes for the edit creator.
+	function getCreatorNotes($eid)
+	{
+		return $this->db->select('player, measure, beat, column, note')
+			->where('id', $eid)
 			->order_by('measure')
 			->order_by('beat')
 			->order_by('column')
