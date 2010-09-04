@@ -8,10 +8,21 @@ function loadDatabaseChart(nd)
 {
 	if (!nd) { return; }
 	$("#notes > g").children().remove(); // clear the old chart.
+	loadSVGMeasures();
 	
 	for (var i = 0; i < nd.length; i++)
 	{
-		
+		var mul = parseInt(nd[i]['beat']);
+		var note = getSync(mul) + " " + getType(nd[i]['note']);
+		if ($("#stylelist").val() === "routine")
+		{
+			note = p + nd[i]['player'] + note;
+		}
+		var c = parseInt(nd[i]['column']);
+		var x = c * ARR_HEIGHT + BUFF_LFT;
+		var m = parseInt(nd[i]['measure']);
+		var y = ((m * BEATS_MAX + mul) / MEASURE_RATIO) + BUFF_TOP;
+		$("#svgNote").append(selectArrow(c, x, y, note));
 	}
 }
 
