@@ -13,11 +13,9 @@ function loadDatabaseChart(nd)
 	for (var i = 0; i < nd.length; i++)
 	{
 		var mul = parseInt(nd[i]['beat']);
-		var note = getSync(mul) + " " + getType(nd[i]['note']);
-		if ($("#stylelist").val() === "routine")
-		{
-			note = p + nd[i]['player'] + note;
-		}
+		var pl = "S";
+		if ($("#stylelist").val() === "routine") pl = nd[i]['player'];
+		var note = "p" + pl + " " + getSync(mul) + " " + nd[i]['note'];
 		var c = parseInt(nd[i]['column']);
 		var x = c * ARR_HEIGHT + BUFF_LFT;
 		var m = parseInt(nd[i]['measure']);
