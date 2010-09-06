@@ -10,7 +10,9 @@ class EditCharter
     $this->CI->load->model('ppe_note_style');
     $this->CI->load->model('ppe_note_skin');
     $this->CI->load->library('SVGMaker');
-  
+    
+    $this->eid = (array_key_exists('eid', $params) ? $params['eid'] : null);
+    
     if (!in_array($params['cols'], array(APP_CHART_SIN_COLS, APP_CHART_DBL_COLS, APP_CHART_HDB_COLS)))
     {
       $e = sprintf("There must be either %d, %d, or %d columns in the chart!",
@@ -18,7 +20,8 @@ class EditCharter
       throw new Exception($e);
     }
     
-    if (!in_array($params['kind'], $this->CI->ppe_note_style->getNoteStyles(1)))
+    $kinds = $this->CI->ppe_note_style->getNoteStyles(1);
+    if (!in_array($params['kind'], $kinds))
     {
       $e = "The notetype chosen is not valid!";
       throw new Exception($e);
@@ -50,18 +53,6 @@ class EditCharter
     {
       $this->showstop = 1;
     }
-    
-    # Is the header supposed to be arcade style?
-    
-    if (array_key_exists('arcade', $params) and $params['arcade'])
-    {
-      $this->arcade = 1;
-    }
-    else
-    {
-      $this->arcade = 0;
-    }
-
     # What noteskin is being requested?
     if (array_key_exists('noteskin', $params) and $params['noteskin'])
     {
@@ -117,14 +108,17 @@ class EditCharter
     $this->xml->formatOutput = true; # May change this.
   }
 
-  private function genXMLHeader($measures, $style)
+  protected function genXMLHeader($measures, $nd)
   {
     // Place the surrounding HTML in first.
     $html = $this->xml->createElement('html');
     $html->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
     $head = $this->xml->createElement('head');
     $title = $this->xml->createElement('title');
-    $title->appendChild($this->xml->createTextNode("The Chart"));
+    $title->setAttribute('xml:id', 'headTitle');
+    $str = sprintf("%s's %s edit “%s” (%d) for %s — Pump Pro Edits",
+    	$nd['author'], ucfirst($nd['style']), $nd['title'], $nd['diff'], $nd['sname']);
+    $title->appendChild($this->xml->createTextNode($str));
     $link = $this->xml->createElement('link');
     $link->setAttribute('type', 'text/css');
     $link->setAttribute('rel', 'stylesheet');
@@ -172,7 +166,7 @@ class EditCharter
     
   }
   
-  private function genMeasures($measures)
+  protected function genMeasures($measures)
   {
     $numcols = ceil($measures / $this->mpcol); // mpcol is measures per column
     $beatheight = APP_CHART_BEAT_HEIGHT; // default beat height
@@ -195,48 +189,44 @@ class EditCharter
     $this->svg->appendChild($m);
   }
   
-  private function genEditHeader($nd)
+  protected function genEditHeader($nd)
   {
     $lbuff = $this->lb;
     $sm = $this->CI->svgmaker;
     $g = $this->xml->createElement('g');
     $g->setAttribute('id', 'svgHead');
     
-    if ($this->arcade)
-    {
-      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s - %d",
-        $nd['song'], $nd['title'], $nd['diff'])), true));
-    }
-    else
-    {
-      $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s Edit: %s - %d",
-        $nd['song'], ucfirst(substr($nd['style'], 5)), $nd['title'], $nd['diff'])), true));
-    }
+    $options = array("id" => "editHead");
+    $isR = ($nd['style'] === "routine");
+    
+    $g->appendChild($this->xml->importNode($sm->genText($lbuff, 16, sprintf("%s %s Edit: %s - %d",
+        $nd['sname'], ucfirst($nd['style']), $nd['title'], $nd['diff']), $options), true));
+    
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 32, $nd['author']), true));
     
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 64,
-      "Steps: " . $nd['steps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['steps'][1] : "")), true));
+      "Steps: " . $nd['ysteps'] . ($isR ? "/" .$nd['msteps'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff, 80,
-      "Jumps: " . $nd['jumps'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['jumps'][1] : "")), true));
+      "Jumps: " . $nd['yjumps'] . ($isR ? "/" .$nd['mjumps'] : "")), true));
     
     $w = $this->cw + $lbuff + $this->rb;
     
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 64,
-      "Holds: " . $nd['holds'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['holds'][1] : "")), true));
+      "Holds: " . $nd['yholds'] . ($isR ? "/" .$nd['mholds'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 1, 80,
-      "Mines: " . $nd['mines'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['mines'][1] : "")), true));
+      "Mines: " . $nd['ymines'] . ($isR ? "/" .$nd['mmines'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 64,
-      "Trips: " . $nd['trips'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['trips'][1] : "")), true));
+      "Trips: " . $nd['ytrips'] . ($isR ? "/" .$nd['mtrips'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 2, 80,
-      "Rolls: " . $nd['rolls'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['rolls'][1] : "")), true));
+      "Rolls: " . $nd['yrolls'] . ($isR ? "/" .$nd['mrolls'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 64,
-      "Lifts: " . $nd['lifts'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['lifts'][1] : "")), true));
+      "Lifts: " . $nd['ylifts'] . ($isR ? "/" .$nd['mlifts'] : "")), true));
     $g->appendChild($this->xml->importNode($sm->genText($lbuff + $w * 3, 80,
-      "Fakes: " . $nd['fakes'][0] . ($nd['style'] === "pump-routine" ? "/" .$nd['fakes'][1] : "")), true));
+      "Fakes: " . $nd['yfakes'] . ($isR ? "/" .$nd['mfakes'] : "")), true));
     $this->svg->appendChild($g);
   }
   
-  private function genBPM($id)
+  protected function genBPM($id)
   {
     $buff = $this->lb + $this->rb;
     $draw = $this->cols * $this->aw / 2;
@@ -274,7 +264,7 @@ class EditCharter
     $this->svg->appendChild($g);
   }
   
-  private function genStop($id)
+  protected function genStop($id)
   {
     $buff = $this->lb + $this->rb;
     $draw = $this->cols * $this->aw / 2;
@@ -308,88 +298,67 @@ class EditCharter
     $this->svg->appendChild($g);
   }
   
-  private function prepArrows($counter)
-  {
-    $pre = ($counter === false ? '' : 'P' . $counter);
-    $ret = array();
-    
-    switch($this->kind)
-    {
-    	case "classic":
-    	{
-    		$dl = array('a' => "$pre%sDL", 'c' => 'note_004');
-    		$ul = array('a' => "$pre%sUL", 'c' => 'note_008');
-    		$cn = array('a' => "$pre%sCN", 'c' => 'note_016');
-    		$ur = array('a' => "$pre%sUR", 'c' => 'note_008');
-    		$dr = array('a' => "$pre%sDR", 'c' => 'note_004');
-    		$ret = array($dl, $ul, $cn, $ur, $dr);
-    		if ($this->cols == APP_CHART_DBL_COLS)
-    		{
-    			array_push($ret, $dl, $ul, $cn, $ur, $dr);
-    		}
-    		elseif ($this->cols == APP_CHART_HDB_COLS)
-    		{
-    			$ret = array($cn, $ur, $dr, $dl, $ul, $cn);
-    		}
-    		break;
-    	}
-	    case "flat":
-    	{
-    		$g = (array_key_exists('red4', $this) ? 'note_008' : 'note_004');
-    		$dl = array('a' => "$pre%sDL", 'c' => $g);
-			$ul = array('a' => "$pre%sUL", 'c' => $g);
-			$cn = array('a' => "$pre%sCN", 'c' => $g);
-			$ur = array('a' => "$pre%sUR", 'c' => $g);
-			$dr = array('a' => "$pre%sDR", 'c' => $g);
-			$ret = array($dl, $ul, $cn, $ur, $dr);
-    		if ($this->cols == APP_CHART_DBL_COLS)
-    		{
-    			array_push($ret, $dl, $ul, $cn, $ur, $dr);
-    		}
-    		elseif ($this->cols == APP_CHART_HDB_COLS)
-    		{
-    			$ret = array($cn, $ur, $dr, $dl, $ul, $cn);
-    		}
-    		break;
-    	}
-	    case "rhythm":
-    	{
-    		$div = array('4th', '8th', '12th', '16th', '24th', '32nd', '48th', '64th', '192nd');
-    		foreach ($div as $d)
-    		{
-    			if (array_key_exists('red4', $this))
-    			{
-    				if (intval($d) == 4) $g = 'note_008';
-    				elseif (intval($d) == 8) $g = 'note_004';
-    				else $g = sprintf('note_%03d', intval($d));
-    			}
-    			else $g = sprintf('note_%03d', intval($d));
-    			$dl = array('a' => "$pre%sDL", 'c' => $g);
-    			$ul = array('a' => "$pre%sUL", 'c' => $g);
-    			$cn = array('a' => "$pre%sCN", 'c' => $g);
-    			$ur = array('a' => "$pre%sUR", 'c' => $g);
-    			$dr = array('a' => "$pre%sDR", 'c' => $g);
-    			$ret[$d] = array($dl, $ul, $cn, $ur, $dr);
-    			if ($this->cols == APP_CHART_DBL_COLS)
-    			{
-    				array_push($ret[$d], $dl, $ul, $cn, $ur, $dr);
-    			}
-    			elseif ($this->cols == APP_CHART_HDB_COLS)
-    			{
-    				$ret[$d] = array($cn, $ur, $dr, $dl, $ul, $cn);
-    			}
-    		}
-    		break;
-    	}
-	    default:
-    	{
-    		exit;
-    	}
-    }
-    return $ret;
-  }
+	protected function prepArrows($counter = false)
+	{
+		$pre = ($counter === false ? '' : 'P' . $counter);
+		$ret = array();
+		$div = array('4th', '8th', '12th', '16th', 
+			'24th', '32nd', '48th', '64th', '192nd');
+		foreach ($div as $d)
+		{
+			switch($this->kind)
+			{
+			case "classic":
+				{
+					$dl = array('a' => "$pre%sDL", 'c' => 'note_004');
+					$ul = array('a' => "$pre%sUL", 'c' => 'note_008');
+					$cn = array('a' => "$pre%sCN", 'c' => 'note_016');
+					$ur = array('a' => "$pre%sUR", 'c' => 'note_008');
+					$dr = array('a' => "$pre%sDR", 'c' => 'note_004');
+					break;
+				}
+			case "flat":
+				{
+					$g = 'note_00' . (array_key_exists('red4', $this) ? '8' : '4');
+					$dl = array('a' => "$pre%sDL", 'c' => $g);
+					$ul = array('a' => "$pre%sUL", 'c' => $g);
+					$cn = array('a' => "$pre%sCN", 'c' => $g);
+					$ur = array('a' => "$pre%sUR", 'c' => $g);
+					$dr = array('a' => "$pre%sDR", 'c' => $g);
+					break;
+				}
+			case "rhythm":
+				{
+					if (array_key_exists('red4', $this))
+					{
+						if (intval($d) == 4) $g = 'note_008';
+						elseif (intval($d) == 8) $g = 'note_004';
+						else $g = sprintf('note_%03d', intval($d));
+					}
+					else $g = sprintf('note_%03d', intval($d));
+					$dl = array('a' => "$pre%sDL", 'c' => $g);
+					$ul = array('a' => "$pre%sUL", 'c' => $g);
+					$cn = array('a' => "$pre%sCN", 'c' => $g);
+					$ur = array('a' => "$pre%sUR", 'c' => $g);
+					$dr = array('a' => "$pre%sDR", 'c' => $g);
+					break;
+				}
+			}
+			
+			$ret[$d] = array($dl, $ul, $cn, $ur, $dr);
+			if ($this->cols == APP_CHART_DBL_COLS)
+			{
+				array_push($ret[$d], $dl, $ul, $cn, $ur, $dr);
+			}
+			elseif ($this->cols == APP_CHART_HDB_COLS)
+			{
+				$ret[$d] = array($cn, $ur, $dr, $dl, $ul, $cn);
+			}
+		}
+		return $ret;
+	}
   
-  private function getBeat($beat)
+  protected function getBeat($beat)
   {
     switch ($beat % 48)
     {
@@ -406,8 +375,9 @@ class EditCharter
     }
   }
   
-  private function genArrows($notes, $style = "pump-single")
+  protected function genArrows($notes, $style = "single")
   {
+    $this->CI->load->model('ppe_edit_measure');
     for ($i = 0; $i < $this->cols; $i++)
     {
       $holds[] = array('on' => false, 'hold' => true, 'x' => 0, 'y' => 0, 'beat' => 0);
@@ -419,166 +389,149 @@ class EditCharter
     $nt = $this->xml->createElement('g');
     $nt->setAttribute('id', 'svgNote');
     
-    $ucounter = 0;
-    foreach ($notes as $player):
+    $arrows = $this->prepArrows();
     
-    $arrows = $this->prepArrows($style === "pump-routine" ? $ucounter : false);
-    $rCheck = ($style === "pump-routine" ? "P" . $ucounter : '');
-
-    $mcounter = 0;    
-    foreach ($player as $measure):
+    $allNotes = $this->CI->ppe_edit_measure->getNotes($this->eid)->result_array();
     
-    $rcounter = 0;
-    foreach ($measure as $row):
+    foreach ($allNotes as $note):
     
-    $curbeat = intval(round($m * $rcounter / count($measure)));
+    $player = $note['player'];
+    $measure = $note['measure'];
+    $beat = $note['beat'];
+    $column = $note['column'];
+    $symbol = $note['symbol'];
     
-    $arow = $this->kind == "rhythm" ? 
-    $arrows[$this->getBeat(192 * $rcounter / count($measure))] : $arrows;
+    $nx = (intval($measure / $this->mpcol) * $w) + $column * $this->aw + $this->lb;
+    $ny = $this->headheight + (($measure % $this->mpcol) * $m + $beat * $m / 192);
     
-    $pcounter = 0;
-    foreach (str_split($row) as $let): # For each note in the row
+    $arow = $arrows[$this->getBeat($beat)];
     
-    $nx = (intval($mcounter / $this->mpcol) * $w) + $pcounter * $this->aw + $this->lb;
-    $ny = $this->headheight + ($mcounter % $this->mpcol) * $m + $curbeat;
+    $arr = ($style === "routine" ? "P" . $player : '')
+    	. $arow[$column]['a'];
     
-    
-    $arr = $arow[$pcounter]['a'];
-    # Stepchart part here.
-    
-    switch ($let)
+    switch ($symbol)
     {
-      case "1": # Tap note. Just add to the chart.
-      {
-        $opt = array('href' => sprintf($arr, 'arrow'), 'class' => $arow[$pcounter]['c']);
-        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
-        break;
-      }
-      case "2": case "4": # Start of hold/roll. Minor differences.
-      {
-        $holds[$pcounter]['on'] = true;
-        $holds[$pcounter]['roll'] = $let == "2" ? false : true;
-        $holds[$pcounter]['x'] = $nx;
-        $holds[$pcounter]['y'] = $ny;
-        $holds[$pcounter]['beat'] = $arow;
-        break;
-      }
-      case "3": # End of hold/roll. VERY complicated!
-      {
-        if ($holds[$pcounter]['on'])
-        {
-          $id = $holds[$pcounter]['roll'] ? "roll" : "hold";
-          $bod = "{$id}Body";
-          $end = "{$id}End";
-          $a = $holds[$pcounter]['beat'][$pcounter];
-          
-          $ox = $holds[$pcounter]['x'];
-          $oy = $holds[$pcounter]['y'];
-          
-          # First: check if tap note was on previous column.
-          if ($holds[$pcounter]['x'] < $nx)
-          {
-            # Body goes first.
-            
-            # Calculate the scale for the hold.
-            $bot = $this->svgheight - $this->aw;
-            $hy = $oy + $this->aw / 2;
-            $range = $bot - $hy;
-            $sy = $range / $this->aw;
-            
-            $opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
-            $node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
-            $nt->appendChild($node);
-            
-            # Place the tap.
-            $opt = array('href' => sprintf($arr, $id), 'class' => $a['c']);
-            $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
-            
-            $ox += $w;
-            $hy = $this->headheight;
-            while ($ox < $nx)
-            {
-              $range = $bot - $hy;
-              $sy = $range / $this->aw;
-              $opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
-              $node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
-              $nt->appendChild($node);
-              $ox += $w;
-            }
-            # Now we're on the same column as the tail.
-            $bot = $ny + $this->aw / 2;
-            $range = $bot - $hy;
-            $sy = $range / $this->aw;
-            $opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
-            $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
-            $nt->appendChild($node);
-            $opt = array('href' => sprintf($arr, $end), 'class' => $arow[$pcounter]['c']);
-            $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
-          }
-          else
-          {
-            if ($ny - $oy >= intval($this->aw / 2)) # Make this variable
-            {
-              $bot = $ny + $this->aw / 2;
-              $hy = $oy + $this->aw / 2;
-              $range = $bot - $hy;
-              $sy = $range / $this->aw;
-              $opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
-              $node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
-              $nt->appendChild($node);
-            }
-            # Tail next
-            $opt = array('href' => sprintf($arr, $end), 'class' => $arow[$pcounter]['c']);
-            $node = $this->xml->importNode($sm->genUse($nx, $ny, $opt));
-            $nt->appendChild($node);
-            # Tap note last.
-            $opt = array('href' => sprintf($arr, $id), 'class' => $a['c']);
-            $nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
-          }
-        }
-        break;
-      }
-      case "M": # Mine. Don't step on these!
-      {
-        $holds[$pcounter]['on'] = false;
-        $opt = array('href' => sprintf($arr, 'mine'), 'class' => $arow[$pcounter]['c']);
-        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
-        break;
-      }
-      case "L": # Lift note. Can be placed in chart. No image yet.
-      {
-        $holds[$pcounter]['on'] = false;
-        $opt = array('href' => sprintf($arr, 'lift'), 'class' => $arow[$pcounter]['c']);
-        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
-        break;
-      }
-      case "F": # Fake note. Officially in Pro 2.
-      {
-        $holds[$pcounter]['on'] = false;
-        $opt = array('href' => sprintf($arr, 'fake'), 'class' => $arow[$pcounter]['c']);
-        $nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
-        break;
-      }
-    }
-    
-    $pcounter++;
-    endforeach;
-    
-    $rcounter++;
-    endforeach;
-    
-    $mcounter++;
-    endforeach;
-    
-    $ucounter++;
-    endforeach;
-    $this->svg->appendChild($nt);
-  }
+	case "1": # Tap note. Just add to the chart.
+		{
+			$opt = array('href' => sprintf($arr, 'arrow'), 'class' => $arow[$column]['c']);
+			$nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
+			break;
+		}
+	case "2": case "4": # Start of hold/roll. Minor differences.
+		{
+			$holds[$column]['on'] = true;
+			$holds[$column]['roll'] = $symbol == "2" ? false : true;
+			$holds[$column]['x'] = $nx;
+			$holds[$column]['y'] = $ny;
+			$holds[$column]['beat'] = $arow;
+			break;
+		}
+	case "3": # End of hold/roll. VERY complicated!
+		{
+			if ($holds[$column]['on'])
+			{
+				$id = $holds[$column]['roll'] ? "roll" : "hold";
+				$bod = "{$id}Body";
+				$end = "{$id}End";
+				$a = $holds[$column]['beat'][$column];
+				
+				$ox = $holds[$column]['x'];
+				$oy = $holds[$column]['y'];
+				
+				# First: check if tap note was on previous column.
+				if ($holds[$column]['x'] < $nx)
+				{
+					# Body goes first.
+					
+					# Calculate the scale for the hold.
+					$bot = $this->svgheight - $this->aw;
+					$hy = $oy + $this->aw / 2;
+					$range = $bot - $hy;
+					$sy = $range / $this->aw;
+					
+					$opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
+					$node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
+					$nt->appendChild($node);
+					
+					# Place the tap.
+					$opt = array('href' => sprintf($arr, $id), 'class' => $a['c']);
+					$nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
+					
+					$ox += $w;
+					$hy = $this->headheight;
+					while ($ox < $nx)
+					{
+						$range = $bot - $hy;
+						$sy = $range / $this->aw;
+						$opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
+						$node = $this->xml->importNode($sm->genUse($ox, $hy / $sy, $opt));
+						$nt->appendChild($node);
+						$ox += $w;
+					}
+					# Now we're on the same column as the tail.
+					$bot = $ny + $this->aw / 2;
+					$range = $bot - $hy;
+					$sy = $range / $this->aw;
+					$opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
+					$node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
+					$nt->appendChild($node);
+					$opt = array('href' => sprintf($arr, $end), 'class' => $arow[$column]['c']);
+					$nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
+				}
+				else
+				{
+					if ($ny - $oy >= intval($this->aw / 2)) # Make this variable
+					{
+						$bot = $ny + $this->aw / 2;
+						$hy = $oy + $this->aw / 2;
+						$range = $bot - $hy;
+						$sy = $range / $this->aw;
+						$opt = array('href' => sprintf($arr, $bod), 'transform' => "scale(1 $sy)");
+						$node = $this->xml->importNode($sm->genUse($nx, $hy / $sy, $opt));
+						$nt->appendChild($node);
+					}
+					# Tail next
+					$opt = array('href' => sprintf($arr, $end), 'class' => $arow[$column]['c']);
+					$node = $this->xml->importNode($sm->genUse($nx, $ny, $opt));
+					$nt->appendChild($node);
+					# Tap note last.
+					$opt = array('href' => sprintf($arr, $id), 'class' => $a['c']);
+					$nt->appendChild($this->xml->importNode($sm->genUse($ox, $oy, $opt)));
+				}
+			}
+			break;
+		}
+	case "M": # Mine. Don't step on these!
+		{
+			$holds[$column]['on'] = false;
+			$opt = array('href' => sprintf($arr, 'mine'), 'class' => $arow[$column]['c']);
+			$nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
+			break;
+		}
+	case "L": # Lift note. Can be placed in chart. No image yet.
+		{
+			$holds[$column]['on'] = false;
+			$opt = array('href' => sprintf($arr, 'lift'), 'class' => $arow[$column]['c']);
+			$nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
+			break;
+		}
+	case "F": # Fake note. Officially in Pro 2.
+		{
+			$holds[$column]['on'] = false;
+			$opt = array('href' => sprintf($arr, 'fake'), 'class' => $arow[$column]['c']);
+			$nt->appendChild($this->xml->importNode($sm->genUse($nx, $ny, $opt)));
+			break;
+		}
+	}
+		
+	endforeach;
+	$this->svg->appendChild($nt);
+	}
   
   public function genChart($notedata)
   {
-    $measures = count($notedata['notes'][0]);
-    $this->genXMLHeader($measures, $notedata['style']);
+    $measures = $this->CI->ppe_edit_edit->getMeasureCount($this->eid);
+    $this->genXMLHeader($measures, $notedata);
     $this->genEditHeader($notedata);
     $this->genMeasures($measures);
     if ($this->showbpm) $this->genBPM($notedata['id']);

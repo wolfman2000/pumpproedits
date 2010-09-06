@@ -31,6 +31,11 @@ class SVGMaker
     $txt->setAttribute('y', $y);
     if (array_key_exists('class', $options) and strlen($options['class']) > 1)
       $txt->setAttribute('class', $options['class']);
+  
+    if (array_key_exists('id', $options) and strlen($options['id']) > 1)
+	{
+		$txt->setAttribute('xml:id', $options['id']);
+	}
     $txt->appendChild($this->s->createTextNode($st));
     return $txt;
   }

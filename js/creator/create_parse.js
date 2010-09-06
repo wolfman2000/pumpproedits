@@ -2,6 +2,28 @@
  * This file deals with parsing the SVG file to gather stats,
  * load charts, and save/upload charts.
  */
+
+// Load the data from database JSON to SVG.
+function loadDatabaseChart(nd)
+{
+	if (!nd) { return; }
+	$("#notes > g").children().remove(); // clear the old chart.
+	loadSVGMeasures();
+	
+	for (var i = 0; i < nd.length; i++)
+	{
+		var mul = parseInt(nd[i]['beat']);
+		var pl = "S";
+		if ($("#stylelist").val() === "routine") pl = nd[i]['player'];
+		var note = "p" + pl + " " + getSync(mul) + " " + nd[i]['note'];
+		var c = parseInt(nd[i]['column']);
+		var x = c * ARR_HEIGHT + BUFF_LFT;
+		var m = parseInt(nd[i]['measure']);
+		var y = ((m * BEATS_MAX + mul) / MEASURE_RATIO) + BUFF_TOP;
+		$("#svgNote").append(selectArrow(c, x, y, note));
+	}
+}
+
 // Load the data from JSON to JS/SVG.
 function loadChart(nd)
 {

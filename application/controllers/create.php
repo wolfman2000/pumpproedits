@@ -14,6 +14,7 @@ class Create extends Controller
     $this->load->model('ppe_song_stop');
     $this->load->model('ppe_song_section');
     $this->load->model('ppe_edit_edit');
+    $this->load->model('ppe_edit_measure');
     $this->load->model('ppe_play_style');
     $this->load->library('EditParser');
   }
@@ -224,11 +225,10 @@ class Create extends Controller
     }
     header("Content-Type: application/json");
     $id = $this->uri->segment(3);
-    $path = sprintf("%sdata/user_edits/edit_%06d.edit.gz", APPPATH, $id);
-    
-    $ret = $this->editparser->get_stats(gzopen($path, "r"), array('notes' => 1));
-    $ret['style'] = substr($ret['style'], 5);
+    $ret = $this->ppe_edit_edit->getEditChartStats($id);
+    $ret['notes'] = $this->ppe_edit_measure->getCreatorNotes($id)->result();
     $ret['authID'] = $this->ppe_edit_edit->getEditAuthor($id);
+    $ret['songData'] = $this->_songData($ret['song_id']);
     echo json_encode($ret);
 
   }
@@ -261,7 +261,6 @@ class Create extends Controller
       {
         $data = array('notes' => 1, 'strict_song' => 0, 'arcade' => $diff);
         $ret = $this->editparser->get_stats(gzopen($path, "r"), $data);
-        $ret['style'] = substr($ret['style'], 5);
         //$ret['difficulty'] = $this->editparser->getSMDiff($diff);
       }
       else

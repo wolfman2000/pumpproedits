@@ -205,7 +205,7 @@ $(document).ready(function()
     $("#intro").text("Loading edit...");
     $.post(baseURL + "/loadTextarea", { file: $("#fCont").val()}, function(data, status)
     {
-      loadEdit(data);
+      loadTextEdit(data);
       editID = 0;
       $("#intro").text("All loaded up!");
       _enable("#but_save");
@@ -221,7 +221,7 @@ $(document).ready(function()
     $("#intro").text("Loading edit...");
     editID = $("#mem_edit > option:selected").attr('id');
     $.getJSON(baseURL + "/loadWebEdit/" + editID, function(data) {
-      loadEdit(data, 1);
+      loadEdit(data);
       $("#intro").text("All loaded up!");
       _disable("#authorlist");
       $("li.author:eq(0)").next().andSelf().hide();

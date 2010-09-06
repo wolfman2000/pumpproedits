@@ -622,19 +622,27 @@ class EditParser
     }
     
     $res['id'] = $songid;
-    $res['song'] = $song;
+    $res['sname'] = $song;
     $res['diff'] = $diff;
     $res['cols'] = $cols;
-    $res['style'] = ($couple ? "pump-routine" : $style);
+    $res['style'] = ($couple ? "routine" : substr($style, 5));
     $res['title'] = $title;
-    $res['steps'] = $steps;
-    $res['jumps'] = $jumps;
-    $res['holds'] = $holds;
-    $res['mines'] = $mines;
-    $res['trips'] = $trips;
-    $res['rolls'] = $rolls;
-    $res['lifts'] = $lifts;
-    $res['fakes'] = $fakes;
+    $res['ysteps'] = $steps[0];
+    $res['msteps'] = $steps[1];
+    $res['yjumps'] = $jumps[0];
+    $res['mjumps'] = $jumps[1];
+    $res['yholds'] = $holds[0];
+    $res['mholds'] = $holds[1];
+    $res['ymines'] = $mines[0];
+    $res['mmines'] = $mines[1];
+    $res['ytrips'] = $trips[0];
+    $res['mtrips'] = $trips[1];
+    $res['yrolls'] = $rolls[0];
+    $res['mrolls'] = $rolls[1];
+    $res['ylifts'] = $lifts[0];
+    $res['mlifts'] = $lifts[1];
+    $res['yfakes'] = $fakes[0];
+    $res['mfakes'] = $fakes[1];
     $res['author'] = $author;
     if (isset($params['notes']) and $params['notes']) { $res['notes'] = $notes; }
     return $res;

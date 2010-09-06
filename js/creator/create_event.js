@@ -108,24 +108,24 @@ function selectRow()
 // Display the updated stats. Primarily asynchronous.
 function updateStats(data)
 {
-  var S = data.steps[0];
-  var J = data.jumps[0];
-  var H = data.holds[0];
-  var M = data.mines[0];
-  var T = data.trips[0];
-  var R = data.rolls[0];
-  var L = data.lifts[0];
-  var F = data.fakes[0];
+  var S = data.ysteps;
+  var J = data.yjumps;
+  var H = data.yholds;
+  var M = data.ymines;
+  var T = data.ytrips;
+  var R = data.yrolls;
+  var L = data.ylifts;
+  var F = data.yfakes;
   if ($("#stylelist").val() === "routine")
   {
-    S += "/" + data.steps[1];
-    J += "/" + data.jumps[1];
-    H += "/" + data.holds[1];
-    M += "/" + data.mines[1];
-    T += "/" + data.trips[1];
-    R += "/" + data.rolls[1];
-    L += "/" + data.lifts[1];
-    F += "/" + data.fakes[1];
+    S += "/" + data.msteps;
+    J += "/" + data.mjumps;
+    H += "/" + data.mholds;
+    M += "/" + data.mmines;
+    T += "/" + data.mtrips;
+    R += "/" + data.mrolls;
+    L += "/" + data.mlifts;
+    F += "/" + data.mfakes;
   }
   $("#statS").text(S);
   $("#statJ").text(J);
@@ -141,8 +141,8 @@ function updateStats(data)
   var t = $("#editName").val().length;
   if (t > 0 && t <= 12 && parseInt($("#editDiff").val()) > 0)
   {
-    if (data.steps[0] || data.steps[1] || data.mines[0] || data.mines[1] ||
-        data.lifts[0] || data.lifts[1] || data.fakes[0] || data.fakes[1])
+    if (data.ysteps || data.msteps || data.ymines || data.mmines ||
+        data.ylifts || data.mlifts || data.yfakes || data.mfakes)
     {
       _enable("#but_val");
       $("#intro").text("Validate your edit before saving.");
@@ -168,8 +168,9 @@ function loadHardDrive()
   _disable("#but_file");
   $("#intro").text("You can load your edit now.");
 }
-// Load the chosen edit...or at least, load the common stuff here.
-function loadEdit(data, canPublic)
+
+// Load the edit from the Textarea.
+function loadTextEdit(data)
 {
   $(".edit").hide();
   songID = data.id;
@@ -186,6 +187,29 @@ function loadEdit(data, canPublic)
   editMode(canPublic);
   $("#intro").text("Loading chart...");
   if (data.notes) { loadChart(data.notes); }
+}
+
+// Load the chosen edit from the database.
+function loadEdit(data)
+{
+  $(".edit").hide();
+  editID = data.id;
+  songID = data.song_id;
+  columns = data.cols;
+  var tmp = "<option value=\"" + data.style + "\">Tmp</option>";
+  $("#stylelist").append(tmp);
+  $("#stylelist").val(data.style);
+  $("#editDiff").val(data.diff);
+  $("#editName").val(data.title);
+  updateStats(data);
+  $("#fCont").val('');
+  $("li[class^=load]").hide();
+  $("li.edit").show();
+  songData = data.songData;
+  $("#intro").text("Loading song data...");
+  setupMenus();
+  $("#intro").text("Loading chart...");
+  loadDatabaseChart(data.notes);
 }
 
 // Cancel the edit loading process, restoring the normal buttons.
@@ -227,6 +251,8 @@ function songMode()
   $.getJSON(baseURL + "/loadOfficial/" + songID + "/" + diff, function(data){
     $("#intro").text("Loading chart...");
     $(".author").hide();
+    var tmp = "<option value=\"" + data.style + "\">Tmp</option>";
+    $("#stylelist").append(tmp);
     $("#stylelist").val(data.style);
     
     songData = data;
@@ -264,6 +290,52 @@ function songMode()
   });
 }
 
+// Set up the general canvas size and menus.
+function setupMenus()
+{
+	measures = songData.measures;
+	$("#scalelist").val(2.5);
+	captured = false;
+	columns = getCols();
+	$("rect[id^=sel]").attr('width', columns * ARR_HEIGHT).hide();
+	fixScale(2.5, 600);
+    
+	loadSVGMeasures();
+    
+	$("#tabNav a").filter(':first').click();
+	$("#navEditTransform span[id$=Check]").text("???");
+	$("nav dt.edit").show();
+	$("nav dd.edit").show();
+	$("nav *.choose").hide();
+	if ($("#stylelist").val() !== "routine") { $("nav .routine").hide(); }
+	else { $("nav .routine").show(); }
+	var phrase = songData.name + " " + $("#stylelist").val().capitalize();
+	$("h2").first().text(phrase);
+	$("title").text("Editing " + phrase + " — Pump Pro Edits");
+	_enable("#but_new");
+	_enable("#editName");
+    
+	if (!authed)
+	{
+		$(".author").hide();
+	}
+	else
+	{
+		if (andamiro) { $(".author").show(); _enable("#authorlist"); }
+		else          { $(".author").hide(); _disable("#authorlist"); }
+		$("#authorlist").val(0);
+		authID = authed;
+		$("li.author:eq(0)").next().andSelf().hide();
+		$("li.author:eq(2)").next().andSelf().show();
+	}
+    
+	clipboard = null;
+	_enable("#but_load");
+	$("#editName").attr('maxlength', 12);
+	$("#editSong").text("Edit Name:");
+	$("#but_sub").attr('name', 'editSubmit');
+}
+
 //Enter this mode upon choosing a song and difficulty.
 function editMode(canPublic)
 {
@@ -271,50 +343,7 @@ function editMode(canPublic)
   $.ajax({ async: false, dataType: 'json', url: baseURL + '/song/' + songID, success: function(data)
   {
     songData = data;
-    measures = songData.measures;
-    $("#scalelist").val(2.5);
-    captured = false;
-    columns = getCols();
-    $("rect[id^=sel]").attr('width', columns * ARR_HEIGHT).hide();
-    fixScale(2.5, 600);
-    
-    loadSVGMeasures();
-    
-    $("#tabNav a").filter(':first').click();
-    $("#navEditTransform span[id$=Check]").text("???");
-    $("nav dt.edit").show();
-    $("nav dd.edit").show();
-    $("nav *.choose").hide();
-    if ($("#stylelist").val() !== "routine") { $("nav .routine").hide(); }
-    else { $("nav .routine").show(); }
-    var phrase = songData.name + " " + $("#stylelist").val().capitalize();
-    $("h2").first().text(phrase);
-    $("title").text("Editing " + phrase + " — Pump Pro Edits");
-    _enable("#but_new");
-    _enable("#editName");
-    
-    if (!authed)
-    {
-      $(".author").hide();
-    }
-    else
-    {
-      if (andamiro) { $(".author").show(); _enable("#authorlist"); }
-      else          { $(".author").hide(); _disable("#authorlist"); }
-      $("#authorlist").val(0);
-      authID = authed;
-      if (canPublic)
-      {
-        $("li.author:eq(0)").next().andSelf().hide();
-        $("li.author:eq(2)").next().andSelf().show();
-      }
-    }
-    
-    clipboard = null;
-    _enable("#but_load");
-    $("#editName").attr('maxlength', 12);
-    $("#editSong").text("Edit Name:");
-    $("#but_sub").attr('name', 'editSubmit');
+    setupMenus();
     return true;
   }});
   return false; // this is to ensure the asyncing is done right.
