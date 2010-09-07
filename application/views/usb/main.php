@@ -1,4 +1,11 @@
-<?php $this->load->view('global/header',
+<?php /*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header',
   array('css' => 'css/usb.css', 'h2' => 'Guide to USB functionality in Pump it Up Pro', 
   'title' => 'Guide to USB functionality in Pump it Up Pro')); ?>
 <p>

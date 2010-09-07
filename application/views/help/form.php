@@ -1,4 +1,12 @@
-<?php echo form_open('help/check'); ?>
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+echo form_open('help/check'); ?>
 <fieldset><legend>Fill in all of the fields.</legend>
 <?php echo validation_errors(); ?>
 <dl>

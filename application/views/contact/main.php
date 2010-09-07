@@ -1,4 +1,12 @@
-<?php $this->load->view('global/header',
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header',
   array('css' => 'css/contact.css', 'h2' => 'Contact the Webmaster', 'title' => 'Contact the Webmaster')); ?>
 <p>If you need to reach the web master for any reason, you have
 two easy ways of doing so. Those familiar with sending email

@@ -1,4 +1,11 @@
-<?php $this->load->view('global/header',
+<?php /*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header',
   array('css' => 'css/thanks.css', 'h2' => 'Credits and Thanks', 'title' => 'Credits / Thanks')); ?>
 <p>
     Let it be known that I don't try to be selfish.  There are many people

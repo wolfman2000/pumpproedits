@@ -1,3 +1,12 @@
+<?php
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+?>
 <nav id="svg_nav" title="Edit Creator Draggable Control Panel">
 <p id="intro">Javascript required!</p>
 <?php echo form_open_multipart('create/download', array('id' => 'svg_nav_form')); ?>

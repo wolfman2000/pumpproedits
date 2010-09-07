@@ -1,4 +1,12 @@
-<?php $this->load->view('global/header',
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header',
   array('css' => 'css/chart.css', 'h2' => 'Edit Chart Generator', 
   	  'scripts' => array('/js/chart_edits.js'), 'title' => 'Edit Chart Generator')); ?>
 <p>Select the edit you want to see a chart of. You can

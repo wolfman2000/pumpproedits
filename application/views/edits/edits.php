@@ -1,4 +1,12 @@
-<?php echo $this->pagination->create_links();
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+echo $this->pagination->create_links();
 foreach ($query as $z): ?>
 <div class="edit <?php echo $z->style; ?>-style">
   <div class="edit-left">

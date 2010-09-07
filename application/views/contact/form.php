@@ -1,4 +1,12 @@
-<?php echo form_open('contact/mail'); ?>
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+echo form_open('contact/mail'); ?>
 <fieldset>
 <legend class="grid_4">Fill in all of the fields.</legend>
 <div class="clear"></div>

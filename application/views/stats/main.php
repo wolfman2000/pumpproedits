@@ -1,4 +1,11 @@
-<?php $this->load->view('global/header',
+<?php /*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header',
   array('css' => 'css/stats.css', 'h2' => 'Get Edit\'s Stats', 'title' => 'Edit Stat Getter')); ?>
 <p>If you are unable to use the Edit Charter to see the
 stats of your edit, use the form below. Make sure it follows

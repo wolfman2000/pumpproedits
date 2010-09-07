@@ -1,4 +1,11 @@
 <?php
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
 $scripts = array('/js/jquery.svg.js', '/js/jquery.svgdom.js',
   '/js/creator/create_vars.js', '/js/creator/create_svg.js',
   '/js/creator/create_parse.js', '/js/creator/create_misc.js',

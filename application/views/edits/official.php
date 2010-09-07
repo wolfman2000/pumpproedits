@@ -1,4 +1,12 @@
-<?php $this->load->view('global/header',
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header',
   array('css' => 'css/edit_table.css', 'h2' => "Official Edits", 'title' => "Official Edits",
   'scripts' => array('/js/jquery.pager.js', '/js/edit_user.js'),
   'maxEdits' => $maxEdits, 'const_user' => 2)); ?>

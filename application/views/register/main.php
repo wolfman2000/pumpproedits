@@ -1,4 +1,12 @@
-<?php $this->load->view('global/header',
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header',
   array('css' => 'css/register.css', 'h2' => 'Register Here', 'title' => 'Register Here')); ?>
 <p> To be able to upload edits and access some member only 
 exclusive portions of the website, you will have to register. 

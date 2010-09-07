@@ -1,3 +1,12 @@
+<?php
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+?>
 </div></article>
 <?php if ($this->uri->segment(1) === "create") { $this->load->view("global/nav_create"); }; ?>
 <div class="clear"></div>

@@ -1,4 +1,12 @@
-<?php echo form_open('chart/songProcess'); ?>
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+echo form_open('chart/songProcess'); ?>
 <fieldset><legend>Select the song and difficulty to preview.</legend>
 <div class="clear"></div>
 <section id="errorCatch" class="grid_6">

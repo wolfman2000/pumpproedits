@@ -1,4 +1,11 @@
-<?php $this->load->view('global/header',
+<?php /*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header',
   array('css' => 'css/upload.css', 'h2' => 'Upload Edit', 'title' => 'Upload Edit')); ?>
 <p>For those that can't use the Edit Creator to create and upload
 edits, this form will also work. Just find the file

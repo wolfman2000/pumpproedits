@@ -1,6 +1,13 @@
 <!doctype html>
 <html>
 <head>
+<!--
+PHP/HTML file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+-->
 <title>Editor Help</title>
 </head>
 <?php $back = "<h4><a href=\"#top\">Back to Top</a></h4>"; ?>

@@ -1,4 +1,12 @@
-<?php $style = array('single', 'double', 'halfdouble', 'routine'); ?>
+<?php
+/* 
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later 
+*/
+$style = array('single', 'double', 'halfdouble', 'routine'); ?>
 <?php echo $this->pagination->create_links(); ?>
 <table id="base">
   <caption>Download the Base Edit Files</caption>

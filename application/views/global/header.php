@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+<!--
+PHP/HTML file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+-->
 <meta charset="UTF-8" />
 <meta name="title" content="Pump Pro Edits" />
 <meta name="description" content="This website allows users to create and share edits for the game Pump It Up Pro." />

@@ -1,4 +1,12 @@
-<?php $this->load->view('global/header', array('css' => 'css/main.css')); ?>
+<?php 
+/*
+PHP file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+$this->load->view('global/header', array('css' => 'css/main.css')); ?>
 <p>Welcome to the Pump Pro Edit database. Inside here, you will find
 many edits that dance players such as yourself have created, along
 with official charts that Andamiro and Fun In Motion staff made themselves.</p>

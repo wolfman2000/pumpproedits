@@ -1,4 +1,12 @@
+<?php
+/*
+PHP file used for Pump Pro Edits
 
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+?>
 <nav id="main_nav" class="grid_12">
 <?php $uid = $this->session->userdata('id');
 
