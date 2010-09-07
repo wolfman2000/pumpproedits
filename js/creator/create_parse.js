@@ -308,8 +308,8 @@ function convertStats(data)
 	ret.msteps = data.steps[1];
 	ret.yjumps = data.jumps[0];
 	ret.mjumps = data.jumps[1];
-	ret.yholds = data.jumps[0];
-	ret.mholds = data.jumps[1];
+	ret.yholds = data.holds[0];
+	ret.mholds = data.holds[1];
 	ret.ymines = data.mines[0];
 	ret.mmines = data.mines[1];
 	ret.ytrips = data.trips[0];
