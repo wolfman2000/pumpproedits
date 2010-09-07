@@ -3,6 +3,13 @@
  * structure as required. Any other calculations that
  * need to be done should be handled elsewhere.
  */
+/*
+JS file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
 // Generate the line required. Apply the class if one exists.
 function genLine(x1, y1, x2, y2, css)
 {

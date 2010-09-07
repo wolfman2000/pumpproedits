@@ -2,6 +2,13 @@
  * This file deals with parsing the SVG file to gather stats,
  * load charts, and save/upload charts.
  */
+/*
+JS file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
 
 // Load the data from database JSON to SVG.
 function loadDatabaseChart(nd)

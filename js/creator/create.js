@@ -2,6 +2,14 @@
  * This file deals strictly with setting up the javascript
  * actions that will be called (mostly) in create_event.js.
  */
+/*
+JS file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+
 $(document).ready(function()
 {
   // Set up the portable dialog.

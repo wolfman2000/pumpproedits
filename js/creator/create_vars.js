@@ -3,6 +3,13 @@
  * that are used by the other files. Do whatever is possible to keep
  * the number of global variables low.
  */
+/*
+JS file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
 var isDirty; // has the work changed? Should a prompt for saving take place?
 var columns; // How many columns are we working with?
 var width; // compliment to columns

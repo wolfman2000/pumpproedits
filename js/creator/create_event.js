@@ -2,6 +2,13 @@
  * This file deals with all of the functions directly
  * called by the different XHTML elements.
  */
+/*
+JS file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
 // Hide the rectangle when not in use.
 function hideRect()
 {

@@ -3,6 +3,13 @@
  * that don't directly involve javascript called events or
  * SVG nodes. They are in this file for better abstraction.
  */
+/*
+JS file used for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
 // Indicate where the shadow square goes.
 function showRect(x, y)
 {
