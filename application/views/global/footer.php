@@ -28,7 +28,8 @@ PHP file used for Pump Pro Edits
 <footer class="grid_12">
 <section class="grid_9" id="footer-left">
 <p>Sister Site: <a href="http://www.itgedits.info/" title="ITG Edits">ITG Edits</a><br />
-<a href="http://www.twitter.com/pumpproedits" title="Twitter">Follow PumpProEdits on Twitter</a>
+<a href="http://www.twitter.com/pumpproedits" title="Twitter">Follow PumpProEdits on Twitter</a><br />
+<a href="http://github.com/wolfman2000/pumpproedits" title="GitHub">View the source code</a>
 </p>
 </section>
 <section class="grid_3" id="footer-right">
