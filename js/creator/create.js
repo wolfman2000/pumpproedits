@@ -45,13 +45,13 @@ $(document).ready(function()
     if (selMode == 0) // insert mode
     {
       changeArrow();
-      updateStats(gatherStats());
+      updateStats(convertStats(gatherStats()));
     }
     else if (clipboard) // paste mode
     {
       pasteArrows();
       $("#intro").text("Arrows pasted. Clipboard wiped.");
-      updateStats(gatherStats());
+      updateStats(convertStats(gatherStats()));
     }
     else { selectRow(); } // select mode
   });

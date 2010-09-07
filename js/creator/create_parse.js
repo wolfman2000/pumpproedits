@@ -300,6 +300,29 @@ function genObject(p, m, b, c, n)
   return t;  
 }
 
+// Convert the old style data to new data.
+function convertStats(data)
+{
+	var ret = {};
+	ret.ysteps = data.steps[0];
+	ret.msteps = data.steps[1];
+	ret.yjumps = data.jumps[0];
+	ret.mjumps = data.jumps[1];
+	ret.yholds = data.jumps[0];
+	ret.mholds = data.jumps[1];
+	ret.ymines = data.mines[0];
+	ret.mmines = data.mines[1];
+	ret.ytrips = data.trips[0];
+	ret.mtrips = data.trips[1];
+	ret.yrolls = data.rolls[0];
+	ret.mrolls = data.rolls[1];
+	ret.ylifts = data.lifts[0];
+	ret.mlifts = data.lifts[1];
+	ret.yfakes = data.fakes[0];
+	ret.mfakes = data.fakes[1];
+	return ret;
+}
+
 /*
  * Update the chart details to show what's going on.
  * Return the data gathered, including the points
