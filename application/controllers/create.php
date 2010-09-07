@@ -189,6 +189,18 @@ class Create extends Controller
     echo json_encode($ret);
   }
   
+  // Load the list of songs that can be edited.
+  function loadSongList()
+  {
+  	  if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+  	  	  strtolower($_SEVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+  	  {
+  	  	  return;
+  	  }
+  	  header("Content-Type: appliaction/json");
+  	  echo json_encode($this->ppe_song_song->getSongsWithGame()->result());
+  }
+  
   // Load the list of edits for the specific author.
   function loadEditList()
   {
