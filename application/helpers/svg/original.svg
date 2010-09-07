@@ -1,4 +1,11 @@
 <defs xmlns:xlink="http://www.w3.org/1999/xlink">
+	<!--
+	SVG file used for Pump Pro Edits
+	
+	@package pumpproedits
+	@author wolfman2000
+	@license GNU Affero GPL v3 or later
+	-->
 	<g id="beat1">
 		<rect x="0" y="0" width="16" height="16"/>
 		<rect x="0" y="16" width="16" height="16"/>
