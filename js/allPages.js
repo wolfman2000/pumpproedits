@@ -1,3 +1,11 @@
+/*
+JS file for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+
 // initialise plugins
 $(function(){
   $("ul.sf-menu").supersubs({ 

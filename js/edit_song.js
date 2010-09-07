@@ -1,4 +1,10 @@
-var parts;
+/*
+JS file for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/var parts;
 var last;
 $(document).ready(function()
 {
