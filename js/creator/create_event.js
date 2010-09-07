@@ -184,7 +184,7 @@ function loadTextEdit(data)
   $("#fCont").val('');
   $("li[class^=load]").hide();
   $("li.edit").show();
-  editMode(canPublic);
+  editMode();
   $("#intro").text("Loading chart...");
   if (data.notes) { loadChart(data.notes); }
 }

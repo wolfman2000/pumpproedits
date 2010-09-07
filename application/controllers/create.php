@@ -67,7 +67,6 @@ class Create extends Controller
       return;
     }
     header("Content-Type: application/json");
-    $ret = array();
     $file = $this->input->post('file');
     
     $fp = null;
@@ -83,30 +82,13 @@ class Create extends Controller
       $this->load->library('EditParser');
       
       $st = $this->editparser->get_stats(gzopen($fn, "r"), array('notes' => 1));
-      $ret['id'] = $st['id'];
-      $ret['diff'] = $st['diff'];
-      $ret['style'] = substr($st['style'], 5);
-      $ret['title'] = $st['title'];
-      $ret['steps'] = $st['steps'];
-      $ret['jumps'] = $st['jumps'];
-      $ret['holds'] = $st['holds'];
-      $ret['mines'] = $st['mines'];
-      $ret['trips'] = $st['trips'];
-      $ret['rolls'] = $st['rolls'];
-      $ret['lifts'] = $st['lifts'];
-      $ret['fakes'] = $st['fakes'];
-      $ret['notes'][0] = $st['notes'][0];
-      if ($ret['style'] === "routine" or $ret['style'] === "pump-routine")
-      {
-        $ret['notes'][1] = $st['notes'][1];
-      }
     }
     catch (Exception $e)
     {
       $ret['exception'] = $e->getMessage();
     }
     @unlink($fn);
-    echo json_encode($ret);
+    echo json_encode($st);
   }
   
   // Give the user help upon request.
