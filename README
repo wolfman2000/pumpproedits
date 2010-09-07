@@ -54,6 +54,14 @@ make it work for IE and keep it working for the others. When
 IE 9 comes out of preview, I will have to find a way to give
 that a test on the website.
 
+This website uses the GNU Affero GPL v3 license.
+Complying with the Affero GPL is similar to complying to the 
+GPL, but you must maintain a link to obtain the 
+source code of the deployment you use. This means that if you make
+modifications, you must pubically make them available, and
+you must provide an opportunity to download the source code
+of your version.
+
 If there are any questions, feel free to contact me.
 
 -- Jason "Wolfman2000" Felds
