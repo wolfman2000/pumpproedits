@@ -193,7 +193,7 @@ class Create extends Controller
   function loadSongList()
   {
   	  if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-  	  	  strtolower($_SEVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
+  	  	  strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
   	  {
   	  	  return;
   	  }
