@@ -328,12 +328,17 @@ function setupMenus()
 	}
 	else
 	{
-		if (andamiro) { $(".author").show(); _enable("#authorlist"); }
-		else          { $(".author").hide(); _disable("#authorlist"); }
 		$("#authorlist").val(0);
 		authID = authed;
-		$("li.author:eq(0)").next().andSelf().hide();
-		$("li.author:eq(2)").next().andSelf().show();
+		if (andamiro)
+		{
+			$(".author").show(); _enable("#authorlist");
+		}
+		else
+		{ 
+			$(".author").hide(); _disable("#authorlist");
+			$("li.author:eq(2)").next().andSelf().show();
+		}
 	}
     
 	clipboard = null;
