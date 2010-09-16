@@ -32,7 +32,7 @@ class Create extends Controller
     if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE") !== false)
     {
       $this->output->set_status_header(415);
-      $this->load->view('create/ie');
+      $this->load->view('create/unsupported');
       return;
     }
     header("Content-Type: application/xhtml+xml");
