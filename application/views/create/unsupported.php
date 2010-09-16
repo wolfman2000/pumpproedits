@@ -8,11 +8,11 @@ PHP file used for Pump Pro Edits
 */
 $scripts = array();
 $this->load->view('global/header',
-  array('css' => 'css/create.css', 'h2' => 'Edit Creator', 'title' => 'Edit Creator',
-  )); ?>
+  array('h2' => 'Edit Creator Unvailable', 'title' => 'Edit Creator Unavailable', )); ?>
 <h3>Error!</h3>
 <p>Your web browser cannot run the Edit Creator.
-Either update to the latest version or get a
-different web browser.</p>
-
+Either update to the latest version to see if that will work,
+or switch to a different web browser.</p>
+<p>The list of supported browsers is located up top if you are
+using a graphical client.</p>
 <?php $this->load->view('global/footer');
