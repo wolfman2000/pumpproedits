@@ -21,8 +21,10 @@ PHP file used for Pump Pro Edits
 <li><?php echo anchor("/remove", "Remove Edits"); ?></li>
 <?php endif; ?>
 </ul></li>
-<?php if (browser_detection('browser_working') != "ie" or browser_detection("ie_version") == "ie9x"): ?>
+<?php if (browser_detection('browser_working') != "ie"): ?>
 <li><?php echo anchor("/create", "Edit Creator"); ?></li>
+<?php endif;
+if (browser_detection('browser_working') != "ie" or browser_detection("ie_version") == "ie9x"): ?>
 <li><?php echo anchor("#", "View Stepcharts"); ?><ul>
 <li><?php echo anchor("/chart", "View Edit Stepcharts"); ?></li>
 <li><?php echo anchor("/chart/songs", "View Official Stepcharts"); ?></li>
