@@ -20,8 +20,8 @@ $title .= " — Pump Pro Edits";
 else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
 <?php if (!(isset($css))) { $css = 'css/main.css'; } 
 echo link_tag($css);
-if ($this->session->userdata('browser') === false) { $this->session->set_userdata('browser', $this->agent->browser()); }
-if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
+$browser = browser_detection('browser_working');
+if ($browser == "ie"): ?>
 <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
 <?php endif; # Info below is for various pages. ?>
@@ -63,7 +63,7 @@ foreach ($baseScripts as $script): ?>
   </a></h1>
   <div class="grid_5 alpha" id="userbar">
     <ul>
-      <?php if ($this->agent->is_browser() and $this->session->userdata('browser') === "Internet Explorer"): ?>
+      <?php if ($browser === "ie" and browser_detection('ie_version') !== "ie9x"): ?>
       <li><a href="http://www.firefox.com">Firefox</a></li>
       <li><a href="http://chrome.google.com">Chrome</a></li>
       <li><a href="http://www.apple.com/safari">Safari</a></li>
