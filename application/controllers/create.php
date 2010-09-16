@@ -29,7 +29,8 @@ class Create extends Controller
   // load the main page...unless stuck on IE.
   function index()
   {
-    if (strpos($_SERVER['HTTP_USER_AGENT'], "MSIE") !== false)
+    if (browser_detection("browser_working") === "ie"
+    	and browser_detection("ie_version") != "ie9x")
     {
       $this->output->set_status_header(415);
       $this->load->view('create/unsupported');
