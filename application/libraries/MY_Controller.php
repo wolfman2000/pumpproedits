@@ -66,7 +66,18 @@ class Wolf_Controller extends Controller
 	{
 		$output  = $this->load->view('global/header', $this->data, true);
 		$output .= $this->load->view('global/nav_normal', $this->data, true);
-		$output .= $this->load->view($view, $this->data, true);
+		
+		if (is_array($view))
+		{
+			foreach ($view as $v)
+			{
+				$output .= $this->load->view($v, $this->data, true);
+			}
+		}
+		else
+		{
+			$output .= $this->load->view($view, $this->data, true);
+		}
 		$output .= $this->load->view('global/footer', $this->data, true);
 		
 		$this->output->set_output($output);
