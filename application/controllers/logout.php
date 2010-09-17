@@ -7,16 +7,16 @@ PHP File for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */
 
-class Logout extends Controller
+class Logout extends Wolf_Controller
 {
-  function __construct()
-  {
-    parent::Controller();
-  }
-  
-  function index()
-  {
-    $this->session->unset_userdata(array('id' => '', 'username' => '', 'roles' => ''));
-    redirect((strlen($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/") , "location", 303);
-  }
+	function __construct()
+	{
+		parent::__construct();
+	}
+	
+	function index()
+	{
+		$this->session->unset_userdata(array('id' => '', 'username' => '', 'roles' => ''));
+		redirect((strlen($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/") , "location", 303);
+	}
 }
