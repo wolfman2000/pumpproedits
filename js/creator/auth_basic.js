@@ -29,3 +29,8 @@ function validationPassed(data)
 	_disable("#but_val");
 	_enable("#but_sub");
 }
+
+function setAuthor()
+{
+	authID = ($("#authorlist").val() == 0 ? authed : 2);
+}

@@ -275,8 +275,7 @@ $(document).ready(function()
   
   // The author wishes to indicate whose work this really is.
   $("#authorlist").change(function(){
-    var val = $("#authorlist").val();
-    authID = (val == 0 ? authed : 2);
+    setAuthor();
   });
   
   // The author wishes to change the edit title / name.

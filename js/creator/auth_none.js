@@ -26,3 +26,8 @@ function validationPassed(data)
 	_enable("#but_save");
 	_disable("#but_val");
 }
+
+function setAuthor()
+{
+	authID = 0;
+}
