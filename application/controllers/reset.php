@@ -62,7 +62,8 @@ class Reset extends Wolf_Controller
 			$this->output->set_status_header(409);
 			$this->_setHeader('No Need to Reset Password');
 			$this->_setTitle('No Need to Reset Password');
-			$this->_loadPage('reset/noneed');
+			$this->session->set_flashdata('loginResult', "Log In with the same password!");
+			$this->_loadPage('reset/main');
 		}
 		*/
 		else // We're good!

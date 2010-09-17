@@ -41,6 +41,12 @@ class Wolf_Controller extends Controller
 		$this->data['h2'] = $header;
 	}
 	
+	function _loginRedirect()
+	{
+		$path = (strlen($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/");
+		redirect($path, "location", 303);
+	}
+	
 	function _loadPage($view)
 	{
 		$output  = $this->load->view('global/header', $this->data, true);

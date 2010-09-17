@@ -6,5 +6,4 @@ PHP file used for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */ ?>
 <p>According to our records, you did not request to change your
-password. Use your old password to log in below.</p>
-<?php $this->load->view('login/form');
+password. Use your old password to log in.</p>

@@ -17,6 +17,6 @@ class Logout extends Wolf_Controller
 	function index()
 	{
 		$this->session->unset_userdata(array('id' => '', 'username' => '', 'roles' => ''));
-		redirect((strlen($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/") , "location", 303);
+		$this->_loginRedirect();
 	}
 }
