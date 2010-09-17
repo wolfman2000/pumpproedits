@@ -90,16 +90,21 @@ class Chart extends Wolf_Controller
 		redirect('chart/edits');
 	}
 	
-	function edits()
+	function _showEditForm($first, $header)
 	{
 		$this->data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
 		$this->data['form'] = array();
 		$this->data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
 		$this->data['form']['style'] = $this->ppe_note_style->getSelectStyles();
 		$this->_addJS('/js/chart_edits.js');
-		$this->_setHeader('Edit Chart Generator');
-		$this->_setTitle('Edit Chart Generator');
-		$this->_loadPage(array('chart/edits', 'chart/editForm'));
+		$this->_setHeader($header);
+		$this->_setTitle($header);
+		$this->_loadPage(array($first, 'chart/editForm'));
+	}
+	
+	function edits()
+	{
+		$this->_showEditForm('chart/edits', 'Edit Chart Generator');
 	}
 	
 	// Use this common GET function to show the edit.
@@ -110,14 +115,7 @@ class Chart extends Wolf_Controller
 		if (!$this->ppe_edit_edit->checkExistsAndActive($eid))
 		{
 			$this->output->set_status_header(404);
-			$this->data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
-			$this->data['form'] = array();
-			$this->data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
-			$this->data['form']['style'] = $this->ppe_note_style->getSelectStyles();
-			$this->_addJS('/js/chart_edits.js');
-			$this->_setHeader('No Edit Chart');
-			$this->_setTitle('No Edit Chart');
-			$this->_loadPage(array('chart/deleted', 'chart/editForm'));
+			$this->_showEditForm('chart/deleted', 'No Edit Chart');
 			return;
 		}
 		
@@ -147,14 +145,7 @@ class Chart extends Wolf_Controller
 	{
 		if ($this->form_validation->run() === FALSE)
 		{
-			$this->data['edits'] = $this->ppe_edit_edit->getNonProblemEdits()->result_array();
-			$this->data['form'] = array();
-			$this->data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
-			$this->data['form']['style'] = $this->ppe_note_style->getSelectStyles();
-			$this->_addJS('/js/chart_edits.js');
-			$this->_setHeader('Edit Chart Error');
-			$this->_setTitle('Edit Chart Error');
-			$this->_loadPage(array('chart/editError', 'chart/editForm'));
+			$this->_showEditForm('chart/editErorr', 'Edit Chart Error');
 			return;
 		}
 		
