@@ -162,17 +162,22 @@ class Chart extends Wolf_Controller
 		return;
 	}
 	
-	// get the list of songs for possible chart previewing.
-	function songs()
+	function _showSongForm($first, $header)
 	{
-		$this->data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
+		$this->data['edits'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
 		$this->data['form'] = array();
 		$this->data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
 		$this->data['form']['style'] = $this->ppe_note_style->getSelectStyles();
 		$this->_addJS('/js/official.js');
-		$this->_setHeader('Official Chart Generator');
-		$this->_setTitle('Official Chart Generator');
-		$this->_loadPage(array('chart/songs', 'chart/songForm'));
+		$this->_setHeader($header);
+		$this->_setTitle($header);
+		$this->_loadPage(array($first, 'chart/songForm'));
+	}
+	
+	// get the list of songs for possible chart previewing.
+	function songs()
+	{
+		$this->_showSongForm('chart/songs', 'Official Chart Generator');
 	}
 	
 	// Use AJAJ to get the difficulties charted for each song.
@@ -192,14 +197,7 @@ class Chart extends Wolf_Controller
 	{
 		if ($this->form_validation->run() === FALSE)
 		{
-			$this->data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
-			$this->data['form'] = array();
-			$this->data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
-			$this->data['form']['style'] = $this->ppe_note_style->getSelectStyles();
-			$this->_addJS('/js/official.js');
-			$this->_setHeader('Official Chart Generator');
-			$this->_setTitle('Official Chart Generator');
-			$this->_loadPage(array('chart/songError', 'chart/songForm'));
+			$this->_showSongForm('chart/songError', 'Official Chart Generator');
 			return;
 		}
 		$sid = $this->input->post('songs');
