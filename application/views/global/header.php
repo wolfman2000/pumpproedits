@@ -17,7 +17,6 @@ PHP/HTML file used for Pump Pro Edits
 <meta name="robots" content="index, follow" />
 <title><?php echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
 <?php echo link_tag($css);
-$browser = browser_detection('browser_working');
 if ($browser == "ie"): ?>
 <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
@@ -91,7 +90,3 @@ const songID = <?php echo $const_song; ?>;
   </div>
 </header>
 <div class="clear"></div>
-<?php $this->load->view('global/nav_normal'); ?>
-<article class="grid_12">
-<h2><?php if (!(isset($h2))) { $h2 = "Welcome!"; } echo $h2; ?></h2>
-<div id="bd">
