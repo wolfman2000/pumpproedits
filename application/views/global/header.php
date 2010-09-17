@@ -15,11 +15,8 @@ PHP/HTML file used for Pump Pro Edits
 <meta name="keywords" content="Pump It Up Pro, Pump Pro, Pump It Up, Pro, edits, Wolfman2000, Jason Felds" />
 <meta name="lang" content="en" />
 <meta name="robots" content="index, follow" />
-<title><?php if (isset($title)):
-$title .= " — Pump Pro Edits";
-else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
-<?php if (!(isset($css))) { $css = 'css/main.css'; } 
-echo link_tag($css);
+<title><?php echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
+<?php echo link_tag($css);
 $browser = browser_detection('browser_working');
 if ($browser == "ie"): ?>
 <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
@@ -49,9 +46,7 @@ const songID = <?php echo $const_song; ?>;
 <?php endif; ?>
 //]]>
 </script>
-<?php $baseScripts = array("/js/jsAll.js");
-if (isset($scripts)) { $baseScripts = array_merge($baseScripts, $scripts); }
-foreach ($baseScripts as $script): ?>
+<?php foreach ($scripts as $script): ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php endforeach; ?>
 </head>
