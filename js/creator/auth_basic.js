@@ -23,24 +23,46 @@ $(document).ready(function()
 	});
 });
 
-function loadOwnEdits()
+// set up some of the common load code.
+function _displayEditList()
 {
 	$(".loadSite").show();
 	$("li[class^=load]:not(.loadSite)").hide();
-	$("#intro").text("Loading your edits...");
+	$("#intro").text("Loading the chosen edits...");
 	$("#mem_edit").empty();
+}
+
+// populate the drop down for the edits.
+function _populateEditList(data)
+{
+	for (var i = 0; i < data.length; i++)
+	{
+		var out = data[i].title + " (" + data[i].name + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
+		var html = '<option id="' + data[i].id + '">' + out + '</option>';
+		$("#mem_edit").append(html);
+	}
+	_enable("#mem_nogo");
+	$("#intro").text("Choose your edit!");
+}
+
+// Load up the chosen user's songs.
+function loadWebEdits(user)
+{
+	authID = user;
+	_displayEditList();
+	$.getJSON(baseURL + '/loadEditList/' + user, function(data)
+	{
+		_populateEditList(data['query']);
+	});
+}
+
+function loadOwnEdits()
+{
+	_displayEditList();
 	$.getJSON(baseURL + '/loadOwnEdits', function(data)
 	{
 		authID = data['auth'];
-		data = data['query'];
-		for (var i = 0; i < data.length; i++)
-		{
-			var out = data[i].title + " (" + data[i].name + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
-			var html = '<option id="' + data[i].id + '">' + out + '</option>';
-			$("#mem_edit").append(html);
-		}
-		_enable("#mem_nogo");
-		$("#intro").text("Choose your edit!");
+		_populateEditList(data['query']);
 	});
 }
 

@@ -771,27 +771,6 @@ function mirrorRows(diagMirror)
   sortArrows();
 }
 
-// Load up the chosen user's songs.
-function loadWebEdits(user)
-{
-  authID = user;
-  $(".loadSite").show();
-  $("li[class^=load]:not(.loadSite)").hide();
-  $("#intro").text("Loading " + (user == 2 ? "Andamiro's" : "your") + " edits...");
-  $("#mem_edit").empty();
-  $.getJSON(baseURL + '/loadEditList/' + user, function(data)
-  {
-    for (var i = 0; i < data.length; i++)
-    {
-      var out = data[i].title + " (" + data[i].name + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
-      var html = '<option id="' + data[i].id + '">' + out + '</option>';
-      $("#mem_edit").append(html);
-    }
-    _enable("#mem_nogo");
-    $("#intro").text("Choose your edit!");
-  });
-}
-
 // Upload the intended official chart.
 function uploadOfficial()
 {

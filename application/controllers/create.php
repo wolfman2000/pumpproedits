@@ -64,7 +64,8 @@ class Create extends Wolf_Controller
 			$this->data['loads'][] = array('id' => 'you', 'value' => 'Load one of my web site edits.');
 			if ($this->data['andy'])
 			{
-				$this->data['loads'][] = array('id' => 2, 'value' => 'Load an official web site edit.');
+				$this->_addJS('/js/creator/auth_official.js');
+				$this->data['loads'][] = array('id' => 'and', 'value' => 'Load an official web site edit.');
 				if ($this->data['others'])
 				{
 					$this->data['loads'][] = array('id' => 'off', 'value' => 'Load an official stepchart.');
