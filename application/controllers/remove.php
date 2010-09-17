@@ -27,7 +27,7 @@ class Remove extends Wolf_Controller
 		$this->data['edits'] = $this->ppe_edit_edit->getEditsToDelete($id)->result_array();
 		$this->_setTitle('Remove your Edits');
 		$this->_setHeader('Remove your Edits');
-		$this->_loadPage('remove/main');
+		$this->_loadPage(array('remove/main', 'remove/form'));
 	}
 	
 	function process()
@@ -41,6 +41,6 @@ class Remove extends Wolf_Controller
 		$this->data['edits'] = $this->ppe_edit_edit->getEditsToDelete($id)->result_array();
 		$this->_setTitle('Selected Edits Removed');
 		$this->_setHeader('Selected Edits Removed');
-		$this->_loadPage('remove/deleted');
+		$this->_loadPage(array('remove/deleted', 'remove/form'));
 	}
 }
