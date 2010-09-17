@@ -148,21 +148,6 @@ $(document).ready(function()
     }, "json");
   });
   
-  // Load the account holder's specific edit.
-  $("#mem_load").click(function(){
-    $("#intro").text("Loading edit...");
-    editID = $("#mem_edit > option:selected").attr('id');
-    $.getJSON(baseURL + "/loadWebEdit/" + editID, function(data) {
-      loadEdit(data);
-      $("#intro").text("All loaded up!");
-      _disable("#authorlist");
-      $("li.author:eq(0)").next().andSelf().hide();
-      $("li.author:eq(2)").next().andSelf().show();
-      isDirty = false;
-      authID = parseInt(data.authID);
-    });
-  });
-  
   // The author decides not to load an edit at all.
   $("button").filter(function(){ return $(this).text() == "Nevermind"; })
     .click(function(){ cancelLoad();});

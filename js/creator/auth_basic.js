@@ -21,6 +21,21 @@ $(document).ready(function()
 		if (item == "hd") { loadHardDrive(); }
 		else if (item == "you") { loadOwnEdits(); }
 	});
+	
+	// Load the account holder's specific edit.
+	$("#mem_load").click(function(){
+		$("#intro").text("Loading edit...");
+		editID = $("#mem_edit > option:selected").attr('id');
+		$.getJSON(baseURL + "/loadWebEdit/" + editID, function(data) {
+			loadEdit(data);
+			$("#intro").text("All loaded up!");
+			_disable("#authorlist");
+			$("li.author:eq(0)").next().andSelf().hide();
+			$("li.author:eq(2)").next().andSelf().show();
+			isDirty = false;
+			authID = parseInt(data.authID);
+		});
+	});
 });
 
 // set up some of the common load code.
