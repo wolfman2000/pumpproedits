@@ -30,7 +30,7 @@ class Contact extends Wolf_Controller
 		{
 			$this->_setHeader('Webmaster Contact Error');
 			$this->_setTitle('Webmaster Contact Error');
-			$this->load->view('contact/error');
+			$this->_loadPage('contact/error');
 			return;
 		}
 		$this->load->library('email');
