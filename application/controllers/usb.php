@@ -7,15 +7,18 @@ PHP File for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */
 
-class Usb extends Controller
+class Usb extends Wolf_Controller
 {
 	function __construct()
 	{
-		parent::Controller();	
+		parent::__construct();
+		$this->_setCSS('css/usb.css');
+		$this->_setTitle('Guide to USB functionality in the Pump it up Pro series');
+		$this->_setHeader('Guide to USB functionality in the Pump it up Pro series');
 	}
 	
 	function index()
 	{
-		$this->load->view('usb/main');
+		$this->_loadPage('usb/main');
 	}
 }

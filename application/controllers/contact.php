@@ -7,42 +7,51 @@ PHP File for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */
 
-class Contact extends Controller
+class Contact extends Wolf_Controller
 {
 	function __construct()
 	{
-		parent::Controller();
-    $this->load->library('form_validation');
-    $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
-  }
-  
-  function index()
-  {
-    $this->load->view('contact/main');
-  }
-  
-  function mail()
-  {
-    if ($this->form_validation->run() === false)
-    {
-      $this->load->view('contact/error');
-      return;
-    }
-    $this->load->library('email');
-    $this->email->from('jafelds@gmail.com', 'Jason "Wolfman2000" Felds');
-    $this->email->to('jafelds@gmail.com');
-    $this->email->bcc('jafelds@gmail.com');
-    $this->email->reply_to($this->input->post('email'), $this->input->post('name'));
-    $this->email->subject('PPEdits Contact Form - ' . $this->input->post('subject'));
-    $this->email->message($this->input->post('content'));
-    $this->email->set_newline("\r\n");
-    if ($this->email->send())
-    {
-      $this->load->view('contact/sent');
-    }
-    else
-    {
-      $this->load->view('contact/unsent');
-    }
-  }
+		parent::__construct();
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
+		$this->_setCSS('css/contact.css');
+	}
+	
+	function index()
+	{
+		$this->_setHeader('Contact the Webmaster');
+		$this->_setTitle('Contact the Webmaster');
+		$this->_loadPage(array('contact/main', 'contact/form'));
+	}
+	
+	function mail()
+	{
+		if ($this->form_validation->run() === false)
+		{
+			$this->_setHeader('Webmaster Contact Error');
+			$this->_setTitle('Webmaster Contact Error');
+			$this->_loadPage(array('contact/error', 'contact/form'));
+			return;
+		}
+		$this->load->library('email');
+		$this->email->from('jafelds@gmail.com', 'Jason "Wolfman2000" Felds');
+		$this->email->to('jafelds@gmail.com');
+		$this->email->bcc('jafelds@gmail.com');
+		$this->email->reply_to($this->input->post('email'), $this->input->post('name'));
+		$this->email->subject('PPEdits Contact Form - ' . $this->input->post('subject'));
+		$this->email->message($this->input->post('content'));
+		$this->email->set_newline("\r\n");
+		if ($this->email->send())
+		{
+			$this->_setHeader('Webmaster Contact Success');
+			$this->_setTitle('Webmaster Contact Success');
+			$this->_loadPage('contact/sent');
+		}
+		else
+		{
+			$this->_setHeader('Webmaster Contact Error');
+			$this->_setTitle('Webmaster Contact Error');
+			$this->_loadPage('contact/unsent');
+		}
+	}
 }

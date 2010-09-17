@@ -171,7 +171,7 @@ class Ppe_edit_edit extends Model
 		->where('is_problem', 0)
 		->where('deleted_at', null)
 		->where('user_id', $uid)
-		->order_by('LOWER(sname')
+		->order_by('LOWER(sname)')
 		->order_by('title')
 		->order_by('style')
 		->get('edits_to_delete');

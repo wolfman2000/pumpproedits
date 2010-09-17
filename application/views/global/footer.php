@@ -16,7 +16,7 @@ or browser_detection("ie_version") == "ie9x")) { $this->load->view("global/nav_c
 	<p>Please log in below. If you do not have an account, feel free to register.
   If you forgot your password, you can still recover your account.</p>
   <?php echo form_open('login/check', array('id' => 'loginForm')); ?>
-  <fieldset><?php #<legend>Fill in all of the fields.</legend> ?>
+  <fieldset><?php /* <legend>Fill in all of the fields.</legend> */ ?>
   <dl>
   <dt><label for="username">Username</label></dt>
   <dd><input type="text" name="username" id="username" /></dd>

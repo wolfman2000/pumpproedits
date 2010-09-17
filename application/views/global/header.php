@@ -15,12 +15,8 @@ PHP/HTML file used for Pump Pro Edits
 <meta name="keywords" content="Pump It Up Pro, Pump Pro, Pump It Up, Pro, edits, Wolfman2000, Jason Felds" />
 <meta name="lang" content="en" />
 <meta name="robots" content="index, follow" />
-<title><?php if (isset($title)):
-$title .= " — Pump Pro Edits";
-else: $title = "Pump Pro Edits"; endif; echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
-<?php if (!(isset($css))) { $css = 'css/main.css'; } 
-echo link_tag($css);
-$browser = browser_detection('browser_working');
+<title><?php echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
+<?php echo link_tag($css);
 if ($browser == "ie"): ?>
 <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
@@ -49,9 +45,7 @@ const songID = <?php echo $const_song; ?>;
 <?php endif; ?>
 //]]>
 </script>
-<?php $baseScripts = array("/js/jsAll.js");
-if (isset($scripts)) { $baseScripts = array_merge($baseScripts, $scripts); }
-foreach ($baseScripts as $script): ?>
+<?php foreach ($scripts as $script): ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php endforeach; ?>
 </head>
@@ -63,7 +57,7 @@ foreach ($baseScripts as $script): ?>
   </a></h1>
   <div class="grid_5 alpha" id="userbar">
     <ul>
-      <?php if ($browser === "ie" and browser_detection('ie_version') !== "ie9x"): ?>
+      <?php if (!$modern): ?>
       <li><a href="http://www.firefox.com">Firefox</a></li>
       <li><a href="http://chrome.google.com">Chrome</a></li>
       <li><a href="http://www.apple.com/safari">Safari</a></li>
@@ -96,7 +90,3 @@ foreach ($baseScripts as $script): ?>
   </div>
 </header>
 <div class="clear"></div>
-<?php $this->load->view('global/nav_normal'); ?>
-<article class="grid_12">
-<h2><?php if (!(isset($h2))) { $h2 = "Welcome!"; } echo $h2; ?></h2>
-<div id="bd">
