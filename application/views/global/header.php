@@ -25,7 +25,6 @@ if ($browser == "ie"): ?>
 //<![CDATA[
 <?php $uid = $this->session->userdata('id'); ?>
 const authed = <?php echo $uid === false ? 0 : $uid; ?>;
-const baseURL = window.location.href;
 <?php if (strlen($xhtml)): ?>
 const andamiro = <?php echo $uid === false ? 0 : $andy; ?>;
 const others = <?php echo $uid === false ? 0 : $others; ?>;

@@ -7608,3 +7608,4 @@ $(document).ready(function() {
   // Ensure you can't click on an arrow box to return home.
   $("nav#main_nav > ul > li a[href$=#]").click(function(){ return false; })
 });
+var baseURL = window.location.href;
