@@ -14,4 +14,3 @@ PHP file used for Pump Pro Edits
   Both options are available, and work in similar ways.
   Fill out the form, and click on the submit button.
 </p>
-<?php $this->load->view('help/form');

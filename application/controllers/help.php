@@ -23,7 +23,7 @@ class Help extends Wolf_Controller
 	{
 		$this->_setHeader('Account Help');
 		$this->_setTitle('Account Help');
-		$this->_loadPage('help/main');
+		$this->_loadPage(array('help/main', 'help/form'));
 	}
 	
 	// Ensure only reset or resend was chosen.
@@ -40,7 +40,7 @@ class Help extends Wolf_Controller
 		{
 			$this->_setHeader('Helping Unsuccessful');
 			$this->_setTitle('Helping Unsuccessful');
-			$this->_loadPage('help/missing');
+			$this->_loadPage(array('help/missing', 'help/form'));
 			return;
 		}
 		// Ensure the user is actually in the system and in good standing.
@@ -51,9 +51,10 @@ class Help extends Wolf_Controller
 		if (!$id)
 		{
 			$this->output->set_status_header(409);
+			$this->_setCSS('css/register.css');
 			$this->_setHeader('New User');
 			$this->_setTitle('New User');
-			$this->_loadPage('help/noone');
+			$this->_loadPage(array('help/noone', 'register/form'));
 		}
 		elseif ($this->ppe_user_role->getIsUserBanned($id))
 		{
