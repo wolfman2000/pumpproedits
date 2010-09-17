@@ -13,4 +13,3 @@ PHP file used for Pump Pro Edits
 <?php endforeach; ?>
 </ul>
 <p>Please fix these errors and try again.</p>
-<?php $this->load->view('register/form');

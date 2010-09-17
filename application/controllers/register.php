@@ -20,7 +20,7 @@ class Register extends Wolf_Controller
 	{
 		$this->_setTitle('Register Here');
 		$this->_setHeader('Register Here');
-		$this->_loadPage('register/main');
+		$this->_loadPage(array('register/main', 'register/form'));
 	}
 	
 	// validation here.
@@ -32,7 +32,7 @@ class Register extends Wolf_Controller
 		{
 			$this->_setHeader('Registration Unsuccessful');
 			$this->_setTitle('Registration Unsuccessful');
-			$this->_loadPage('register/missing');
+			$this->_loadPage(array('register/missing', 'register/form'));
 			return;
 		}
 		// Check the things the form can't do through the database.
@@ -76,7 +76,7 @@ class Register extends Wolf_Controller
 			$this->output->set_status_header(409);
 			$this->_setHeader('Registration Unsuccessful');
 			$this->_setTitle('Registration Unsuccessful');
-			$this->_loadPage('register/invalid');
+			$this->_loadPage(array('register/invalid', 'register/form'));
 		}
 		else
 		{
