@@ -8,8 +8,6 @@ PHP file used for Pump Pro Edits
 */
 ?>
 </div></article>
-<?php if ($this->uri->segment(1) === "create"
-and $modern) { $this->load->view("global/nav_create"); }; ?>
 <div class="clear"></div>
 <div id="loginbox" class="hide" title="Log in">
 	<p>Please log in below. If you do not have an account, feel free to register.

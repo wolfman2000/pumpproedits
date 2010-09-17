@@ -72,7 +72,7 @@ class Create extends Wolf_Controller
 				}
 			}
 		}
-		$this->_loadPage('create/main');
+		$this->_loadPage(array('create/main', 'create/nav'));
 	}
 	
 	// Load the edit from the hard drive...via textarea.
