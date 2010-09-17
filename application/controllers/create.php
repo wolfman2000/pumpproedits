@@ -426,30 +426,13 @@ class Create extends Wolf_Controller
 			$row['chaos'][] = $radars[9];
 		}
 		
-		$row['steps'] = array();
-		$row['steps'][] = $this->input->post('steps1');
-		$row['steps'][] = $this->input->post('steps2');
-		$row['jumps'] = array();
-		$row['jumps'][] = $this->input->post('jumps1');
-		$row['jumps'][] = $this->input->post('jumps2');
-		$row['holds'] = array();
-		$row['holds'][] = $this->input->post('holds1');
-		$row['holds'][] = $this->input->post('holds2');
-		$row['mines'] = array();
-		$row['mines'][] = $this->input->post('mines1');
-		$row['mines'][] = $this->input->post('mines2');
-		$row['trips'] = array();
-		$row['trips'][] = $this->input->post('trips1');
-		$row['trips'][] = $this->input->post('trips2');
-		$row['rolls'] = array();
-		$row['rolls'][] = $this->input->post('rolls1');
-		$row['rolls'][] = $this->input->post('rolls2');
-		$row['lifts'] = array();
-		$row['lifts'][] = $this->input->post('lifts1');
-		$row['lifts'][] = $this->input->post('lifts2');
-		$row['fakes'] = array();
-		$row['fakes'][] = $this->input->post('fakes1');
-		$row['fakes'][] = $this->input->post('fakes2');
+		foreach(array('steps', 'jumps', 'holds', 'mines', 
+			'trips', 'rolls', 'lifts', 'fakes') as $kind)
+		{
+			$row[$kind] = array();
+			$row[$kind][] = $this->input->post($kind . '1');
+			$row[$kind][] = $this->input->post($kind . '2');
+		}
 		
 		$row['notes'] = json_decode($this->input->post('notes'), true);
 		
