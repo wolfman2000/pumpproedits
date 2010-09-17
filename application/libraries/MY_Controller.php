@@ -36,6 +36,11 @@ class Wolf_Controller extends Controller
 		$this->data['title'] = $title . " — " . $this->data['title'];
 	}
 	
+	function _setHeader($header)
+	{
+		$this->data['h2'] = $header;
+	}
+	
 	function _loadPage($view)
 	{
 		$output  = $this->load->view('global/header', $this->data, true);
