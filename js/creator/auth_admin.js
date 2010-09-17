@@ -27,12 +27,17 @@ $(document).ready(function()
 			$("li[class^=load]:not(.loadSong)").hide();
 			_disable("#loadDifficulty");
 			$("#loadSong").val('');
-		};
+		}
 		else if (item == "all")
 		{
 			$("li.loadOther").show();
 			$("li[class^=load]:not(.loadOther)").hide();
-		};
+		}
+	});
+	
+	// The admin wishes to select another author's edit.
+	$("#other_yes").click(function(){
+		loadWebEdits($("#other_sel").val());
 	});
 });
 

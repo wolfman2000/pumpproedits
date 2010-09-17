@@ -119,30 +119,6 @@ $(document).ready(function()
       alert(ouch);
     }
   });
-  /*
-  // What will the account holder load today?
-  $("#web_yes").click(function(){
-    var item = $("#web_sel").val();
-    if (item == "hd") { loadHardDrive(); }
-    if (item == authed) { loadWebEdits(authed); }
-    if (item == 2 && andamiro > 0) { loadWebEdits(2); }
-    if (item == "off" && others > 0) {
-      $("li.loadSong").show();
-      $("li[class^=load]:not(.loadSong)").hide();
-      _disable("#loadDifficulty");
-      $("#loadSong").val('');
-    };
-    if (item == "all" && others > 0) {
-      $("li.loadOther").show();
-      $("li[class^=load]:not(.loadOther)").hide();
-    };
-  });
-  */
-  
-  // The admin wishes to select another author's edit.
-  $("#other_yes").click(function(){
-    loadWebEdits($("#other_sel").val());
-  });
   
   // The admin has chosen a song, and needs to choose a difficulty.
   $("#loadSong").change(function(){
