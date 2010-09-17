@@ -21,16 +21,16 @@ class Contact extends Wolf_Controller
 	{
 		$this->_setHeader('Contact the Webmaster');
 		$this->_setTitle('Contact the Webmaster');
-		$this->_loadPage('contact/main');
+		$this->_loadPage(array('contact/main', 'contact/form'));
 	}
-  
+	
 	function mail()
 	{
 		if ($this->form_validation->run() === false)
 		{
 			$this->_setHeader('Webmaster Contact Error');
 			$this->_setTitle('Webmaster Contact Error');
-			$this->_loadPage('contact/error');
+			$this->_loadPage(array('contact/error', 'contact/form'));
 			return;
 		}
 		$this->load->library('email');

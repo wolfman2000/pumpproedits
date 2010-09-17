@@ -12,4 +12,3 @@ through client programs such as Apple's Mail or Mozilla Thunderbird
 can <a href="mailto:jafelds@gmail.com">email me directly.</a> A
 form alternative is also provided below. Use whichever is convenient
 for you.</p>
-<?php $this->load->view('contact/form');

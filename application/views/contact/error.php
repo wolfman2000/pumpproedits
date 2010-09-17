@@ -9,4 +9,3 @@ PHP file used for Pump Pro Edits
 <p>The email did not get sent. Something may have been wrong
 with the form values. Double check those and try again unless
 the error message says otherwise.</p>
-<?php $this->load->view('contact/form');
