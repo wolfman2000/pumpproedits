@@ -13,6 +13,14 @@ JS file used for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */
 
+// Use this for dynamic button setups.
+$(document).ready(function()
+{
+	$("#web_yes").click(function(){
+		loadHardDrive();
+	});
+});
+
 function loadButtons()
 {
 	$("li.edit").hide();

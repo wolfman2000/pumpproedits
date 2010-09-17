@@ -119,7 +119,7 @@ $(document).ready(function()
       alert(ouch);
     }
   });
-  
+  /*
   // What will the account holder load today?
   $("#web_yes").click(function(){
     var item = $("#web_sel").val();
@@ -137,6 +137,7 @@ $(document).ready(function()
       $("li[class^=load]:not(.loadOther)").hide();
     };
   });
+  */
   
   // The admin wishes to select another author's edit.
   $("#other_yes").click(function(){

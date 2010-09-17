@@ -61,7 +61,7 @@ class Create extends Wolf_Controller
 			$this->_addJS('/js/creator/auth_basic.js');
 			$this->data['andy'] = $this->ppe_user_power->canEditOfficial($id);
 			$this->data['others'] = $this->ppe_user_power->canEditOthers($id);
-			$this->data['loads'][] = array('id' => $id, 'value' => 'Load one of my web site edits.');
+			$this->data['loads'][] = array('id' => 'you', 'value' => 'Load one of my web site edits.');
 			if ($this->data['andy'])
 			{
 				$this->data['loads'][] = array('id' => 2, 'value' => 'Load an official web site edit.');
@@ -75,6 +75,13 @@ class Create extends Wolf_Controller
 		}
 		$this->_addJS(array('/js/creator/create.js', '/js/json2.js'));
 		$this->_loadPage(array('create/main', 'create/nav'));
+	}
+	
+	// Use this function to determine if the call is an AJAX/AJAJ call.
+	function _isAJAX()
+	{
+		$tmp = $_SERVER['HTTP_X_REQUESTED_WITH'];
+		return (isset($tmp) and strtolower($tmp) === 'xmlhttprequest');
 	}
 	
 	// Load the edit from the hard drive...via textarea.
@@ -213,19 +220,27 @@ class Create extends Wolf_Controller
 		echo json_encode($this->ppe_song_song->getSongsWithGame()->result());
 	}
 	
+	function _loadChosenEditList($user)
+	{
+		if (!$this->_isAJAX()) { return; }
+		header("Content-Type: application/json");
+		$ret = array();
+		$ret['query'] = $this->ppe_edit_edit->getSVGEdits($user);
+		$ret['auth'] = $user;
+		
+		echo json_encode($ret);
+	}
+	
 	// Load the list of edits for the specific author.
 	function loadEditList()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
-		header("Content-Type: application/json");
-		$id = $this->uri->segment(3);
-		$ret = $this->ppe_edit_edit->getSVGEdits($id);
-		
-		echo json_encode($ret);
+		$this->_loadChosenEditList($this->uri->segment(3));
+	}
+	
+	// Load the list of edits that the user directly owns.
+	function loadOwnEdits()
+	{
+		$this->_loadChosenEditList($this->session->userdata('id'));
 	}
 	
 	// Load the chosen edit into the Edit Creator.

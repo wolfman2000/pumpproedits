@@ -13,6 +13,37 @@ JS file used for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */
 
+// Use this for dynamic button setups.
+$(document).ready(function()
+{
+	$("#web_yes").click(function(){
+		var item = $("#web_sel").val();
+		if (item == "hd") { loadHardDrive(); }
+		else if (item == "you") { loadOwnEdits(); }
+	});
+});
+
+function loadOwnEdits()
+{
+	$(".loadSite").show();
+	$("li[class^=load]:not(.loadSite)").hide();
+	$("#intro").text("Loading your edits...");
+	$("#mem_edit").empty();
+	$.getJSON(baseURL + '/loadOwnEdits', function(data)
+	{
+		authID = data['auth'];
+		data = data['query'];
+		for (var i = 0; i < data.length; i++)
+		{
+			var out = data[i].title + " (" + data[i].name + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
+			var html = '<option id="' + data[i].id + '">' + out + '</option>';
+			$("#mem_edit").append(html);
+		}
+		_enable("#mem_nogo");
+		$("#intro").text("Choose your edit!");
+	});
+}
+
 function loadButtons()
 {
 	$("li.edit").hide();
