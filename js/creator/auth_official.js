@@ -24,24 +24,3 @@ $(document).ready(function()
 	});
 });
 
-function loadButtons()
-{
-	$("li.edit").hide();
-	$("li.loadWeb").show();
-	$("li[class^=load]:not(.loadWeb)").hide();
-	$("#intro").text("Select your option.");
-}
-
-function validationPassed(data)
-{
-	saveChart(data);
-	$("#intro").text("You can save your work!");
-	_enable("#but_save");
-	_disable("#but_val");
-	_enable("#but_sub");
-}
-
-function setAuthor()
-{
-	authID = ($("#authorlist").val() == 0 ? authed : 2);
-}
