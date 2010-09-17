@@ -18,3 +18,11 @@ function loadButtons()
 	$("li.edit").hide();
 	loadHardDrive();
 }
+
+function validationPassed(data)
+{
+	saveChart(data);
+	$("#intro").text("You can save your work!");
+	_enable("#but_save");
+	_disable("#but_val");
+}

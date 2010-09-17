@@ -105,11 +105,7 @@ $(document).ready(function()
     var data = gatherStats(1);
     if (!data.badds.length)
     {
-      saveChart(data);
-      $("#intro").text("You can save your work!");
-      _enable("#but_save");
-      _disable("#but_val");
-      if (authed > 0) { _enable("#but_sub"); }
+      validationPassed(data);
     }
     else
     {
