@@ -42,7 +42,8 @@ class Edits extends Wolf_Controller
 		$this->_setCSS('css/edit_count.css');
 		$this->_setHeader('Edits by User');
 		$this->_setTitle('Edit List by User');
-		$this->_loadPage('edits/users');
+		$this->data['what'] = 'user';
+		$this->_loadPage(array('edits/users', 'edits/counter'));
 	}
 	
 	// get all edits from the chosen user.
@@ -95,7 +96,7 @@ class Edits extends Wolf_Controller
 		$id = 2;
 		$page = $this->uri->segment(2, 1);
 		$query = $this->ppe_edit_edit->getEditsByUser($id, $page);
-		$this->data['users'] = $query->result();
+		$this->data['query'] = $query->result();
 		
 		// a lot of the code below is temporary.
 		$config['base_url'] = sprintf('http://%s/official/', $this->input->server('SERVER_NAME'));
@@ -109,7 +110,11 @@ class Edits extends Wolf_Controller
 		$this->_setTitle("Official Edits");
 		$this->_addJS(array('/js/jquery.pager.js', '/js/edit_user.js'));
 		$this->data['const_user'] = 2;
-		$this->_loadPage('edits/official');
+		
+		$this->data['showsong'] = 1;
+		$this->data['caption'] = "Official";
+		
+		$this->_loadPage(array('edits/official', 'edits/edits'));
 	}
 	
 	// load the songs that have edits.
@@ -119,7 +124,8 @@ class Edits extends Wolf_Controller
 		$this->_setCSS('css/edit_count.css');
 		$this->_setHeader('Edits by Song');
 		$this->_setTitle('Edit List by Song');
-		$this->_loadPage('edits/songs');
+		$this->data['what'] = 'song';
+		$this->_loadPage(array('edits/songs', 'edits/counter'));
 	}
 	
 	// get up to (10) of a song's edits via AJAJ.

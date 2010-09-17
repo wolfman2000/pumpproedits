@@ -7,8 +7,6 @@ PHP file used for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */
 echo $this->pagination->create_links();
-$browser = browser_detection('browser_working');
-$ie = ($browser === "ie" ? browser_detection('ie_version') : "ie9x");
 foreach ($query as $z): ?>
 <div class="edit <?php echo $z->style; ?>-style">
   <div class="edit-left">
@@ -58,7 +56,7 @@ foreach ($query as $z): ?>
         if ($z->yfakes or $z->mfakes): ?>
         <dt>Fakes</dt><dd><?php echo $z->yfakes . ($l === "R" ? "/$z->mfakes" : "") ?></dd>
         <?php endif;
-        if ($ie === "ie9x"): ?>
+        if ($modern): ?>
         <dt>Preview</dt>
         <dd>
           <?php echo anchor("/chart/quick/$z->id/classic", "Classic", array("title" => "View stepchart using classic Pump it Up arrow colors")); ?>,
