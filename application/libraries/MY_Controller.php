@@ -12,13 +12,33 @@ class Wolf_Controller extends Controller
 	function __construct()
 	{
 		parent::Controller();
+		$this->head = array
+		(
+			'title' => 'Pump Pro Edits',
+			'css' => 'css/main.css',
+			'scripts' => array('/js/jsAll.js'),
+			'xhtml' => '',
+		);
+		$this->data = array();
+		$this->foot = array();
+		
 	}
 	
-	function _loadPage($view, $data)
+	function _setCSS($css)
 	{
-		$output  = $this->load->view('global/header', $data, true);
-		$output .= $this->load->view($view, $data, true);
-		$output .= $this->load->view('global/footer', $data, true);
+		$this->head['css'] = $css;
+	}
+	
+	function _setTitle($title)
+	{
+		$this->head['title'] = $title . " — " . $this->head['title'];
+	}
+	
+	function _loadPage($view)
+	{
+		$output  = $this->load->view('global/header', $this->head, true);
+		$output .= $this->load->view($view, $this->data, true);
+		$output .= $this->load->view('global/footer', $this->foot, true);
 		
 		$this->output->set_output($output);
 	}
