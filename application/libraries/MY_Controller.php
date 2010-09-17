@@ -41,6 +41,21 @@ class Wolf_Controller extends Controller
 		$this->data['h2'] = $header;
 	}
 	
+	function _addJS($js)
+	{
+		if (is_array($js))
+		{
+			foreach ($js as $j)
+			{
+				array_push($this->data['scripts'], $j);
+			}
+		}
+		else
+		{
+			array_push($this->data['scripts'], $js);
+		}
+	}
+	
 	function _loginRedirect()
 	{
 		$path = (strlen($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "/");
