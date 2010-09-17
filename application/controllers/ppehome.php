@@ -7,11 +7,11 @@ PHP File for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */
 
-class Ppehome extends Controller
+class Ppehome extends Wolf_Controller
 {
 	function __construct()
 	{
-		parent::Controller();	
+		parent::__construct();
 	}
 	
 	function index()
