@@ -20,7 +20,7 @@ class Confirm extends Wolf_Controller
 	{
 		$this->_setHeader('Confirm your Account');
 		$this->_setTitle('Confirm your Account');
-		$this->_loadPage('confirm/main');
+		$this->_loadPage(array('confirm/main', 'confirm/form'));
 	}
 	
 	// validation here.
@@ -32,7 +32,7 @@ class Confirm extends Wolf_Controller
 		$this->_setTitle('Confirmation Unsuccessful');
 		if ($this->form_validation->run() === FALSE)
 		{
-			$this->_loadPage('confirm/missing');
+			$this->_loadPage(array('confirm/missing', 'confirm/form'));
 			return;
 		}
 		$this->load->model('ppe_user_condiment');
@@ -44,7 +44,7 @@ class Confirm extends Wolf_Controller
 		if (!$id)
 		{
 			$this->output->set_status_header(409);
-			$this->_loadPage('confirm/invalid');
+			$this->_loadPage(array('confirm/invalid', 'confirm/form'));
 		}
 		elseif ($this->ppe_user_role->getIsUserBanned($id))
 		{

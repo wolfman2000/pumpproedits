@@ -8,4 +8,3 @@ PHP file used for Pump Pro Edits
 */ ?>
 <p>The confirmation was unsuccessful. Double check both
 the confirmation code and password, then try again.</p>
-<?php $this->load->view('confirm/form');

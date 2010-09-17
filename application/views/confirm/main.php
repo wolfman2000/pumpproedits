@@ -10,4 +10,3 @@ PHP file used for Pump Pro Edits
 <p>Just fill in the form below with your password. If you came to this page
 through the navigation links instead of your email message, you will have to
 enter your confirmation code as well.</p>
-<?php $this->load->view('confirm/form');

@@ -7,4 +7,3 @@ PHP file used for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */ ?>
 <p>The confirmation was unsuccessful. Please fix the error and try again.</p>
-<?php $this->load->view('confirm/form');
