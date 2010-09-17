@@ -33,11 +33,21 @@ class Create extends Wolf_Controller
 			and browser_detection("ie_version") != "ie9x")
 		{
 			$this->output->set_status_header(415);
+			$this->_setHeader('Edit Creator Unavailable');
+			$this->_setTitle('Edit Creator Unavailable');
 			$this->_loadPage('create/unsupported');
 			return;
 		}
 		header("Content-Type: application/xhtml+xml");
-		$data = array();
+		$this->_addJS(array('/js/jquery.svg.js', '/js/jquery.svgdom.js',
+			'/js/creator/create_vars.js', '/js/creator/create_svg.js',
+			'/js/creator/create_parse.js', '/js/creator/create_misc.js',
+			'/js/creator/create_event.js', '/js/creator/create.js', '/js/json2.js'));
+		$this->data['xhtml'] = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
+			. "<?xml-stylesheet href=\"/css/svg/_svg.css\" type=\"text/css\"?>\r\n";
+		$this->_setCSS('css/create.css');
+		$this->_setHeader('Edit Creator');
+		$this->_setTitle('Edit Creator');
 		$this->data['songs'] = $this->ppe_song_song->getSongsWithGame()->result();
 		$this->data['andy'] = 0;
 		$this->data['others'] = 0;
@@ -98,10 +108,10 @@ class Create extends Wolf_Controller
 		echo json_encode($st);
 	}
 	
-	// Give the user help upon request.
+	// Give the user help upon request. It doesn't use the common files.
 	function help()
 	{
-		$this->_loadPage('create/help');
+		$this->load->view('create/help');
 	}
 	
 	// Get the possible difficulties for each song that comes in.
@@ -261,7 +271,7 @@ class Create extends Wolf_Controller
 			if (file_exists($path))
 			{
 				$data = array('notes' => 1, 'strict_song' => 0, 'arcade' => $diff);
-				$ret = $this->editparser->get_stats(gzopen($path, "r");
+				$ret = $this->editparser->get_stats(gzopen($path, "r"));
 				//$ret['difficulty'] = $this->editparser->getSMDiff($diff);
 			}
 			else
