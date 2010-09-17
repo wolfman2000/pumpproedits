@@ -8,4 +8,3 @@ PHP file used for Pump Pro Edits
 */ ?>
 <p>It looks like you did not type in the confirmation code
 correctly. Please double check it and try again.</p>
-<?php $this->load->view('reset/form');

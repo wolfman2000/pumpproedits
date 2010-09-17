@@ -22,7 +22,7 @@ class Reset extends Wolf_Controller
 	{
 		$this->_setHeader('Reset your Password');
 		$this->_setTitle('Reset your Password');
-		$this->_loadPage('reset/main');
+		$this->_loadPage(array('reset/main', 'reset/form'));
 	}
 	
 	function check()
@@ -31,7 +31,7 @@ class Reset extends Wolf_Controller
 		{
 			$this->_setHeader('Password Resetting Unsuccessful');
 			$this->_setTitle('Password Resetting Unsuccessful');
-			$this->_loadPage('reset/missing');
+			$this->_loadPage(array('reset/missing', 'reset/form'));
 			return;
 		}
 		$oreg = $this->input->post('confirm');
@@ -45,7 +45,7 @@ class Reset extends Wolf_Controller
 			$this->output->set_status_header(409);
 			$this->_setTitle('Password Resetting Unsuccessful');
 			$this->_setHeader('Password Resetting Unsuccessful');
-			$this->_loadPage('reset/mismatch');
+			$this->_loadPage(array('reset/mismatch', 'reset/form'));
 			//array_push($this->data, "Make sure you put in the confirmation code correctly.");
 		}
 		// rare to be banned while getting helped, but here it is...
