@@ -99,7 +99,7 @@ class Chart extends Wolf_Controller
 		$this->_addJS('/js/chart_edits.js');
 		$this->_setHeader('Edit Chart Generator');
 		$this->_setTitle('Edit Chart Generator');
-		$this->_loadPage('chart/edits');
+		$this->_loadPage(array('chart/edits', 'chart/editForm'));
 	}
 	
 	// Use this common GET function to show the edit.
@@ -117,7 +117,7 @@ class Chart extends Wolf_Controller
 			$this->_addJS('/js/chart_edits.js');
 			$this->_setHeader('No Edit Chart');
 			$this->_setTitle('No Edit Chart');
-			$this->_loadPage('chart/deleted');
+			$this->_loadPage(array('chart/deleted', 'chart/editForm'));
 			return;
 		}
 		
@@ -154,7 +154,7 @@ class Chart extends Wolf_Controller
 			$this->_addJS('/js/chart_edits.js');
 			$this->_setHeader('Edit Chart Error');
 			$this->_setTitle('Edit Chart Error');
-			$this->_loadPage('chart/editError');
+			$this->_loadPage(array('chart/editError', 'chart/editForm'));
 			return;
 		}
 		
@@ -181,7 +181,7 @@ class Chart extends Wolf_Controller
 		$this->_addJS('/js/official.js');
 		$this->_setHeader('Official Chart Generator');
 		$this->_setTitle('Official Chart Generator');
-		$this->_loadPage('chart/songs');
+		$this->_loadPage(array('chart/songs', 'chart/songForm'));
 	}
 	
 	// Use AJAJ to get the difficulties charted for each song.
@@ -208,7 +208,7 @@ class Chart extends Wolf_Controller
 			$this->_addJS('/js/official.js');
 			$this->_setHeader('Official Chart Generator');
 			$this->_setTitle('Official Chart Generator');
-			$this->_loadPage('chart/songError');
+			$this->_loadPage(array('chart/songError', 'chart/songForm'));
 			return;
 		}
 		$sid = $this->input->post('songs');

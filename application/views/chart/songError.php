@@ -8,5 +8,3 @@ PHP file used for Pump Pro Edits
 */ ?>
 <p>An error took place during processing. Read the error,
 make your adjustments, and try again.</p>
-
-<?php $this->load->view('chart/songForm', array('songs' => $songs, 'form' => $form));

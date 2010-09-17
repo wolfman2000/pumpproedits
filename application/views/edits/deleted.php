@@ -8,5 +8,3 @@ PHP file used for Pump Pro Edits
 */ ?>
 <p>The edit you requested is no longer available for download.
 You can preview different charts below to decide which one to download later.</p>
-
-<?php $this->load->view('chart/editForm', array('edits' => $edits));

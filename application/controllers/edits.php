@@ -191,7 +191,7 @@ class Edits extends Wolf_Controller
 			$this->_setHeader('Download Unavailable');
 			$this->_setTitle('Download Unavailable');
 			$this->_addJS('/js/chart_edits.js');
-			$this->_loadPage('edits/deleted');
+			$this->_loadPage(array('edits/deleted', 'chart/editForm'));
 			return;
 		}
 		
