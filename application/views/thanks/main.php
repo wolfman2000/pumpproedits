@@ -20,7 +20,8 @@ PHP file used for Pump Pro Edits
 <li><a href="#pumppro">Pump Pro</a></li>
 <li><a href="#internet">The Internet</a></li>
 <li><a href="#browser">The Browsers</a></li>
-<li><a href="#promote">The Promoters</a></li>
+<li><a href="#fansite">Other Fan Sites</a></li>
+<li><a href="#prevhost">Hosts in our History</a></li>
 </ul>
 </nav>
 
@@ -127,17 +128,24 @@ PHP file used for Pump Pro Edits
 <p><a href="#top">Back to Top</a></p>
 </section>
 
-<section id="promote">
-<h3>The Promoters</h3>
+<section id="fansite">
+<h3>Other Fan Sites</h3>
+<dl>
+<dt><a href="http://www.piu-pro.com">Pump It Up Pro Blog</a></dt>
+<dd>They were one of the first fan websites to link to back here.</dd>
+<dt><a href="http://www.pumpproplus.com">Pump Pro Plus</a></dt>
+<dd>Fellow fan developer Crevolous and I have helped each other exchange data in the past.</dd>
+</dl>
+<p><a href="#top">Back to Top</a></p>
+</section>
+
+<section id="prevHost">
+<h3>Hosts in our History</h3>
 <dl>
 <dt><a href="http://www.site5.com">Site5 Web Hosting</a></dt>
 <dd>The original host for this page, they've been good to me.</dd>
 <dt><a href="http://www.slicehost.com">Slicehost - VPS Hosting</a></dt>
 <dd>Anyone that requires a virtual private server should check these guys out. They used to host this website.</dd>
-<dt><a href="http://www.piu-pro.com">Pump It Up Pro Blog</a></dt>
-<dd>They were one of the first fan websites to link to back here.</dd>
-<dt><a href="http://www.pumpproplus.com">Pump Pro Plus</a></dt>
-<dd>Fellow fan developer Crevolous and I have helped each other exchange data in the past.</dd>
 <dt><a href="http://www.nearlyfreespeech.net">NearlyFreeSpeech.NET</a></dt>
 <dd>If anyone ever needs a la carte web hosting, these are the guys to go to.</dd>
 <dt><a href="http://www.dreamhost.com">Dreamhost</a></dt>
