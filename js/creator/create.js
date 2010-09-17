@@ -86,18 +86,6 @@ $(document).ready(function()
     if (checking)
     {
       _enable("#but_load");
-      function loadButtons()
-      {
-        $("li.edit").hide();
-        if (authed > 0)
-        {
-          $("li.loadWeb").show();
-          $("li[class^=load]:not(.loadWeb)").hide();
-          $("#intro").text("Select your option.");
-        }
-        else { loadHardDrive(); }
-      }
-      
       if ($("#stylelist").val().length) { loadButtons(); }
       else { $(".choose").slideUp(200, function(){ loadButtons(); }); }
     }

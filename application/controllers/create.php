@@ -42,7 +42,7 @@ class Create extends Wolf_Controller
 		$this->_addJS(array('/js/jquery.svg.js', '/js/jquery.svgdom.js',
 			'/js/creator/create_vars.js', '/js/creator/create_svg.js',
 			'/js/creator/create_parse.js', '/js/creator/create_misc.js',
-			'/js/creator/create_event.js', '/js/creator/create.js', '/js/json2.js'));
+			'/js/creator/create_event.js', '/js/creator/auth_none.js'));
 		$this->data['xhtml'] = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n"
 			. "<?xml-stylesheet href=\"/css/svg/_svg.css\" type=\"text/css\"?>\r\n";
 		$this->_setCSS('css/create.css');
@@ -58,6 +58,7 @@ class Create extends Wolf_Controller
 		
 		if ($id)
 		{
+			$this->_addJS('/js/creator/auth_basic.js');
 			$this->data['andy'] = $this->ppe_user_power->canEditOfficial($id);
 			$this->data['others'] = $this->ppe_user_power->canEditOthers($id);
 			$this->data['loads'][] = array('id' => $id, 'value' => 'Load one of my web site edits.');
@@ -72,6 +73,7 @@ class Create extends Wolf_Controller
 				}
 			}
 		}
+		$this->_addJS(array('/js/creator/create.js', '/js/json2.js'));
 		$this->_loadPage(array('create/main', 'create/nav'));
 	}
 	
