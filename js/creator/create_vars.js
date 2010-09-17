@@ -29,20 +29,24 @@ var SCALE; // How much of a zoom factor is there?
 var ADJUST_SIZE; // common operation: size = ARR_HEIGHT * SCALE
 var MEASURE_HEIGHT; // height of measure = ADJUST_SIZE * BEATS_PER_MEASURE
 
-const SVG_NS = "http://www.w3.org/2000/svg"; // required for creating elements.
-const ARR_HEIGHT = 16; // initial arrow heights were 16px.
-const BEATS_PER_MEASURE = 4; // always 4 beats per measure (for our purposes)
+// everything below is meant to be a CONSTANT.
+// Until all browsers support const, pray
+// that no one actually edits these manually.
+
+var SVG_NS = "http://www.w3.org/2000/svg"; // required for creating elements.
+var ARR_HEIGHT = 16; // initial arrow heights were 16px.
+var BEATS_PER_MEASURE = 4; // always 4 beats per measure (for our purposes)
 
 // These constants may change later, depending on how much spacing is wanted.
-const BUFF_TOP = ARR_HEIGHT;
-const BUFF_LFT = ARR_HEIGHT * 2;
-const BUFF_RHT = ARR_HEIGHT * 2;
-const BUFF_BOT = ARR_HEIGHT;
+var BUFF_TOP = ARR_HEIGHT;
+var BUFF_LFT = ARR_HEIGHT * 2;
+var BUFF_RHT = ARR_HEIGHT * 2;
+var BUFF_BOT = ARR_HEIGHT;
 
-const BEATS_MAX = 192; // LCD of 48 and 64
-const MEASURE_RATIO = BEATS_MAX / (ARR_HEIGHT * BEATS_PER_MEASURE);
+var BEATS_MAX = 192; // LCD of 48 and 64
+var MEASURE_RATIO = BEATS_MAX / (ARR_HEIGHT * BEATS_PER_MEASURE);
 
-const EOL = "\r\n"; // mainly for file parsing/saving.
+var EOL = "\r\n"; // mainly for file parsing/saving.
 
 // Test that an object is empty.
 function isEmpty(obj)
