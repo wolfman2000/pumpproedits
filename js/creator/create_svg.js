@@ -59,7 +59,7 @@ function genPath(m)
   return r;
 }
 
-// The "base" arrow is down left. Use this to generate almost all others.
+// The "base" arrow is down left. Use this to generate the other corner arrows..
 function genDLArrow(x, y, css)
 {
   var s = genArrow(x, y, css);
@@ -87,7 +87,7 @@ function genULArrow(x, y, css)
   return s;
 }
 
-// Make the center arrow. It's different from the others.
+// Make the center arrow. It's different from the other arrows by default.
 function genCNArrow(x, y, css)
 {
   var s = genArrow(x, y, css);
