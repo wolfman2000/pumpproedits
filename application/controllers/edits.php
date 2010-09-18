@@ -66,7 +66,7 @@ class Edits extends Wolf_Controller
 		$this->_setCSS('css/edit_table.css');
 		$this->_setHeader("Edits by $user");
 		$this->_setTitle("Edits by $user");
-		$this->_addJS(array('/js/jquery.pager.js', '/js/edit_user.js'));
+		// $this->_addJS(array('/js/jquery.pager.js', '/js/edit_user.js'));
 		//TODO: Make these use a standard function.
 		$this->data['const_user'] = $id;
 		$this->data['showsong'] = 1;
@@ -108,7 +108,7 @@ class Edits extends Wolf_Controller
 		$this->_setCSS('css/edit_table.css');
 		$this->_setHeader("Official Edits");
 		$this->_setTitle("Official Edits");
-		$this->_addJS(array('/js/jquery.pager.js', '/js/edit_user.js'));
+		// $this->_addJS(array('/js/jquery.pager.js', '/js/edit_user.js'));
 		$this->data['const_user'] = 2;
 		
 		$this->data['showsong'] = 1;
@@ -164,7 +164,7 @@ class Edits extends Wolf_Controller
 		$this->_setCSS('css/edit_table.css');
 		$this->_setHeader("Edits of $song");
 		$this->_setTitle("Edits of $song");
-		$this->_addJS(array('/js/jquery.pager.js', '/js/edit_song.js'));
+		// $this->_addJS(array('/js/jquery.pager.js', '/js/edit_song.js'));
 		//TODO: Make these use a standard function.
 		$this->data['const_song'] = $id;
 		$this->data['showuser'] = 1;

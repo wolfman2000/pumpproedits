@@ -21,24 +21,6 @@ if ($browser == "ie"): ?>
 <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
 <?php endif; /* Info below is for various pages. */ ?>
-<script type="text/javascript">
-//<![CDATA[
-<?php $uid = $this->session->userdata('id'); ?>
-<?php if (isset($baseEdits)): 
-$maxPages = floor($baseEdits / APP_BASE_EDITS_PER_PAGE);
-if ($baseEdits % APP_BASE_EDITS_PER_PAGE) { $maxPages++; } ?>
-const maxPages = <?php echo $maxPages; ?>;
-<?php endif; if (isset($maxEdits)):
-$maxPages = floor($maxEdits / APP_MAX_EDITS_PER_PAGE);
-if ($maxEdits % APP_MAX_EDITS_PER_PAGE) { $maxPages++; } ?>
-const maxPages = <?php echo $maxPages; ?>;
-<?php endif; if (isset($const_user)):?>
-const userID = <?php echo $const_user; ?>;
-<?php endif; if (isset($const_song)):?>
-const songID = <?php echo $const_song; ?>;
-<?php endif; ?>
-//]]>
-</script>
 <?php foreach ($scripts as $script): ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php endforeach; ?>
