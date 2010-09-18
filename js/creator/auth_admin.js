@@ -30,8 +30,27 @@ $(document).ready(function()
 		}
 		else if (item == "all")
 		{
-			$("li.loadOther").show();
-			$("li[class^=load]:not(.loadOther)").hide();
+			$.getJSON(baseURL + "/getOtherUsersWithEdits", function(data, status)
+			{
+				if (isEmpty(data.alert))
+				{
+					$("#other_sel").empty();
+					data = data.peeps;
+					for (var i = 0; i < data.length; i++)
+					{
+						var out = data[i]['name'];
+						var html = '<option value="' + data[i]['id'] + '">' + out + '</option>';
+						$("#other_sel").append(html);
+					}
+					$("#other_sel").val(data[0]['id']);
+					$("li.loadOther").show();
+					$("li[class^=load]:not(.loadOther)").hide();
+				}
+				else
+				{
+					// cause an alert
+				}
+			});
 		}
 	});
 	

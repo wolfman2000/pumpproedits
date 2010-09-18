@@ -33,10 +33,7 @@ PHP file used for Pump Pro Edits
 <li class="loadWeb"><button id="web_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
 <li class="loadWeb"><button id="web_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadOther long reset">Choose a person for edits...carefully.</li>
-<li class="loadOther long"><select id="other_sel">
-<?php foreach ($peeps as $p): ?>
-<option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
-<?php endforeach; ?></select></li>
+<li class="loadOther long"><select id="other_sel"></select></li>
 <li class="loadOther"><button id="other_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
 <li class="loadOther"><button id="other_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadSong long reset"><label for="loadSong">Select your song!</label></li>
