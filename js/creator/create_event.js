@@ -297,57 +297,6 @@ function songMode()
   });
 }
 
-// Set up the general canvas size and menus.
-function setupMenus()
-{
-	measures = songData.measures;
-	$("#scalelist").val(2.5);
-	captured = false;
-	columns = getCols();
-	$("rect[id^=sel]").attr('width', columns * ARR_HEIGHT).hide();
-	fixScale(2.5, 600);
-    
-	loadSVGMeasures();
-    
-	$("#tabNav a").filter(':first').click();
-	$("#navEditTransform span[id$=Check]").text("???");
-	$("nav dt.edit").show();
-	$("nav dd.edit").show();
-	$("nav *.choose").hide();
-	if ($("#stylelist").val() !== "routine") { $("nav .routine").hide(); }
-	else { $("nav .routine").show(); }
-	var phrase = songData.name + " " + $("#stylelist").val().capitalize();
-	$("h2").first().text(phrase);
-	$("title").text("Editing " + phrase + " — Pump Pro Edits");
-	_enable("#but_new");
-	_enable("#editName");
-    
-	if (!authed)
-	{
-		$(".author").hide();
-	}
-	else
-	{
-		$("#authorlist").val(0);
-		authID = authed;
-		if (andamiro)
-		{
-			$(".author").show(); _enable("#authorlist");
-		}
-		else
-		{ 
-			$(".author").hide(); _disable("#authorlist");
-			$("li.author:eq(2)").next().andSelf().show();
-		}
-	}
-    
-	clipboard = null;
-	_enable("#but_load");
-	$("#editName").attr('maxlength', 12);
-	$("#editSong").text("Edit Name:");
-	$("#but_sub").attr('name', 'editSubmit');
-}
-
 //Enter this mode upon choosing a song and difficulty.
 function editMode(canPublic)
 {

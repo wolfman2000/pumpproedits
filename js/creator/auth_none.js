@@ -39,3 +39,35 @@ function setAuthor()
 {
 	authID = 0;
 }
+
+// handle the common setup of the menus.
+function _commonMenuSetup()
+{
+	measures = songData.measures;
+	$("#scalelist").val(2.5);
+	captured = false;
+	columns = getCols();
+	$("rect[id^=sel]").attr('width', columns * ARR_HEIGHT).hide();
+	fixScale(2.5, 600);
+    
+	loadSVGMeasures();
+    
+	$("#tabNav a").filter(':first').click();
+	$("#navEditTransform span[id$=Check]").text("???");
+	$("nav dt.edit").show();
+	$("nav dd.edit").show();
+	$("nav *.choose").hide();
+	if ($("#stylelist").val() !== "routine") { $("nav .routine").hide(); }
+	else { $("nav .routine").show(); }
+	var phrase = songData.name + " " + $("#stylelist").val().capitalize();
+	$("h2").first().text(phrase);
+	$("title").text("Editing " + phrase + " — Pump Pro Edits");
+	_enable("#but_new");
+	_enable("#editName");
+}
+
+function setupMenus()
+{
+	_commonMenuSetup();
+	$(".author").hide();
+}

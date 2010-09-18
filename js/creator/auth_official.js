@@ -24,3 +24,11 @@ $(document).ready(function()
 	});
 });
 
+function setupMenus()
+{
+	_commonMenuSetup();
+	$(".author").hide();
+	$("#authorlist").val(0);
+	$(".author").show();
+	_enable("#authorlist");
+}

@@ -153,3 +153,13 @@ function uploadEdit()
 		}
 	}, "json");
 }
+
+function setupMenus()
+{
+	_commonMenuSetup();
+	$(".author").hide();
+	$("#authorlist").val(0);
+	$(".author").hide();
+	_disable("#authorlist");
+	$("li.author:eq(2)").next().andSelf().show();
+}
