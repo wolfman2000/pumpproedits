@@ -123,11 +123,7 @@ class Create extends Wolf_Controller
 	// Load the edit from the hard drive...via textarea.
 	function loadTextarea()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: application/json");
 		$file = $this->input->post('file');
 		
@@ -162,11 +158,7 @@ class Create extends Wolf_Controller
 	// Get the possible difficulties for each song that comes in.
 	function songDifficulties()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: application/json");
 		$sid = $this->uri->segment(3);
 		$ret = array();
@@ -182,11 +174,7 @@ class Create extends Wolf_Controller
 	// Determine if the chosen song can have routine charts.
 	function routine()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: application/json");
 		$sid = $this->uri->segment(3);
 		$ret['isRoutine'] = $this->ppe_song_game->getRoutineCompatible($sid);
@@ -232,11 +220,7 @@ class Create extends Wolf_Controller
 	// Load measure/sync data for the chosen song.
 	function song()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: application/json");
 		$sid = $this->uri->segment(3);
 		$ret = $this->_songData($sid);
@@ -247,11 +231,7 @@ class Create extends Wolf_Controller
 	// Load the list of songs that can be edited.
 	function loadSongList()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: appliaction/json");
 		echo json_encode($this->ppe_song_song->getSongsWithGame()->result());
 	}
@@ -282,11 +262,7 @@ class Create extends Wolf_Controller
 	// Load the chosen edit into the Edit Creator.
 	function loadWebEdit()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: application/json");
 		$id = $this->uri->segment(3);
 		$ret = $this->ppe_edit_edit->getEditChartStats($id);
@@ -299,11 +275,7 @@ class Create extends Wolf_Controller
 	// Load the official chart...if it exists. If it does not, say so.
 	function loadOfficial()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: application/json");
 		$id = $this->uri->segment(3);
 		$diff = $this->uri->segment(4);
@@ -364,11 +336,7 @@ class Create extends Wolf_Controller
 	// Upload the official chart to the website.
 	function uploadOfficial()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: application/json");
 		$row = array();
 		
@@ -423,11 +391,7 @@ class Create extends Wolf_Controller
 	// Should I allow title changing, and risk overriding?
 	function upload()
 	{
-		if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-			strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'))
-		{
-			return;
-		}
+		if (!$this->_isAJAX()) { return; }
 		header("Content-Type: application/json");
 		$myID = $this->session->userdata('id');
 		$row = array();
