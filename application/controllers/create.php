@@ -48,7 +48,6 @@ class Create extends Wolf_Controller
 		$this->_setCSS('css/create.css');
 		$this->_setHeader('Edit Creator');
 		$this->_setTitle('Edit Creator');
-		$this->data['songs'] = $this->ppe_song_song->getSongsWithGame()->result();
 		$this->data['andy'] = 0;
 		$this->data['others'] = 0;
 		$id = $this->session->userdata('id');
