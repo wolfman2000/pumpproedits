@@ -137,14 +137,7 @@ $(document).ready(function()
     $("#intro").text("Loading edit...");
     $.post(baseURL + "/loadTextarea", { file: $("#fCont").val()}, function(data, status)
     {
-      loadTextEdit(data);
-      editID = 0;
-      $("#intro").text("All loaded up!");
-      _enable("#but_save");
-      _disable("#but_val");
-      if (andamiro) { $(".author").show(); _enable("#authorlist"); }
-      else          { $(".author").hide(); _disable("#authorlist"); }
-      isDirty = false;
+      loadTextArea(data);
     }, "json");
   });
   

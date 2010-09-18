@@ -32,3 +32,10 @@ function setupMenus()
 	$(".author").show();
 	_enable("#authorlist");
 }
+
+function loadTextArea(data)
+{
+	_customTextArea(data);
+	$(".author").show();
+	_enable("#authorlist");
+}

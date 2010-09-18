@@ -134,3 +134,21 @@ function init()
 	_commonInit();
 	_disable("#cho_site");
 }
+
+// Common place to load textarea stuff
+function _customTextArea(data)
+{
+	loadTextEdit(data);
+	editID = 0;
+	$("#intro").text("All loaded up!");
+	_enable("#but_save");
+	_disable("#but_val");
+	isDirty = false;
+}
+
+function loadTextArea(data)
+{
+	_customTextArea(data);
+	$(".author").hide();
+	_disable("#authorlist");
+}
