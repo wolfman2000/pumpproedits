@@ -86,8 +86,19 @@ $(document).ready(function()
     if (checking)
     {
       _enable("#but_load");
-      if ($("#stylelist").val().length) { loadButtons(); }
-      else { $(".choose").slideUp(200, function(){ loadButtons(); }); }
+      $.getJSON(baseURL + "/loadPermissions", function(data, status)
+	  {
+	  	  $("#web_sel").empty();
+	  	  for (var i = 0; i < data.length; i++)
+		{
+			var out = data[i]['value'];
+			var html = '<option value="' + data[i]['id'] + '">' + out + '</option>';
+			$("#web_sel").append(html);
+			
+			if ($("#stylelist").val().length) { loadButtons(); }
+	  	  else { $(".choose").slideUp(200, function(){ loadButtons(); }); }
+		}
+	  });
     }
   });
   

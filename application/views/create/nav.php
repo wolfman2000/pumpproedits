@@ -26,10 +26,7 @@ PHP file used for Pump Pro Edits
 <li><button id="but_load" type="button" class="fg-button ui-state-default ui-corner-all">Load</button></li>
 <li><button id="but_val" type="button" class="fg-button ui-state-default ui-corner-all">Validate</button></li>
 <li class="loadWeb long reset">What are you editing?</li>
-<li class="loadWeb long reset"><select id="web_sel">
-<?php foreach ($loads as $l): ?>
-<option value="<?php echo $l['id']; ?>"><?php echo $l['value']; ?></option>
-<?php endforeach; ?></select></li>
+<li class="loadWeb long reset"><select id="web_sel"></select></li>
 <li class="loadWeb"><button id="web_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
 <li class="loadWeb"><button id="web_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadOther long reset">Choose a person for edits...carefully.</li>

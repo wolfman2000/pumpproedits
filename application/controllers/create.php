@@ -52,24 +52,18 @@ class Create extends Wolf_Controller
 		$this->data['andy'] = 0;
 		$this->data['others'] = 0;
 		$id = $this->session->userdata('id');
-		$this->data['loads'] = array();
-		$this->data['loads'][] = array('id' => 'hd', 'value' => 'Load edit from hard drive.');
 		
 		if ($id)
 		{
 			$this->_addJS('/js/creator/auth_basic.js');
 			$this->data['andy'] = $this->ppe_user_power->canEditOfficial($id);
-			$this->data['loads'][] = array('id' => 'you', 'value' => 'Load one of my web site edits.');
 			if ($this->data['andy'])
 			{
 				$this->_addJS('/js/creator/auth_official.js');
-				$this->data['loads'][] = array('id' => 'and', 'value' => 'Load an official web site edit.');
 				$this->data['others'] = $this->ppe_user_power->canEditOthers($id);
 				if ($this->data['others'])
 				{
 					$this->_addJS('/js/creator/auth_admin.js');
-					$this->data['loads'][] = array('id' => 'off', 'value' => 'Load an official stepchart.');
-					$this->data['loads'][] = array('id' => 'all', 'value' => "Load someone else's edit...carefully.");
 				}
 			}
 		}
@@ -82,6 +76,30 @@ class Create extends Wolf_Controller
 	{
 		$tmp = $_SERVER['HTTP_X_REQUESTED_WITH'];
 		return (isset($tmp) and strtolower($tmp) === 'xmlhttprequest');
+	}
+	
+	// Figure out the permissions allowed for the user.
+	function loadPermissions()
+	{
+		if (!$this->_isAJAX()) { return; }
+		header("Content-Type: application/json");
+		$ret = array();
+		$ret[] = array('id' => 'hd', 'value' => 'Load edit from hard drive.');
+		$id = $this->session->userdata('id');
+		if ($id)
+		{
+			$ret[] = array('id' => 'you', 'value' => 'Load one of my web site edits.');
+			if ($this->ppe_user_power->canEditOfficial($id))
+			{
+				$ret[] = array('id' => 'and', 'value' => 'Load an official web site edit.');
+				if ($this->ppe_user_power->canEditOthers($id))
+				{
+					$ret[] = array('id' => 'off', 'value' => 'Load an official stepchart.');
+					$ret[] = array('id' => 'all', 'value' => "Load someone else's edit...carefully.");
+				}
+			}
+		}
+		echo json_encode($ret);
 	}
 	
 	// Identify other users that have edits besides the obvious ones.
