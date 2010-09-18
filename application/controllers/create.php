@@ -395,11 +395,39 @@ class Create extends Wolf_Controller
 			return;
 		}
 		header("Content-Type: application/json");
+		$myID = $this->session->userdata('id');
 		$row = array();
 		$eid = $this->input->post('editID');
 		$row['id'] = $this->input->post('songID'); // must stay consistent.
 		$song = $this->ppe_song_song->getSongByID($row['id']);
-		$row['uid'] = $this->input->post('userID');
+		$person = $this->input->post('userID');
+		
+		if ($person === "andamiro")
+		{
+			$row['uid'] = 2;
+		}
+		else
+		{
+			if ($eid == 0)
+			{
+				$row['uid'] = $myID;
+			}
+			else
+			{
+				$row['uid'] = $this->ppe_edit_edit->getUserIDByEditID($eid);
+			}
+		}
+		if ($myID != $row['uid'])
+		{
+			if (($row['uid'] == 2 and
+				(!$this->ppe_user_power->canEditOfficial($myID)))
+				or (!$this->ppe_user_power->canEditOthers($myID)))
+			{
+				// throw an error, user doesn't have permissions.
+			}
+		}
+		
+		# $row['uid'] = $this->input->post('userID');
 		$row['title'] = $this->input->post('title');
 		$st = $this->input->post('style');
 		$row['style'] = "pump-" . $st;

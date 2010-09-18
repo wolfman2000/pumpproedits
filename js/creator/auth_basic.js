@@ -33,7 +33,7 @@ $(document).ready(function()
 			$("li.author:eq(0)").next().andSelf().hide();
 			$("li.author:eq(2)").next().andSelf().show();
 			isDirty = false;
-			authID = parseInt(data.authID);
+			// authID = parseInt(data.authID);
 		});
 	});
 });
@@ -63,7 +63,7 @@ function _populateEditList(data)
 // Load up the chosen user's songs.
 function loadWebEdits(user)
 {
-	authID = user;
+	// authID = user;
 	_displayEditList();
 	$.getJSON(baseURL + '/loadEditList/' + user, function(data)
 	{
@@ -76,7 +76,7 @@ function loadOwnEdits()
 	_displayEditList();
 	$.getJSON(baseURL + '/loadOwnEdits', function(data)
 	{
-		authID = data['auth'];
+		// authID = data['auth'];
 		_populateEditList(data['query']);
 	});
 }
@@ -98,11 +98,6 @@ function validationPassed(data)
 	_enable("#but_sub");
 }
 
-function setAuthor()
-{
-	authID = ($("#authorlist").val() == 0 ? "person" : "andamiro");
-}
-
 // Upload the intended edit.
 function uploadEdit()
 {
@@ -113,7 +108,7 @@ function uploadEdit()
 	data['style'] = $("#stylelist").val();
 	data['editID'] = editID;
 	data['songID'] = songID;
-	data['userID'] = authID;
+	data['userID'] = ($("#authorlist").val() == 0 ? "person" : "andamiro");
 	data['notes'] = $("#noteJSON").val(); // JSON'ed.
 	data['public'] = $("#editPublic").val();
 	data['radar'] = $("#radar").val(); // underline separator

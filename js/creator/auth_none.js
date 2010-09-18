@@ -35,11 +35,6 @@ function validationPassed(data)
 	_disable("#but_val");
 }
 
-function setAuthor()
-{
-	authID = 0;
-}
-
 // handle the common setup of the menus.
 function _commonMenuSetup()
 {

@@ -196,6 +196,14 @@ class Ppe_edit_edit extends Model
 		->get('edits_uploaded');
 		return $q->num_rows() ? $q->row()->id : null;
 	}
+	
+	// Get the owner of this edit...well, the user ID at least.
+	function getUserIDByEditID($eid)
+	{
+		$q = $this->db->select('user_id')->where('id', $eid)
+			->get('ppe_edit_edit');
+		return $q->num_rows() ? $q->row()->user_id : null;
+	}
 
   // Common function that uses the full view.
 	private function _getGoodEdits($order, $where = null, $limit = 10000)

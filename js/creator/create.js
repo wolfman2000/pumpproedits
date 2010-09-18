@@ -191,11 +191,6 @@ $(document).ready(function()
     $("#intro").text("Have fun editing!");
   });
   
-  // The author wishes to indicate whose work this really is.
-  $("#authorlist").change(function(){
-    setAuthor();
-  });
-  
   // The author wishes to change the edit title / name.
   $("#editName").keyup(function(){
     _disable("#but_save");
