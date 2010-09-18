@@ -23,10 +23,10 @@ $(document).ready(function()
 		else if (item == "and") { loadWebEdits(2); }
 		else if (item == "off")
 		{
+			loadSongList("#loadSong");
 			$("li.loadSong").show();
 			$("li[class^=load]:not(.loadSong)").hide();
 			_disable("#loadDifficulty");
-			$("#loadSong").val('');
 		}
 		else if (item == "all")
 		{

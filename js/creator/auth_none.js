@@ -121,6 +121,7 @@ function _commonInit()
 	$("#loadDifficulty").val("");
 	$("#loadSong").val("");
 	_disable("#song_yes");
+	loadSongList("#songlist");
 }
 
 // Load up this data on new.

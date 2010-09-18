@@ -93,3 +93,17 @@ function _enable(str)
 	$(str).removeClass('ui-state-disabled')
 	$(str).removeAttr('disabled');
 }
+
+// Taken from a blog, it's the JS equivalent of PHP's htmlspecialchars().
+function htmlspecialchars(str)
+{
+	if (typeof(str) == "string")
+	{
+		str = str.replace(/&/g, "&amp;"); /* must do &amp; first */
+		str = str.replace(/"/g, "&quot;");
+		str = str.replace(/'/g, "&#039;");
+		str = str.replace(/</g, "&lt;");
+		str = str.replace(/>/g, "&gt;");
+	}
+	return str;
+ }

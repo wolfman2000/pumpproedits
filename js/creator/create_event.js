@@ -165,6 +165,36 @@ function updateStats(data)
     $("#intro").text("Provide an edit title and difficulty.");
   }
 }
+
+// Dynamically load the song list in one place.
+function loadSongList(selectID)
+{
+	$.getJSON(baseURL + "/loadSongList", function(data, status)
+	{
+		$(selectID).empty();
+		
+		var oid = "無";
+		var html = '';
+		
+		$(selectID).append("<option value=\"無\">Choose</option>");
+		for (var i = 0; i < data.length; i++)
+		{
+			if (data[i]['gid'] != oid)
+			{
+				if (oid != "無")
+				{
+					html += "</optgroup>";
+				}
+				html += '<optgroup label="' + data[i]['game'] + "\">";
+				oid = data[i]['gid'];
+			}
+			var out = htmlspecialchars(data[i]['name']);
+			html += '<option value="' + data[i]['id'] + '">' + out + '</option>';
+		}
+		$(selectID).append(html + "</optgroup>");
+	});
+}
+
 // The author will load an edit from the hard drive.
 function loadHardDrive()
 {
