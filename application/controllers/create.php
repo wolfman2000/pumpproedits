@@ -48,24 +48,21 @@ class Create extends Wolf_Controller
 		$this->_setCSS('css/create.css');
 		$this->_setHeader('Edit Creator');
 		$this->_setTitle('Edit Creator');
-		$this->data['andy'] = 0;
-		$this->data['others'] = 0;
 		$id = $this->session->userdata('id');
 		
 		if ($id)
 		{
 			$this->_addJS('/js/creator/auth_basic.js');
-			$this->data['andy'] = $this->ppe_user_power->canEditOfficial($id);
-			if ($this->data['andy'])
+			if ($this->ppe_user_power->canEditOfficial($id))
 			{
 				$this->_addJS('/js/creator/auth_official.js');
-				$this->data['others'] = $this->ppe_user_power->canEditOthers($id);
-				if ($this->data['others'])
+				if ($this->ppe_user_power->canEditOthers($id))
 				{
 					$this->_addJS('/js/creator/auth_admin.js');
 				}
 			}
 		}
+		// TODO: Figure out how to handle situations when the role is changed.
 		$this->_addJS(array('/js/creator/create.js', '/js/json2.js'));
 		$this->_loadPage(array('create/main', 'create/nav'));
 	}
