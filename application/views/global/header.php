@@ -1,4 +1,4 @@
-<?php if (!(isset($xhtml))) { $xhtml = ''; } echo $xhtml; ?>
+<?php echo $xhtml; ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -20,7 +20,7 @@ PHP/HTML file used for Pump Pro Edits
 if ($browser == "ie"): ?>
 <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
-<?php endif; # Info below is for various pages. ?>
+<?php endif; /* Info below is for various pages. */ ?>
 <script type="text/javascript">
 //<![CDATA[
 <?php $uid = $this->session->userdata('id'); ?>
@@ -56,7 +56,7 @@ const songID = <?php echo $const_song; ?>;
       <li><a href="http://chrome.google.com">Chrome</a></li>
       <li><a href="http://www.apple.com/safari">Safari</a></li>
       <li><a href="http://www.opera.com">Opera</a></li>
-      <?php elseif ($this->session->userdata('id')): # logged in ?>
+      <?php elseif ($this->session->userdata('id')): /* logged in */ ?>
       <li><a href="#"><?php echo $this->session->userdata('username'); ?></a></li>
       <li><?php echo anchor("/user/" . $this->session->userdata('id'), "Your Edits"); ?></li>
       <li><?php echo anchor("/logout", "Log out"); ?></li>
@@ -72,15 +72,15 @@ const songID = <?php echo $const_song; ?>;
 				<p><?php echo $logStat; ?></p>
 			</div>
 		</div>
-    <?php */ else: # Did not log in. ?>
+    <?php */ else: /* Did not log in. */ ?>
     <div class="ui-widget">
 			<div class="ui-state-error ui-corner-all"> 
-				<p><?php # <span class="ui-icon ui-icon-alert"></span> ?>
+				<p><?php /* <span class="ui-icon ui-icon-alert"></span> */ ?>
 				<strong>Alert:</strong> <?php echo $logStat; ?></p>
 			</div>
 		</div>
-    <?php endif; # end login message ?>
-    <?php endif; # end check for login attempt ?>
+    <?php endif; /* end login message */ ?>
+    <?php endif; /* end check for login attempt */ ?>
   </div>
 </header>
 <div class="clear"></div>
