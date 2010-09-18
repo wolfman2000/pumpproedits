@@ -71,3 +71,66 @@ function setupMenus()
 	_commonMenuSetup();
 	$(".author").hide();
 }
+
+// Load up this common data upon starting a new edit.
+function _commonInit()
+{
+	captured = false;
+	clipboard = null;
+	songData = null;
+	measures = 3; // temp variable.
+	columns = 5; // reasonable default.
+	$("article").css('height', '50em');
+	fixScale(2, 1000,
+		5 * ARR_HEIGHT * SCALE + BUFF_LFT + BUFF_RHT,
+		ADJUST_SIZE * BEATS_PER_MEASURE * 3 + BUFF_TOP + BUFF_BOT);
+	$("title").text("Edit Creator — Pump Pro Edits");
+	$("h2").first().text("Edit Creator");
+	
+	$("nav dt.edit").hide();
+	$("nav dd.edit").hide();
+	$("nav li[class^=load]").hide();
+	$(".loadOther").hide();
+	$("#selTop").hide();
+	$("#selBot").hide();
+	$("#shadow").addClass('hide');
+	$("nav *.choose").show();
+	_disable("#stylelist");
+	_disable("#but_sub");
+	_disable("#but_save");
+	_disable("#but_val");
+	_disable("#but_new");
+	_enable("#cho_file");
+	
+	// reset the drop downs (and corresponding variables) to default values.
+	$("#songlist").val('');
+	$("#stylelist").val('');
+	$("#scalelist").val(2.5);
+	$("#quanlist").val(4);
+	$("#typelist").val(1);
+	$("#playerlist").val(0);
+	$("#modelist").val(0);
+	$("#editName").val('');
+	$("#editDiff").val('');
+	editID = 0;
+	selMode = 0;
+	
+	$("#notes g[id^=svg]").empty();
+	
+	$("#intro").text("Select your action.");
+	
+	isDirty = false;
+	_enable("#but_load");
+	_enable("#songlist");
+	
+	$("#loadDifficulty").val("");
+	$("#loadSong").val("");
+	_disable("#song_yes");
+}
+
+// Load up this data on new.
+function init()
+{
+	_commonInit();
+	_disable("#cho_site");
+}

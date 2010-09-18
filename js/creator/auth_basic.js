@@ -163,3 +163,10 @@ function setupMenus()
 	_disable("#authorlist");
 	$("li.author:eq(2)").next().andSelf().show();
 }
+
+// Load up this data on new.
+function init()
+{
+	_commonInit();
+	_enable("#cho_site");
+}
