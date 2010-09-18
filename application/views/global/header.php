@@ -12,7 +12,7 @@ PHP/HTML file used for Pump Pro Edits
 <meta charset="UTF-8" />
 <meta name="title" content="Pump Pro Edits" />
 <meta name="description" content="This website allows users to create and share edits for the game Pump It Up Pro." />
-<meta name="keywords" content="Pump It Up Pro, Pump Pro, Pump It Up, Pro, edits, Wolfman2000, Jason Felds" />
+<meta name="keywords" content="pump it up pro, pump pro, pump it up, pro, edits, wolfman2000, jason felds, pump pro edits" />
 <meta name="lang" content="en" />
 <meta name="robots" content="index, follow" />
 <title><?php echo $title; ?></title><link rel="shortcut icon" href="/favicon.ico" />
