@@ -100,7 +100,7 @@ function validationPassed(data)
 
 function setAuthor()
 {
-	authID = ($("#authorlist").val() == 0 ? authed : 2);
+	authID = ($("#authorlist").val() == 0 ? "person" : "andamiro");
 }
 
 // Upload the intended edit.
