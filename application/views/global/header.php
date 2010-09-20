@@ -33,7 +33,7 @@ if ($browser == "ie"): ?>
   </a></h1>
   <div class="grid_5 alpha" id="userbar">
     <ul>
-      <?php if (!$modern): ?>
+      <?php if ($browser == "ie"): ?>
       <li><a href="http://www.firefox.com">Firefox</a></li>
       <li><a href="http://chrome.google.com">Chrome</a></li>
       <li><a href="http://www.apple.com/safari">Safari</a></li>
