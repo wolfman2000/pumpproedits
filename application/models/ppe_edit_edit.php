@@ -171,7 +171,7 @@ class Ppe_edit_edit extends Model
 		->where('is_problem', 0)
 		->where('deleted_at', null)
 		->where('user_id', $uid)
-		->order_by('LOWER(sname')
+		->order_by('LOWER(sname)')
 		->order_by('title')
 		->order_by('style')
 		->get('edits_to_delete');
@@ -195,6 +195,14 @@ class Ppe_edit_edit extends Model
 		->where('user_id', $row['uid'])
 		->get('edits_uploaded');
 		return $q->num_rows() ? $q->row()->id : null;
+	}
+	
+	// Get the owner of this edit...well, the user ID at least.
+	function getUserIDByEditID($eid)
+	{
+		$q = $this->db->select('user_id')->where('id', $eid)
+			->get('ppe_edit_edit');
+		return $q->num_rows() ? $q->row()->user_id : null;
 	}
 
   // Common function that uses the full view.

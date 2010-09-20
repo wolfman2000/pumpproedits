@@ -86,20 +86,19 @@ $(document).ready(function()
     if (checking)
     {
       _enable("#but_load");
-      function loadButtons()
-      {
-        $("li.edit").hide();
-        if (authed > 0)
-        {
-          $("li.loadWeb").show();
-          $("li[class^=load]:not(.loadWeb)").hide();
-          $("#intro").text("Select your option.");
-        }
-        else { loadHardDrive(); }
-      }
-      
-      if ($("#stylelist").val().length) { loadButtons(); }
-      else { $(".choose").slideUp(200, function(){ loadButtons(); }); }
+      $.getJSON(baseURL + "/loadPermissions", function(data, status)
+	  {
+	  	  $("#web_sel").empty();
+	  	  for (var i = 0; i < data.length; i++)
+		{
+			var out = data[i]['value'];
+			var html = '<option value="' + data[i]['id'] + '">' + out + '</option>';
+			$("#web_sel").append(html);
+			
+			if ($("#stylelist").val().length) { loadButtons(); }
+	  	  else { $(".choose").slideUp(200, function(){ loadButtons(); }); }
+		}
+	  });
     }
   });
   
@@ -117,11 +116,7 @@ $(document).ready(function()
     var data = gatherStats(1);
     if (!data.badds.length)
     {
-      saveChart(data);
-      $("#intro").text("You can save your work!");
-      _enable("#but_save");
-      _disable("#but_val");
-      if (authed > 0) { _enable("#but_sub"); }
+      validationPassed(data);
     }
     else
     {
@@ -135,66 +130,6 @@ $(document).ready(function()
       alert(ouch);
     }
   });
-  
-  // What will the account holder load today?
-  $("#web_yes").click(function(){
-    var item = $("#web_sel").val();
-    if (item == "hd") { loadHardDrive(); }
-    if (item == authed) { loadWebEdits(authed); }
-    if (item == 2 && andamiro > 0) { loadWebEdits(2); }
-    if (item == "off" && others > 0) {
-      $("li.loadSong").show();
-      $("li[class^=load]:not(.loadSong)").hide();
-      _disable("#loadDifficulty");
-      $("#loadSong").val('');
-    };
-    if (item == "all" && others > 0) {
-      $("li.loadOther").show();
-      $("li[class^=load]:not(.loadOther)").hide();
-    };
-  });
-  
-  // The admin wishes to select another author's edit.
-  $("#other_yes").click(function(){
-    loadWebEdits($("#other_sel").val());
-  });
-  
-  // The admin has chosen a song, and needs to choose a difficulty.
-  $("#loadSong").change(function(){
-    songID = $("#loadSong").val();
-    if (songID.length > 0)
-    {
-      $("#intro").text("Setting up styles...")
-      _disable("#loadDifficulty");
-      $.getJSON(baseURL + "/songDifficulties/" + songID, function(data, status)
-      {
-        var diff = $("#loadDifficulty").val();
-        if (data.isRoutine > 0) { $("#loadDifficulty > option:last-child").show(); }
-        else                    { $("#loadDifficulty > option:last-child").hide();
-          if (diff == "rt")
-          {
-            $("#loadDifficulty").val("");
-            _disable("#song_yes");
-          }
-        }
-        _enable("#loadDifficulty");
-      });
-    }
-    else
-    {
-      _disable("#loadDifficulty");
-      _enable("#song_yes");
-    }
-  });
-  
-  // The admin has chosen a song and style, and thus can load the chart.
-  $("#loadDifficulty").change(function(){
-    if ($("#loadDifficulty").val().length) { _enable("#song_yes"); }
-    else                                   { _disable("#song_yes"); }
-  });
-  
-  // The admin is ready to load the chart (if it exists)
-  $("#song_yes").click(function(){ songMode(); });
   
   // The edit contents have to be placed in here due to AJAX requirements.
   $("#fCont").keyup(function(){
@@ -213,30 +148,8 @@ $(document).ready(function()
     $("#intro").text("Loading edit...");
     $.post(baseURL + "/loadTextarea", { file: $("#fCont").val()}, function(data, status)
     {
-      loadTextEdit(data);
-      editID = 0;
-      $("#intro").text("All loaded up!");
-      _enable("#but_save");
-      _disable("#but_val");
-      if (andamiro) { $(".author").show(); _enable("#authorlist"); }
-      else          { $(".author").hide(); _disable("#authorlist"); }
-      isDirty = false;
+      loadTextArea(data);
     }, "json");
-  });
-  
-  // Load the account holder's specific edit.
-  $("#mem_load").click(function(){
-    $("#intro").text("Loading edit...");
-    editID = $("#mem_edit > option:selected").attr('id');
-    $.getJSON(baseURL + "/loadWebEdit/" + editID, function(data) {
-      loadEdit(data);
-      $("#intro").text("All loaded up!");
-      _disable("#authorlist");
-      $("li.author:eq(0)").next().andSelf().hide();
-      $("li.author:eq(2)").next().andSelf().show();
-      isDirty = false;
-      authID = parseInt(data.authID);
-    });
   });
   
   // The author decides not to load an edit at all.
@@ -287,12 +200,6 @@ $(document).ready(function()
   $("#stylelist").change(function(){
     editMode();
     $("#intro").text("Have fun editing!");
-  });
-  
-  // The author wishes to indicate whose work this really is.
-  $("#authorlist").change(function(){
-    var val = $("#authorlist").val();
-    authID = (val == 0 ? authed : 2);
   });
   
   // The author wishes to change the edit title / name.

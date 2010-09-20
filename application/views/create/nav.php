@@ -26,32 +26,15 @@ PHP file used for Pump Pro Edits
 <li><button id="but_load" type="button" class="fg-button ui-state-default ui-corner-all">Load</button></li>
 <li><button id="but_val" type="button" class="fg-button ui-state-default ui-corner-all">Validate</button></li>
 <li class="loadWeb long reset">What are you editing?</li>
-<li class="loadWeb long reset"><select id="web_sel">
-<?php foreach ($loads as $l): ?>
-<option value="<?php echo $l['id']; ?>"><?php echo $l['value']; ?></option>
-<?php endforeach; ?></select></li>
+<li class="loadWeb long reset"><select id="web_sel"></select></li>
 <li class="loadWeb"><button id="web_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
 <li class="loadWeb"><button id="web_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadOther long reset">Choose a person for edits...carefully.</li>
-<li class="loadOther long"><select id="other_sel">
-<?php foreach ($peeps as $p): ?>
-<option value="<?php echo $p['id']; ?>"><?php echo $p['name']; ?></option>
-<?php endforeach; ?></select></li>
+<li class="loadOther long"><select id="other_sel"></select></li>
 <li class="loadOther"><button id="other_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
 <li class="loadOther"><button id="other_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadSong long reset"><label for="loadSong">Select your song!</label></li>
-<li class="loadSong long"><select id="loadSong" name="loadSong">
-<?php $oid = "無"; /* Start with no match. */ ?>
-<option value="無" selected="selected">Choose</option>
-<?php foreach ($songs as $s):
-if ($s->gid != $oid):
-if ($oid !== "無"): ?>
-</optgroup>
-<?php endif; /* end mu/first part. */ ?>
-<optgroup label="<?php echo $s->game; ?>">
-<?php $oid = $s->gid; endif; ?>
-<option value="<?php echo $s->id; ?>"><?php echo htmlspecialchars($s->name); ?></option>
-<?php endforeach; ?></optgroup></select></li>
+<li class="loadSong long"><select id="loadSong" name="loadSong"></select></li>
 <li class="loadSong long"><label for="loadDifficulty">Select your difficulty!</label></li>
 <li class="loadSong long"><select id="loadDifficulty" name="loadDifficulty">
 <option value="">Choose!</option>
@@ -80,18 +63,7 @@ if ($oid !== "無"): ?>
 <dt class="choose"></dt>
 <dd class="choose"><ul id="newEditChoice">
 <li><label for="songlist">Select your song!</label></li>
-<li><select id="songlist" name="songlist">
-<?php $oid = "無"; /* Start with no match. */ ?>
-<option value="無" selected="selected">Choose</option>
-<?php foreach ($songs as $s):
-if ($s->gid != $oid):
-if ($oid !== "無"): ?>
-</optgroup>
-<?php endif; /* end mu/first part. */ ?>
-<optgroup label="<?php echo $s->game; ?>">
-<?php $oid = $s->gid; endif; ?>
-<option value="<?php echo $s->id; ?>"><?php echo htmlspecialchars($s->name); ?></option>
-<?php endforeach; ?></optgroup></select></li>
+<li><select id="songlist" name="songlist"></select></li>
 <li><label for="stylelist">Select your style!</label></li>
 <li><select id="stylelist">
 <option value="" selected="selected">Choose</option>

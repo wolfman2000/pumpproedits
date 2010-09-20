@@ -165,6 +165,36 @@ function updateStats(data)
     $("#intro").text("Provide an edit title and difficulty.");
   }
 }
+
+// Dynamically load the song list in one place.
+function loadSongList(selectID)
+{
+	$.getJSON(baseURL + "/loadSongList", function(data, status)
+	{
+		$(selectID).empty();
+		
+		var oid = "無";
+		var html = '';
+		
+		$(selectID).append("<option value=\"無\">Choose</option>");
+		for (var i = 0; i < data.length; i++)
+		{
+			if (data[i]['gid'] != oid)
+			{
+				if (oid != "無")
+				{
+					html += "</optgroup>";
+				}
+				html += '<optgroup label="' + data[i]['game'] + "\">";
+				oid = data[i]['gid'];
+			}
+			var out = htmlspecialchars(data[i]['name']);
+			html += '<option value="' + data[i]['id'] + '">' + out + '</option>';
+		}
+		$(selectID).append(html + "</optgroup>");
+	});
+}
+
 // The author will load an edit from the hard drive.
 function loadHardDrive()
 {
@@ -297,57 +327,6 @@ function songMode()
   });
 }
 
-// Set up the general canvas size and menus.
-function setupMenus()
-{
-	measures = songData.measures;
-	$("#scalelist").val(2.5);
-	captured = false;
-	columns = getCols();
-	$("rect[id^=sel]").attr('width', columns * ARR_HEIGHT).hide();
-	fixScale(2.5, 600);
-    
-	loadSVGMeasures();
-    
-	$("#tabNav a").filter(':first').click();
-	$("#navEditTransform span[id$=Check]").text("???");
-	$("nav dt.edit").show();
-	$("nav dd.edit").show();
-	$("nav *.choose").hide();
-	if ($("#stylelist").val() !== "routine") { $("nav .routine").hide(); }
-	else { $("nav .routine").show(); }
-	var phrase = songData.name + " " + $("#stylelist").val().capitalize();
-	$("h2").first().text(phrase);
-	$("title").text("Editing " + phrase + " — Pump Pro Edits");
-	_enable("#but_new");
-	_enable("#editName");
-    
-	if (!authed)
-	{
-		$(".author").hide();
-	}
-	else
-	{
-		$("#authorlist").val(0);
-		authID = authed;
-		if (andamiro)
-		{
-			$(".author").show(); _enable("#authorlist");
-		}
-		else
-		{ 
-			$(".author").hide(); _disable("#authorlist");
-			$("li.author:eq(2)").next().andSelf().show();
-		}
-	}
-    
-	clipboard = null;
-	_enable("#but_load");
-	$("#editName").attr('maxlength', 12);
-	$("#editSong").text("Edit Name:");
-	$("#but_sub").attr('name', 'editSubmit');
-}
-
 //Enter this mode upon choosing a song and difficulty.
 function editMode(canPublic)
 {
@@ -359,65 +338,6 @@ function editMode(canPublic)
     return true;
   }});
   return false; // this is to ensure the asyncing is done right.
-}
-
-
-// Load up this data on new.
-function init()
-{
-  captured = false;
-  clipboard = null;
-  songData = null;
-  measures = 3; // temp variable.
-  columns = 5; // reasonable default.
-  $("article").css('height', '50em');
-  fixScale(2, 1000,
-    5 * ARR_HEIGHT * SCALE + BUFF_LFT + BUFF_RHT,
-    ADJUST_SIZE * BEATS_PER_MEASURE * 3 + BUFF_TOP + BUFF_BOT);
-  $("title").text("Edit Creator — Pump Pro Edits");
-  $("h2").first().text("Edit Creator");
-  
-  $("nav dt.edit").hide();
-  $("nav dd.edit").hide();
-  $("nav li[class^=load]").hide();
-  $(".loadOther").hide();
-  $("#selTop").hide();
-  $("#selBot").hide();
-  $("#shadow").addClass('hide');
-  $("nav *.choose").show();
-  _disable("#stylelist");
-  _disable("#but_sub");
-  _disable("#but_save");
-  _disable("#but_val");
-  _disable("#but_new");
-  _enable("#cho_file");
-  if (authed > 0) { _enable("#cho_site"); }
-  else            { _disable("#cho_site"); }
-  
-  // reset the drop downs (and corresponding variables) to default values.
-  $("#songlist").val('');
-  $("#stylelist").val('');
-  $("#scalelist").val(2.5);
-  $("#quanlist").val(4);
-  $("#typelist").val(1);
-  $("#playerlist").val(0);
-  $("#modelist").val(0);
-  $("#editName").val('');
-  $("#editDiff").val('');
-  editID = 0;
-  selMode = 0;
-
-  $("#notes g[id^=svg]").empty();
-  
-  $("#intro").text("Select your action.");
-  
-  isDirty = false;
-  _enable("#but_load");
-  _enable("#songlist");
-  
-  $("#loadDifficulty").val("");
-  $("#loadSong").val("");
-  _disable("#song_yes");
 }
 
 // Dynamically adjust the scale as needed.
@@ -769,93 +689,4 @@ function mirrorRows(diagMirror)
     $(this).attr('x', x).empty().append(a.firstChild);
   });
   sortArrows();
-}
-
-// Load up the chosen user's songs.
-function loadWebEdits(user)
-{
-  authID = user;
-  $(".loadSite").show();
-  $("li[class^=load]:not(.loadSite)").hide();
-  $("#intro").text("Loading " + (user == 2 ? "Andamiro's" : "your") + " edits...");
-  $("#mem_edit").empty();
-  $.getJSON(baseURL + '/loadEditList/' + user, function(data)
-  {
-    for (var i = 0; i < data.length; i++)
-    {
-      var out = data[i].title + " (" + data[i].name + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
-      var html = '<option id="' + data[i].id + '">' + out + '</option>';
-      $("#mem_edit").append(html);
-    }
-    _enable("#mem_nogo");
-    $("#intro").text("Choose your edit!");
-  });
-}
-
-// Upload the intended official chart.
-function uploadOfficial()
-{
-  var data = {};
-  data['b64'] = $("#b64").val();
-  data['songID'] = songID;
-  data['dShort'] = songData.dShort;
-  data['difficulty'] = songData.difficulty;
-  data['style'] = $("#stylelist").val();
-   $("#intro").text("Uploading chart...");
-  $.post(baseURL + "/uploadOfficial", data, function(data, status)
-  {
-    $("#intro").text("Chart Uploaded");
-    _disable("#authorlist");
-  }, "json");
-}
-
-// Upload the intended edit.
-function uploadEdit()
-{
-  var data = {};
-  data['b64'] = $("#b64").val();
-  data['title'] = $("#editName").val();
-  data['diff'] = $("#editDiff").val();
-  data['style'] = $("#stylelist").val();
-  data['editID'] = editID;
-  data['songID'] = songID;
-  data['userID'] = authID;
-  data['notes'] = $("#noteJSON").val(); // JSON'ed.
-  data['public'] = $("#editPublic").val();
-  data['radar'] = $("#radar").val(); // underline separator
-  data['steps1'] = $("#statS").text().split("/")[0];
-  data['steps2'] = $("#statS").text().split("/")[1];
-  data['jumps1'] = $("#statJ").text().split("/")[0];
-  data['jumps2'] = $("#statJ").text().split("/")[1];
-  data['holds1'] = $("#statH").text().split("/")[0];
-  data['holds2'] = $("#statH").text().split("/")[1];
-  data['mines1'] = $("#statM").text().split("/")[0];
-  data['mines2'] = $("#statM").text().split("/")[1];
-  data['rolls1'] = $("#statR").text().split("/")[0];
-  data['rolls2'] = $("#statR").text().split("/")[1];
-  data['trips1'] = $("#statT").text().split("/")[0];
-  data['trips2'] = $("#statT").text().split("/")[1];
-  data['fakes1'] = $("#statF").text().split("/")[0];
-  data['fakes2'] = $("#statF").text().split("/")[1];
-  data['lifts1'] = $("#statL").text().split("/")[0];
-  data['lifts2'] = $("#statL").text().split("/")[1];
-  
-  $("#intro").text("Uploading edit...");
-  $.post(baseURL + "/upload", data, function(res, status)
-  {
-    if (res.result === "duplicate")
-    {
-      $("#intro").text("Duplicate title!");
-      alert("You already have an edit titled " + data['title']
-        + "\nfor a " + data['style'] + " edit of " + songData.name
-        + ". Please use a different title.");
-    }
-    else
-    {
-      $("#intro").text("Edit Uploaded");
-      _disable("#authorlist");
-      $("li.author:eq(0)").next().andSelf().hide();
-      editID = res.editid;
-    }
-  }, "json");
 }

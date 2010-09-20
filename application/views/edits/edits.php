@@ -56,7 +56,7 @@ foreach ($query as $z): ?>
         if ($z->yfakes or $z->mfakes): ?>
         <dt>Fakes</dt><dd><?php echo $z->yfakes . ($l === "R" ? "/$z->mfakes" : "") ?></dd>
         <?php endif;
-        if ($this->agent->is_browser() and $this->session->userdata('browser') !== "Internet Explorer"): ?>
+        if ($modern): ?>
         <dt>Preview</dt>
         <dd>
           <?php echo anchor("/chart/quick/$z->id/classic", "Classic", array("title" => "View stepchart using classic Pump it Up arrow colors")); ?>,

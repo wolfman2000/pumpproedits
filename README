@@ -44,15 +44,13 @@ with hooks for AJAX, JSON, jQuery, and Twitter. Take advantage
 of what the web has to offer. If it is a standard technology
 implemented by many web browsers, go ahead.
 
-At this point, there is no hiding it: anyone that uses
-Internet Explorer just cannot get the proper experience
-at this time. The SVG technology is not guaranteed to work on
-IE whether by plugin or javascript or flash without a risk
-of breaking it for the other web browsers. Most of my pieces
-are presently left in the repository for anyone brave enough to
-make it work for IE and keep it working for the others. When
-IE 9 comes out of preview, I will have to find a way to give
-that a test on the website.
+Thanks to the recent release of Internet Explorer 9,
+testing on that browser has commenced to determine what
+is possible with the web browser. It appears to support
+everything that is needed with minor code modifications.
+Anyone that wishes to use Internet Explorer 8 and below
+will be missing out due to the abundance of SVG technology
+involved.
 
 This website uses the GNU Affero GPL v3 license.
 Complying with the Affero GPL is similar to complying to the 

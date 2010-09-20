@@ -4,10 +4,7 @@ PHP file used for Pump Pro Edits
 @package pumpproedits
 @author wolfman2000
 @license GNU Affero GPL v3 or later
-*/
-$this->load->view('global/header',
-  array('css' => 'css/usb.css', 'h2' => 'Guide to USB functionality in Pump it Up Pro', 
-  'title' => 'Guide to USB functionality in Pump it Up Pro')); ?>
+*/ ?>
 <p>
 One of the great features about Pump It Up Pro is the integration
 of common <abbr title="Universal Serial Bus">USB</abbr> drives.
@@ -88,4 +85,3 @@ recommended to avoid editing this file by hand.</li>
 <li>Stats.xml.gz: Extract this archive file to be able to view your stats.</li>
 <li>Stats.xsl: This is another XML stylesheet, meant to be left alone.</li>
 </ol>
-<?php $this->load->view('global/footer'); ?>

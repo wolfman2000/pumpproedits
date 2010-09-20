@@ -7,35 +7,40 @@ PHP File for Pump Pro Edits
 @license GNU Affero GPL v3 or later
 */
 
-class Remove extends Controller
+class Remove extends Wolf_Controller
 {
-  function __construct()
-  {
-    parent::Controller();
-    $this->load->helper('form');
-    $this->load->model('ppe_edit_edit');
-  }
-  
-  function index()
-  {
-    $id = $this->session->userdata('id');
-    if (!$id)
-    {
-      redirect('login');
-    }
-    $data['edits'] = $this->ppe_edit_edit->getEditsToDelete($id)->result_array();
-    $this->load->view('remove/main', $data);
-  }
-  
-  function process()
-  {
-    $id = $this->session->userdata('id');
-    if (!$id)
-    {
-      redirect('login');
-    }
-    $this->ppe_edit_edit->removeEdits($this->input->post('removing'));
-    $data['edits'] = $this->ppe_edit_edit->getEditsToDelete($id)->result_array();
-    $this->load->view('remove/deleted', $data);
-  }
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->helper('form');
+		$this->load->model('ppe_edit_edit');
+		$this->_setCSS('css/remove.css');
+	}
+	
+	function index()
+	{
+		$id = $this->session->userdata('id');
+		if (!$id)
+		{
+			redirect('login');
+		}
+		$this->data['edits'] = $this->ppe_edit_edit->getEditsToDelete($id)->result_array();
+		$this->_setTitle('Remove your Edits');
+		$this->_setHeader('Remove your Edits');
+		$this->_loadPage(array('remove/main', 'remove/form'));
+	}
+	
+	function process()
+	{
+		$id = $this->session->userdata('id');
+		if (!$id)
+		{
+			redirect('login');
+		}
+		$this->ppe_edit_edit->removeEdits($this->input->post('removing'));
+		$this->data['edits'] = $this->ppe_edit_edit->getEditsToDelete($id)->result_array();
+		$this->_setTitle('Selected Edits Removed');
+		$this->_setHeader('Selected Edits Removed');
+		$this->_loadPage(array('remove/deleted', 'remove/form'));
+	}
 }

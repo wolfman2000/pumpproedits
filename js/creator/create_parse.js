@@ -134,7 +134,7 @@ function loadSVGMeasures()
     {
       $("nav .sections").show(); _enable("nav .sections button");
       $("#sectionList").empty();
-      const letter = 65;
+      var letter = 65;
       for (var i = 0; i < secs.length; i++)
       {
         var let = String.fromCharCode(letter + i);
@@ -356,12 +356,14 @@ function gatherStats(useRadar)
   data.allT = Array(0, 0);
   data.allC = Array(0, 0);
   var notes = $("#svgNote").children();
-  const len = songData.duration;
+  
+  // The following four are meant to be constants.
+  var len = songData.duration;
+  var range = ARR_HEIGHT * BEATS_PER_MEASURE * 2;
+  var lastBeat = notes.last().attr('y');
+  var avgBPS = lastBeat / len;
 
-  const lastBeat = notes.last().attr('y');
-  const avgBPS = lastBeat / len;
   var maxDensity = 0; // peak density of steps
-  const range = ARR_HEIGHT * BEATS_PER_MEASURE * 2;
   
   data.badds = Array(); // make a note of where the bad points are.
   data.notes = Array(); // keep up with the notes to eventually return.
