@@ -242,7 +242,7 @@ class EditCharter
     $g->setAttribute('id', 'svgBPMs');
     $sm = $this->CI->svgmaker;
     
-    foreach ($this->CI->ppe_song_bpm->getBPMsBySongID($id) as $b)
+    foreach ($this->CI->ppe_song_bpm->getBPMsByEditID($id) as $b)
     {
       $beat = $b->beat;
       $bpm = $b->bpm;
@@ -279,7 +279,7 @@ class EditCharter
     $g = $this->xml->createElement('g');
     $g->setAttribute('id', 'svgStop');
     $sm = $this->CI->svgmaker;
-    foreach ($this->CI->ppe_song_stop->getStopsBySongID($id) as $b)
+    foreach ($this->CI->ppe_song_stop->getStopsByEditID($id) as $b)
     {
       $beat = $b->beat;
       $break = $b->break;
