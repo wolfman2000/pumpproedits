@@ -1,4 +1,5 @@
 *~
+*.DS_Store
 application/config/email.php
 application/config/database.php
 application/data
