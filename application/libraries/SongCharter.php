@@ -35,6 +35,16 @@ class SongCharter extends EditCharter
 		$node = $this->xml->getElementById("editHead");
 		$node->replaceChild($txt, $node->firstChild);
 	}
+	
+	protected function getBPMData($id)
+	{
+		return $this->CI->ppe_song_bpm->getBPMsBySongID($id);
+	}
+	
+	protected function getStopData($id)
+	{
+		return $this->CI->ppe_song_stop->getStopsBySongID($id);
+	}
   
   protected function genArrows($notes, $style = "single")
   {
@@ -204,15 +214,16 @@ class SongCharter extends EditCharter
     $this->svg->appendChild($nt);
   }
   
-  public function genChart($notedata)
-  {
-    $measures = count($notedata['notes'][0]);
-    $this->genXMLHeader($measures, $notedata);
-    $this->genEditHeader($notedata);
-    $this->genMeasures($measures);
-    if ($this->showbpm) $this->genBPM($notedata['id']);
-    if ($this->showstop) $this->genStop($notedata['id']);
-    $this->genArrows($notedata['notes'], $notedata['style']);
-    return $this->xml;
-  }
+	public function genChart($notedata)
+	{
+		$id = $notedata['id'];
+		$measures = count($notedata['notes'][0]);
+		$this->genXMLHeader($measures, $notedata);
+		$this->genEditHeader($notedata);
+		$this->genMeasures($measures);
+		if ($this->showbpm) $this->genBPM($id);
+		if ($this->showstop) $this->genStop($id);
+		$this->genArrows($notedata['notes'], $notedata['style']);
+		return $this->xml;
+	}
 }

@@ -233,6 +233,11 @@ class EditCharter
     $this->svg->appendChild($g);
   }
   
+  protected function getBPMData($id)
+  {
+  	  return $this->CI->ppe_song_bpm->getBPMsByEditID($id);
+  }
+  
   protected function genBPM($id)
   {
     $buff = $this->lb + $this->rb;
@@ -242,7 +247,7 @@ class EditCharter
     $g->setAttribute('id', 'svgBPMs');
     $sm = $this->CI->svgmaker;
     
-    foreach ($this->CI->ppe_song_bpm->getBPMsByEditID($id) as $b)
+    foreach ($this->getBPMData($id) as $b)
     {
       $beat = $b->beat;
       $bpm = $b->bpm;
@@ -271,6 +276,11 @@ class EditCharter
     $this->svg->appendChild($g);
   }
   
+  protected function getStopData($id)
+  {
+  	  return $this->CI->ppe_song_stop->getStopsByEditID($id);
+  }
+  
   protected function genStop($id)
   {
     $buff = $this->lb + $this->rb;
@@ -279,7 +289,7 @@ class EditCharter
     $g = $this->xml->createElement('g');
     $g->setAttribute('id', 'svgStop');
     $sm = $this->CI->svgmaker;
-    foreach ($this->CI->ppe_song_stop->getStopsByEditID($id) as $b)
+    foreach ($this->getStopData($id) as $b)
     {
       $beat = $b->beat;
       $break = $b->break;
