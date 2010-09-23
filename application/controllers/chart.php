@@ -164,7 +164,7 @@ class Chart extends Wolf_Controller
 	
 	function _showSongForm($first, $header)
 	{
-		$this->data['edits'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
+		$this->data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
 		$this->data['form'] = array();
 		$this->data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
 		$this->data['form']['style'] = $this->ppe_note_style->getSelectStyles();
