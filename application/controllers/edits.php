@@ -200,6 +200,6 @@ class Edits extends Wolf_Controller
 		$data = $this->ppe_edit_edit->downloadEdit($id, (boolean) $pro1);
 		
 		$this->load->helper('download');
-		force_download($name);
+		force_download($name, $data);
 	}
 }
