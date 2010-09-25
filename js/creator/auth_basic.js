@@ -16,7 +16,7 @@ JS file used for Pump Pro Edits
 // Use this for dynamic button setups.
 $(document).ready(function()
 {
-	$("#web_yes").click(function(){
+	$("#web_yes").unbind().click(function(){
 		var item = $("#web_sel").val();
 		if (item == "hd") { loadHardDrive(); }
 		else if (item == "you") { loadOwnEdits(); }
