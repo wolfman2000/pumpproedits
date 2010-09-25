@@ -140,6 +140,7 @@ function _customTextArea(data)
 	_enable("#but_save");
 	_disable("#but_val");
 	isDirty = false;
+	sortArrows();
 }
 
 function loadTextArea(data)
