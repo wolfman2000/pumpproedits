@@ -51,6 +51,7 @@ $route['song/:num'] = "edits/chosenSong";
 $route['song/:num/:num'] = "edits/chosenSong";
 $route['users'] = "edits/users";
 $route['songs'] = "edits/songs";
+$route['private'] = "wolfPrivate/index";
 
 $route['default_controller'] = "ppehome";
 $route['scaffolding_trigger'] = "";
