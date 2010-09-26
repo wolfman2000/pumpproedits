@@ -1,5 +1,6 @@
 *~
 *.DS_Store
+application/controllers/private.php
 application/config/email.php
 application/config/database.php
 application/data
