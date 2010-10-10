@@ -16,11 +16,9 @@ class itg_user_user extends Model
   // get the list of users with edits.
   public function getUsersWithEdits()
   {
-    return $this->db->select('a.id, a.name core, COUNT(b.id) AS num_edits')
-      ->from('itg_user_user a')
-      ->join('itg_edit_edit b', 'a.id = b.user_id')
+    return $this->db->select('id, name AS core, min_edits AS num_edits')
+      ->from('users_with_edits')
       ->order_by('LOWER(name)')
-      ->group_by(array('a.name', 'a.id'))
       ->get();
   }
   
