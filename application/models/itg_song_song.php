@@ -73,7 +73,7 @@ class itg_song_song extends Model
     return $this->db->select('a.id, a.name, g.song_id sid, MIN(g.game_id) AS gid')
       ->join('itg_song_game g', 'a.id = g.song_id', 'left')
       ->where('a.is_problem', 0)
-      ->group_by(array('a.id, a.name', 'sid'))
+      ->group_by(array('a.id', 'a.name', 'sid'))
       ->order_by('gid')
       ->order_by('name')
       ->get('itg_song_song a');
