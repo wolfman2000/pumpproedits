@@ -51,6 +51,14 @@ class itg_song_song extends Model
       ->get('itg_song_song a');
   }
   
+	// get the specific base edit.
+	public function getChosenBaseEdit($sid, $style)
+	{
+		$str = "CALL buildBase(%d, \"%s\", @file);";
+		$this->db->query(sprintf($str, $sid, $style));
+		return $this->db->query("SELECT @file AS wanted")->row()->wanted;
+	}
+  
   // get the list of songs with edits.
   public function getSongsWithEdits()
   {

@@ -32,7 +32,7 @@ class Base extends Controller
   {
     $id = $this->uri->segment(3, false);
     $st = $this->uri->segment(4, false);
-    if (!(is_numeric($id) and in_array($st, array('single', 'double', 'halfdouble', 'routine'))))
+    if (!(is_numeric($id) and in_array($st, array('single', 'double'))))
     {
       # How do you cause a 409 again?
       return;
@@ -42,19 +42,9 @@ class Base extends Controller
       $this->load->view('base/error');
       return;
     }
-    $nid = sprintf("%06d", $id);
-    $name = sprintf("base_%s_%s.edit", $nid, ucfirst($st));
-    $gz = $name . '.gz';
-    $path = sprintf("%s/data/itg_base_edits/%s", APPPATH, $gz);
-    if (!file_exists($path)) # Generate the new base edits.
-    {
-      $this->load->library('EditParser');
-      $this->editparser->generate_base($id);
-    }
     
-    $file = gzopen($path, 'r');
-    $data = gzread($file, APP_MAX_EDIT_FILE_SIZE);
-    gzclose($file);
+    $name = sprintf("base_%06d_%s.edit", $id, ucfirst($st));
+    $data = $this->itg_song_song->getChosenBaseEdit((int) $id, $st);
     
     $this->load->helper('download');
     force_download($name, $data);
