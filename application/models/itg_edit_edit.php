@@ -28,6 +28,14 @@ class itg_edit_edit extends Model
       ->get();
   }
   
+	// Download the chosen edit using the database.
+	public function downloadEdit($id)
+	{
+		$str = "CALL buildEdit(%d, @file);";
+		$this->db->query(sprintf($str, $id));
+		return $this->db->query("SELECT @file AS wanted")->row()->wanted;
+	}
+  
   // Get all edits of the chosen song.
   public function getEditsBySong($sid)
   {
@@ -58,5 +66,12 @@ class itg_edit_edit extends Model
       ->order_by('LOWER(b.name)')
       ->order_by('a.title')
       ->get();
+  }
+  
+  function getAllIDs()
+  {
+  	  return $this->db->select('old_edit_id AS id')
+  	  ->order_by('old_edit_id')
+  	  ->get('itg_edit_edit');
   }
 }

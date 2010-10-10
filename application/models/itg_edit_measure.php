@@ -65,11 +65,20 @@ class Itg_edit_measure extends Model
 			}
 			$rows[$i] = sprintf("%d, %d, %d, %d, %d", $eid, 
 				$notes[$i]['measure'], $notes[$i]['beat'],
-				$notes[$i]['column'] - 1, $nid);
+				$notes[$i]['column'], $nid);
 		}
 		
 		$values = "(" . implode( '),(', $rows ) . ")";
 		$sql = "INSERT INTO itg_edit_measure ( $columns ) VALUES $values ;";
-		return $this->db->simple_query($sql);
+		$this->db->simple_query($sql);
+		$ret = $this->db->_error_message();
+		if (strlen($ret))
+		{
+			return $ret . "<br>";
+		}
+		else
+		{
+			return "";
+		}
 	}
 }
