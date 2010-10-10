@@ -21,8 +21,8 @@ class itg_edit_edit extends Model
       ->join('itg_user_user u', 'a.user_id = u.id')
       ->join('itg_song_song s', 'a.song_id = s.id')
       ->where('a.is_problem', 0)
-      ->order_by('u.lc_name')
-      ->order_by('s.lc_name')
+      ->order_by('LOWER(u.name)')
+      ->order_by('LOWER(s.name)')
       ->order_by('a.title')
       ->order_by('a.style')
       ->get();
@@ -39,7 +39,7 @@ class itg_edit_edit extends Model
       ->join('itg_user_user b', 'a.user_id = b.id')
       ->where('song_id', $sid)
       ->where('a.is_problem', 0)
-      ->order_by('b.lc_name')
+      ->order_by('LOWER(b.name)')
       ->order_by('a.title')
       ->get();
   }
@@ -55,7 +55,7 @@ class itg_edit_edit extends Model
       ->join('itg_song_song b', 'a.song_id = b.id')
       ->where('user_id', $uid)
       ->where('a.is_problem', 0)
-      ->order_by('b.lc_name')
+      ->order_by('LOWER(b.name)')
       ->order_by('a.title')
       ->get();
   }
