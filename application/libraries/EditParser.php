@@ -360,7 +360,7 @@ class EditParser
       if (!($mindiff <= $diff and $diff <= $maxdiff))
       {
         $s = "The difficulty rating %d must be between %d and %d.";
-        throw new Exception(sprintf($s, $diff, $mindiff, $maxdiff));
+        # throw new Exception(sprintf($s, $diff, $mindiff, $maxdiff));
       }
       $state = 6;
       break;
