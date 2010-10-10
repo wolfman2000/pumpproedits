@@ -13,7 +13,7 @@ class EditParser
     return $measure;
   }
 
-  private function gen_edit_file($kind, $name, $abbr, $measures)
+  private function gen_edit_file($kind, $name, $abbr, $measures, $duration = 90)
   {
     $fname = sprintf("base_%06d_%s.edit.gz", $abbr, ucfirst($kind));
     $eol = "\r\n";
@@ -227,7 +227,7 @@ class EditParser
       $state = 2;
       break;
     }
-    case 2: /* Confirm this is dance-single or dance-double */
+    case 2: /* Confirm this is a valid difficulty. */
     {
       if ($this->checkCommentLine($line)) { continue; }
       $line = ltrim($line);
@@ -329,8 +329,11 @@ class EditParser
       }
       elseif ($line !== "Edit" and !$params['arcade']) // temp measure.
       {
-        $s = 'The edit must have "Edit:" on a new line after the title.';
+      	$line = "Edit";
+        /*
+      	$s = 'The edit must have "Edit:" on a new line after the title.';
         throw new Exception($s);
+        */
       }
       $state = 5;
       break;
