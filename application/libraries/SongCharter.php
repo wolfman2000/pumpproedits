@@ -52,14 +52,11 @@ class SongCharter extends EditCharter
     $nt = $this->xml->createElement('g');
     $nt->setAttribute('id', 'svgNote');
     
-    $ucounter = 0;
-    foreach ($notes as $player):
-    
     $arrows = $this->prepArrows(false);
     $rCheck = '';
 
     $mcounter = 0;    
-    foreach ($player as $measure):
+    foreach ($notes as $measure):
     
     $rcounter = 0;
     foreach ($measure as $row):
@@ -202,15 +199,13 @@ class SongCharter extends EditCharter
     $mcounter++;
     endforeach;
     
-    $ucounter++;
-    endforeach;
     $this->svg->appendChild($nt);
   }
   
 	public function genChart($notedata)
 	{
 		$id = $notedata['id'];
-		$measures = count($notedata['notes'][0]);
+		$measures = count($notedata['notes']);
 		$this->genXMLHeader($measures, $notedata);
 		$this->genEditHeader($notedata);
 		$this->genMeasures($measures);
