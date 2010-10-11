@@ -11,7 +11,7 @@ class Itg_edit_measure extends Model
 	function getNotes($eid)
 	{
 		return $this->db->select('measure, beat, column, symbol')
-			->where('old_edit_id', $eid)
+			->where('id', $eid)
 			->order_by('measure')
 			->order_by('beat')
 			->order_by('column')
