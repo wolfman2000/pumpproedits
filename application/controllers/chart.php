@@ -4,24 +4,14 @@ class Chart extends Controller
 {
 	function __construct()
 	{
-    $this->difficulties = array('sb', 'se', 'sm', 'sh', 'sx', 'de', 'dm', 'dh', 'dx');
 		parent::Controller();
-    $this->load->library('form_validation');
-    $this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
-    $this->load->model('itg_edit_edit');
-    $this->load->model('itg_song_song');
-  }
-  
-  function index()
-  {
-    redirect('chart/edits');
-  }
-  
-  function edits()
-  {
-    $data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result_array();
-    $this->load->view('chart/edits', $data);
-  }
+		$this->load->library('form_validation');
+		$this->form_validation->set_error_delimiters('<p class="error_list">', '</p>');
+		$this->load->model('itg_edit_edit');
+		$this->load->model('itg_song_song');
+		$this->load->model('itg_user_user');
+		$this->difficulties = array('sb', 'se', 'sm', 'sh', 'sx', 'de', 'dm', 'dh', 'dx');
+  	}
   
   // confirm the song and difficulty exist.
   function _diff_exists($str)
@@ -62,7 +52,53 @@ class Chart extends Controller
     $this->form_validation->set_message('_edit_exists', 'The scale chosen was not a valid scale.');
     return false;
   }
-  
+	
+	function index()
+	{
+		redirect('chart/edits');
+	}
+	
+	function edits()
+	{
+		$data['edits'] = $this->itg_edit_edit->getNonProblemEdits()->result_array();
+		$this->load->view('chart/edits', $data);
+	}
+	
+	// Use this common GET function to show the edit.
+	function showEdit()
+	{
+		$eid = $this->uri->segment(3, -1);
+		// Confirm the edit isn't "deleted".
+		/*
+		if (!$this->itg_edit_edit->checkExistsAndActive($eid))
+		{
+			$this->output->set_status_header(404);
+			$this->_showEditForm('chart/deleted', 'No Edit Chart');
+			return;
+		}
+		*/
+		$author = $this->itg_user_user->getUserByOldEditID($eid);
+		$notedata = $this->itg_edit_edit->getEditChartStats($eid);
+		
+		$p = array
+		(
+			'kind' => $this->uri->segment(4, 'normal'),
+			'red4' => $this->uri->segment(5, 0),
+			'noteskin' => $this->uri->segment(6, 'original'),
+			'speed_mod' => $this->uri->segment(7, 2),
+			'mpcol' => $this->uri->segment(8, 6),
+			'scale' => $this->uri->segment(9, 1),
+			'cols' => $notedata['cols'],
+			'eid' => $eid,
+			);
+		$this->load->library('EditCharter', $p);
+		$notedata['author'] = $author;
+		$notedata['notes'] = false;
+		header("Content-Type: application/xhtml+xml");
+		$xml = $this->editcharter->genChart($notedata);
+		echo str_replace("xml:id", "id", $xml->saveXML());
+	}
+
   function editProcess()
   {
     if ($this->form_validation->run() === FALSE)
@@ -141,30 +177,12 @@ class Chart extends Controller
     echo $xml->saveXML();
   }
   
-  function quick()
-  {
-    $id = $this->uri->segment(3, FALSE);
-    if (!is_numeric($id))
-    {
-      # Return error here: parameters must match.
-    }
-    $id = sprintf("%06d", $id);
-    $name = sprintf("itg_%s.edit.gz", $id);
-    $path = sprintf("%s/data/itg_user_edits/%s", APPPATH, $name);
-    
-    if (!file_exists($path))
-    {
-      # Return error: file must exist.
-    }
-    // Validate the file and print the chart here.
-    $this->load->library('EditParser');
-    $notedata = $this->editparser->get_stats(gzopen($path, "r"),
-      array('notes' => 1, 'strict_edit' => 0));
-    $p = array('cols' => $notedata['cols']);
-    $this->load->library('EditCharter', $p);
-    header("Content-Type: application/xhtml+xml");
-    $xml = $this->editcharter->genChart($notedata);
-    
-    echo $xml->saveXML();
-  }
+	function quick()
+	{
+		redirect(sprintf("/chart/showEdit/%d/%s/red/original/2/6/1",
+			$this->uri->segment(3, -1),
+			$this->uri->segment(4, 'normal')
+			), 'location', 303);
+		return;
+	}
 }
