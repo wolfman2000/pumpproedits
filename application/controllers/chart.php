@@ -20,19 +20,19 @@ class Chart extends Controller
 		$this->form_validation->set_message('_diff_exists', 'A valid difficulty must be chosen.');
 		return false;
 	}
-  
-  // confirm the edit exists.
-  function _edit_exists($str)
-  {
-    if ($this->itg_edit_edit->checkExistance($str)) return true;
-    $this->form_validation->set_message('_edit_exists', "The edit chosen $str doesn't have a corresponding file.");
-    return false;
+	
+	// confirm the edit exists.
+	function _edit_exists($str)
+	{
+		if ($this->itg_edit_edit->checkExistance($str)) return true;
+		$this->form_validation->set_message('_edit_exists', "The edit chosen $str doesn't have a corresponding file.");
+		return false;
 	}
 	
 	// confirm the note color exists.
 	function _notecolor_exists($str)
 	{
-		if (in_array($str, $this->ppe_note_style->getNoteStyles(1))) return true;
+		if (in_array($str, $this->itg_note_style->getNoteStyles(1))) return true;
 		$this->form_validation->set_message('_notecolor_exists', "Please choose a valid note style.");
 		return false;
 	}
@@ -40,7 +40,7 @@ class Chart extends Controller
 	// confirm the note skin exists.
 	function _noteskin_exists($str)
 	{
-		if (in_array($str, $this->ppe_note_skin->getNoteSkins(1))) return true;
+		if (in_array($str, $this->itg_note_skin->getNoteSkins(1))) return true;
 		$this->form_validation->set_message('_noteskin_exists', "Please choose a valid note skin.");
 		return false;
 	}
@@ -175,34 +175,34 @@ class Chart extends Controller
 		}
 		echo json_encode($ret);
 	}
-  
-  function songProcess()
-  {
-    if ($this->form_validation->run() === FALSE)
-    {
-      $data['songs'] = $this->itg_song_song->getSongsWithGameAndDiff()->result_array();
-      $this->load->view('chart/songError', $data);
-      return;
-    }
-    $sid = $this->input->post('songs');
-    $dif = $this->input->post('diff');
-    $path = sprintf("%sdata/itg_official/%d_%s.sm.gz", APPPATH, $sid, $dif);
-    
-    $this->load->library('EditParser');
-    $arc = $this->editparser->getStyle(substr($dif, 1, 1));
-    $st = substr($dif, 0, 1) === "s" ? "Single" : "Double";
-    $p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $arc,
-      'style' => $st);
-    $notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
-    $p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
-      'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
-      'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'), 'arcade' => 1);
-    $this->load->library('EditCharter', $p);
-    header("Content-Type: application/xhtml+xml");
-    $xml = $this->editcharter->genChart($notedata);
-    echo $xml->saveXML();
-  }
-  
+	
+	function songProcess()
+	{
+		if ($this->form_validation->run() === FALSE)
+		{
+			$data['songs'] = $this->itg_song_song->getSongsWithGameAndDiff()->result_array();
+			$this->load->view('chart/songError', $data);
+			return;
+		}
+		$sid = $this->input->post('songs');
+		$dif = $this->input->post('diff');
+		$path = sprintf("%sdata/itg_official/%d_%s.sm.gz", APPPATH, $sid, $dif);
+		
+		$this->load->library('EditParser');
+		$arc = $this->editparser->getStyle(substr($dif, 1, 1));
+		$st = substr($dif, 0, 1) === "s" ? "Single" : "Double";
+		$p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $arc, 'style' => $st);
+		$notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
+		$p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
+			'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
+			'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'),
+			'arcade' => 1, 'noteskin' => $this->input->post('noteskin'));
+		$this->load->library('SongCharter', $p);
+		header("Content-Type: application/xhtml+xml");
+		$xml = $this->songcharter->genChart($notedata);
+		echo str_replace("xml:id", "id", $xml->saveXML());
+	}
+	
 	function quick()
 	{
 		redirect(sprintf("/chart/showEdit/%d/%s/red/original/2/6/1",
