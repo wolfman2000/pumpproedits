@@ -52,7 +52,7 @@
 	<g id="rollBodyU"><use xlink:href="#rollBodyL" /></g>
 	<g id="rollBodyR"><use xlink:href="#rollBodyL" /></g>
 	<g id="rollBodyD"><use xlink:href="#rollBodyL" /></g>
-	<g id="rollEndD">
+	<g id="rollEndL">
 		<path d="m 1,0 v 13 c 0,0 0,2 2,2 h 10 c 0,0 2,0 2,-2 v -13" />
 	</g>
 	<g id="rollEndU"><use xlink:href="#rollEndL" /></g>
