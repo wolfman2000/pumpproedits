@@ -193,6 +193,7 @@ class Chart extends Controller
 		$st = substr($dif, 0, 1) === "s" ? "Single" : "Double";
 		$p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $arc, 'style' => $st);
 		$notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
+		$notedata['sname'] = $this->itg_song_song->getSongById($sid);
 		$p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
 			'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
 			'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'),
