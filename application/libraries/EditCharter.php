@@ -21,8 +21,7 @@ class EditCharter
     $this->aw = APP_CHART_ARROW_WIDTH;
     $this->bm = APP_CHART_BEAT_P_MEASURE;
     $this->kind = $params['kind'];
-
-    $this->red4 = 1; # Temporary.
+    
     # Have the normal skin use blue as the quarter note if requested.
     if (array_key_exists('red4', $params) and $params['red4'] == "red")
     {

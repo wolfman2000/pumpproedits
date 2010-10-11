@@ -132,9 +132,9 @@ class Chart extends Controller
 		
 		$url = sprintf("/chart/showEdit/%d/%s/%s/%s/%1.2f/%d/%1.2f",
 			$this->input->post('edits'),
-			$this->input->post('kind') ? $this->input->post('kind') : 'normal',
-			$this->input->post('red4') ? $this->input->post('red4') : 'red',
-			$this->input->post('noteskin') ? $this->input->post('noteskin') : 'original',
+			$this->input->post('kind'),
+			$this->input->post('red4'),
+			$this->input->post('noteskin'),
 			$this->input->post('speed'),
 			$this->input->post('mpcol'),
 			$this->input->post('scale')
