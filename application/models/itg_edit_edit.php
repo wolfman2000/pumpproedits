@@ -28,6 +28,21 @@ class itg_edit_edit extends Model
       ->get();
   }
   
+  // Get the number of measures the song has.
+	public function getMeasureCount($eid)
+	{
+		return $this->db->select('measures')
+			->where('id', $eid)
+			->get('measures_in_edits')->row()->measures;
+	}
+	
+	// Get the stats needed to generate the chart without using files.
+	public function getEditChartStats($eid)
+	{
+		return $this->db->where('id', $eid)
+			->get('edit_chart_stats')->row_array();
+	}
+	
 	// Download the chosen edit using the database.
 	public function downloadEdit($id)
 	{
