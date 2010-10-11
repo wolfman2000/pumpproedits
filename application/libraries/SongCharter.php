@@ -1,13 +1,4 @@
 <?php
-/*
-PHP file used for Pump Pro Edits
-
-@package pumpproedits
-@author wolfman2000
-@license GNU Affero GPL v3 or later
-*/
-require "EditCharter.php";
-class SongCharter extends EditCharter
 {
 	function __construct($params)
 	{
@@ -38,12 +29,12 @@ class SongCharter extends EditCharter
 	
 	protected function getBPMData($id)
 	{
-		return $this->CI->ppe_song_bpm->getBPMsBySongID($id);
+		return $this->CI->itg_song_bpm->getBPMsBySongID($id);
 	}
 	
 	protected function getStopData($id)
 	{
-		return $this->CI->ppe_song_stop->getStopsBySongID($id);
+		return $this->CI->itg_song_stop->getStopsBySongID($id);
 	}
   
   protected function genArrows($notes, $style = "single")
@@ -62,8 +53,8 @@ class SongCharter extends EditCharter
     $ucounter = 0;
     foreach ($notes as $player):
     
-    $arrows = $this->prepArrows($style === "routine" ? $ucounter : false);
-    $rCheck = ($style === "routine" ? "P" . $ucounter : '');
+    $arrows = $this->prepArrows(false);
+    $rCheck = '';
 
     $mcounter = 0;    
     foreach ($player as $measure):
