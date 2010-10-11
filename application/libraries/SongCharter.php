@@ -1,4 +1,6 @@
 <?php
+require "EditCharter.php";
+class SongCharter extends EditCharter
 {
 	function __construct($params)
 	{
