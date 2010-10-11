@@ -10,14 +10,12 @@ class SVGMaker
   // Make a general <use> tag.
   function genUse($x, $y, $options = array())
   {
-    $base = "";
-
     $use = $this->s->createElement('use');
     if ($x > 0) $use->setAttribute('x', $x);
     if ($y > 0) $use->setAttribute('y', $y);
     
     if (array_key_exists('href', $options))
-      $use->setAttribute('xlink:href', "$base#" . $options['href']);
+      $use->setAttribute('xlink:href', "#" . $options['href']);
     if (array_key_exists('class', $options) and strlen($options['class']) > 1)
       $use->setAttribute('class', $options['class']);
     if (array_key_exists('transform', $options))
@@ -33,6 +31,11 @@ class SVGMaker
     $txt->setAttribute('y', $y);
     if (array_key_exists('class', $options) and strlen($options['class']) > 1)
       $txt->setAttribute('class', $options['class']);
+  
+    if (array_key_exists('id', $options) and strlen($options['id']) > 1)
+	{
+		$txt->setAttribute('xml:id', $options['id']);
+	}
     $txt->appendChild($this->s->createTextNode($st));
     return $txt;
   }
@@ -48,5 +51,27 @@ class SVGMaker
     if (array_key_exists('class', $options) and strlen($options['class']) > 1)
       $line->setAttribute('class', $options['class']);
     return $line;
+  }
+  
+  // Make a rect tag.
+  function genRect($x, $y, $w, $h, $options = array())
+  {
+    $rect = $this->s->createElement('rect');
+    $rect->setAttribute('x', $x);
+    $rect->setAttribute('y', $y);
+    $rect->setAttribute('width', $w);
+    $rect->setAttribute('height', $h);
+    if (array_key_exists('rx', $options))
+      $rect->setAttribute('rx', $options['rx']);
+    return $rect;
+  }
+  
+  
+  // Make a path tag.
+  function genPath($m, $options = array())
+  {
+    $path = $this->s->createElement('path');
+    $path->setAttribute('d', $m);
+    return $path;
   }
 }
