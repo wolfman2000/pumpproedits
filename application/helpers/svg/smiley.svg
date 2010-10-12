@@ -1,0 +1,71 @@
+<defs xmlns:xlink="http://www.w3.org/1999/xlink">
+	<g id="beat1">
+		<rect x="0" y="0" width="16" height="16"/>
+		<rect x="0" y="16" width="16" height="16"/>
+		<line x1="0" y1="0.1" x2="16" y2="0.1"/>
+	</g>
+	<g id="beat2">
+		<rect x="0" y="0" width="16" height="16"/>
+		<rect x="0" y="16" width="16" height="16"/>
+	</g>
+	<g id="measure">
+		<use xlink:href="#beat1"/>
+		<use y="32" xlink:href="#beat2"/>
+		<line x1="0.05" y1="0" x2="0.05" y2="64"/>
+		<line x1="15.95" y1="0" x2="15.95" y2="64"/>
+	</g>
+	<g id="arrowL">
+		<circle cx="8" cy="8" r="7" />
+		<circle cx="5.5" cy="6" r="2" />
+		<circle cx="10.5" cy="6" r="2" />
+		<path d="m 3.5, 10 a 4.5,3 0 0,0 9,0" />
+	</g>
+	<g id="arrowD"><use xlink:href="#arrowL" /></g>
+	<g id="arrowU"><use xlink:href="#arrowL" /></g>
+	<g id="arrowR"><use xlink:href="#arrowL" /></g>
+	<g id="holdL"><use xlink:href="#arrowL" /></g>
+	<g id="holdD"><use xlink:href="#arrowD" /></g>
+	<g id="holdU"><use xlink:href="#arrowU" /></g>
+	<g id="holdR"><use xlink:href="#arrowR" /></g>
+	<g id="holdBodyL">
+		<rect x="1" y="0" width="14" height="16" />
+		<line x1="1" y1="0" x2="1" y2="16" />
+		<line x1="15" y1="0" x2="15" y2="16" />
+	</g>
+	<g id="holdBodyD"><use xlink:href="#holdBodyL" /></g>
+	<g id="holdBodyU"><use xlink:href="#holdBodyL" /></g>
+	<g id="holdBodyR"><use xlink:href="#holdBodyL" /></g>
+	<g id="holdEndL">
+		<path d="m 1,0 v 8 a 7,7 0 0,0 14,0 v -8" />
+	</g>
+	<g id="holdEndD"><use xlink:href="#holdEndL" /></g>
+	<g id="holdEndU"><use xlink:href="#holdEndL" /></g>
+	<g id="holdEndR"><use xlink:href="#holdEndL" /></g>
+	<g id="rollL"><use xlink:href="#arrowL" /></g>
+	<g id="rollD"><use xlink:href="#arrowD" /></g>
+	<g id="rollU"><use xlink:href="#arrowU" /></g>
+	<g id="rollR"><use xlink:href="#arrowR" /></g>
+	<g id="rollBodyL">
+		<rect x="1" y="0" width="14" height="16" />
+		<line x1="1" y1="0" x2="1" y2="16" />
+		<line x1="15" y1="0" x2="15" y2="16" />
+	</g>
+	<g id="rollBodyD"><use xlink:href="#rollBodyL" /></g>
+	<g id="rollBodyU"><use xlink:href="#rollBodyL" /></g>
+	<g id="rollBodyR"><use xlink:href="#rollBodyL" /></g>
+	<g id="rollEndL">
+		<path d="m 1,0 v 8 a 7,7 0 0,0 14,0 v -8" />
+	</g>
+	<g id="rollEndD"><use xlink:href="#rollEndL" /></g>
+	<g id="rollEndU"><use xlink:href="#rollEndL" /></g>
+	<g id="rollEndR"><use xlink:href="#rollEndL" /></g>
+	<g id="mineL">
+		<circle cx="8" cy="8" r="7" />
+		<circle cx="5.5" cy="6" r="2" />
+		<circle cx="10.5" cy="6" r="2" />
+		<path d="m 3.5, 12 a 4.5,3 0 0,1 9,0" />
+	</g>
+	<g id="mineD"><use xlink:href="#mineL" /></g>
+	<g id="mineU"><use xlink:href="#mineL" /></g>
+	<g id="mineR"><use xlink:href="#mineL" /></g>
+</defs>

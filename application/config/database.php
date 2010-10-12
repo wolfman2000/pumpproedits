@@ -38,11 +38,11 @@ require_once('db_password.php');
 $active_group = "default";
 $active_record = TRUE;
 
-$db['default']['hostname'] = "";
-$db['default']['username'] = "";
-$db['default']['password'] = "";
-$db['default']['database'] = "sqlite:".APPPATH."data/db/itgedits.db";
-$db['default']['dbdriver'] = "pdo";
+$db['default']['hostname'] = "localhost";
+$db['default']['username'] = "jasonfelds";
+$db['default']['password'] = DB_PASSWORD;
+$db['default']['database'] = "itgedits";
+$db['default']['dbdriver'] = "mysql";
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;

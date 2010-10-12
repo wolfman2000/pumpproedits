@@ -4,7 +4,7 @@
 
 <section id="song">
 <p><label for="songs">Choose a song</label></p>
-<p><select id="songs" name="songs" size="20">
+<p><select id="songs" name="songs" size="25">
 <?php $oid = "無"; # Start with no match. ?>
 <option value="無" selected="selected">Select a song.</option>
 <?php foreach ($songs as $r):
@@ -33,6 +33,22 @@ endif; ?>
 <option value="dm">Double Medium</option>
 <option value="dh">Double Hard</option>
 <option value="dx">Double Expert</option>
+</select></p>
+<p><label for="kind">Note Style</label></p>
+<p><select id="kind" name="kind">
+<option value="normal">Normal</option>
+<option value="flat">Flat</option>
+</select></p>
+<p><label for="red4">4th Note Color</label></p>
+<p><select id="red4" name="red4">
+<option value="red" selected="selected">Red</option>
+<option value="blue">Blue</option>
+</select></p>
+<p><label for="noteskin">Note Skin</label></p>
+<p><select id="noteskin" name="noteskin">
+<option value="original" selected="selected">Original</option>
+<option value="smiley">Smiley</option>
+<option value="stepmania">StepMania</option>
 </select></p>
 <p><label for="speed">Speed Mod</label></p>
 <p><select id="speed" name="speed">

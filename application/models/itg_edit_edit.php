@@ -21,12 +21,35 @@ class itg_edit_edit extends Model
       ->join('itg_user_user u', 'a.user_id = u.id')
       ->join('itg_song_song s', 'a.song_id = s.id')
       ->where('a.is_problem', 0)
-      ->order_by('u.lc_name')
-      ->order_by('s.lc_name')
+      ->order_by('LOWER(u.name)')
+      ->order_by('LOWER(s.name)')
       ->order_by('a.title')
       ->order_by('a.style')
       ->get();
   }
+  
+  // Get the number of measures the song has.
+	public function getMeasureCount($eid)
+	{
+		return $this->db->select('measures')
+			->where('id', $eid)
+			->get('measures_in_edits')->row()->measures;
+	}
+	
+	// Get the stats needed to generate the chart without using files.
+	public function getEditChartStats($eid)
+	{
+		return $this->db->where('id', $eid)
+			->get('edit_chart_stats')->row_array();
+	}
+	
+	// Download the chosen edit using the database.
+	public function downloadEdit($id)
+	{
+		$str = "CALL buildEdit(%d, @file);";
+		$this->db->query(sprintf($str, $id));
+		return $this->db->query("SELECT @file AS wanted")->row()->wanted;
+	}
   
   // Get all edits of the chosen song.
   public function getEditsBySong($sid)
@@ -39,7 +62,7 @@ class itg_edit_edit extends Model
       ->join('itg_user_user b', 'a.user_id = b.id')
       ->where('song_id', $sid)
       ->where('a.is_problem', 0)
-      ->order_by('b.lc_name')
+      ->order_by('LOWER(b.name)')
       ->order_by('a.title')
       ->get();
   }
@@ -55,8 +78,15 @@ class itg_edit_edit extends Model
       ->join('itg_song_song b', 'a.song_id = b.id')
       ->where('user_id', $uid)
       ->where('a.is_problem', 0)
-      ->order_by('b.lc_name')
+      ->order_by('LOWER(b.name)')
       ->order_by('a.title')
       ->get();
+  }
+  
+  function getAllIDs()
+  {
+  	  return $this->db->select('old_edit_id AS id')
+  	  ->order_by('old_edit_id')
+  	  ->get('itg_edit_edit');
   }
 }

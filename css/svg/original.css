@@ -1,0 +1,51 @@
+@import "_svg.css";
+
+defs > g
+{
+	fill-opacity: 1;
+	stroke-width: 0.5;
+	stroke-opacity: 1;
+}
+
+g[id$="arrowL"] > path
+{
+	stroke-width: 1;
+	stroke: black;
+}
+
+g[id$="mineL"] > circle
+{
+	stroke-width: 1;
+	stroke: black;
+}
+
+g[id$="mineL"] > circle:first-child
+{
+  fill:red;
+}
+
+g[id$="mineL"] > circle:first-child + circle
+{
+  fill:black;
+}
+g[id$="holdBodyL"] > rect, g[id$="holdEndL"] > path,
+g[id$="rollBodyL"] > rect, g[id$="rollEndL"] > path
+{
+	fill-opacity: 1;
+}
+
+g[id$="holdBodyL"] > rect, g[id$="holdEndL"] > path
+{
+  fill:darkblue;
+}
+g[id$="rollBodyL"] > rect, g[id$="rollEndL"] > path
+{
+  fill:#9932CC;
+}
+
+g[id$="holdBodyL"] > line, g[id$="holdEndL"] > path,
+g[id$="rollBodyL"] > line, g[id$="rollEndL"] > path
+{
+  stroke:black;
+  stroke-width: 0.3;
+}

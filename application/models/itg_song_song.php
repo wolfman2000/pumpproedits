@@ -17,7 +17,7 @@ class itg_song_song extends Model
   public function getSongCountWithGame()
   {
     return $this->db->select('COUNT(a.name) names')
-      ->order_by('a.lc_name')
+      ->order_by('LOWER(a.name)')
       ->get('itg_song_song a')
       ->row()->names;
   }
@@ -31,7 +31,7 @@ class itg_song_song extends Model
   // get the ID of the song by its lowercased name.
   public function getIDBySong($song)
   {
-    return $this->db->select('id')->where('lc_name', strtolower($song))
+    return $this->db->select('id')->where('LOWER(name)', strtolower($song))
       ->get('itg_song_song')->row()->id;
   }
   
@@ -46,19 +46,24 @@ class itg_song_song extends Model
   public function getBaseEdits($page = 0)
   {
     return $this->db->select('a.name, a.id, a.abbr')
-      ->order_by('a.lc_name')
+      ->order_by('LOWER(a.name)')
       ->limit(APP_BASE_EDITS_PER_PAGE, $page)
       ->get('itg_song_song a');
   }
   
+	// get the specific base edit.
+	public function getChosenBaseEdit($sid, $style)
+	{
+		$str = "CALL buildBase(%d, \"%s\", @file);";
+		$this->db->query(sprintf($str, $sid, $style));
+		return $this->db->query("SELECT @file AS wanted")->row()->wanted;
+	}
+  
   // get the list of songs with edits.
   public function getSongsWithEdits()
   {
-    return $this->db->select('a.id, a.name core, COUNT(b.id) AS num_edits')
-      ->from('itg_song_song a')
-      ->join('itg_edit_edit b', 'a.id = b.song_id')
-      ->order_by('lc_name')
-      ->group_by(array('a.id', 'a.name'))
+    return $this->db->from('songs_with_edits')
+      ->order_by('LOWER(core)')
       ->get();
   }
   
@@ -68,7 +73,7 @@ class itg_song_song extends Model
     return $this->db->select('a.id, a.name, g.song_id sid, MIN(g.game_id) AS gid')
       ->join('itg_song_game g', 'a.id = g.song_id', 'left')
       ->where('a.is_problem', 0)
-      ->group_by(array('a.id, a.name', 'sid'))
+      ->group_by(array('a.id', 'a.name', 'sid'))
       ->order_by('gid')
       ->order_by('name')
       ->get('itg_song_song a');

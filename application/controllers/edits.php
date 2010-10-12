@@ -47,23 +47,18 @@ class Edits extends Controller
     $this->load->view('edits/song', $data);
   }
   
-  // download the chosen edit to the hard drive.
-  function download()
-  {
-    $id = $this->uri->segment(3, false);
-    if (!(is_numeric($id)))
-    {
-      # How do you cause a 409 again?
-    }
-    $id = sprintf("%06d", $id);
-    $name = sprintf("itg_%s.edit", $id);
-    $gz = $name . '.gz';
-    $path = sprintf("%s/data/itg_user_edits/%s", APPPATH, $gz);
-    $file = gzopen($path, 'r');
-    $data = gzread($file, APP_MAX_EDIT_FILE_SIZE);
-    gzclose($file);
-    
-    $this->load->helper('download');
-    force_download($name, $data);
-  }
+	// download the chosen edit to the hard drive.
+	function download()
+	{
+		$id = $this->uri->segment(3, false);
+		if (!(is_numeric($id)))
+		{
+			# Not worth the trouble to error here.
+		}
+		$name = sprintf("itg_%06d.edit", $id);
+		$data = $this->itg_edit_edit->downloadEdit($id);
+		
+		$this->load->helper('download');
+		force_download($name, $data);
+	}
 }

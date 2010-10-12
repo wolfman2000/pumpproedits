@@ -1,0 +1,21 @@
+/*
+CSS file for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+@import "_form.css";
+
+@media screen
+{
+    fieldset
+    {
+        width: 45em;
+    }
+    textarea
+    {
+        width: 35em;
+        height: 10em;
+    }
+}

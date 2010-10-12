@@ -13,7 +13,7 @@ class EditParser
     return $measure;
   }
 
-  private function gen_edit_file($kind, $name, $abbr, $measures)
+  private function gen_edit_file($kind, $name, $abbr, $measures, $duration = 90)
   {
     $fname = sprintf("base_%06d_%s.edit.gz", $abbr, ucfirst($kind));
     $eol = "\r\n";
@@ -119,12 +119,7 @@ class EditParser
   {
     $res = array(); # Return variables go in here.
     # Make all of these an array to allow for routine steps.
-    $steps = array(0 => 0, 1 => 0);
-    $jumps = array(0 => 0, 1 => 0);
-    $holds = array(0 => 0, 1 => 0);
-    $mines = array(0 => 0, 1 => 0);
-    $trips = array(0 => 0, 1 => 0);
-    $rolls = array(0 => 0, 1 => 0);
+    $steps = $jumps = $holds = $mines = $trips = $rolls = 0;
 
     $steps_on = array();
     $holds_on = array();
@@ -227,7 +222,7 @@ class EditParser
       $state = 2;
       break;
     }
-    case 2: /* Confirm this is dance-single or dance-double */
+    case 2: /* Confirm this is a valid difficulty. */
     {
       if ($this->checkCommentLine($line)) { continue; }
       $line = ltrim($line);
@@ -329,8 +324,11 @@ class EditParser
       }
       elseif ($line !== "Edit" and !$params['arcade']) // temp measure.
       {
-        $s = 'The edit must have "Edit:" on a new line after the title.';
+      	$line = "Edit";
+        /*
+      	$s = 'The edit must have "Edit:" on a new line after the title.';
         throw new Exception($s);
+        */
       }
       $state = 5;
       break;
@@ -357,7 +355,7 @@ class EditParser
       if (!($mindiff <= $diff and $diff <= $maxdiff))
       {
         $s = "The difficulty rating %d must be between %d and %d.";
-        throw new Exception(sprintf($s, $diff, $mindiff, $maxdiff));
+        # throw new Exception(sprintf($s, $diff, $mindiff, $maxdiff));
       }
       $state = 6;
       break;
@@ -375,7 +373,6 @@ class EditParser
       }
       $notes[] = array();
       $state = 7;
-      $side = 0; // routine compatible switch.
       break;
     }
     case 7: /* Finally at step content. Read until ; is first. */
@@ -384,11 +381,10 @@ class EditParser
       if (substr($line, 0, 1) === ",") /* New measure upcoming. */
       {
         $measure++;
-        $notes[$side][] = array();
+        $notes[] = array();
       }
       elseif (substr($line, 0, 1) === "&") /* New routine step partner. */
       {
-        $side = 1;
         $measure = 0;
       }
       elseif (substr($line, 0, 1) === ";") /* Should be EOF */
@@ -401,7 +397,7 @@ class EditParser
       {
         $steps_per_row = 0;
         $row = substr($line, 0, $cols);
-        $notes[$side][$measure][] = $row;
+        $notes[$measure][] = $row;
 
         for ($i = 0; $i < $cols; $i++)
         {
@@ -425,7 +421,7 @@ class EditParser
             $holds_on[$i] = 1;
             $steps_on[$i] = 1;
             $steps_per_row++;
-            $holds[$side]++;
+            $holds++;
             break;
           }
           case "3": // End of hold/roll note
@@ -439,13 +435,13 @@ class EditParser
             $holds_on[$i] = 1;
             $steps_on[$i] = 1;
             $steps_per_row++;
-            $rolls[$side]++;
+            $rolls++;
             break;
           }
           case "M": // Mine
           {
             $holds_on[$i] = 0;
-            $mines[$side]++;
+            $mines++;
             break;
           }
           default: // Invalid data found.
@@ -461,9 +457,9 @@ class EditParser
         {
           $actve_on[$i] = ($holds_on[$i] === 1 or $steps_on[$i] === 1 ? 1 : 0);
         }
-        if ($steps_per_row > 0 and array_sum($actve_on) >= 3) { $trips[$side]++; }
-        if ($steps_per_row >= 2) { $jumps[$side]++; }
-        if ($steps_per_row) { $steps[$side]++; }
+        if ($steps_per_row > 0 and array_sum($actve_on) >= 3) { $trips++; }
+        if ($steps_per_row >= 2) { $jumps++; }
+        if ($steps_per_row) { $steps++; }
       }
       break;
     }

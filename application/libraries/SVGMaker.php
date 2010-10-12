@@ -10,14 +10,12 @@ class SVGMaker
   // Make a general <use> tag.
   function genUse($x, $y, $options = array())
   {
-    $base = "";
-
     $use = $this->s->createElement('use');
     if ($x > 0) $use->setAttribute('x', $x);
     if ($y > 0) $use->setAttribute('y', $y);
     
     if (array_key_exists('href', $options))
-      $use->setAttribute('xlink:href', "$base#" . $options['href']);
+      $use->setAttribute('xlink:href', "#" . $options['href']);
     if (array_key_exists('class', $options) and strlen($options['class']) > 1)
       $use->setAttribute('class', $options['class']);
     if (array_key_exists('transform', $options))
@@ -33,6 +31,11 @@ class SVGMaker
     $txt->setAttribute('y', $y);
     if (array_key_exists('class', $options) and strlen($options['class']) > 1)
       $txt->setAttribute('class', $options['class']);
+  
+    if (array_key_exists('id', $options) and strlen($options['id']) > 1)
+	{
+		$txt->setAttribute('xml:id', $options['id']);
+	}
     $txt->appendChild($this->s->createTextNode($st));
     return $txt;
   }
@@ -50,123 +53,25 @@ class SVGMaker
     return $line;
   }
   
-  // Generate the def files for the web browsers that require them.
-  function genDefs()
+  // Make a rect tag.
+  function genRect($x, $y, $w, $h, $options = array())
   {
-    $def = $svg = $this->s->createElement('defs');
-    $point = 8.5;
-    $radius = 6.5625;
-    
-    foreach (array(1, 2) as $num)
-    {
-      $g = $this->s->createElement('g');
-      $g->setAttribute('id', 'beat' . $num);
-      
-      foreach (array(0, 16) as $y)
-      {
-        $r = $this->s->createElement('rect');
-        $r->setAttribute('x', 0);
-        $r->setAttribute('y', $y);
-        $r->setAttribute('height', 16);
-        $r->setAttribute('width', 16);
-        $g->appendChild($r);
-      }
-      if ($num === 1)
-      {
-        $l = $this->s->createElement('line');
-        $l->setAttribute('x1', 0);
-        $l->setAttribute('x2', 16);
-        $l->setAttribute('y1', 0.1);
-        $l->setAttribute('y2', 0.1);
-        $g->appendChild($l);
-      }
-      $def->appendChild($g);
-    }
-    
-    $g = $this->s->createElement('g');
-    $g->setAttribute('id', 'measure');
-    foreach (array(0, 32) as $y)
-    {
-      $u = $this->s->createElement('use');
-      $u->setAttribute('x', 0);
-      $u->setAttribute('y', $y);
-      $u->setAttribute('xlink:href', '#beat' . ($y > 0 ? 2 : 1));
-      $g->appendChild($u);
-    }
-    
-    foreach (array(0.05, 15.95) as $x)
-    {
-      $l = $this->s->createElement('line');
-      $l->setAttribute('x1', $x);
-      $l->setAttribute('x2', $x);
-      $l->setAttribute('y1', 0);
-      $l->setAttribute('y2', 64);
-      $g->appendChild($l);
-    }
-    $def->appendChild($g);
-    
-    // Use one arrow, and rotate it.
-    
-    $g = $this->s->createElement('g');
-    $g->setAttribute('id', 'arrow');
-    $p = $this->s->createElement('path');
-    $p->setAttribute('d', 'm 1,8 7,7 2,-2 -3,-3 8,0 -2,-2 2,-2 -8,0 3,-3 -2,-2 z');
-    $g->appendChild($p);
-    
-    $l = $this->s->createElement('path');
-    $l->setAttribute('d', 'm 11,10 -2,-2 2,-2');
-    $g->appendChild($l);
-    
-    $l = $this->s->createElement('path');
-    $l->setAttribute('d', 'm 7,10 -2,-2 2,-2');
-    $g->appendChild($l);
-    
-    $def->appendChild($g);
-    
-    // mine
-    
-    $g = $this->s->createElement('g');
-    $g->setAttribute('id', 'mine');
-    
-    foreach (array(7, 5, 3) as $r)
-    {
-      $c = $this->s->createElement('circle');
-      $c->setAttribute('cx', 8);
-      $c->setAttribute('cy', 8);
-      $c->setAttribute('r', $r);
-      $g->appendChild($c);
-    }
-    $def->appendChild($g);
-    
-    foreach (array("hold", "roll") as $t)
-    {
-      $g = $this->s->createElement('g');
-      $g->setAttribute('id', $t . '_bdy');
-      $r = $this->s->createElement('rect');
-      $r->setAttribute('x', 1);
-      $r->setAttribute('y', 0);
-      $r->setAttribute('width', 14);
-      $r->setAttribute('height', 16);
-      $g->appendChild($r);
-      
-      foreach (array(1, 15) as $x)
-      {
-        $l = $this->s->createElement('line');
-        $l->setAttribute('x1', $x);
-        $l->setAttribute('y1', 0);
-        $l->setAttribute('x2', $x);
-        $l->setAttribute('y2', 16);
-        $g->appendChild($l);
-      }
-      $def->appendChild($g);
-      $g = $this->s->createElement('g');
-      $g->setAttribute('id', $t . '_end');
-      $p = $this->s->createElement('path');
-      $p->setAttribute('d', 'm 1,0 v 13 c 0,0 0,2 2,2 h 10 c 0,0 2,0 2,-2 v -13');
-      $g->appendChild($p);
-      $def->appendChild($g);
-    }
-    
-    return $def;
+    $rect = $this->s->createElement('rect');
+    $rect->setAttribute('x', $x);
+    $rect->setAttribute('y', $y);
+    $rect->setAttribute('width', $w);
+    $rect->setAttribute('height', $h);
+    if (array_key_exists('rx', $options))
+      $rect->setAttribute('rx', $options['rx']);
+    return $rect;
+  }
+  
+  
+  // Make a path tag.
+  function genPath($m, $options = array())
+  {
+    $path = $this->s->createElement('path');
+    $path->setAttribute('d', $m);
+    return $path;
   }
 }
