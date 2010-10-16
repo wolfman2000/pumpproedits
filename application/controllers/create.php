@@ -139,7 +139,7 @@ class Create extends Wolf_Controller
 		}
 		catch (Exception $e)
 		{
-			$ret['exception'] = $e->getMessage();
+			$st['exception'] = $e->getMessage();
 		}
 		@unlink($fn);
 		echo json_encode($st);
