@@ -98,6 +98,8 @@ class Ppe_song_song extends Model
 	public function getSongsWithGameAndDiff()
 	{
 		return $this->db
+			->where('available IS NOT NULL', NULL) # Umm...intentional?
+			->where('available >', 0)
 			->order_by('gid')
 			->order_by('name')
 			->get('song_game_chart_sort');
