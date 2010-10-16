@@ -315,6 +315,12 @@ class EditCharter
     $this->svg->appendChild($g);
   }
   
+	protected function getAllNotes()
+	{
+		$this->CI->load->model('ppe_edit_measure');
+		return $this->CI->ppe_edit_measure->getNotes($this->eid)->result_array();
+	}
+	
 	protected function prepArrows($counter = false)
 	{
 		$pre = ($counter === false ? '' : 'P' . $counter);
@@ -408,7 +414,7 @@ class EditCharter
     
     $arrows = $this->prepArrows();
     
-    $allNotes = $this->CI->ppe_edit_measure->getNotes($this->eid)->result_array();
+    $allNotes = $this->getAllNotes();
     
     foreach ($allNotes as $note):
     
