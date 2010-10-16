@@ -175,7 +175,7 @@ class EditParser
     $steps_on = array();
     $holds_on = array();
     $actve_on = array();
-    $notes = array(0 => array(), 1 => array());
+    $notes = array();
     $state = $diff = $cols = $measure = $songid = 0;
     $title = $song = $style = "";
     $couple = false; # Turn couple into routine.
@@ -283,6 +283,7 @@ class EditParser
         throw new Exception(sprintf($s, $line));
       }
       $style = substr($line, 0, $pos - strlen($line));
+      
       if ($style === "pump-couple") { $couple = true; }
       if (!in_array($style, array("pump-single", "pump-double", "pump-halfdouble", "pump-couple", "pump-routine")))
       {
@@ -424,10 +425,15 @@ class EditParser
         $actve_on[] = 0;
         $steps_on[] = 0;
       }
-      $notes[] = array();
-      if ($couple) { $notes[] = array(); }
+      //$notes[] = array();
+      //if ($couple) { $notes[] = array(); }
+      $beats = array();
+      $beats[] = array();
+      $beats[] = array();
+      //if ($style == "pump-routine") { $beats[1] == array(); }
       $state = 7;
       $side = 0; // routine compatible switch.
+      $beat = 0;
       break;
     }
     case 7: /* Finally at step content. Read until ; is first. */
@@ -436,16 +442,21 @@ class EditParser
       if (substr($line, 0, 1) === ",") /* New measure upcoming. */
       {
         $measure++;
-        $notes[$side][] = array();
-        if ($couple) { $notes[1][] = array(); }
+        $beats[$side][] = $beat;
+        $beat = 0;
+        //$notes[$side][] = array();
+        //if ($couple) { $notes[1][] = array(); }
       }
       elseif (substr($line, 0, 1) === "&") /* New routine step partner. */
       {
+        $beats[$side][] = $beat;
+        $beat = 0;
         $side = 1;
         $measure = 0;
       }
       elseif (substr($line, 0, 1) === ";") /* Should be EOF */
       {
+        $beats[$side][] = $beat;
         if ($params['arcade']) { break 2; }
         $state = 8;
         
@@ -458,12 +469,12 @@ class EditParser
         $row = substr($line, 0, $cols);
         if ($couple)
         {
-          $notes[0][$measure][] = substr($row, 0, 5) . '00000';
-          $notes[1][$measure][] = '00000' . substr($row, 5, 5);
+          //$notes[0][$measure][] = substr($row, 0, 5) . '00000';
+          //$notes[1][$measure][] = '00000' . substr($row, 5, 5);
         }
         else
         {
-          $notes[$side][$measure][] = $row;
+          //$notes[$side][$measure][] = $row;
         }
 
         for ($i = 0; $i < $cols; $i++)
@@ -471,6 +482,16 @@ class EditParser
           $steps_on[$i] = 0; // Reset previous info.
           if ($couple) { $steps_on[1] = 0; }
           $char = substr($row, $i, 1);
+          
+          if ($char != "0")
+          {
+          	  $notes[] = array('player' => ($couple ? (int)($i >= 5) : $side),
+          	  	  'measure' => $measure,
+          	  	  'column' => $i,
+          	  	  'note' => $char,
+          	  	  'row' => $beat);
+          }
+          
           switch ($char):
 
           case "0": // Empty space
@@ -601,7 +622,9 @@ class EditParser
           if ($steps_per_row[$side] >= 2) { $jumps[$side]++; }
           if ($steps_per_row[$side]) { $steps[$side]++; }
         }
+        $beat++;
       }
+      
       break;
     }
 
@@ -651,7 +674,11 @@ class EditParser
     $res['yfakes'] = $fakes[0];
     $res['mfakes'] = $fakes[1];
     $res['author'] = $author;
-    if (isset($params['notes']) and $params['notes']) { $res['notes'] = $notes; }
+    if (isset($params['notes']) and $params['notes'])
+    {
+      $res['beats'] = $beats;
+      $res['notes'] = $notes;
+    }
     return $res;
   }
 }
