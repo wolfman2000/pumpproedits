@@ -101,5 +101,14 @@ class Ppe_song_song extends Model
 			->order_by('gid')
 			->order_by('name')
 			->get('song_game_chart_sort');
-  }
+	}
+	
+	// get all of the songs in order.
+	public function getAllSongs()
+	{
+		return $this->db->select('name')
+			->from('ppe_song_song')
+			->order_by('LOWER(name)')
+			->get();
+	}
 }
