@@ -188,7 +188,7 @@ class Chart extends Wolf_Controller
 		$path = "%sdata/official/%d_%s.sm.gz";
 		foreach ($this->ppe_song_song->getAvailableCharts($sid)->result() as $d)
 		{
-			$ret[$d->abbr] = true;
+			$ret[$d->abbr] = ucfirst($d->d);
 		}
 		echo json_encode($ret);
 	}

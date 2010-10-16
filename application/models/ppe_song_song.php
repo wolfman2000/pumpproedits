@@ -117,7 +117,7 @@ class Ppe_song_song extends Model
 	// Get the list of available styles if chart and song are good.
 	public function getAvailableCharts($sid)
 	{
-		return $this->db->select('abbr')
+		return $this->db->select('abbr, difficulty AS d')
 			->where('id', $sid)
 			->where('song_problem', 0)
 			->where('chart_problem', 0)
