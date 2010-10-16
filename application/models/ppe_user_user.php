@@ -89,7 +89,7 @@ class Ppe_user_user extends Model
       ->where('b.is_public', 1)
       ->where_not_in('a.id', array(2, 95))
       ->group_by(array('a.id', 'a.name'))
-      ->order_by('a.lc_name')
+      ->order_by('LOWER(a.lc_name)')
       ->get();
   }
   
