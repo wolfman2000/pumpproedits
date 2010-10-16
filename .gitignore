@@ -1,6 +1,7 @@
 *~
 *.DS_Store
 application/controllers/wolfPrivate.php
+application/controllers/parser.php
 application/config/email.php
 application/config/database.php
 application/data
