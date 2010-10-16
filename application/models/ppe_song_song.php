@@ -113,4 +113,14 @@ class Ppe_song_song extends Model
 			->order_by('LOWER(name)')
 			->get();
 	}
+	
+	// Get the list of available styles if chart and song are good.
+	public function getAvailableCharts($sid)
+	{
+		return $this->db->select('abbr')
+			->where('id', $sid)
+			->where('song_problem', 0)
+			->where('chart_problem', 0)
+			->get('song_chart_stats');
+	}
 }

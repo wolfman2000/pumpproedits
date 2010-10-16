@@ -186,9 +186,9 @@ class Chart extends Wolf_Controller
 		$sid = $this->uri->segment(3, false);
 		header("Content-type: application/json");
 		$path = "%sdata/official/%d_%s.sm.gz";
-		foreach ($this->difficulties as $d)
+		foreach ($this->ppe_song_song->getAvailableCharts($sid)->result() as $d)
 		{
-			$ret[$d] = file_exists(sprintf($path, APPPATH, $sid, $d));
+			$ret[$d->abbr] = true;
 		}
 		echo json_encode($ret);
 	}
