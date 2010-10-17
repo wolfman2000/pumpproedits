@@ -52,7 +52,7 @@ function _populateEditList(data)
 {
 	for (var i = 0; i < data.length; i++)
 	{
-		var out = data[i].title + " (" + data[i].name + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
+		var out = escape(data[i].title) + " (" + escape(data[i].name) + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
 		var html = '<option id="' + data[i].id + '">' + out + '</option>';
 		$("#mem_edit").append(html);
 	}
