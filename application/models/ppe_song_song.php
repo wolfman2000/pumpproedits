@@ -32,7 +32,7 @@ class Ppe_song_song extends Model
   {
     return $this->db->select('COUNT(a.name) names')
       ->join('ppe_song_game g', 'a.id = g.song_id AND g.game_id > 1', 'left')
-      ->order_by('a.lc_name')
+      ->order_by('LOWER(a.name)')
       ->get('ppe_song_song a')
       ->row()->names;
   }
@@ -46,7 +46,7 @@ class Ppe_song_song extends Model
   // get the ID of the song by its lowercased name.
   public function getIDBySong($song)
   {
-    $q = $this->db->select('id')->where('lc_name', strtolower($song))
+    $q = $this->db->select('id')->where('LOWER(name)', strtolower($song))
       ->get('ppe_song_song');
     return $q->num_rows() ? $q->row()->id : null;
   }
@@ -65,7 +65,7 @@ class Ppe_song_song extends Model
     return $this->db->select('a.name, a.id, a.abbr, g.game_id tmp')
       ->join('ppe_song_game g', 'a.id = g.song_id AND g.game_id > 1', 'left')
       ->where('is_problem', 0)
-      ->order_by('a.lc_name')
+      ->order_by('LOWER(a.name)')
       ->limit(APP_BASE_EDITS_PER_PAGE, ($page - 1) * APP_BASE_EDITS_PER_PAGE)
       ->get('ppe_song_song a');
   }
@@ -80,7 +80,7 @@ class Ppe_song_song extends Model
       ->where('b.deleted_at', null)
       ->where('b.is_public', 1)
       ->group_by(array('a.id', 'a.name'))
-      ->order_by('a.lc_name')
+      ->order_by('LOWER(a.name)')
       ->get();
   }
   
