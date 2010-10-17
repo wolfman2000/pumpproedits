@@ -146,7 +146,7 @@ function loadSVGMeasures()
       }
     }
   
-  $("#notes > g").fadeIn(2000);
+  $("#notes > g").show();
 }
 
 // Determine how much to increment a loop in saveChart.
