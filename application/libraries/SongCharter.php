@@ -13,7 +13,6 @@ class SongCharter extends EditCharter
 	{
 		parent::__construct($params);
 		$this->CI->load->model('ppe_song_measure');
-		$this->arcade = 1;
 		$this->sid = $params['sid'];
 		$this->diff = $params['diff'];
 		$this->abbr = $params['abbr'];
@@ -34,7 +33,7 @@ class SongCharter extends EditCharter
 	{
 		parent::genEditHeader($nd);
 		
-		$str = sprintf("%s %s - %d", $nd['sname'], $nd['title'], $nd['diff']);
+		$str = sprintf("%s %s - %d", $nd['sname'], ucfirst($nd['difficulty']), $nd['diff']);
 		$txt = $this->xml->createTextNode($str);		
 		$node = $this->xml->getElementById("editHead");
 		$node->replaceChild($txt, $node->firstChild);
@@ -54,17 +53,9 @@ class SongCharter extends EditCharter
 	{
 		return $this->CI->ppe_song_measure->getNotes($this->sid, $this->abbr)->result_array();
 	}
-  
-	public function genChart($notedata)
+	
+	protected function getMeasureCount()
 	{
-		$id = $notedata['id'];
-		$measures = count($notedata['notes'][0]);
-		$this->genXMLHeader($measures, $notedata);
-		$this->genEditHeader($notedata);
-		$this->genMeasures($measures);
-		if ($this->showbpm) $this->genBPM($id);
-		if ($this->showstop) $this->genStop($id);
-		$this->genArrows($notedata['notes'], $notedata['style']);
-		return $this->xml;
+		return $this->CI->ppe_song_song->getMeasuresBySongID($this->sid);
 	}
 }
