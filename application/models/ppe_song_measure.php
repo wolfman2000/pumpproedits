@@ -10,7 +10,7 @@ class Ppe_song_measure extends Model
 	// Get all of the notes that this song uses.
 	function getNotes($sid, $diff)
 	{
-		return $this->db->select('measure, beat, column, symbol')
+		return $this->db->select('player, measure, beat, column, symbol')
 			->where('id', $sid)
 			->where('diff', $diff)
 			->order_by('measure')

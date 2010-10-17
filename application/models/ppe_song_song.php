@@ -84,16 +84,35 @@ class Ppe_song_song extends Model
       ->get();
   }
   
-  // get the songs in order of their game appearance.
-  function getSongsWithGame()
-  {
-  	  return $this->db->select('sid id, sid sid, name, first_game_id gid, first_game game')
-  	  	->where('is_problem', 0)
-  	  	->order_by('gid')
-  	  	->order_by('name')
-  	  	->get('song_first_last_games');
-  }
-  
+	// Get what is needed to display the chart.
+	public function getSongChartStats($sid, $diff)
+	{
+		$q = $this->db
+			->where('id', $sid)
+			->where('abbr', $diff)
+			->where('song_problem', 0)
+			->where('chart_problem', 0)
+			->get('song_chart_stats');
+		return ($q->num_rows() ? $q->row_array() : false);
+	}
+	
+	function getMeasuresBySongID($sid)
+	{
+		return $this->db->select('a.measures')
+			->where('id', $sid)
+			->get('ppe_song_song a')->row()->measures;
+	}
+	
+	// get the songs in order of their game appearance.
+	function getSongsWithGame()
+	{
+		return $this->db->select('sid id, sid sid, name, first_game_id gid, first_game game')
+			->where('is_problem', 0)
+			->order_by('gid')
+			->order_by('name')
+			->get('song_first_last_games');
+	}
+	
 	// Get all songs that have an assigned game and difficulty.
 	public function getSongsWithGameAndDiff()
 	{
