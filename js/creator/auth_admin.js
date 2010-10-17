@@ -20,10 +20,7 @@ $(document).ready(function()
 		var item = $("#web_sel").val();
 		if (item == "hd") { loadHardDrive(); }
 		else if (item == "you") { loadOwnEdits(); }
-		else if (item == "arc") { loadWebEdits(97); }
-		else if (item == "ano") { loadWebEdits(113); }
-		else if (item == "max") { loadWebEdits(120); }
-		else if (item == "gan") { loadWebEdits(124); }
+		else if (item == "and") { loadOfficialChoices(); }
 		else if (item == "off")
 		{
 			loadSongList("#loadSong");
