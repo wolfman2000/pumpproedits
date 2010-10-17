@@ -45,6 +45,10 @@
 
 $route['official'] = "edits/official";
 $route['official/:num'] = "edits/official";
+$route['arcade'] = "edits/arcade";
+$route['another'] = "edits/another";
+$route['mission'] = "edits/mission";
+$route['gauntlet'] = "edits/gauntlet";
 $route['user/:num'] = "edits/chosenUser";
 $route['user/:num/:num'] = "edits/chosenUser";
 $route['song/:num'] = "edits/chosenSong";
