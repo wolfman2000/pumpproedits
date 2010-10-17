@@ -50,6 +50,12 @@ class Edits extends Wolf_Controller
 	function chosenUser()
 	{
 		$id = $this->uri->segment(2);
+		if ($id == 2) redirect('edits/arcade');
+		if ($id == 97) redirect('edits/arcade');
+		if ($id == 113) redirect('edits/another');
+		if ($id == 120) redirect('edits/mission');
+		if ($id == 124) redirect('edits/gauntlet');
+		
 		$user = $this->ppe_user_user->getUserByID($id);
 		$this->_commonUser($id, "Edits by $user", 'edits/edits');
 	}
