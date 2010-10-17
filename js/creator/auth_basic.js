@@ -108,7 +108,8 @@ function uploadEdit()
 	data['style'] = $("#stylelist").val();
 	data['editID'] = editID;
 	data['songID'] = songID;
-	data['userID'] = ($("#authorlist").val() == 0 ? "person" : "andamiro");
+	var guy = $("#authorlist").val();
+	data['userID'] = (guy == 0 ? "person" : guy);
 	data['notes'] = $("#noteJSON").val(); // JSON'ed.
 	data['public'] = $("#editPublic").val();
 	data['radar'] = $("#radar").val(); // underline separator
@@ -138,6 +139,10 @@ function uploadEdit()
 			alert("You already have an edit titled " + data['title']
 				+ "\nfor a " + data['style'] + " edit of " + songData.name
 				+ ". Please use a different title.");
+		}
+		else if (res.result === "failure")
+		{
+			alert("You do not have the credientials to upload this edit.");
 		}
 		else
 		{

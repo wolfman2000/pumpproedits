@@ -396,9 +396,9 @@ class Create extends Wolf_Controller
 		$song = $this->ppe_song_song->getSongByID($row['id']);
 		$person = $this->input->post('userID');
 		
-		if ($person === "andamiro")
+		if ($person !== "person")
 		{
-			$row['uid'] = 2;
+			$row['uid'] = $this->ppe_user_user->getIDByUser($person);
 		}
 		else
 		{
@@ -413,11 +413,14 @@ class Create extends Wolf_Controller
 		}
 		if ($myID != $row['uid'])
 		{
-			if (($row['uid'] == 2 and
+			$key = array(2, 95, 97, 113, 120, 124);
+			if ((in_array($row['uid'], $key) and
 				(!$this->ppe_user_power->canEditOfficial($myID)))
 				or (!$this->ppe_user_power->canEditOthers($myID)))
 			{
-				// throw an error, user doesn't have permissions.
+				$ret['result'] = 'failure';
+				echo json_encode($ret);
+				return;
 			}
 		}
 		

@@ -146,10 +146,13 @@ PHP file used for Pump Pro Edits
 </ul>
 
 <ul id="navEditInfo">
-<li class="author"><label for="authorlist">Edit Author:</label></li>
+<li class="author"><label for="authorlist">Edit Kind:</label></li>
 <li class="author"><select id="authorlist">
-<option value="0" selected="selected">Yourself</option>
-<option value="1">Andamiro</option>
+<option value="0" selected="selected">Original</option>
+<option value="arcade">Arcade</option>
+<option value="another">Another</option>
+<option value="mission">Mission</option>
+<option value="gauntlet">Gauntlet</option>
 </select></li>
 <li><label id="editSong" for="editName">Edit Name:</label></li>
 <li><input type="text" id="editName" maxlength="12" /></li>
