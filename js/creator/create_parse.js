@@ -398,7 +398,7 @@ function gatherStats(useRadar)
     var css = cur.attr('class');
     var p = getPlayerByClass(css);
     var y = parseFloat(cur.attr('y')) - BUFF_TOP;
-    var m = Math.floor(y * MEASURE_RATIO / BEATS_MAX) + 1;
+    var m = Math.floor(y * MEASURE_RATIO / BEATS_MAX);
     var b = Math.round(y * MEASURE_RATIO % BEATS_MAX);
     var x = parseFloat(cur.attr('x'));
     var c = (x - BUFF_LFT) / ARR_HEIGHT;
