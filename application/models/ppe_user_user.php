@@ -21,9 +21,7 @@ class Ppe_user_user extends Model
 
     $id = $this->db->select('MAX(id) AS lid')->get('ppe_user_user')
       ->row()->lid + 1;
-    $data = array('name' => $name, 'lc_name' => strtolower($name),
-      'email' => $email, 'lc_email' => strtolower($email), 'id' => $id,
-    );
+    $data = array('name' => $name, 'email' => $email, 'id' => $id);
     
     $this->db->insert('ppe_user_user', $data);
     #$id = $this->db->insert_id();
@@ -65,7 +63,7 @@ class Ppe_user_user extends Model
   // get the id of the user via email.
   function getIDByEmail($email)
   {
-    $q = $this->db->select('id')->where('lc_email', strtolower($email))
+    $q = $this->db->select('id')->where('LOWER(email)', strtolower($email))
       ->get('ppe_user_user');
     return $q->num_rows() ? $q->row()->id : null;
   }
@@ -73,7 +71,7 @@ class Ppe_user_user extends Model
   // get the ID of the user via username.
   function getIDByUser($name)
   {
-    $q = $this->db->select('id')->where('lc_name', strtolower($name))
+    $q = $this->db->select('id')->where('LOWER(name)', strtolower($name))
       ->get('ppe_user_user');
     return $q->num_rows() ? $q->row()->id : null;
   }
@@ -87,9 +85,9 @@ class Ppe_user_user extends Model
       ->where('b.is_problem', 0)
       ->where('b.deleted_at', null)
       ->where('b.is_public', 1)
-      ->where_not_in('a.id', array(2, 95))
+      ->where_not_in('a.id', array(2, 95, 97, 113, 120, 124))
       ->group_by(array('a.id', 'a.name'))
-      ->order_by('LOWER(a.lc_name)')
+      ->order_by('LOWER(a.name)')
       ->get();
   }
   
@@ -106,7 +104,7 @@ class Ppe_user_user extends Model
   public function getCasedName($name)
   {
     return $this->db->select('name')
-      ->where('lc_name', strtolower($name))
+      ->where('LOWER(name)', strtolower($name))
       ->get('ppe_user_user')->row()->name;
   }
   

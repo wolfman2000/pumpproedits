@@ -13,7 +13,12 @@ PHP file used for Pump Pro Edits
 <li><?php echo anchor("#", "Browse Edits"); ?><ul>
 <li><?php echo anchor("/songs", "List by Song"); ?></li>
 <li><?php echo anchor("/users", "List by Author"); ?></li>
-<li><?php echo anchor("/official", "List Official Edits"); ?></li>
+<li><?php echo anchor("#", "Official Edits"); ?><ul>
+<li><?php echo anchor("/arcade", "Arcade Mode Edits"); ?></li>
+<li><?php echo anchor("/another", "Another Edits"); ?></li>
+<li><?php echo anchor("/mission", "Mission Mode Edits"); ?></li>
+<li><?php echo anchor("/gauntlet", "Gauntlet Edits"); ?></li>
+</ul></li>
 <?php if ($this->session->userdata('id')): ?>
 <li><?php echo anchor("/remove", "Remove Edits"); ?></li>
 <?php endif; ?>
