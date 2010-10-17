@@ -178,11 +178,15 @@ class EditParser
     $notes = array();
     $state = $diff = $cols = $measure = $songid = 0;
     $title = $song = $style = "";
+    
+    $allTypes = array('1' => 'tap', '2' => 'hold', '3' => 'end', '4' => 'roll',
+    	'M' => 'mine', 'L' => 'lift', 'F' => 'fake');
+    
     $couple = false; # Turn couple into routine.
     $CI =& get_instance();
     $CI->load->model('ppe_song_song');
     $base = $CI->ppe_song_song;
-    
+                
     if (!array_key_exists('strict_song', $params)) { $params['strict_song'] = true; }
     if (!array_key_exists('strict_edit', $params)) { $params['strict_edit'] = true; }
     if (!array_key_exists('arcade', $params)) { $params['arcade'] = false; }
@@ -489,6 +493,7 @@ class EditParser
           	  	  'measure' => $measure,
           	  	  'column' => $i,
           	  	  'note' => $char,
+          	  	  'kind' => $allTypes[$char],
           	  	  'row' => $beat);
           }
           

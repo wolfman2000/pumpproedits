@@ -223,7 +223,7 @@ function loadTextEdit(data)
   $("li.edit").show();
   editMode();
   $("#intro").text("Loading chart...");
-  if (data.notes) { loadChart(data.notes); }
+  if (data.notes) { loadChart(data.notes, data.beats); }
 }
 
 // Load the chosen edit from the database.

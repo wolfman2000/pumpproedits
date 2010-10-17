@@ -31,52 +31,28 @@ function loadDatabaseChart(nd)
 	}
 }
 
-// Load the data from JSON to JS/SVG.
-function loadChart(nd)
+// Load the data from textarea JSON to JS/SVG.
+function loadChart(nd, beats)
 {
+  if (!nd) { return; }
   $("#notes > g").children().remove(); // remove the old chart.
   $("#svg").attr('width', SCALE * (BUFF_LFT + BUFF_RHT + columns * ARR_HEIGHT));
   
   loadSVGMeasures();
   
-  if (!nd) { return; }
   
-  var eRow = stringMul("0", columns); // completely empty row.
-  
-  LOOP_PLAYER:
-  for (var iP = 0; iP < 2; iP++)
+  for (var i = 0; i < nd.length; i++)
   {
-    if (iP && $("#stylelist").val() !== "routine") { break LOOP_PLAYER; }
-    
-    LOOP_MEASURE:
-    for (var iM = 0; iM < songData.measures; iM++)
-    {
-      // Ensure the measure exists (mainly for song data)
-      if (!nd[iP][iM]) { continue LOOP_MEASURE; }
-      var rows = nd[iP][iM].length;
-      
-      LOOP_BEAT:
-      for (var iB = 0; iB < rows; iB++)
-      {
-        var cRow = nd[iP][iM][iB];
-        if (cRow === eRow) { continue LOOP_BEAT; }
-        
-        var mul = (BEATS_MAX / rows) * iB;
-        LOOP_ROW:
-        for (var iR = 0; iR < columns; iR++)
-        {
-          var ch = cRow.charAt(iR);
-          if (ch === "0") { continue LOOP_ROW; }
-          if ($("#stylelist").val() === "routine")
-          {
-          var note = "p" + iP + " " + getSync(mul) + " " + getType(ch);
-          } else { var note = getNote(mul, ch, iP); }
-          var x = iR * ARR_HEIGHT + BUFF_LFT;
-          var y = ((iM * BEATS_MAX + mul) / MEASURE_RATIO) + BUFF_TOP;
-          $("#svgNote").append(selectArrow(iR, x, y, note));
-        }
-      }
-    }
+		var m = parseInt(nd[i]['measure']);
+		var p = nd[i]['player'];
+		var mul = parseInt(nd[i]['row']) * 192 / beats[p][m];
+		var pl = "S";
+		if ($("#stylelist").val() === "routine") pl = p;
+		var note = "p" + pl + " " + getSync(mul) + " " + nd[i]['kind'];
+		var c = parseInt(nd[i]['column']);
+		var x = c * ARR_HEIGHT + BUFF_LFT;
+		var y = ((m * BEATS_MAX + mul) / MEASURE_RATIO) + BUFF_TOP;
+		$("#svgNote").append(selectArrow(c, x, y, note));
   }
 }
 
