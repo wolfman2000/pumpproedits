@@ -18,6 +18,14 @@ foreach ($query as $z): ?>
       <?php if (isset($showuser)): 
         if ($z->user_id == 2):
           $route = "/official";
+        elseif ($z->user_id == 97):
+          $route = "/arcade";
+        elseif ($z->user_id == 113):
+          $route = "/another";
+        elseif ($z->user_id == 120):
+          $route = "/mission";
+        elseif ($z->user_id == 124):
+          $route = "/gauntlet";
         else:
           $route = "/user/$z->user_id";
         endif;
