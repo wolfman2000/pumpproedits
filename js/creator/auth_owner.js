@@ -102,6 +102,75 @@ $(document).ready(function()
 	$("#song_yes").click(function(){ songMode(); });
 });
 
+// Enter this mode of an admin edits an official song.
+// Similar to EditMode, but separation is needed.
+function songMode()
+{
+  $("#intro").text("Loading chart...");
+  $("li[class^=load]").hide();
+  _disable("#authorlist");
+  songID = $("#loadSong").val();
+  var diff = $("#loadDifficulty").val();
+  $("#notes > g").children().remove(); // remove the old chart.
+  $(".edit").hide();
+  $("#editName").val('');
+  $("#editDiff").val('');
+  $("#statS").text(0);
+  $("#statJ").text(0);
+  $("#statH").text(0);
+  $("#statM").text(0);
+  $("#statR").text(0);
+  $("#statT").text(0);
+  $("#statF").text(0);
+  $("#statL").text(0);
+  $("#fCont").val('');
+  $("#editName").attr('maxlength', 32);
+  $("#editSong").text("Edit Author:");
+  $("#but_sub").attr('name', 'songSubmit');
+  
+  $.getJSON(baseURL + "/loadOfficial/" + songID + "/" + diff, function(data){
+    $("#intro").text("Loading chart...");
+    $(".author").hide();
+    var tmp = "<option value=\"" + data.style + "\">Tmp</option>";
+    $("#stylelist").append(tmp);
+    $("#stylelist").val(data.style);
+    
+    songData = data.songData;
+    measures = songData['measures'];
+    $("#scalelist").val(2.5);
+    captured = false;
+    columns = getCols();
+    $("rect[id^=sel]").attr('width', columns * ARR_HEIGHT).hide();
+    fixScale(2.5, 600);
+    
+    $("#tabNav a").filter(':first').click();
+    $("#navEditTransform span[id$=Check]").text("???");
+    $("nav dt.edit").show();
+    $("nav dd.edit").show();
+    
+    $("nav *.choose").hide();
+    if ($("#stylelist").val() !== "routine") { $("nav .routine").hide(); }
+    else { $("nav .routine").show(); }
+    var phrase = songData.name + " " + data.title;
+    $("h2").first().text(phrase);
+    $("title").text("Editing " + phrase + " — Pump Pro Edits");
+    _enable("#but_new");
+    _enable("#editName");
+    _enable("#but_load");
+    $("#editName").val(data.author);
+    $("#editDiff").val(data.diff);
+    
+    loadDatabaseChart(data.notes);
+    if (data.notes) { updateStats(data); }
+    
+    isDirty = false;
+    clipboard = null;
+    $("li.edit").show();
+    $("#intro").text("All loaded up!");
+  });
+}
+
+
 // Upload the intended official chart.
 function uploadOfficial()
 {
