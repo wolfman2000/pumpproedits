@@ -19,6 +19,18 @@ class Ppe_song_measure extends Model
 			->get('song_chart_notes');
 	}
 	
+	// Get all of the notes for the edit creator.
+	function getCreatorNotes($sid, $diff)
+	{
+		return $this->db->select('player, measure, beat, column, note')
+			->where('id', $sid)
+			->where('diff', $diff)
+			->order_by('measure')
+			->order_by('beat')
+			->order_by('column')
+			->get('song_chart_notes');
+	}
+	
 	function getLongDifficulty($diff)
 	{
 		return $this->db->select('diff')->where('abbr', $diff)
