@@ -33,7 +33,11 @@ PHP file used for Pump Pro Edits
 </section>
 <section class="grid_3" id="footer-right">
 <p>Proudly built by <a href="mailto:jafelds@gmail.com">Jason "Wolfman2000" Felds</a></p>
-<?php if (strpos($_SERVER['SERVER_NAME'], "localhost") === false): ?>
+<?php /* Info below is for various pages. */
+foreach ($scripts as $script): ?>
+<script type="text/javascript" src="<?php echo $script; ?>"></script>
+<?php endforeach; 
+if (strpos($_SERVER['SERVER_NAME'], "localhost") === false): ?>
 <!-- Site Meter -->
 <script type="text/javascript" src="http://s36.sitemeter.com/js/counter.js?site=s36pumpproedits">
 </script>

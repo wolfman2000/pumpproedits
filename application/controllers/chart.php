@@ -127,9 +127,9 @@ class Chart extends Wolf_Controller
 			'kind' => $this->uri->segment(4, 'classic'),
 			'red4' => $this->uri->segment(5, 0),
 			'noteskin' => $this->uri->segment(6, 'original'),
-			'speed_mod' => $this->uri->segment(7, 2),
+			'speed_mod' => str_replace("_", ".", $this->uri->segment(7, 2)),
 			'mpcol' => $this->uri->segment(8, 6),
-			'scale' => $this->uri->segment(9, 1),
+			'scale' => str_replace("_", ".", $this->uri->segment(9, 1)),
 			'cols' => $notedata['cols'],
 			'eid' => $eid,
 			);
@@ -139,6 +139,7 @@ class Chart extends Wolf_Controller
 		header("Content-Type: application/xhtml+xml");
 		$xml = $this->editcharter->genChart($notedata);
 		echo str_replace("xml:id", "id", $xml->saveXML());
+		return;
 	}
 	
 	function editProcess()
@@ -185,12 +186,48 @@ class Chart extends Wolf_Controller
 	{
 		$sid = $this->uri->segment(3, false);
 		header("Content-type: application/json");
-		$path = "%sdata/official/%d_%s.sm.gz";
-		foreach ($this->difficulties as $d)
+		foreach ($this->ppe_song_song->getAvailableCharts($sid)->result() as $d)
 		{
-			$ret[$d] = file_exists(sprintf($path, APPPATH, $sid, $d));
+			$ret[$d->abbr] = ucfirst($d->d);
 		}
 		echo json_encode($ret);
+	}
+	
+	// Use this common GET function to show the chart.
+	function showSong()
+	{
+		$sid = $this->uri->segment(3, -1);
+		$diff = $this->uri->segment(4);
+		
+		$notedata = $this->ppe_song_song->getSongChartStats($sid, $diff);
+		
+		if (!$notedata)
+		{
+			$this->_showSongForm('chart/songError', 'Official Chart Generator');
+			return;
+		}
+		
+		$p = array
+		(
+			'kind' => $this->uri->segment(5, 'classic'),
+			'red4' => $this->uri->segment(6, 0),
+			'noteskin' => $this->uri->segment(7, 'original'),
+			'speed_mod' => str_replace("_", ".", $this->uri->segment(8, 2)),
+			'mpcol' => $this->uri->segment(9, 6),
+			'scale' => str_replace("_", ".", $this->uri->segment(10, 1)),
+			'cols' => $notedata['cols'],
+			'sid' => $notedata['id'],
+			'diff' => $notedata['diff'],
+			'abbr' => $notedata['abbr'],
+			);
+		$notedata['notes'] = false;
+		$notedata['title'] = false;
+		if ($sid > 163) $notedata['author'] = "Someone";
+		
+		$this->load->library('SongCharter', $p);
+		header("Content-Type: application/xhtml+xml");
+		$xml = $this->songcharter->genChart($notedata);
+		echo str_replace("xml:id", "id", $xml->saveXML());
 	}
 	
 	function songProcess()
@@ -200,21 +237,19 @@ class Chart extends Wolf_Controller
 			$this->_showSongForm('chart/songError', 'Official Chart Generator');
 			return;
 		}
-		$sid = $this->input->post('songs');
-		$dif = $this->input->post('diff');
-		$path = sprintf("%sdata/official/%d_%s.sm.gz", APPPATH, $sid, $dif);
 		
-		$this->load->library('EditParser');
-		$p = array('notes' => 1, 'strict_song' => 0, 'arcade' => $dif);
-		$notedata = $this->editparser->get_stats(gzopen($path, "r"), $p);
-		$p = array('cols' => $notedata['cols'], 'kind' => $this->input->post('kind'),
-			'red4' => $this->input->post('red4'), 'speed_mod' => $this->input->post('speed'),
-			'mpcol' => $this->input->post('mpcol'), 'scale' => $this->input->post('scale'),
-			'arcade' => 1, 'noteskin' => $this->input->post('noteskin'));
-		$this->load->library('SongCharter', $p);
-		header("Content-Type: application/xhtml+xml");
-		$xml = $this->songcharter->genChart($notedata);
-		echo str_replace("xml:id", "id", $xml->saveXML());
+		$url = sprintf("/chart/showSong/%d/%s/%s/%s/%s/%1.2f/%d/%1.2f",
+			$this->input->post('songs'),
+			$this->input->post('diff'),
+			$this->input->post('kind'),
+			$this->input->post('red4'),
+			$this->input->post('noteskin'),
+			$this->input->post('speed'),
+			$this->input->post('mpcol'),
+			$this->input->post('scale')
+			);
+		redirect($url, 'location', 303);
+		return;
 	}
 	
 	function quick()

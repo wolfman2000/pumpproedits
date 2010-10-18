@@ -52,7 +52,7 @@ function _populateEditList(data)
 {
 	for (var i = 0; i < data.length; i++)
 	{
-		var out = data[i].title + " (" + data[i].name + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
+		var out = escape(data[i].title) + " (" + escape(data[i].name) + ") " + data[i].style.charAt(0).capitalize() + data[i].diff;
 		var html = '<option id="' + data[i].id + '">' + out + '</option>';
 		$("#mem_edit").append(html);
 	}
@@ -108,7 +108,8 @@ function uploadEdit()
 	data['style'] = $("#stylelist").val();
 	data['editID'] = editID;
 	data['songID'] = songID;
-	data['userID'] = ($("#authorlist").val() == 0 ? "person" : "andamiro");
+	var guy = $("#authorlist").val();
+	data['userID'] = (guy == 0 ? "person" : guy);
 	data['notes'] = $("#noteJSON").val(); // JSON'ed.
 	data['public'] = $("#editPublic").val();
 	data['radar'] = $("#radar").val(); // underline separator
@@ -138,6 +139,10 @@ function uploadEdit()
 			alert("You already have an edit titled " + data['title']
 				+ "\nfor a " + data['style'] + " edit of " + songData.name
 				+ ". Please use a different title.");
+		}
+		else if (res.result === "failure")
+		{
+			alert("You do not have the credientials to upload this edit.");
 		}
 		else
 		{

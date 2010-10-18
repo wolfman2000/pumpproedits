@@ -315,6 +315,12 @@ class EditCharter
     $this->svg->appendChild($g);
   }
   
+	protected function getAllNotes()
+	{
+		$this->CI->load->model('ppe_edit_measure');
+		return $this->CI->ppe_edit_measure->getNotes($this->eid)->result_array();
+	}
+	
 	protected function prepArrows($counter = false)
 	{
 		$pre = ($counter === false ? '' : 'P' . $counter);
@@ -392,7 +398,7 @@ class EditCharter
     }
   }
   
-  protected function genArrows($notes, $style = "single")
+  protected function genArrows($style = "single")
   {
     $this->CI->load->model('ppe_edit_measure');
     for ($i = 0; $i < $this->cols; $i++)
@@ -408,7 +414,7 @@ class EditCharter
     
     $arrows = $this->prepArrows();
     
-    $allNotes = $this->CI->ppe_edit_measure->getNotes($this->eid)->result_array();
+    $allNotes = $this->getAllNotes();
     
     foreach ($allNotes as $note):
     
@@ -544,16 +550,21 @@ class EditCharter
 	endforeach;
 	$this->svg->appendChild($nt);
 	}
-  
-  public function genChart($notedata)
-  {
-    $measures = $this->CI->ppe_edit_edit->getMeasureCount($this->eid);
-    $this->genXMLHeader($measures, $notedata);
-    $this->genEditHeader($notedata);
-    $this->genMeasures($measures);
-    if ($this->showbpm) $this->genBPM($notedata['id']);
-    if ($this->showstop) $this->genStop($notedata['id']);
-    $this->genArrows($notedata['notes'], $notedata['style']);
-    return $this->xml;
-  }
+	
+	protected function getMeasureCount()
+	{
+		return $this->CI->ppe_edit_edit->getMeasureCount($this->eid);
+	}
+	
+	public function genChart($notedata)
+	{
+		$measures = $this->getMeasureCount();
+		$this->genXMLHeader($measures, $notedata);
+		$this->genEditHeader($notedata);
+		$this->genMeasures($measures);
+		if ($this->showbpm) $this->genBPM($notedata['id']);
+		if ($this->showstop) $this->genStop($notedata['id']);
+		$this->genArrows($notedata['style']);
+		return $this->xml;
+	}
 }

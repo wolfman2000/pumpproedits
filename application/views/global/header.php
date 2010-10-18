@@ -20,10 +20,7 @@ PHP/HTML file used for Pump Pro Edits
 if ($browser == "ie"): ?>
 <script type="text/javascript" src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
 <script type="text/javascript" src="js/ie_html5.js"></script>
-<?php endif; /* Info below is for various pages. */ ?>
-<?php foreach ($scripts as $script): ?>
-<script type="text/javascript" src="<?php echo $script; ?>"></script>
-<?php endforeach; ?>
+<?php endif; ?>
 </head>
 <body class="container_12">
 

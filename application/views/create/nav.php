@@ -29,6 +29,16 @@ PHP file used for Pump Pro Edits
 <li class="loadWeb long reset"><select id="web_sel"></select></li>
 <li class="loadWeb"><button id="web_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
 <li class="loadWeb"><button id="web_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
+<li class="loadOfficial long reset">What kind of official edit?</li>
+<li class="loadOfficial long reset"><select id="official_sel">
+<option value="">Choose!</option>
+<option value="arc">Arcade</option>
+<option value="ano">Another</option>
+<option value="max">Mission</option>
+<option value="gan">Gauntlet</option>
+</select></li>
+<li class="loadOfficial"><button id="official_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
+<li class="loadOfficial"><button id="official_no" type="button" class="fg-button ui-state-default ui-corner-all">Nevermind</button></li>
 <li class="loadOther long reset">Choose a person for edits...carefully.</li>
 <li class="loadOther long"><select id="other_sel"></select></li>
 <li class="loadOther"><button id="other_yes" type="button" class="fg-button ui-state-default ui-corner-all">Select</button></li>
@@ -136,10 +146,13 @@ PHP file used for Pump Pro Edits
 </ul>
 
 <ul id="navEditInfo">
-<li class="author"><label for="authorlist">Edit Author:</label></li>
+<li class="author"><label for="authorlist">Edit Kind:</label></li>
 <li class="author"><select id="authorlist">
-<option value="0" selected="selected">Yourself</option>
-<option value="1">Andamiro</option>
+<option value="0" selected="selected">Original</option>
+<option value="arcade">Arcade</option>
+<option value="another">Another</option>
+<option value="mission">Mission</option>
+<option value="gauntlet">Gauntlet</option>
 </select></li>
 <li><label id="editSong" for="editName">Edit Name:</label></li>
 <li><input type="text" id="editName" maxlength="12" /></li>

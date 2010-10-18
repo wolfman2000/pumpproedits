@@ -14,20 +14,25 @@ class Ppe_song_bpm extends Model
 	}
 	
 	// Get all of the BPM changes in this song.
-	public function getBPMsBySongID($id)
+	public function getBPMsBySongID($id, $override = 0)
 	{
-		return $this->db->where('song_id', $id)
-			->order_by('beat')->get('ppe_song_bpm')->result();
+		$this->db->from('ppe_song_bpm')
+			->where('song_id', $id)
+			->order_by('beat')
+			->order_by('is_public', 'desc');
+		if (!$override) { $this->db->where('is_public', '1'); }
+		return $this->db->get()->result();
 	}
 	
 	// Get all of the BPM changes via the edit id.
-	public function getBPMsByEditID($id)
+	public function getBPMsByEditID($id, $override = 0)
 	{
-		return $this->db->from('ppe_song_bpm b')
+		$this->db->from('ppe_song_bpm b')
 			->join('ppe_edit_edit e', 'e.song_id = b.song_id')
 			->where('e.id', $id)
 			->order_by('beat')
-			->get()
-			->result();
+			->order_by('is_public', 'desc');
+		if (!$override) { $this->db->where('is_public', '1'); }
+		return $this->db->get()->result();
 	}
 }

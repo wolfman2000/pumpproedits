@@ -19,6 +19,7 @@ class Create extends Wolf_Controller
 		$this->load->model('ppe_user_user');
 		$this->load->model('ppe_song_bpm');
 		$this->load->model('ppe_song_stop');
+		$this->load->model('ppe_song_measure');
 		$this->load->model('ppe_song_section');
 		$this->load->model('ppe_edit_edit');
 		$this->load->model('ppe_edit_measure');
@@ -59,6 +60,10 @@ class Create extends Wolf_Controller
 				if ($this->ppe_user_power->canEditOthers($id))
 				{
 					$this->_addJS('/js/creator/auth_admin.js');
+					if ($this->ppe_user_power->canEditSongs($id))
+					{
+						$this->_addJS('/js/creator/auth_owner.js');
+					}
 				}
 			}
 		}
@@ -90,8 +95,11 @@ class Create extends Wolf_Controller
 				$ret[] = array('id' => 'and', 'value' => 'Load an official web site edit.');
 				if ($this->ppe_user_power->canEditOthers($id))
 				{
-					$ret[] = array('id' => 'off', 'value' => 'Load an official stepchart.');
 					$ret[] = array('id' => 'all', 'value' => "Load someone else's edit...carefully.");
+					if ($this->ppe_user_power->canEditSongs($id))
+					{
+						$ret[] = array('id' => 'off', 'value' => 'Load an official stepchart.');
+					}
 				}
 			}
 		}
@@ -139,7 +147,7 @@ class Create extends Wolf_Controller
 		}
 		catch (Exception $e)
 		{
-			$ret['exception'] = $e->getMessage();
+			$st['exception'] = $e->getMessage();
 		}
 		@unlink($fn);
 		echo json_encode($st);
@@ -275,57 +283,10 @@ class Create extends Wolf_Controller
 		header("Content-Type: application/json");
 		$id = $this->uri->segment(3);
 		$diff = $this->uri->segment(4);
-		$ret = array();
-		// Make doubly sure the song exists.
-		if (!$this->ppe_song_song->getSongByID($id))
-		{
-			$ret['error'] = "The chosen song does not exist.";
-		}
-		elseif (!in_array($diff, array('ez', 'nr', 'hr', 'cz', 'fs', 'hd', 'nm', 'rt')))
-		{
-			$ret['error'] = "The difficulty chosen was not valid.";
-		}
-		if (!count($ret))
-		{
-			// Try to read the file. If it doesn't exist, that's alright.
-			$path = sprintf("%sdata/official/%d_%s.sm.gz", APPPATH, $id, $diff);
-			if (file_exists($path))
-			{
-				$data = array('notes' => 1, 'strict_song' => 0, 'arcade' => $diff);
-				$ret = $this->editparser->get_stats(gzopen($path, "r"));
-				//$ret['difficulty'] = $this->editparser->getSMDiff($diff);
-			}
-			else
-			{
-				$ret['dShort'] = $diff;
-				// At least get the style sorted out.
-				if (in_array($diff, array('ez', 'nr', 'hr', 'cz')))
-				{
-					$ret['style'] = "single";
-				}
-				elseif (in_array($diff, array('fs', 'nm')))
-				{
-					$ret['style'] = "double";
-				}
-				elseif ($diff == "hd")
-				{
-					$ret['style'] = "halfdouble";
-				}
-				else // routine
-				{
-					$ret['style'] = "routine";
-				}
-				// Put in defaults to keep the code flowing.
-				$ret['notes'] = null;
-				$ret['author'] = null;
-				$ret['difficulty'] = $this->editparser->getSMDiff($diff);
-			}
-			$data = $this->_songData($id);
-			foreach ($data as $k => $v)
-			{
-				$ret[$k] = $v;
-			}
-		}
+		$ret = $this->ppe_song_song->getSongChartStats($id, $diff);
+		$ret['notes'] = $this->ppe_song_measure->getCreatorNotes($id, $diff)->result();
+		$ret['authID'] = null;
+		$ret['songData'] = $this->_songData($id);
 		echo json_encode($ret);
 	}
 	
@@ -349,7 +310,7 @@ class Create extends Wolf_Controller
 		
 		// Make DOUBLY sure the user can upload the edit.
 		$id = $this->session->userdata('id');
-		if (!$this->ppe_user_power->canEditOthers($id))
+		if (!$this->ppe_user_power->canEditSongs($id))
 		{
 			$ret['error'] = "You don't have permission to upload an official chart.";
 			echo json_encode($ret);
@@ -396,9 +357,9 @@ class Create extends Wolf_Controller
 		$song = $this->ppe_song_song->getSongByID($row['id']);
 		$person = $this->input->post('userID');
 		
-		if ($person === "andamiro")
+		if ($person !== "person")
 		{
-			$row['uid'] = 2;
+			$row['uid'] = $this->ppe_user_user->getIDByUser($person);
 		}
 		else
 		{
@@ -413,11 +374,14 @@ class Create extends Wolf_Controller
 		}
 		if ($myID != $row['uid'])
 		{
-			if (($row['uid'] == 2 and
+			$key = array(2, 95, 97, 113, 120, 124);
+			if ((in_array($row['uid'], $key) and
 				(!$this->ppe_user_power->canEditOfficial($myID)))
 				or (!$this->ppe_user_power->canEditOthers($myID)))
 			{
-				// throw an error, user doesn't have permissions.
+				$ret['result'] = 'failure';
+				echo json_encode($ret);
+				return;
 			}
 		}
 		

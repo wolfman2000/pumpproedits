@@ -14,20 +14,25 @@ class Ppe_song_stop extends Model
 	}
 	
 	// Get all of the stops in this song.
-	public function getStopsBySongID($id)
+	public function getStopsBySongID($id, $override = 0)
 	{
-		return $this->db->where('song_id', $id)
-			->order_by('beat')->get('ppe_song_stop')->result();
+		$this->db->from('ppe_song_stop')
+			->where('song_id', $id)
+			->order_by('beat')
+			->order_by('is_public', 'desc');
+		if (!$override) { $this->db->where('is_public', '1'); }
+		return $this->db->get()->result();
 	}
 	
 	// Get all of the BPM stops via the edit id.
-	public function getStopsByEditID($id)
+	public function getStopsByEditID($id, $override = 0)
 	{
-		return $this->db->from('ppe_song_stop s')
+		$this->db->from('ppe_song_stop s')
 			->join('ppe_edit_edit e', 'e.song_id = s.song_id')
 			->where('e.id', $id)
 			->order_by('beat')
-			->get()
-			->result();
+			->order_by('is_public', 'desc');
+		if (!$override) { $this->db->where('is_public', '1'); }
+		return $this->db->get()->result();
 	}
 }

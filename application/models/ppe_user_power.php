@@ -19,15 +19,21 @@ class Ppe_user_power extends Model
       ->where('user_id', $userid)->get('ppe_user_power')->num_rows();
   }
   
-  // Only allow mods and higher to mess with official charts/edits.
+  // Only allow mods and higher to mess with official edits.
   function canEditOfficial($userid)
   {
     return $this->powerCheck($userid, 4);
   }
   
-  // Only allow admins with the power to fix up other user's charts.
+  // Only allow admins and higher with the power to fix up other user's charts.
   function canEditOthers($userid)
   {
     return $this->powerCheck($userid, 5);
+  }
+  
+  // Only allow owners with the power to fix up the official charts.
+  function canEditSongs($userid)
+  {
+    return $this->powerCheck($userid, 6);
   }
 }
