@@ -31,8 +31,8 @@ class Ppe_song_stop extends Model
 			->join('ppe_edit_edit e', 'e.song_id = s.song_id')
 			->where('e.id', $id)
 			->order_by('beat')
-			->order_by('is_public', 'desc');
-		if (!$override) { $this->db->where('is_public', '1'); }
+			->order_by('s.is_public', 'desc');
+		if (!$override) { $this->db->where('s.is_public', '1'); }
 		return $this->db->get()->result();
 	}
 }
