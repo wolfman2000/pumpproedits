@@ -222,6 +222,7 @@ class Chart extends Wolf_Controller
 			);
 		$notedata['notes'] = false;
 		$notedata['title'] = false;
+		if ($sid > 163) $notedata['author'] = "Someone";
 		
 		$this->load->library('SongCharter', $p);
 		header("Content-Type: application/xhtml+xml");
