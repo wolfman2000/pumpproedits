@@ -247,7 +247,7 @@ function loadEdit(data)
   setupMenus();
   $("#intro").text("Loading chart...");
   $("#editName").attr('maxlength', 12);
-  $("#editSong").text("Edit Author:");
+  $("#editSong").text("Edit Name:");
   loadDatabaseChart(data.notes);
 }
 
@@ -270,7 +270,7 @@ function editMode(canPublic)
     songData = data;
     setupMenus();
     $("#editName").attr('maxlength', 12);
-    $("#editSong").text("Edit Author:");
+    $("#editSong").text("Edit Name:");
     return true;
   }});
   return false; // this is to ensure the asyncing is done right.
