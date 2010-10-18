@@ -59,6 +59,10 @@ class Create extends Wolf_Controller
 				if ($this->ppe_user_power->canEditOthers($id))
 				{
 					$this->_addJS('/js/creator/auth_admin.js');
+					if ($this->ppe_user_power->canEditSongs($id))
+					{
+						$this->_addJS('/js/creator/auth_owner.js');
+					}
 				}
 			}
 		}
@@ -90,8 +94,11 @@ class Create extends Wolf_Controller
 				$ret[] = array('id' => 'and', 'value' => 'Load an official web site edit.');
 				if ($this->ppe_user_power->canEditOthers($id))
 				{
-					$ret[] = array('id' => 'off', 'value' => 'Load an official stepchart.');
 					$ret[] = array('id' => 'all', 'value' => "Load someone else's edit...carefully.");
+					if ($this->ppe_user_power->canEditSongs($id))
+					{
+						$ret[] = array('id' => 'off', 'value' => 'Load an official stepchart.');
+					}
 				}
 			}
 		}
