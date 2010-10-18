@@ -124,8 +124,8 @@ function songMode()
   $("#statF").text(0);
   $("#statL").text(0);
   $("#fCont").val('');
-  $("#editName").attr('maxlength', 32);
-  $("#editSong").text("Edit Author:");
+  $("#editName").attr('maxlength', 64);
+  $("#editSong").text("Chart Author(s):");
   $("#but_sub").attr('name', 'songSubmit');
   
   $.getJSON(baseURL + "/loadOfficial/" + songID + "/" + diff, function(data){
@@ -151,7 +151,7 @@ function songMode()
     $("nav *.choose").hide();
     if ($("#stylelist").val() !== "routine") { $("nav .routine").hide(); }
     else { $("nav .routine").show(); }
-    var phrase = songData.name + " " + data.title;
+    var phrase = songData.name + " " + data.difficulty.capitalize();
     $("h2").first().text(phrase);
     $("title").text("Editing " + phrase + " — Pump Pro Edits");
     _enable("#but_new");
