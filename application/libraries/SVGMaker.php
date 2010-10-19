@@ -22,7 +22,15 @@ class SVGMaker
     if ($y > 0) $use->setAttribute('y', $y);
     
     if (array_key_exists('href', $options))
+    {
       $use->setAttribute('xlink:href', "#" . $options['href']);
+      if (substr($options['href'], 0, 1) === "P")
+      {
+        $options['href'] = substr($options['href'], 2);
+      }
+      $options['href'] = substr($options['href'], 0, -2);
+      $use->setAttribute('name', $options['href']);
+    }
     if (array_key_exists('class', $options) and strlen($options['class']) > 1)
       $use->setAttribute('class', $options['class']);
     if (array_key_exists('transform', $options))
