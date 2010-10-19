@@ -30,6 +30,10 @@ $(document).ready(function()
 		else if (item == "max") { loadWebEdits(120); }
 		else if (item == "gan") { loadWebEdits(124); }
 	});
+	
+	$("#authorlist").change(function(){
+		mustValidate();
+	});
 });
 
 function setupMenus()
