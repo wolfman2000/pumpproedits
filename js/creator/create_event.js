@@ -445,7 +445,6 @@ function commandCut()
   {
     cutArrows();
     $("#intro").text("Click a row to paste the notes, or swap cursor mode to delete.");
-    updateStats(gatherStats());
   }
 }
 // Cut the arrows, and place onto the clipboard.
@@ -461,6 +460,7 @@ function cutArrows()
   getSelectedArrows().each(function(){
     $(this).remove();
   });
+  updateStats(gatherStats());
 }
 
 function commandCopy()
