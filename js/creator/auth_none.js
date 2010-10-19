@@ -27,6 +27,14 @@ function loadButtons()
 	loadHardDrive();
 }
 
+function mustValidate()
+{
+	isDirty = true;
+	_disable("#but_save");
+	_enable("#but_val");
+	_disable("#but_sub");
+}
+
 function validationPassed(data)
 {
 	saveChart(data);
