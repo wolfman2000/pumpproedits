@@ -107,20 +107,3 @@ function htmlspecialchars(str)
 	}
 	return str;
 }
- 
-/**
- * Escape HTML.
- *
- * @param  {string} html
- * @return {string}
- * @api public
- */
-
-function escape(html)
-{
-	return html.
-		replace(/&/gmi, '&amp;').
-		replace(/"/gmi, '&quot;').
-		replace(/>/gmi, '&gt;').
-		replace(/</gmi, '&lt;');
-}
