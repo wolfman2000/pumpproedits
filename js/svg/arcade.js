@@ -11,3 +11,11 @@ function animateLifts()
 		
 	}
 }
+
+$(document).ready(function()
+{
+	$("use[name=lift]").doTimeout(400, function(){
+		animateLifts();
+		return true;
+	});
+});
