@@ -355,9 +355,9 @@ class Create extends Wolf_Controller
 		$eid = $this->input->post('editID');
 		$row['id'] = $this->input->post('songID'); // must stay consistent.
 		$song = $this->ppe_song_song->getSongByID($row['id']);
-		$person = $this->input->post('userID');
+		$person = ucfirst($this->input->post('userID'));
 		
-		if ($person !== "person")
+		if ($person !== "Person")
 		{
 			$row['uid'] = $this->ppe_user_user->getIDByUser($person);
 		}
@@ -453,6 +453,7 @@ class Create extends Wolf_Controller
 			$status = "updated";
 		}
 		$this->db->cache_delete_all();
+		$ret = array();
 		if ($row['public'])
 		{
 			$this->load->library('OAuth');
@@ -460,6 +461,7 @@ class Create extends Wolf_Controller
 				$this->ppe_user_user->getUserByID($row['uid']),
 				$status, $row['style'], $row['title'], $song);
 			$this->oauth->postTwitter($twit);
+			# $ret['tweet'] = $twit;
 		}
 		
 		// Keep the file writing for now as a backup plan.
@@ -467,7 +469,6 @@ class Create extends Wolf_Controller
 		$fp = gzopen($path, "w");
 		gzwrite($fp, $this->input->post('b64'));
 		gzclose($fp);
-		$ret = array();
 		$ret['result'] = "successful";
 		$ret['editid'] = $eid;
 		echo json_encode($ret);

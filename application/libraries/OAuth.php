@@ -560,15 +560,16 @@ class OAuth {
 	function genEditMessage($userid, $user, $status, $style, $title, $song)
 	{
 		$style = substr($style, 5);
-		if ($userid != 2)
+		$tmp = array(97, 113, 120, 124);
+		if (!in_array($userid, $tmp))
 		{
 			$url = $this->genTinyURL("http://www.pumpproedits.com/user/$userid");
 			$person = "$user's";
 		}
 		else
 		{
-			$url = $this->genTinyURL("http://www.pumpproedits.com/official");
-			$person = "The Official";
+			$url = $this->genTinyURL("http://www.pumpproedits.com/" . strtolower($user));
+			$person = "The $user";
 		}
 		$phrase = "$url $person $style edit for $song called $title has been $status.";
 		return $phrase;
