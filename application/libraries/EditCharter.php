@@ -563,6 +563,11 @@ class EditCharter
 		return $this->CI->ppe_edit_edit->getMeasureCount($this->eid);
 	}
 	
+	protected function addScripts()
+	{
+		
+	}
+	
 	public function genChart($notedata)
 	{
 		$measures = $this->getMeasureCount();
