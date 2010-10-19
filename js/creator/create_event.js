@@ -469,6 +469,7 @@ function commandCopy()
   {
     copyArrows();
     $("#intro").text("Click a row to paste the notes, or swap cursor mode to cancel.");
+    updateStats(gatherStats());
   }
 }
 // Copy the arrows, and place onto the clipboard.
