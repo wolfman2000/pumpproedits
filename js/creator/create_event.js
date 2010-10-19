@@ -32,8 +32,6 @@ function changeArrow()
   var r = $("#shadow");
   var rX = parseInt(r.attr('x'));
   var rY = parseFloat(r.attr('y'));
-  isDirty = true;
-  _disable("#but_val");
 
   var css = getNote($("#yCheck").text()); // get the class based on the beat.
   var cX = (rX - BUFF_LFT) / ARR_HEIGHT; // which column are we using?
@@ -68,6 +66,7 @@ function changeArrow()
       fin = true;
     }
   });
+  mustValidate();
   if (!fin) { coll.append(sA); }
 }
 
@@ -143,20 +142,19 @@ function updateStats(data)
   $("#statL").text(L);
   $("#statF").text(F);
 
-  _disable("#but_save");
-  _disable("#but_sub");
+  mustValidate();
   var t = $("#editName").val().length;
   if (t > 0 && t <= 12 && parseInt($("#editDiff").val()) > 0)
   {
     if (data.ysteps || data.msteps || data.ymines || data.mmines ||
         data.ylifts || data.mlifts || data.yfakes || data.mfakes)
     {
-      _enable("#but_val");
       $("#intro").text("Validate your edit before saving.");
     }
     else
     {
       isDirty = false;
+      _disable("#but_val");
       $("#intro").text("You can't save empty files.");
     }
   }
