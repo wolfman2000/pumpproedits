@@ -566,7 +566,12 @@ class EditCharter
 	
 	protected function addScripts()
 	{
+		$body = $this->xml->getElementById("body");
 		
+		$jq = $this->xml->createElement('script');
+		$jq->setAttribute('type', 'text/javascript');
+		$jq->setAttribute('src', JQUERY_GOOGLE);
+		$body->appendChild($jq);
 	}
 	
 	public function genChart($notedata)
@@ -578,6 +583,7 @@ class EditCharter
 		if ($this->showbpm) $this->genBPM($notedata['id']);
 		if ($this->showstop) $this->genStop($notedata['id']);
 		$this->genArrows($notedata['style']);
+		$this->addScripts();
 		return $this->xml;
 	}
 }
