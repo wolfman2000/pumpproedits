@@ -4,25 +4,33 @@ var centering = 8;
 
 function animateLifts(lifts)
 {
+	timer = timer; // dummy code.
 	lifts.each(function(){
 		var x = parseFloat($(this).attr('x'));
 		var y = parseFloat($(this).attr('y'));
-		var trans = 'scale(SCALE)';
+		var trans = 'scale(SCALE) translate(TX, TY)';
 		
 		if (!(iter % 2))
 		{
-			trans = trans.replace('SCALE', '0.5');
-			$(this).attr('x', x * 2 + centering);
-			$(this).attr('y', y * 2 + centering);
-			//$(this).attr('x', parseFloat($(this).attr('x')) + 16);
+			var tx = x * 2 + centering;
+			var ty = y * 2 + centering;
+			trans = trans.replace('SCALE', '0.5')
+				.replace('TX', tx - x)
+				.replace('TY', ty - y);
 		}
 		else
 		{
-			trans = trans.replace('SCALE', '1');
-			$(this).attr('x', (x - centering) / 2);
-			$(this).attr('y', (y - centering) / 2);
-			//$(this).attr('x', parseFloat($(this).attr('x')) - 16);
+			trans = trans.replace('SCALE', '1')
+				.replace('TX', 0)
+				.replace('TY', 0);
 		}
+		/*
+		$(this).animate({
+			svgX: x,
+			svgY: y,
+			svgTransform: trans
+		}, timer * .75);
+		*/
 		$(this).attr('transform', trans);
 	});
 	iter++;
