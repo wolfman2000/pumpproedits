@@ -572,6 +572,26 @@ class EditCharter
 		$jq->setAttribute('type', 'text/javascript');
 		$jq->setAttribute('src', JQUERY_GOOGLE);
 		$body->appendChild($jq);
+		
+		$js = $this->xml->createElement('script');
+		$js->setAttribute('type', 'text/javascript');
+		$js->setAttribute('src', '/js/jquery.svg.js');
+		$body->appendChild($js);
+		
+		$jd = $this->xml->createElement('script');
+		$jd->setAttribute('type', 'text/javascript');
+		$jd->setAttribute('src', '/js/jquery.svgdom.js');
+		$body->appendChild($jd);
+		
+		$jt = $this->xml->createElement('script');
+		$jt->setAttribute('type', 'text/javascript');
+		$jt->setAttribute('src', '/js/jquery.ba-dotimeout.js');
+		$body->appendChild($jt);
+		
+		$jn = $this->xml->createElement('script');
+		$jn->setAttribute('type', 'text/javascript');
+		$jn->setAttribute('src', sprintf('/js/svg/%s.js', $this->noteskin));
+		$body->appendChild($jn);
 	}
 	
 	public function genChart($notedata)
