@@ -79,7 +79,7 @@ $(document).ready(function()
   $("#but_load").click(function(){
     $("#intro").text("Working... Working...");
     var checking = true;
-    if (isDirty) // implement later.
+    if (isDirty)
     {
       checking = confirm("You have work not validated/saved.\nAre you sure you want to load a new edit?");
     }
