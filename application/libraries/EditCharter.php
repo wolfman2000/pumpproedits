@@ -583,6 +583,11 @@ class EditCharter
 		$jd->setAttribute('src', '/js/jquery.svgdom.js');
 		$body->appendChild($jd);
 		
+		$ja = $this->xml->createElement('script');
+		$ja->setAttribute('type', 'text/javascript');
+		$ja->setAttribute('src', '/js/jquery.svganim.js');
+		$body->appendChild($ja);
+		
 		$jt = $this->xml->createElement('script');
 		$jt->setAttribute('type', 'text/javascript');
 		$jt->setAttribute('src', '/js/jquery.ba-dotimeout.js');
