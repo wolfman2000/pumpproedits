@@ -1,0 +1,75 @@
+/*
+CSS file for Pump Pro Edits
+
+@package pumpproedits
+@author wolfman2000
+@license GNU Affero GPL v3 or later
+*/
+@import "_svg.css";
+
+defs > g
+{
+	fill-opacity: 1;
+	stroke-width: 0.5;
+	stroke-opacity: 1;
+}
+
+g[id$="arrowDL"] > path, g[id$="arrowCN"] > path
+{
+	stroke-width: 1;
+	stroke: black;
+}
+
+g[id$="mineDL"] > circle
+{
+	stroke-width: 1;
+	stroke: black;
+}
+
+g[id$="mineDL"] > circle:first-child
+{
+  fill:red;
+}
+
+g[id$="mineDL"] > circle:first-child + circle
+{
+  fill:black;
+}
+g[id$="arrowCN"] > rect
+{
+  fill:black;
+}
+g[id$="holdBodyDL"] > rect, g[id$="holdEndDL"] > path,
+g[id$="rollBodyDL"] > rect, g[id$="rollEndDL"] > path
+{
+	fill-opacity: 1;
+}
+
+g[id$="holdBodyDL"] > rect, g[id$="holdEndDL"] > path
+{
+  fill:darkblue;
+}
+g[id$="rollBodyDL"] > rect, g[id$="rollEndDL"] > path
+{
+  fill:#9932CC;
+}
+
+g[id$="holdBodyDL"] > line, g[id$="holdEndDL"] > path,
+g[id$="rollBodyDL"] > line, g[id$="rollEndDL"] > path
+{
+  stroke:black;
+  stroke-width: 0.3;
+}
+
+g#P0arrowDL > *:first-child, g#P0arrowCN > *:first-child,
+g#P0mineDL > *:first-child
+{
+	stroke: black;
+	stroke-width: 0.7;
+}
+g#P1arrowDL > *:first-child, g#P1arrowCN > *:first-child,
+g#P1mineDL > *:first-child
+{
+	stroke: #b22222;
+	stroke-width: 0.7;
+}
