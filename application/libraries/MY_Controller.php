@@ -18,7 +18,7 @@ class Wolf_Controller extends Controller
 		(
 			'title' => 'Pump Pro Edits',
 			'css' => 'css/main.css',
-			'scripts' => array('http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js', '/js/jsAll.js'),
+			'scripts' => array(JQUERY_GOOGLE, '/js/jsAll.js'),
 			'xhtml' => '',
 			'browser' => $browser,
 			'modern' => $modern,

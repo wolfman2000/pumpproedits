@@ -38,6 +38,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
 // Constants relating to my own work.
+define('JQUERY_GOOGLE', 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js');
+
 define('HELPERPATH', APPPATH . 'helpers/');
 
 define('APP_BASE_EDITS_PER_PAGE', 30);
