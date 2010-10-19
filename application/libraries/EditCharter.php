@@ -136,6 +136,7 @@ class EditCharter
 		$head->appendChild($link);
 		$html->appendChild($head);
 		$body = $this->xml->createElement('body');
+		$body->setAttribute('xml:id', 'body');
 		
 		$svg = $this->xml->createElement('svg');
 		$svg->setAttribute('xmlns', 'http://www.w3.org/2000/svg');
