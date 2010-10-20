@@ -68,7 +68,7 @@ class EditCharter
 		}
 		else
 		{
-			$this->noteskin = 'original';
+			$this->noteskin = 'arcade';
 		}
 		
 		if (!in_array($this->noteskin, $this->CI->ppe_note_skin->getNoteSkins(1)))

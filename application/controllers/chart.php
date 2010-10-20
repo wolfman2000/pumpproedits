@@ -254,7 +254,7 @@ class Chart extends Wolf_Controller
 	
 	function quick()
 	{
-		redirect(sprintf("/chart/showEdit/%d/%s/blue/original/2/6/1",
+		redirect(sprintf("/chart/showEdit/%d/%s/blue/arcade/2/6/1",
 			$this->uri->segment(3, -1),
 			$this->uri->segment(4, 'classic')
 			), 'location', 303);
