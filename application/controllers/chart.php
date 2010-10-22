@@ -17,10 +17,13 @@ class Chart extends Wolf_Controller
 		$this->load->model('ppe_edit_edit');
 		$this->load->model('ppe_song_song');
 		$this->load->model('ppe_user_user');
+		$this->load->model('ppe_user_power');
 		$this->load->model('ppe_note_skin');
 		$this->load->model('ppe_note_style');
 		$this->difficulties = array('ez', 'nr', 'hr', 'cz', 'hd', 'fs', 'nm', 'rt');
 		$this->_setCSS('css/chart.css');
+		
+		$this->full = $this->ppe_user_power->canEditSongs($this->session->userdata('id'));
 	}
 	
 	// confirm the song and difficulty exist.
@@ -165,7 +168,7 @@ class Chart extends Wolf_Controller
 	
 	function _showSongForm($first, $header)
 	{
-		$this->data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff()->result_array();
+		$this->data['songs'] = $this->ppe_song_song->getSongsWithGameAndDiff($this->full)->result_array();
 		$this->data['form'] = array();
 		$this->data['form']['skin'] = $this->ppe_note_skin->getSelectSkins();
 		$this->data['form']['style'] = $this->ppe_note_style->getSelectStyles();
@@ -186,7 +189,7 @@ class Chart extends Wolf_Controller
 	{
 		$sid = $this->uri->segment(3, false);
 		header("Content-type: application/json");
-		foreach ($this->ppe_song_song->getAvailableCharts($sid)->result() as $d)
+		foreach ($this->ppe_song_song->getAvailableCharts($sid, $this->full)->result() as $d)
 		{
 			$ret[$d->abbr] = ucfirst($d->d);
 		}
@@ -199,7 +202,7 @@ class Chart extends Wolf_Controller
 		$sid = $this->uri->segment(3, -1);
 		$diff = $this->uri->segment(4);
 		
-		$notedata = $this->ppe_song_song->getSongChartStats($sid, $diff);
+		$notedata = $this->ppe_song_song->getSongChartStats($sid, $diff, $this->full);
 		
 		if (!$notedata)
 		{

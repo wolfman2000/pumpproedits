@@ -85,13 +85,17 @@ class Ppe_song_song extends Model
   }
   
 	// Get what is needed to display the chart.
-	public function getSongChartStats($sid, $diff)
+	public function getSongChartStats($sid, $diff, $override = 0)
 	{
+		if (!($override))
+		{
+			$this->db
+				->where('song_problem', 0)
+				->where('chart_problem', 0);
+		}
 		$q = $this->db
 			->where('id', $sid)
 			->where('abbr', $diff)
-			->where('song_problem', 0)
-			->where('chart_problem', 0)
 			->get('song_chart_stats');
 		return ($q->num_rows() ? $q->row_array() : false);
 	}
@@ -114,11 +118,15 @@ class Ppe_song_song extends Model
 	}
 	
 	// Get all songs that have an assigned game and difficulty.
-	public function getSongsWithGameAndDiff()
+	public function getSongsWithGameAndDiff($override = 0)
 	{
+		if (!($override))
+		{
+			$this->db
+				->where('available IS NOT NULL', NULL) # Umm...intentional?
+				->where('available >', 0);
+		}
 		return $this->db
-			->where('available IS NOT NULL', NULL) # Umm...intentional?
-			->where('available >', 0)
 			->order_by('gid')
 			->order_by('name')
 			->get('song_game_chart_sort');
@@ -134,12 +142,16 @@ class Ppe_song_song extends Model
 	}
 	
 	// Get the list of available styles if chart and song are good.
-	public function getAvailableCharts($sid)
+	public function getAvailableCharts($sid, $override = 0)
 	{
+		if (!($override))
+		{
+			$this->db
+				->where('song_problem', 0)
+				->where('chart_problem', 0);
+		}
 		return $this->db->select('abbr, difficulty AS d')
 			->where('id', $sid)
-			->where('song_problem', 0)
-			->where('chart_problem', 0)
 			->get('song_chart_stats');
 	}
 }
