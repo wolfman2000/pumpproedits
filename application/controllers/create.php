@@ -222,6 +222,20 @@ class Create extends Wolf_Controller
 		return $ret;
 	}
 	
+	// Load the sound clip.
+	function playSound()
+	{
+		if (!$this->_isAJAX()) { return; }
+		$sid = $this->uri->segment(3);
+		$sec = $this->uri->segment(4);
+		if ($this->ppe_song_song->canPlaySounds($sid))
+		{
+			$path = sprintf("%sdata/music/%d_%s.ogg", APPPATH, $sid, $sec);
+			$data = file_get_contents($path);
+			return $data;
+		}
+	}
+	
 	// Load measure/sync data for the chosen song.
 	function song()
 	{
