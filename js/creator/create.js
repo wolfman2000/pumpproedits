@@ -267,11 +267,13 @@ $(document).ready(function()
   
   // The author needs a reminder of what the song section sounds like.
   $("#sectionMusic").click(function(){
+    $("#intro").text("Loading the clip...");
     var let = $("#sectionList option:selected").text().substring(0, 1);
     var path = "/create/playSound/" + songID + "/" + let;
     $("#audio").attr('src', path);
     document.getElementById('audio').load();
     document.getElementById('audio').play();
+    $("#intro").text("Enjoy the clip!");
   });
 
   $("input").focusin(function(){ captured = true; });
