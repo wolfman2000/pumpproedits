@@ -16,7 +16,7 @@ class Ppe_song_song extends Model
   // Get the needed information for the edit creator.
   function getCreatorData($sid)
   {
-    return $this->db->select('name, abbr, measures, duration')
+    return $this->db->select('name, abbr, measures, duration, has_music')
       ->where('id', $sid)->get('ppe_song_song')->row();
   }
   

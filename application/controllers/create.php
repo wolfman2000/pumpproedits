@@ -193,6 +193,7 @@ class Create extends Wolf_Controller
 		$ret['abbr'] = $row->abbr;
 		$ret['measures'] = intval($row->measures);
 		$ret['duration'] = ($row->duration ? floatval($row->duration) : 90);
+		$ret['has_music'] = intval($row->has_music);
 		
 		$bpms = $this->ppe_song_bpm->getBPMsBySongID($sid);
 		$bArr = array();
