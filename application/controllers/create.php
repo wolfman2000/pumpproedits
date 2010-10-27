@@ -226,7 +226,8 @@ class Create extends Wolf_Controller
 	function playSound()
 	{
 		$sid = $this->uri->segment(3);
-		if ($this->ppe_song_song->canPlaySounds($sid))
+		if ($this->ppe_song_song->canPlaySounds($sid)
+			or $this->ppe_user_power->canEditSongs($this->session->userdata('id')))
 		{
 			$sec = $this->uri->segment(4);
 			$this->load->library('user_agent');
