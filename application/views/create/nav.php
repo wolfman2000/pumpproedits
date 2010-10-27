@@ -143,6 +143,7 @@ PHP file used for Pump Pro Edits
 <li class="sections long reset"><select id="sectionList"></select></li>
 <?php /* The li below will become two when/if music is allowed.*/ ?>
 <li class="sections long reset"><button id="sectionJump" type="button" class="fg-button ui-state-default ui-corner-all">Jump to Section</button></li>
+<li class="sections long reset"><button id="sectionMusic" type="button" class="fg-button ui-state-default ui-corner-all">Play Section Music</button></li>
 </ul>
 
 <ul id="navEditInfo">
