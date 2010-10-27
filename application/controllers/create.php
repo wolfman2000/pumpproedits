@@ -222,17 +222,21 @@ class Create extends Wolf_Controller
 		return $ret;
 	}
 	
-	// Load the sound clip.
+	// Load the sound clip. This does NOT use AJAJ.
 	function playSound()
 	{
-		if (!$this->_isAJAX()) { return; }
 		$sid = $this->uri->segment(3);
 		$sec = $this->uri->segment(4);
 		if ($this->ppe_song_song->canPlaySounds($sid))
 		{
 			$path = sprintf("%sdata/music/%d_%s.ogg", APPPATH, $sid, $sec);
 			$data = file_get_contents($path);
-			return $data;
+			$size = filesize($path);
+			$this->load->helper('download');
+			header("Content-Type: audio/ogg");
+			header("Content-length: " . $size);
+			header("Cache-Control: no-cache");
+			echo $data;
 		}
 	}
 	

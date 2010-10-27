@@ -268,7 +268,10 @@ $(document).ready(function()
   // The author needs a reminder of what the song section sounds like.
   $("#sectionMusic").click(function(){
     var let = $("#sectionList option:selected").text().substring(0, 1);
-    $.get("/create/playSound/" + songID + "/" + let);
+    var path = "/create/playSound/" + songID + "/" + let;
+    $("#audio").attr('src', path);
+    document.getElementById('audio').load();
+    document.getElementById('audio').play();
   });
 
   $("input").focusin(function(){ captured = true; });
