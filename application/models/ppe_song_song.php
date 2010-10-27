@@ -8,24 +8,33 @@ PHP file used for Pump Pro Edits
 */
 class Ppe_song_song extends Model
 {
-  function __construct()
-  {
-    parent::Model();
-  }
-  
-  // Get the needed information for the edit creator.
-  function getCreatorData($sid)
-  {
-    return $this->db->select('name, abbr, measures, duration, has_music')
-      ->where('id', $sid)->get('ppe_song_song')->row();
-  }
-  
-  // ensure the song exists.
-  public function doesSongExist($sid)
-  {
-    return $this->db->select('name')->where('id', $sid)
-      ->get('ppe_song_song')->num_rows();
-  }
+	function __construct()
+	{
+		parent::Model();
+	}
+	
+	// Get the needed information for the edit creator.
+	function getCreatorData($sid)
+	{
+		return $this->db->select('name, abbr, measures, duration, has_music')
+		->where('id', $sid)->get('ppe_song_song')->row();
+	}
+	
+	// ensure the song exists.
+	public function doesSongExist($sid)
+	{
+		return $this->db->select('name')->where('id', $sid)
+			->get('ppe_song_song')->num_rows();
+	}
+	
+	// See if this song can have sounds played.
+	public function canPlaySounds($sid)
+	{
+		return $this->db->select('name')
+			->where('id', $sid)
+			->where('has_music >=', 1)
+			->get('ppe_song_song')->num_rows() == 1;
+	}
   
   // get the number of songs that have a game
   public function getSongCountWithGame()
