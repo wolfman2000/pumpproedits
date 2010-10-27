@@ -226,14 +226,25 @@ class Create extends Wolf_Controller
 	function playSound()
 	{
 		$sid = $this->uri->segment(3);
-		$sec = $this->uri->segment(4);
 		if ($this->ppe_song_song->canPlaySounds($sid))
 		{
-			$path = sprintf("%sdata/music/%d_%s.ogg", APPPATH, $sid, $sec);
+			$sec = $this->uri->segment(4);
+			$this->load->library('user_agent');
+			if (strpos($this->agent->agent_string(), "WebKit") === FALSE)
+			{
+				$ct = "audio/ogg";
+				$et = "ogg";
+			}
+			else
+			{
+				$ct = "audio/mp3";
+				$et = "mp3";
+			}
+			$path = sprintf("%sdata/music/%d_%s.%s", APPPATH, $sid, $sec, $et);
 			$data = file_get_contents($path);
 			$size = filesize($path);
 			$this->load->helper('download');
-			header("Content-Type: audio/ogg");
+			header("Content-Type: " . $ct);
 			header("Content-length: " . $size);
 			header("Cache-Control: no-cache");
 			echo $data;
