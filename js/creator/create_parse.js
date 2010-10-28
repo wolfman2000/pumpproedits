@@ -121,6 +121,7 @@ function loadSVGMeasures()
         $("#sectionList").append(opt);
       }
       $("#svg_nav audio").remove();
+      musicLet = null;
       if (songData.has_music)
       {
       	  _enable("#sectionMusic");
