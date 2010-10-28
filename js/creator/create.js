@@ -271,6 +271,7 @@ $(document).ready(function()
     
     if (!isEmpty(musicLet))
     {
+    	$("#audio_" + musicLet)[0].currentTime = 0;
     	$("#audio_" + musicLet)[0].pause();
     	$("#audio_" + musicLet)[0].playbackRate = -3.0;
     }
@@ -278,6 +279,10 @@ $(document).ready(function()
     musicLet = let;
     var path = "/create/playSound/" + songID + "/" + let;
     var aud = $("#audio_" + let)[0];
+    if (aud.readyState != 4) // have enough data
+    {
+    	aud.load();
+    }
     aud.play();
     $("#intro").text("Enjoy the clip!");
   });
