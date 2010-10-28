@@ -279,7 +279,7 @@ $(document).ready(function()
     musicLet = let;
     var path = "/create/playSound/" + songID + "/" + let;
     var aud = $("#audio_" + let)[0];
-    if (aud.readyState != 4) // have enough data
+    if (aud.readyState < 3) // we need more data
     {
     	aud.load();
     }
