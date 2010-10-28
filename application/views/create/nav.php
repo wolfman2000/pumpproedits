@@ -8,7 +8,6 @@ PHP file used for Pump Pro Edits
 */
 ?>
 <nav id="svg_nav" title="Edit Creator Draggable Control Panel">
-<audio id="audio" src="/dummy.ogg"></audio>
 <p id="intro">Javascript required!</p>
 <?php echo form_open_multipart('create/download', array('id' => 'svg_nav_form')); ?>
 <dl>
