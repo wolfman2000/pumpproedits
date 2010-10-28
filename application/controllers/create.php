@@ -247,10 +247,10 @@ class Create extends Wolf_Controller
 			$this->load->helper('download');
 			header("Content-Type: " . $ct);
 			header("Content-length: " . $size);
-			$expires = 60 * 60 * 4;
-			header("Cache-Control: no-cache");
-			#header("Cache-Control: maxage=" . $xpires);
-			#header("Expires: " . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
+			$expires = 60 * 60 * 4; // 4 hours.
+			#header("Cache-Control: no-cache");
+			header("Cache-Control: maxage=" . $expires);
+			header("Expires: " . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
 			echo $data;
 		}
 	}
