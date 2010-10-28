@@ -78,6 +78,7 @@ function setupMenus()
 // Load up this common data upon starting a new edit.
 function _commonInit()
 {
+	$("#svg_nav audio").remove();
 	captured = false;
 	clipboard = null;
 	songData = null;
