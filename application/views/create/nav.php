@@ -8,6 +8,7 @@ PHP file used for Pump Pro Edits
 */
 ?>
 <nav id="svg_nav" title="Edit Creator Draggable Control Panel">
+<audio id="audio" src="/dummy.ogg"></audio>
 <p id="intro">Javascript required!</p>
 <?php echo form_open_multipart('create/download', array('id' => 'svg_nav_form')); ?>
 <dl>
@@ -143,6 +144,7 @@ PHP file used for Pump Pro Edits
 <li class="sections long reset"><select id="sectionList"></select></li>
 <?php /* The li below will become two when/if music is allowed.*/ ?>
 <li class="sections long reset"><button id="sectionJump" type="button" class="fg-button ui-state-default ui-corner-all">Jump to Section</button></li>
+<li class="sections long reset"><button id="sectionMusic" type="button" class="fg-button ui-state-default ui-corner-all">Play Section Music</button></li>
 </ul>
 
 <ul id="navEditInfo">

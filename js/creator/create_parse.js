@@ -120,6 +120,16 @@ function loadSVGMeasures()
         var opt = "<option value=\"" + (y + SCALE) + "\">" + phrase + "</option>";
         $("#sectionList").append(opt);
       }
+      if (songData.has_music)
+      {
+      	  _enable("#sectionMusic");
+      	  $("#sectionMusic").show();
+      }
+      else
+      {
+      	  _disable("#sectionMusic");
+      	  $("#sectionMusic").hide();
+      }
     }
   
   $("#notes > g").show();

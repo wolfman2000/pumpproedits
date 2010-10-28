@@ -193,6 +193,7 @@ class Create extends Wolf_Controller
 		$ret['abbr'] = $row->abbr;
 		$ret['measures'] = intval($row->measures);
 		$ret['duration'] = ($row->duration ? floatval($row->duration) : 90);
+		$ret['has_music'] = intval($row->has_music);
 		
 		$bpms = $this->ppe_song_bpm->getBPMsBySongID($sid);
 		$bArr = array();
@@ -219,6 +220,36 @@ class Create extends Wolf_Controller
 		}
 		$ret['secs'] = $sArr;
 		return $ret;
+	}
+	
+	// Load the sound clip. This does NOT use AJAJ.
+	function playSound()
+	{
+		$sid = $this->uri->segment(3);
+		if ($this->ppe_song_song->canPlaySounds($sid)
+			or $this->ppe_user_power->canEditSongs($this->session->userdata('id')))
+		{
+			$sec = $this->uri->segment(4);
+			$this->load->library('user_agent');
+			if (strpos($this->agent->agent_string(), "WebKit") === FALSE)
+			{
+				$ct = "audio/ogg";
+				$et = "ogg";
+			}
+			else
+			{
+				$ct = "audio/mp3";
+				$et = "mp3";
+			}
+			$path = sprintf("%sdata/music/%d_%s.%s", APPPATH, $sid, $sec, $et);
+			$data = file_get_contents($path);
+			$size = filesize($path);
+			$this->load->helper('download');
+			header("Content-Type: " . $ct);
+			header("Content-length: " . $size);
+			header("Cache-Control: no-cache");
+			echo $data;
+		}
 	}
 	
 	// Load measure/sync data for the chosen song.
