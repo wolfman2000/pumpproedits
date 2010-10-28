@@ -46,8 +46,9 @@ implemented by many web browsers, go ahead.
 
 Thanks to the recent release of Internet Explorer 9,
 testing on that browser has commenced to determine what
-is possible with the web browser. It appears to support
-everything that is needed with minor code modifications.
+is possible with the web browser. At this time,
+only the Edit Creator may need tinkering to get it to
+work as intended. Hopefully that will be resolved soon.
 Anyone that wishes to use Internet Explorer 8 and below
 will be missing out due to the abundance of SVG technology
 involved.
