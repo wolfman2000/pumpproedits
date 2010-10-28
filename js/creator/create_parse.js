@@ -120,10 +120,19 @@ function loadSVGMeasures()
         var opt = "<option value=\"" + (y + SCALE) + "\">" + phrase + "</option>";
         $("#sectionList").append(opt);
       }
+      $("#svg_nav audio").remove();
       if (songData.has_music)
       {
       	  _enable("#sectionMusic");
       	  $("#sectionMusic").show();
+      	  var html = "";
+      	  for (var i = 0; i < secs.length; i++)
+      	  {
+      	  	  var let = String.fromCharCode(letter + i);
+      	  	  html += "<audio id=\"audio_" + let + "\" src=\"/create/playSound/"
+      	  	  	  + songID + "/" + let + "\" preload=\"auto\"></audio>";
+      	  }
+      	  $("#svg_nav").append(html);
       }
       else
       {
