@@ -268,11 +268,17 @@ $(document).ready(function()
   // The author needs a reminder of what the song section sounds like.
   $("#sectionMusic").click(function(){
     $("#intro").text("Loading the clip...");
+    
+    if (!isEmpty(musicLet))
+    {
+    	$("#audio_" + musicLet)[0].pause();
+    	$("#audio_" + musicLet)[0].playbackRate = -3.0;
+    }
     var let = $("#sectionList option:selected").text().substring(0, 1);
+    musicLet = let;
     var path = "/create/playSound/" + songID + "/" + let;
-    $("#audio").attr('src', path);
-    document.getElementById('audio').load();
-    document.getElementById('audio').play();
+    var aud = $("#audio_" + let)[0];
+    aud.play();
     $("#intro").text("Enjoy the clip!");
   });
 
