@@ -282,6 +282,7 @@ $(document).ready(function()
     if (aud.readyState < 3) // we need more data
     {
     	aud.load();
+    	// while(aud.readyState < 3) {;}
     }
     aud.play();
     $("#intro").text("Enjoy the clip!");

@@ -131,7 +131,7 @@ function loadSVGMeasures()
       	  {
       	  	  var let = String.fromCharCode(letter + i);
       	  	  html += "<audio id=\"audio_" + let + "\" src=\"/create/playSound/"
-      	  	  	  + songID + "/" + let + "\" preload=\"auto\"></audio>";
+      	  	  	  + songID + "/" + let + "\" preload=\"none\"></audio>";
       	  }
       	  $("#svg_nav").append(html);
       }
