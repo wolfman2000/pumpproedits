@@ -27,7 +27,7 @@ class Ppe_user_condiment extends Model
   {
     $q = $this->db->select('a.salt')
       ->join('ppe_user_user b', 'b.id = a.user_id')
-      ->where('b.lc_name', strtolower($name))
+      ->where('LOWER(b.name)', strtolower($name))
       ->get('ppe_user_condiment a')->row();
     return $q ? $this->checkPassword($q->salt, $pass) : false;
   }
